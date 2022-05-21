@@ -3,9 +3,13 @@ Start a new session to log desired video transformations.
 
 A new folder in `queue/` is created with the timestamp `current`-like folder structure.  
 
+Can be run cross-platform
+* Mac can only view on drive
+* Windows can be viewed on drive or pc as specified by flag
+
 # usage
 ```
-python3 viewer.py
+python3 viewer.py [ [m]ac | [d]rive for windows | [p]c for windows ]
 ```
 
 # command structure
