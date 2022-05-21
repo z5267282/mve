@@ -22,7 +22,6 @@ history/
     ...
 
 errors/
-    + [ current/ structured folder ]
+    + [ current/ - like structured folder ]
     ...
-
 ```
