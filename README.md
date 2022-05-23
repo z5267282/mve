@@ -9,7 +9,10 @@ src/
     + editor.py
     + viewer.py
     + helper.py
+    + file_names.py
+
     + config.json 
+    + remaining.json
 
 current/ # a folder named by a DD/MM/YYYY - HHMM timestamp
     + edits.json
