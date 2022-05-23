@@ -6,7 +6,10 @@ A movie editing tool using multiprocessing.
 src/
     + editor.py
     + viewer.py
-    + config.json
+    + configs/
+        + windows-disk.json
+        + windows-pc.json
+        + mac.json
 
 current/ # a folder named by a DD/MM/YYYY - HHMM timestamp
     + edits.json
