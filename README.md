@@ -9,7 +9,7 @@ src/
     + editor.py
     + viewer.py
     + helper.py
-    + file_names.py
+    + config.py
 
     + remaining.json
 
