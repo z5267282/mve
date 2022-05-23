@@ -8,6 +8,7 @@ This program can only be run on Windows.
 src/
     + editor.py
     + viewer.py
+    + helper.py
     + config.json 
 
 current/ # a folder named by a DD/MM/YYYY - HHMM timestamp
