@@ -18,6 +18,15 @@ python3 viewer.py
 [h]elp     |                            | print this message
 ```
 
+# formats
+```
+time: [ mm-ss | seconds ]
+name: [ case-insensitive letter | number | spacebar | ]
+    + '.mp4' is suffixed to the end of the name
+```
+
 # errors
 In the case of an error, input is immediately asked again.  
 The following errors are checked against
+1. formatting - correctly formatted time / name
+2. duration   - times are checked against `moviepy.subclip()`'s errors
