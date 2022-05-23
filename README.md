@@ -1,15 +1,14 @@
 # mve
-A movie editing tool using multiprocessing.
+A movie editing tool using multiprocessing.  
+
+This program can only be run on Windows.  
 
 # directory structure
 ```
 src/
     + editor.py
     + viewer.py
-    + configs/
-        + windows-disk.json
-        + windows-pc.json
-        + mac.json
+    + config.json 
 
 current/ # a folder named by a DD/MM/YYYY - HHMM timestamp
     + edits.json
