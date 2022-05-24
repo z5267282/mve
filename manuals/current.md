@@ -6,7 +6,7 @@ a folder with 3 JSON files structured like so.
 [
     'name': {
         'new name': ' [ new name ] ',
-        'times': [ time[s] in form <mm-ss> ]
+        'times': [ time[s] in form <mm:ss> ]
     }
 ]
 ```

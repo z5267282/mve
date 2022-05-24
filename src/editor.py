@@ -1,24 +1,44 @@
-import moviepy.editor as mvp
-import os.path
+import os
 
-def editvideo(oldname, newname, start, end=None):
-    with mvp.VideoFileClip(oldname) as full:
-        clip = full.subclip(t_start=start, t_end=end)
-       
-        numthreads = 8
-        frames = 60
-        vcodec = "libx264"
-        compression = "slower"
-        acodec = 'aac' 
+import config as cfg
+import helper as helper
 
-        clip.write_videofile(
-            newname, threads=numthreads, fps=frames, codec=vcodec, preset=compression, audio_codec=acodec
-        )
+"""
+    DOING COMMANDS
+"""
+def do_edit(src_full_path, dst_full_path, start, end=None):
+    edit_video = lambda clip: clip.write_videofile(
+            dst_full_path, 
+            threads=cfg.NUM_THREADS,
+            fps=cfg.FRAMES,
+            codec=cfg.VCODEC,
+            preset=cfg.COMPRESSION,
+            audio_codec=cfg.ACODEC
+    )
+    return helper.handle_clip(src_full_path, edit_video, start, end)
 
-editvideo(
-    # "D:\Videos\Team Fortress 2\Team Fortress 2 2022.05.10 - 22.39.04.06.DVR.mp4",
+def do_rename(src_full_path, dst_path, dst_name):
+    error = None
+    try:
+        dst_full_path = helper.load_file(dst_path, dst_name)
+        os.rename(src_full_path, dst_full_path)
+    except OSError as e:
+        error = str(e)
 
-    os.path.expanduser(os.path.join('~', 'Downloads', 'jisoo fancam.mp4')),
-    "testing.mp4",
-    -5
-)
+    return error
+
+def do_delete(src_full_path):
+    os.remove(src_full_path)
+
+"""
+    ADDING TO LOGS
+"""
+def add_edit(edit_ls, src_name, dst_name, times):
+    new_edit = {
+        cfg.EDIT_NEW_NAME : dst_name,
+        cfg.EDIT_TIMES    : times
+    }
+    edit_ls.append({src_name : new_edit})
+
+"""
+"""
