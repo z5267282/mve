@@ -6,6 +6,7 @@ import helper as helper
 """
     DOING COMMANDS
 """
+
 def do_edit(src_full_path, dst_full_path, start, end=None):
     edit_video = lambda clip: clip.write_videofile(
             dst_full_path, 
@@ -20,7 +21,7 @@ def do_edit(src_full_path, dst_full_path, start, end=None):
 def do_rename(src_full_path, dst_path, dst_name):
     error = None
     try:
-        dst_full_path = helper.load_file(dst_path, dst_name)
+        dst_full_path = helper.get_abs_path(dst_path, dst_name)
         os.rename(src_full_path, dst_full_path)
     except OSError as e:
         error = str(e)
@@ -33,6 +34,7 @@ def do_delete(src_full_path):
 """
     ADDING TO LOGS
 """
+
 def add_edit(edit_ls, src_name, dst_name, times):
     new_edit = {
         cfg.EDIT_NEW_NAME : dst_name,
