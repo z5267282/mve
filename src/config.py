@@ -3,14 +3,16 @@ SOURCE_PATH  = ['D:', 'Videos', 'Batches', '1']
 RENAMES_PATH = ['D:', 'Videos', 'Renames']
 
 # log folders
-QUEUE   = 'queue'
-HISTORY = 'history'
-ERRORS  = 'errors'
+QUEUE   = ['queue']
+HISTORY = ['history']
+ERRORS  = ['errors']
 
 # current files
 EDITS     = 'edits.json'
 RENAMES   = 'renames.json'
 DELETIONS = 'deletions.json'
+
+PATHS     = 'paths.json'
 
 # other files
 REMAINING = 'remaining.json'

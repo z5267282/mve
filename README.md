@@ -13,10 +13,12 @@ src/
 
     + remaining.json
 
-current/ # a folder named by a DD/MM/YYYY - HHMM timestamp
+current/ # a folder named by a DD.MM.YYYY - HHMM timestamp
     + edits.json
     + renames.json
     + deletions.json
+
+    + paths.json
 
 queue/
     + [ current/ structured folder ]
