@@ -1,7 +1,9 @@
 # description
-Start a new session to log desired video transformations.  
+Start a new session to log desired video transformations based on the files in `remaining.json` .  
 
 A new folder in `queue/` is created with the timestamp `current`-like folder structure.  
+
+If there are any folders in `errors/` , the earliest folder in here is treated as `remaining.json` .  
 
 # usage
 ```

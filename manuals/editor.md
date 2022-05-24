@@ -8,8 +8,6 @@ The transformations are as follows:
 ```
 * Edit mode makes use of multiprocessing
 
-If there are any folders in `errors/` , the earliest folder here is taken instead of any in `queue` .  
-
 # usage
 ```
 python3 editor.py 
