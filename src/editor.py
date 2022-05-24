@@ -29,18 +29,10 @@ def do_rename(src_full_path, dst_path, dst_name):
     return error
 
 def do_delete(src_full_path):
-    os.remove(src_full_path)
-
-"""
-    ADDING TO LOGS
-"""
-
-def add_edit(edit_ls, src_name, dst_name, times):
-    new_edit = {
-        cfg.EDIT_NEW_NAME : dst_name,
-        cfg.EDIT_TIMES    : times
-    }
-    edit_ls.append({src_name : new_edit})
-
-"""
-"""
+    error = None
+    try:
+        os.remove(src_full_path)
+    except OSError as e:
+        error = str(e)
+    
+    return error

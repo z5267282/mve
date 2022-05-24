@@ -1,3 +1,4 @@
+import datetime as dt
 import json
 import moviepy as mvp
 import os
@@ -53,3 +54,18 @@ def load_from_json(file_path):
     with open(file_path, 'r') as f:
         data = json.load(f)
     return data
+
+"""
+    TIMESTAMPING
+"""
+
+def get_timestamp():
+    right_now = dt.datetime.now()
+    return right_now.strftime('%d.%m.%Y - %H%M')
+
+"""
+    LOGGING
+"""
+def log_paths():
+    # TODO 
+    pass
