@@ -22,7 +22,7 @@ NUM_THREADS = 8
 FRAMES      = 60
 VCODEC      = "libx264"
 COMPRESSION = "slower"
-ACODEC      = 'aac' 
+ACODEC      = 'aac'
 
 # edit structure keys inside current/
 EDIT_NEW_NAME = 'new name'
@@ -30,3 +30,6 @@ EDIT_TIMES    = 'times'
 
 # multiprocessing
 NUM_PROCESSES = 4
+
+# JSON settings
+JSON_INDENT = 4
