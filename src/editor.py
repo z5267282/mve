@@ -21,7 +21,7 @@ def do_edit(src_full_path, dst_full_path, start, end=None):
 def do_rename(src_full_path, dst_path, dst_name):
     error = None
     try:
-        dst_full_path = helper.get_abs_path(dst_path, dst_name)
+        dst_full_path = helper.get_joined_path(dst_path, dst_name)
         os.rename(src_full_path, dst_full_path)
     except OSError as e:
         error = str(e)
