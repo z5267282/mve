@@ -1,3 +1,5 @@
+import re
+
 # editing folders
 SOURCE_PATH  = ['D:', 'Videos', 'Batches', '1']
 RENAMES_PATH = ['D:', 'Videos', 'Renames']
@@ -53,3 +55,7 @@ HELP_MSGS = {
     KEY_CONTINUE : '[c]ontinue |                            | re-add the current clip so it can be transformed twice',
     KEY_HELP     : '[h]elp     |                            | print this message'
 }
+
+# regex patterns
+RE_NAME     = r'[a-zA-Z0-9 ]+'
+RE_END_TIME = r'-?[0-9]+|([0-9]+-)+[0-9]+'

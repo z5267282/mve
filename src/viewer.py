@@ -48,6 +48,13 @@ def view_file(joined_path):
     COMMAND PARSING
 """
 
+def parse_end(token_string):
+    tokens = token_string.split(' ', maxsplit=1)
+
+    if len(tokens != 2):
+        print(f'usage: {cfg.HELP_MSGS[cfg.KEY_END]}')
+        return
+    if not re.fullmatch(cfg.RE_END_TIME, 
 
 """
     MAIN
