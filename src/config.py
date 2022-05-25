@@ -35,3 +35,21 @@ NUM_PROCESSES = 4
 
 # JSON settings
 JSON_INDENT = 4
+
+# command keys
+KEY_END      = 'e'
+KEY_MIDDLE   = 'm'
+KEY_RENAME   = 'r'
+KEY_DELETE   = 'd'
+KEY_CONTINUE = 'c'
+KEY_HELP     = 'h'
+
+# help messages
+HELP_MSGS = {
+    KEY_END      : '[e]nd      | [ time ] [ name ]          | edit from [ time ] to end of clip',
+    KEY_MIDDLE   : '[m]iddle   | [ start ] [ end ] [ name ] | edit from [ start ] to [ end ]',
+    KEY_RENAME   : '[r]ename   | [ name ]                   | rename the clip to [ name ]',
+    KEY_DELETE   : '[d]elete   |                            | delete the clip',
+    KEY_CONTINUE : '[c]ontinue |                            | re-add the current clip so it can be transformed twice',
+    KEY_HELP     : '[h]elp     |                            | print this message'
+}

@@ -28,31 +28,51 @@ def generate_folder_name():
     return helper.get_timestamp()
 
 def write_all_logs(paths_list, folder_name, edit_dict, rename_dict, delete_list):
-    abs_folder_path = helper.get_abs_path(paths_list, folder_name)
-    os.mkdir(abs_folder_path)
+    joined_folder_path = helper.get_joined_path(paths_list, folder_name)
+    os.mkdir(joined_folder_path)
 
-    data_items = [edit_dict, rename_dict, delete_list]
-    file_names = [cfg.EDITS, cfg.RENAMES, cfg.DELETIONS]
-    for data, file_name in zip(data_items, file_names):
+    for data, file_name in zip(
+        [edit_dict, rename_dict, delete_list],
+        [cfg.EDITS, cfg.RENAMES, cfg.DELETIONS]
+    ):
         helper.write_to_json(data, file_name)
 
 """
     VIEWING FILES
 """
 
-def view_file(abs_path):
-    os.startfile(abs_path)
+def view_file(joined_path):
+    os.startfile(joined_path)
+
+"""
+    COMMAND PARSING
+"""
+
 
 """
     MAIN
 """
+
+def view_error_folder(folder_name, edits, renames, delitions):
+    # TODO: move error folder 
+    pass
+
+def view_remaining(edits, renames, deletions):
+    # TODO
+    pass
 
 def main():
     edits = {}
     renames = {}
     deletions = []
 
-    # write_all_logs(cfg.QUEUE, generate_folder_name(), edits, renames, deletions)
+    error_folder = helper.get_earliest_file(cfg.ERRORS)
+    if error_folder:
+        view_error_folder(error_folder, edits, renames, deletions)
+    else:
+        view_remaining(edits, renames, deletions)
+
+    write_all_logs(cfg.QUEUE, generate_folder_name(), edits, renames, deletions)
 
 if __name__ =='__main__':
     main()
