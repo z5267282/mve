@@ -18,8 +18,8 @@ def main():
         )
         sys.exit(1)
 
-    abs_file_names = helper.ls_abs_path(cfg.SOURCE_PATH)
-    helper.write_to_json(abs_file_names, cfg.REMAINING)
+    joined_file_names = helper.ls_joined_path(cfg.SOURCE_PATH)
+    helper.write_to_json(joined_file_names, cfg.REMAINING)
 
 if __name__ == '__main__':
     main()

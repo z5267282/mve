@@ -9,7 +9,7 @@ import config as cfg
     FILE RELATED
 """
 
-def get_abs_path(paths_list, file_name):
+def get_joined_path(paths_list, file_name):
     paths = paths_list + [file_name]
     return os.path.join(*paths)
 
@@ -17,11 +17,11 @@ def ls(paths_list):
     path = os.path.join(*paths_list)
     return os.listdir(path)
 
-def ls_abs_path(paths_list):
-    return [get_abs_path(paths_list, file_name) for file_name in ls(paths_list)]
+def ls_joined_path(paths_list):
+    return [get_joined_path(paths_list, file_name) for file_name in ls(paths_list)]
 
 def get_earliest_file(paths_list):
-    files = ls_abs_path(paths_list)
+    files = ls_joined_path(paths_list)
     return sorted(
         files, 
         key=os.path.getctime
