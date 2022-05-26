@@ -1,3 +1,5 @@
+import re
+
 # editing folders
 SOURCE_PATH  = ['D:', 'Videos', 'Batches', '1']
 RENAMES_PATH = ['D:', 'Videos', 'Renames']
@@ -44,19 +46,14 @@ KEY_DELETE   = 'd'
 KEY_CONTINUE = 'c'
 KEY_HELP     = 'h'
 
-# keys for storing commands
-CMD_NAME = 'name'
-CMD_ARGS = 'args'
-CMD_DESC = 'description'
-
 # help messages
 HELP_MSGS = {
-    KEY_END      : {CMD_NAME: '[e]nd', CMD_ARGS: ['time', 'name'], CMD_DESC: 'edit from [ time ] to end of clip'},
-    KEY_MIDDLE   : {CMD_NAME: '[m]iddle', CMD_ARGS: ['start', 'end', 'name' ], CMD_DESC: 'edit from [ start ] to [ end ]'},
-    KEY_RENAME   : {CMD_NAME: '[r]ename', CMD_ARGS: ['name'], CMD_DESC: 'rename the clip to [ name ]'},
-    KEY_DELETE   : {CMD_NAME: '[d]elete', CMD_ARGS: [], CMD_DESC: 'delete the clip'},
-    KEY_CONTINUE : {CMD_NAME: '[c]ontinue', CMD_ARGS: [], CMD_DESC: 're-add the current clip so it can be transformed twice'},
-    KEY_HELP     : {CMD_NAME: '[h]elp', CMD_ARGS: [], CMD_DESC: 'print this message'}
+    KEY_END      : '[e]nd      | [ time ] [ name ]          | edit from [ time ] to end of clip',
+    KEY_MIDDLE   : '[m]iddle   | [ start ] [ end ] [ name ] | edit from [ start ] to [ end ]',
+    KEY_RENAME   : '[r]ename   | [ name ]                   | rename the clip to [ name ]',
+    KEY_DELETE   : '[d]elete   |                            | delete the clip',
+    KEY_CONTINUE : '[c]ontinue |                            | re-add the current clip so it can be transformed twice',
+    KEY_HELP     : '[h]elp     |                            | print this message'
 }
 
 # regex patterns
