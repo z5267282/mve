@@ -1,4 +1,5 @@
 import os
+import re
 
 import config as cfg
 import helper as helper
@@ -45,20 +46,33 @@ def view_file(joined_path):
     os.startfile(joined_path)
 
 """
+    GENERAL COMMAND PARSING
+"""
+
+def print_usage_message(command_key):
+    print(f'usage: {cfg.HELP_MSGS[command_key]}')
+
+def check_bad_regex(regex_pattern, item_name, item):
+    if not re.fullmatch(regex_pattern, item):
+        print(f"{item_name} must match the following regex: '{regex_pattern}'")
+        return True
+    return False
+
+"""
     COMMAND PARSING
 """
 
-def check_bad_args(command_key):
-    pass
-
-def parse_end(token_string):
+def parse_end(token_string, edit_dict):
     tokens = token_string.split(' ', maxsplit=1)
-
     if len(tokens != 2):
-        print(f'usage: {cfg.HELP_MSGS[cfg.KEY_END]}')
+        print_usage_message(cfg.KEY_END)
         return
 
-    # if not re.fullmatch(cfg.RE_END_TIME, 
+    time, name = tokens
+    if check_bad_regex(cfg.RE_END_TIME, 'end time', time):
+        return
+    if check_bad_regex(cfg.RE_NAME, 'name', name):
+        return
 
 """
     MAIN
