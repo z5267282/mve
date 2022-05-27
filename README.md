@@ -18,7 +18,7 @@ For the remainder of the documentation, constants inside the config will be pref
 
 ## 0.2 - `constants/`
 A folder documenting constants that **are not** to be changed.  
-* The main motivation is to avoid magic numbers
++ The main motivation is to avoid magic numbers
 
 The files should be imported the following way relative to the `src/` folder:  
 ```py
@@ -30,7 +30,16 @@ constants.treatment_format as trf
 constants.video_editing    as vde
 ```
 
-## 0.3 - `remaining.json`
+## 0.3 - `helper/`
+A folder containing `python3` helper functions.  
+
+Any functions needed accross multiple files are placed in this folder.  
+
+The files should be imported the following way relative to the `src/` folder:  
+```py
+```
+
+## 0.4 - `remaining.json`
 A `JSON` list that stores the remaining files to be edited.  
 
 Each list item is a `file name` without a leading directory in the `cfg.SOURCE` folder.  
@@ -40,7 +49,7 @@ Each list item is a `file name` without a leading directory in the `cfg.SOURCE` 
 ]
 ```
 
-## 0.4 - `treatment` structure
+## 0.5 - `treatment` structure
 A `JSON` dictionary that stores instructions for how files are to be treated.  
 
 All files with a `treatment` structure are named with a timestamp in the form `DD.MM.YYYY - hhmm` .  
@@ -67,10 +76,13 @@ All `file name` s do not have a leading directory.
 }
 ```
 
-## 0.5 - `queue/`
+## 0.6 - `queue/`
 A folder which contains a list of `treatment` - structured `JSON` files.  
 
-## 0.6 - `errors/`
+## 0.7 - `history/`
+A folder storing past `treatment` - structured files from `queue` .  
+
+## 0.8 - `errors/`
 A folder containing all recorded errors whilst completing the treatments.  
 
 All files are named with a timestamp in the form `DD.MM.YYYY - hhmm`.  
@@ -98,10 +110,12 @@ python3 generator.py
 
 ## overview
 The generator will get the file names inside `cfg.SOURCE` and store them inside `remaining.json` .  
++ File names **without** leading folders are stored
 
 If `remaining.json` does not exist, it is **created**.  
 
 If it does exist, and the list it contains is not empty, the program terminates with exit code `ern.FILES_REMAINING` .  
+
 If the list is empty, it is **overwritten**.  
 
 # 2 - viewer
@@ -118,7 +132,7 @@ If `remaining.json` doesn't exist the program terminates with exit code `ern.MIS
 When the viewer is run files are sequentially opened for viewing in from the list inside of `remaining.json`.  
 
 The file name is displayed as a prompt, but the program joins this file name with the folder `cfg.SOURCE` to locate the file.  
-    + The program terminates with exit code `ern.NO_SOURCE_FOLDER` if this folder does not exist
++ The program terminates with exit code `ern.NO_SOURCE_FOLDER` if this folder does not exist
 
 ## commands
 ```
@@ -181,10 +195,12 @@ The treatments are performed in the following order:
 2. renames
 3. deletions
 
+Once the treatments are completed, the earliest file in `queue` is moved to `history/` .  
+
 Errors if any, are logged in `errors/` with its matching file structures.  
 
 When an error occurs, the file name of the offending treatment is appended to `remaining.json` , so that it can be re-treated upon the next viewing session
-    + The error is then logged
++ The error is then logged
 
 Multiprocessing occurs for the editing stage and the number of processes can be changed in `cfg.NUM_PROCESSES` .  
 
