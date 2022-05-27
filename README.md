@@ -20,23 +20,17 @@ For the remainder of the documentation, constants inside the config will be pref
 A folder documenting constants that **are not** to be changed.  
 + The main motivation is to avoid magic numbers
 
-The files should be imported the following way relative to the `src/` folder:  
-```py
-constants.error_numbers    as ern
-constants.errors_format    as erf
-constants.file_structure   as fst
-constants.json_settings    as jsn
-constants.treatment_format as trf
-constants.video_editing    as vde
-```
+Constants should be imported on demand, rather than importing the entirety of the module.  
++ Tip taken from the [moviepy documentation](https://zulko.github.io/moviepy/getting_started/efficient_moviepy.html)
 
 ## 0.3 - `src/helper/`
 A folder containing `python3` helper functions.  
 
 Any functions needed accross multiple files are placed in this folder.  
 
-The files should be imported the following way relative to the `src/` folder:  
+The files should be imported in the following way
 ```py
+import helper.<file name> as <file name>
 ```
 
 ## 0.4 - `remaining.json`
