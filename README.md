@@ -72,9 +72,15 @@ All files are named with a timestamp in the form `DD.MM.YYYY - hhmm`.
 It is a `JSON` dictionary where each key is structured in the following way.  
 ```
 {
-    <file name> : {
-        cst.ERROR_COMMAND : [ cst.EDITS | cst.RENAMES | cst.DELETIONS ]
-        cst.ERROR_DATA    : [ original data if any | null ]
+    cst.ERRORS_VIDEOS : {
+        <file name> : {
+            cst.ERROR_COMMAND : [ cst.EDITS | cst.RENAMES | cst.DELETIONS ]
+            cst.ERROR_DATA    : [ original data if any | null ]
+        }
+    },
+    cst.ERRORS_PATHS : {
+        cst.SOURCE_PATH : [ list of folders in the source path ],
+        cst.RENAME_PATH : [ list of folders in the edit path ]
     }
 }
 ```
@@ -161,9 +167,9 @@ If `queue/` doesn't exist then the program terminates with exit code `cst.NO_QUE
 If `queue/` is empty then the program terminates with exit code `cst.EMPTY_QUEUE`.  
 
 All files will need to be joined together with folder `cfg.SOURCE`.  
-    + So the program terminates with error code `cst.NO_SOURCE_FOLDER` if this folder does not exist
+    + So the program terminates with exit code `cst.NO_SOURCE_FOLDER` if this folder does not exist
 
-If `cfg.RENAMES` does not exist the program terminates with error code `cst.NO_RENAMES_FOLDER`.  
+If `cfg.RENAMES` does not exist the program terminates with exit code `cst.NO_RENAMES_FOLDER`.  
 
 The treatments are performed in the following order:  
 1. edits
@@ -180,3 +186,14 @@ Multiprocessing occurs for the editing stage and the number of processes can be 
 The number of threads per editing process can be changed in `cfg.NUM_THREADS` .  
 
 # 4 - deleter
+## overview
+The deletor deletes the folder `cfg.SOURCE` .  
+
+If `remaining.json` exists and contains a non-empty list, the program terminates with exit code `cst.FILES_REMAINING` .  
+
+If `cfg.SOURCE` doesn't exist then the program teriminates with exit code `cst.NO_SOURCE_FOLDER` .  
+
+## usage
+```
+python3 deleter.py
+```
