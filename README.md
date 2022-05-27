@@ -16,7 +16,7 @@ import config as cfg
 
 For the remainder of the documentation, constants inside the config will be prefixed with `cfg.` .  
 
-## 0.2 - `constants/`
+## 0.2 - `src/constants/`
 A folder documenting constants that **are not** to be changed.  
 + The main motivation is to avoid magic numbers
 
@@ -30,7 +30,7 @@ constants.treatment_format as trf
 constants.video_editing    as vde
 ```
 
-## 0.3 - `helper/`
+## 0.3 - `src/helper/`
 A folder containing `python3` helper functions.  
 
 Any functions needed accross multiple files are placed in this folder.  
