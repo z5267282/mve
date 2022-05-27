@@ -5,17 +5,11 @@ def ls(paths_list):
     return os.listdir(path)
 
 def main():
-    cwd = [
-        "Users",
-        "sunny",
-        "OneDrive - UNSW",
-        "Code",
-        "Projects",
-        "mve",
-        "src"
-    ]
+    cwd = ['D:', 'Videos', 'Batches', '1']
 
-    print(ls(cwd))
+    items = sorted(ls(cwd), key=lambda f: os.path.getctime(os.path.join(*(cwd + [f]))))
+    for i in items:
+        print(i)
 
 if __name__ == '__main__':
     main()

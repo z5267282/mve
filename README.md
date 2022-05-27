@@ -169,8 +169,8 @@ Errors are dealt with immediately.
 If an error occurs nothing is logged and the video is reshown, with input also being re-asked.  
 
 The following errors are checked against:  
-1. Correctly formatted arguments
-2. Clip timing (if relevant) against `moviepy.subclip()`
+1. Correct number of arguments
+2. Correctly formatted arguments
 
 # 3 - treater
 ## usage
