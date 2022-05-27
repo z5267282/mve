@@ -3,9 +3,16 @@ import os
 import config as cfg
 import helper as helper
 
-"""
-    DOING COMMANDS
-"""
+def ls(paths_list):
+    path = os.path.join(*paths_list)
+    return os.listdir(path)
+
+def get_earliest_file(paths_list):
+    files = ls_joined_path(paths_list)
+    return sorted(
+        files, 
+        key=os.path.getctime
+    )[0] if files else None
 
 def do_edit(src_full_path, dst_full_path, start, end=None):
     edit_video = lambda clip: clip.write_videofile(
