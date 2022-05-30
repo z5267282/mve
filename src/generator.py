@@ -1,8 +1,12 @@
 import os
 from sys import argv
 
-from helpers.command_line import command_line_error
+import helpers.command_line as command_line
+import helpers.file_system as file_system
 
 def main():
-    program_name, args = argv[0], argv[1:]
-    command_line_error(program_name, args)
+    command_line.command_line_error(argv)
+    file_system.
+
+if __name__ == '__main__':
+    main()

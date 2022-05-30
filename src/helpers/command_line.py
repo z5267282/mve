@@ -1,10 +1,11 @@
-from os.path import basename
-from sys import exit
+import os.path
+import sys
 
-from ..constants.command import COMMAND_LINE_LENGTH
-from ..constants.error_numbers import BAD_COMMAND_LINE_ARGS
+import constants.commands as commands 
+import constants.error_numbers as error_numbers
 
-def command_line_error(program_name, args):
-    if len(args) != COMMAND_LINE_LENGTH:
-        print(f'usage: {basename(program_name)}')
-        exit(BAD_COMMAND_LINE_ARGS)
+def command_line_error(argv):
+    program_name, args = argv[0], argv[1:]
+    if len(args) != commands.COMMAND_LINE_LENGTH:
+        print(f'usage: {os.path.basename(program_name)}')
+        sys.exit(error_numbers.BAD_COMMAND_LINE_ARGS)
