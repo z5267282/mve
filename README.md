@@ -28,11 +28,6 @@ A folder containing `python3` helper functions.
 
 Any functions needed accross multiple files are placed in this folder.  
 
-The files should be imported in the following way
-```py
-import helper.<file name> as <file name>
-```
-
 ## 0.4 - `remaining.json`
 A `JSON` list that stores the remaining files to be edited.  
 
@@ -106,9 +101,11 @@ python3 generator.py
 The generator will get the file names inside `cfg.SOURCE` and store them inside `remaining.json` .  
 + File names **without** leading folders are stored
 
-If `remaining.json` does not exist, it is **created**.  
+If cfg.SOURCE does not exist the program terminates with exit code `NO_SOURCE_FOLDER` .  
 
-If it does exist, and the list it contains is not empty, the program terminates with exit code `ern.FILES_REMAINING` .  
+If `remaining.json` does exist, and the list it contains is not empty, the program terminates with exit code `FILES_REMAINING` .  
+
+If `remaining.json` does not exist, it is **created**.  
 
 If the list is empty, it is **overwritten**.  
 
