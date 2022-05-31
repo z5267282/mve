@@ -14,24 +14,31 @@ It should be imported with the following statement:
 import config as cfg
 ```
 
-For the remainder of the documentation, constants inside the config will be prefixed with `cfg.` .  
+For the remainder of the documentation will also follow this notation.  
 
 ## 0.2 - `src/constants/`
 A folder documenting constants that **are not** to be changed.  
 + The main motivation is to avoid magic numbers
 
-Constants should be imported on demand, rather than importing the entirety of the module.  
-+ Tip taken from the [moviepy documentation](https://zulko.github.io/moviepy/getting_started/efficient_moviepy.html)
+All files in this folder should be named as a 3 letter abreviation.  
+```py
+import constants.fln as fln
+```
 
-## 0.3 - `src/helper/`
+## 0.3 - `src/helpers/`
 A folder containing `python3` helper functions.  
 
 Any functions needed accross multiple files are placed in this folder.  
 
+These should be imported as:  
+```py
+import helpers.file_name as file_name
+```
+
 ## 0.4 - `remaining.json`
 A `JSON` list that stores the remaining files to be edited.  
 
-Each list item is a `file name` without a leading directory in the `cfg.SOURCE` folder.  
+Each list item is a file name without a leading directory in the `cfg.SOURCE` folder.  
 ```
 [
     <file name>
@@ -43,7 +50,7 @@ A `JSON` dictionary that stores instructions for how files are to be treated.
 
 All files with a `treatment` structure are named with a timestamp in the form `DD.MM.YYYY - hhmm` .  
 
-All `file name` s do not have a leading directory.  
+All file names do not have a leading directory.  
 ```
 {
     trf.EDITS : {
@@ -129,12 +136,12 @@ The file name is displayed as a prompt, but the program joins this file name wit
 ```
 [e]nd      | [ time ] [ name ]
     + edit from [ time ] to end of clip.
-    + the time is in the form [ 1 integer | 2 (natural numbers | timestamp in form <min:sec>) ]
+    + the time is in the form [ 1 integer | timestamp in form <min-sec>) ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [m]iddle   | [ start ] [ end ] [ name ]
     + edit from [ start ] to [ end ]
-    + start and end are the form [ 1 integer | 2 (natural numbers | timestamp in form <min:sec>) ]
+    + start and end are the form [ 1 integer | 2 (natural numbers | timestamp in form <min-sec>) ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [r]ename   | [ name ]
