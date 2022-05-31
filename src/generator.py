@@ -13,6 +13,7 @@ def run_checks():
     check_and_exit_if.no_source_folder()
     check_and_exit_if.files_remaining()
 
+
 def main():
     run_checks()
 
