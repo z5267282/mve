@@ -123,6 +123,9 @@ def do_rename(name, raw_tokens, renames):
 def log_delete(name, deletions):
     deletions.append(name)
 
+def do_delete(name, deletions):
+    log_delete(name, deletions)
+
 def view_video(name):
     joined_path = files.get_joined_path(cfg.SOURCE, name)
     # TODO: load video
@@ -133,29 +136,52 @@ def run_loop(remaining, edits, renames, deletions):
         name = remaining[0]
         view_video(name)
 
-        args = input(f'{name}: ')
-        command = args.split(' ', 1)
+        args = input(f'{name} : ').split(' ', 1)
+        command = args[0]
+        raw_tokens = args[1] if args else str()
         match command:
             case cmd.QUIT:
                 break
             case cmd.CONTINUE:
                 remaining.insert(0, name)
-                break
+                continue
             case cmd.HELP:
                 print(cmd.MESSAGE)
-                break
-            
+                continue
+            case cmd.END:
+                do_end(name, raw_tokens, edits)
+            case cmd.MIDDLE:
+                do_middle(name, raw_tokens, edits)
+            case cmd.RENAME:
+                do_rename(name, raw_tokens, renames)
+            case cmd.DELETE:
+                do_delete(name, deletions)
+            case _:
+                print(f"invalid command '{command}' - press {cmd.HELP} for a list of commands")
+                continue
+        
+        remaining.pop(0)
 
-
-def log_to_file():
-    pass
-
+def log_to_file(edits, renames, deletions):
+    treatment_name = f'{util.get_timestamp()}.json'
+    joined_treatment_name = files.get_joined_path(fst.QUEUE, treatment_name)
+    data = {
+        trf.EDITS     : edits,
+        trf.RENAMES   : renames,
+        trf.DELETIONS : deletions
+    }
+    util.write_to_json(data, joined_treatment_name) 
 
 def main():
     run_checks()
 
-    run_loop()
-    log_to_file()
+    edits, renames, deletions = dict(), dict(), list()
+    run_loop(edits, renames, deletions)
+
+    if not (edits or renames or deletions):
+        return
+
+    log_to_file(edits, renames, deletions)
 
 if __name__ == '__main__':
     main()

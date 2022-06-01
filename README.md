@@ -138,6 +138,9 @@ When the viewer is run files are sequentially opened for viewing in from the lis
 The file name is displayed as a prompt, but the program joins this file name with the folder `cfg.SOURCE` to locate the file.  
 + The program terminates with exit code `ern.NO_SOURCE_FOLDER` if this folder does not exist
 
+Upon viewing a video, the user enters one of the following commands which are then stored in `queue/` in a `treatment` - like structure.
++ If no treatment commands (as opposed to control flow commands) were entered, then then no file is created
+
 ## commands
 ```
 [e]nd      | [ time ] [ name ]
