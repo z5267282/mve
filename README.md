@@ -4,8 +4,29 @@ A movie editing tool using multiprocessing.
 This program can only be run on Windows.  
 
 # 0 - file structure
+```
+mve/
+    src/
+        + config.py
 
-## 0.1 - `config.py`
+        constants/
+        helpers/
+
+        + remaining.json
+
+        + generator.py
+        + viewer.py
+        + treater.py
+        + deleter.py
+    errors/
+    history/
+    queue/
+```
+
+## 0.1 - `src/`
+Where the script is to be run and all relevant code for the program is stored.  
+
+### 0.1.1 - `src/config.py`
 A `.py` file containing constants that can be changed each time the program is run.  
 
 It should be imported with the following statement:  
@@ -16,7 +37,7 @@ import config as cfg
 
 For the remainder of the documentation will also follow this notation.  
 
-## 0.2 - `src/constants/`
+### 0.1.2 - `src/constants/`
 A folder documenting constants that **are not** to be changed.  
 + The main motivation is to avoid magic numbers
 
@@ -31,7 +52,9 @@ import constants.treatment_format as trf
 import constants.video_editing as vde
 ```
 
-## 0.3 - `src/helpers/`
+Constants from these files will be referred to by these 3 letter abreviations for the remainder of the documentation.  
+
+### 0.1.3 - `src/helpers/`
 A folder containing `python3` helper functions.  
 
 Any functions needed accross multiple files are placed in this folder.  
@@ -41,7 +64,7 @@ These should be imported as:
 import helpers.file_name as file_name
 ```
 
-## 0.4 - `remaining.json`
+### 0.1.4 - `src/remaining.json`
 A `JSON` list that stores the remaining files to be edited.  
 
 Each list item is a file name without a leading directory in the `cfg.SOURCE` folder.  
@@ -51,7 +74,33 @@ Each list item is a file name without a leading directory in the `cfg.SOURCE` fo
 ]
 ```
 
-## 0.5 - `treatment` structure
+## 0.2 - `errors/`
+A folder containing all recorded errors whilst completing the treatments.  
+
+All files are named with a timestamp in the form `DD.MM.YYYY - hhmm`.  
+
+It is a `JSON` dictionary where each key is structured in the following way.  
+```
+{
+    erf.ERRORS_VIDEOS : {
+        <file name> : {
+            erf.ERROR_COMMAND : [ trf.EDITS | trf.RENAMES | trf.DELETIONS ]
+            erf.ERROR_DATA    : [ original data if any | null ]
+        }
+    },
+    erf.ERRORS_PATHS : {
+        trf.SOURCE_PATH : [ list of folders in the source path ],
+        trf.RENAME_PATH : [ list of folders in the edit path ] }
+}
+```
+
+## 0.3 - `history/`
+A folder storing past `treatment` - structured files from `queue` .  
+
+## 0.4 - `queue/`
+A folder which contains a list of `treatment` - structured `JSON` files.  
+
+### `treatment` structure
 A `JSON` dictionary that stores instructions for how files are to be treated.  
 
 All files with a `treatment` structure are named with a timestamp in the form `DD.MM.YYYY - hhmm` .  
@@ -75,32 +124,6 @@ All file names do not have a leading directory.
     ],
     trf.SOURCE_PATH : [ list of folders in the source path ],
     trf.RENAME_PATH : [ list of folders in the edit path ]
-}
-```
-
-## 0.6 - `queue/`
-A folder which contains a list of `treatment` - structured `JSON` files.  
-
-## 0.7 - `history/`
-A folder storing past `treatment` - structured files from `queue` .  
-
-## 0.8 - `errors/`
-A folder containing all recorded errors whilst completing the treatments.  
-
-All files are named with a timestamp in the form `DD.MM.YYYY - hhmm`.  
-
-It is a `JSON` dictionary where each key is structured in the following way.  
-```
-{
-    erf.ERRORS_VIDEOS : {
-        <file name> : {
-            erf.ERROR_COMMAND : [ trf.EDITS | trf.RENAMES | trf.DELETIONS ]
-            erf.ERROR_DATA    : [ original data if any | null ]
-        }
-    },
-    erf.ERRORS_PATHS : {
-        trf.SOURCE_PATH : [ list of folders in the source path ],
-        trf.RENAME_PATH : [ list of folders in the edit path ] }
 }
 ```
 
