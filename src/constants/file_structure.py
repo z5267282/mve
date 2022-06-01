@@ -1,6 +1,6 @@
 # folders
-QUEUE  = ['queue']
-ERRORS = ['errors']
+QUEUE  = ['..', 'queue']
+ERRORS = ['..', 'errors']
 
 # files
 REMAINING = 'remaining.json'
