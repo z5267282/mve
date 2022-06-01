@@ -26,6 +26,6 @@ def no_source_folder():
 
 
 def files_remaining():
-    if util.load_treatments():
+    if util.load_remaining():
         util.stderr_print(f"there are files yet to be treated in '{fst.REMAINING}'")
         sys.exit(err.FILES_REMAINING)

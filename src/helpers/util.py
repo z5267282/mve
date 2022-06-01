@@ -14,13 +14,17 @@ def read_from_json(file_path):
         data = json.load(f)
     return data
 
-def load_treatments():
+def load_remaining():
     return read_from_json(fst.REMAINING) 
+
+def write_remaining(remaining):
+    write_to_json(remaining, fst.REMAINING)
 
 
 def get_timestamp():
     right_now = dt.datetime.now()
     return right_now.strftime('%d.%m.%Y - %H%M')
+
 
 def stderr_print(message):
     print(message, file=sys.stderr)
