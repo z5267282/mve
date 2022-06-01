@@ -6,6 +6,13 @@ CONTINUE = 'c'
 QUIT     = 'q'
 HELP     = 'h'
 
+# number of tokens expected by commands that need extra arguments
+NUM_TOKENS = {
+    END : 2,
+    MIDDLE : 3,
+    RENAME : 1,
+}
+
 MESSAGE = '''
 [e]nd      | [ time ] [ name ]
     + edit from [ time ] to end of clip.

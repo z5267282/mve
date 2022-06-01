@@ -2,7 +2,7 @@ import sys
 
 import config as cfg
 
-import constants.fst as fst
+import constants.file_structure as fst
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
