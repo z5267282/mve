@@ -168,7 +168,10 @@ def log_to_file(edits, renames, deletions):
     data = {
         trf.EDITS     : edits,
         trf.RENAMES   : renames,
-        trf.DELETIONS : deletions
+        trf.DELETIONS : deletions,
+
+        trf.SOURCE_PATH : cfg.SOURCE,
+        trf.RENAME_PATH : cfg.RENAMES
     }
     util.write_to_json(data, joined_treatment_name) 
 
