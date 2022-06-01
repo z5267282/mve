@@ -20,9 +20,15 @@ For the remainder of the documentation will also follow this notation.
 A folder documenting constants that **are not** to be changed.  
 + The main motivation is to avoid magic numbers
 
-All files in this folder should be named as a 3 letter abreviation.  
+All files in this folder should be imported with one of the following 3 letter abreviations:  
 ```py
-import constants.fln as fln
+import constants.commands as cmd
+import constants.error as err
+import constants.errors_format as erf
+import constants.file_structure as fst
+import json_settings as jsn
+import treatment_format as trf
+import video_editing as vde
 ```
 
 ## 0.3 - `src/helpers/`
@@ -136,12 +142,12 @@ The file name is displayed as a prompt, but the program joins this file name wit
 ```
 [e]nd      | [ time ] [ name ]
     + edit from [ time ] to end of clip.
-    + the time is in the form [ 1 integer | timestamp in form <min-sec>) ]
+    + the time is in the form [ integer | timestamp in form <min-sec>) ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [m]iddle   | [ start ] [ end ] [ name ]
     + edit from [ start ] to [ end ]
-    + start and end are the form [ 1 integer | 2 (natural numbers | timestamp in form <min-sec>) ]
+    + start and end are the form [ natural number | timestamp in form <min-sec>) ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [r]ename   | [ name ]
