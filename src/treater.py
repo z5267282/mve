@@ -1,41 +1,20 @@
 import os
 
 import config as cfg
-import helper as helper
 
-def get_earliest_file(paths_list):
-    files = ls_joined_path(paths_list)
-    return sorted(
-        files, 
-        key=os.path.getctime
-    )[0] if files else None
+import constants.file_structure as fst
 
-def do_edit(src_full_path, dst_full_path, start, end=None):
-    edit_video = lambda clip: clip.write_videofile(
-            dst_full_path, 
-            threads=cfg.NUM_THREADS,
-            fps=cfg.FRAMES,
-            codec=cfg.VCODEC,
-            preset=cfg.COMPRESSION,
-            audio_codec=cfg.ACODEC
+import helpers.files as files
+
+def dequeue():
+    queue_files = files.ls(fst.QUEUE)
+    get_creation_time = lambda file_name: os.path.getctime(
+        files.get_joined_path(fst.QUEUE, file_name)
     )
-    return helper.handle_clip(src_full_path, edit_video, start, end)
+    return sorted(queue_files, key=get_creation_time)[0] if queue_files else None
 
-def do_rename(src_full_path, dst_path, dst_name):
-    error = None
-    try:
-        dst_full_path = helper.get_joined_path(dst_path, dst_name)
-        os.rename(src_full_path, dst_full_path)
-    except OSError as e:
-        error = str(e)
+def main():
+    dequeue()
 
-    return error
-
-def do_delete(src_full_path):
-    error = None
-    try:
-        os.remove(src_full_path)
-    except OSError as e:
-        error = str(e)
-    
-    return error
+if __name__ == '__main__':
+    main()
