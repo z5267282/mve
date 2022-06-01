@@ -34,7 +34,7 @@ def print_name_format():
     print('the name can only contain upper and lowercase letters, digits and spacebars')
 
 def correct_name_format(name):
-    return re.fullmatch(r'[a-zA-Z ]', name)
+    return re.fullmatch(r'[a-zA-Z ]+', name)
 
 def bad_name_format(name):
     if not correct_name_format(name):
