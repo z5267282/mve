@@ -44,6 +44,13 @@ def bad_name_format(name):
     return False
 
 
+def do_continue(remaining, name):
+    remaining.insert(0, name)
+
+def do_help():
+    print(cmd.MESSAGE)
+
+
 def tokenise(raw_tokens, splits):
     return raw_tokens.split(' ', splits)
 
@@ -63,7 +70,7 @@ def do_end(name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.END)
     if not tokens:
         print('[e]nd | [ time ] [ name ]')
-        return
+        return False
 
     raw_time, edit_name = tokens
     time = None
@@ -73,37 +80,39 @@ def do_end(name, raw_tokens, edits):
         time = parse_timestamp(raw_time)
     if time is None:
         print_time_format('', '[ integer | timestamp in form <min-sec>) ]')
-        return
+        return False 
 
     if bad_name_format(edit_name):
-        return
+        return False
 
     log_edit(name, edit_name, [time], edits)
+    return True
 
 def do_middle(name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.MIDDLE)
     if not tokens:
         print('[m]iddle | [ start ] [ end ] [ name ]')
-        return
+        return False
 
     start, end, edit_name = tokens
     times = []
     for value, description in enumerate([start, end], ['start', 'end']):
         if re.fullmatch(r'[0-9]+', value):
             times.append(value)
-            continue
+            continue 
 
         time = parse_timestamp(value)
         if time is None:
             print_time_format(description, '[ natural number | timestamp in form <min-sec>) ]')
-            return
+            return False
 
         times.append(time)
     
     if bad_name_format(edit_name):
-        return
+        return False
 
     log_edit(name, edit_name, times, edits)
+    return True
 
 def log_rename(name, new_name, renames):
     renames[name] = new_name
@@ -112,13 +121,14 @@ def do_rename(name, raw_tokens, renames):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
         print('[r]ename | [ name ]')
-        return
+        return False
     
     new_name, = tokens
     if bad_name_format(new_name):
-        return
+        return False
     
     log_rename(name, new_name, renames)
+    return True
 
 def log_delete(name, deletions):
     deletions.append(name)
@@ -131,36 +141,40 @@ def view_video(name):
     # TODO: load video
     print(joined_path)
 
+def prompt(name):
+    args = input(f'{name} : ').split(' ', 1)
+    command = args[0]
+    raw_tokens = args[1] if args else str()
+    return command, raw_tokens
+
 def run_loop(remaining, edits, renames, deletions):
     while remaining:
         name = remaining[0]
         view_video(name)
-
-        args = input(f'{name} : ').split(' ', 1)
-        command = args[0]
-        raw_tokens = args[1] if args else str()
+        
+        go_to_next_file = False
+        command, raw_tokens = prompt(name)
         match command:
             case cmd.QUIT:
                 break
             case cmd.CONTINUE:
-                remaining.insert(0, name)
-                continue
+                do_continue(remaining, name)
             case cmd.HELP:
-                print(cmd.MESSAGE)
-                continue
+                do_help()
             case cmd.END:
-                do_end(name, raw_tokens, edits)
+                go_to_next_file = do_end(name, raw_tokens, edits)
             case cmd.MIDDLE:
-                do_middle(name, raw_tokens, edits)
+                go_to_next_file = do_middle(name, raw_tokens, edits)
             case cmd.RENAME:
-                do_rename(name, raw_tokens, renames)
+                go_to_next_file = do_rename(name, raw_tokens, renames)
             case cmd.DELETE:
                 do_delete(name, deletions)
             case _:
                 print(f"invalid command '{command}' - press {cmd.HELP} for a list of commands")
                 continue
-        
-        remaining.pop(0)
+
+        if go_to_next_file:
+            remaining.pop(0)
 
 def log_to_file(edits, renames, deletions):
     treatment_name = f'{util.get_timestamp()}.json'
