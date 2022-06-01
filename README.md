@@ -26,9 +26,9 @@ import constants.commands as cmd
 import constants.error as err
 import constants.errors_format as erf
 import constants.file_structure as fst
-import json_settings as jsn
-import treatment_format as trf
-import video_editing as vde
+import constants.json_settings as jsn
+import constants.treatment_format as trf
+import constants.video_editing as vde
 ```
 
 ## 0.3 - `src/helpers/`
@@ -114,9 +114,9 @@ python3 generator.py
 The generator will get the file names inside `cfg.SOURCE` and store them inside `remaining.json` .  
 + File names **without** leading folders are stored
 
-If cfg.SOURCE does not exist the program terminates with exit code `NO_SOURCE_FOLDER` .  
+If `cfg.SOURCE` does not exist the program terminates with exit code `err.NO_SOURCE_FOLDER` .  
 
-If `remaining.json` does exist, and the list it contains is not empty, the program terminates with exit code `FILES_REMAINING` .  
+If `remaining.json` does exist, and the list it contains is not empty, the program terminates with exit code `err.FILES_REMAINING` .  
 
 If `remaining.json` does not exist, it is **created**.  
 
@@ -131,12 +131,12 @@ python3 viewer.py
 ## overview
 The viewer is a program that will sequentially view all files in `remaining.json`.  
 
-If `remaining.json` doesn't exist the program terminates with exit code `ern.MISSING_REMAINING` .  
+If `remaining.json` doesn't exist the program terminates with exit code `err.MISSING_REMAINING` .  
 
 When the viewer is run files are sequentially opened for viewing in from the list inside of `remaining.json`.  
 
 The file name is displayed as a prompt, but the program joins this file name with the folder `cfg.SOURCE` to locate the file.  
-+ The program terminates with exit code `ern.NO_SOURCE_FOLDER` if this folder does not exist
++ The program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist
 
 Upon viewing a video, the user enters one of the following commands which are then stored in `queue/` in a `treatment` - like structure.
 + If no treatment commands (as opposed to control flow commands) were entered, then then no file is created
