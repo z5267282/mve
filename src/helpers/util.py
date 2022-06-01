@@ -2,11 +2,12 @@ import datetime as dt
 import json
 import sys
 
+import constants.json_settings as jsn
 import constants.file_structure as fst
 
 def write_to_json(item, file_path):
     with open(file_path, 'w') as f:
-        json.dump(item, f, indent=4)
+        json.dump(item, f, indent=jsn.INDENT_SPACES)
 
 def read_from_json(file_path):
     with open(file_path, 'r') as f:
