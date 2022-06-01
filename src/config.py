@@ -5,6 +5,3 @@ RENAMES = ['D:', 'Videos', 'Renames']
 # multi threading and processing
 NUM_THREADS   = 8
 NUM_PROCESSES = 4
-
-# JSON settings
-INDENT_LEVEL = 4
