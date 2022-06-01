@@ -57,7 +57,7 @@ def tokenise(raw_tokens, splits):
 def parse_tokens(raw_tokens, command):
     n_tokens = cmd.NUM_TOKENS[command]
     tokens = tokenise(raw_tokens, n_tokens - 1)
-    return tokens if len(tokens) == tokens else []
+    return tokens if len(tokens) == n_tokens else []
 
 
 def log_edit(name, edit_name, times, edits):
@@ -96,7 +96,7 @@ def do_middle(name, raw_tokens, edits):
 
     start, end, edit_name = tokens
     times = []
-    for value, description in enumerate([start, end], ['start', 'end']):
+    for value, description in zip([start, end], ['start', 'end']):
         if re.fullmatch(r'[0-9]+', value):
             times.append(value)
             continue 
@@ -135,6 +135,7 @@ def log_delete(name, deletions):
 
 def do_delete(name, deletions):
     log_delete(name, deletions)
+    return True
 
 def view_video(name):
     joined_path = files.get_joined_path(cfg.SOURCE, name)
@@ -144,10 +145,12 @@ def view_video(name):
 def prompt(name):
     args = input(f'{name} : ').split(' ', 1)
     command = args[0]
-    raw_tokens = args[1] if args else str()
+    raw_tokens = args[1] if len(args) == 2 else str()
     return command, raw_tokens
 
-def run_loop(remaining, edits, renames, deletions):
+def run_loop(edits, renames, deletions):
+    remaining = util.load_remaining()
+
     while remaining:
         name = remaining[0]
         view_video(name)
@@ -168,13 +171,14 @@ def run_loop(remaining, edits, renames, deletions):
             case cmd.RENAME:
                 go_to_next_file = do_rename(name, raw_tokens, renames)
             case cmd.DELETE:
-                do_delete(name, deletions)
+                go_to_next_file = do_delete(name, deletions)
             case _:
                 print(f"invalid command '{command}' - press {cmd.HELP} for a list of commands")
-                continue
 
         if go_to_next_file:
             remaining.pop(0)
+    
+    util.write_remaining(remaining)
 
 def log_to_file(edits, renames, deletions):
     treatment_name = f'{util.get_timestamp()}.json'
