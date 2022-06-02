@@ -226,6 +226,9 @@ The treatments are performed in the following order:
 2. renames
 3. deletions
 
+Edits are placed in `cfg.DESTINATION` .  
+    + So the program terminates with exit code `err.NO_DESTINATION_FOLDER` if this folder does not exist
+
 Once the treatments are completed, the earliest file in `queue` is moved to `history/` .  
 
 Errors if any, are logged in `errors/` with its matching file structures.  
