@@ -9,8 +9,6 @@ import constants.file_structure as fst
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 
-
-
 def no_queue():
     check_and_exit_if.no_folder(fst.QUEUE, 'queue', err.NO_QUEUE)
 
