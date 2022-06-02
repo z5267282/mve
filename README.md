@@ -80,17 +80,22 @@ A folder containing all recorded errors whilst completing the treatments.
 All files are named with a timestamp in the form `DD.MM.YYYY - hhmm`.  
 
 It is a `JSON` dictionary where each key is structured in the following way.  
+
+Similar to the `treatment` structure, the videos must be able to support duplicate filenames and hence a list of objects is used.  
 ```
 {
-    erf.ERRORS_VIDEOS : {
-        <file name> : {
-            erf.ERROR_COMMAND : [ trf.EDITS | trf.RENAMES | trf.DELETIONS ]
-            erf.ERROR_DATA    : [ original data if any | null ]
+    erf.ERRORS_VIDEOS : [
+        {
+            erf.ERROR_FILE_NAME : [ file name ],
+            erf.ERROR_MESSAGE   : [ error message ],
+            erf.ERROR_COMMAND   : [ trf.EDITS | trf.RENAMES | trf.DELETIONS ],
+            erf.ERROR_DATA      : [ original data if any | null ]
         }
-    },
+    ],
     erf.ERRORS_PATHS : {
         trf.SOURCE_PATH : [ list of folders in the source path ],
-        trf.RENAME_PATH : [ list of folders in the edit path ] }
+        trf.RENAME_PATH : [ list of folders in the edit path ]
+    }
 }
 ```
 

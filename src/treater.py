@@ -6,7 +6,9 @@ import sys
 import config as cfg
 
 import constants.error as err
+import constants.errors_format as erf
 import constants.file_structure as fst
+import constants.treatment_format as trf
 import constants.video_editing as video_editing
 
 import helpers.check_and_exit_if as check_and_exit_if
@@ -40,11 +42,26 @@ def dequeue():
     sorted(queue_files, key=get_creation_time)[0] 
 
 
-def edit_video(joined_src_path, joined_src_path, start, end):
+def add_error(errors, name, message, command, data):
+    errors.append({
+        erf.ERROR_FILE_NAME : name,
+        erf.ERROR_MESSAGE   : message,
+        erf.ERROR_COMMAND   : command,
+        erf.ERROR_DATA      : data
+    })
+
+def add_to_remaining(name, remaining):
+    remaining.append(name)
+
+def handle_error(errors, remaining, name, message, command, data):
+    add_error(errors, name, message, command, data)
+    add_to_remaining(remaining, name)
+
+def edit_video(joined_src_path, joined_dst_path, start, end):
     with mvp.VideoFileClip(joined_src_path) as file:
         clip = file.subclip(t_start=start, t_end=end)
         clip.write_videofile(
-            joined_src_path,
+            joined_dst_path,
             threads=cfg.NUM_THREADS,
             fps=video_editing.FRAMES,
             codec=video_editing.VCODEC,
@@ -55,8 +72,6 @@ def edit_video(joined_src_path, joined_src_path, start, end):
 def add_suffix(joined_path):
     return joined_path + video_editing.SUFFIX
 
-def add_to_remaining(name, remaining):
-    remaining.append(name)
 
 # this function needs the remaining list because it decides what video it picks
 def edit_one(edits_lock, remaining_lock, edits, remaining):
@@ -80,9 +95,10 @@ def edit_one(edits_lock, remaining_lock, edits, remaining):
     error = None
     try:
         edit_video(joined_src_path, joined_dst_path, start, end)
-    except Exception as e
+    except Exception as e:
         error = str(e)
         remaining_lock.acquire()
+        # TODO fix all add_to_remainings
         add_to_remaining(name, remaining)
         remaining_lock.release()
 
@@ -107,8 +123,8 @@ def do_rename(src_name, dst_name, remaining):
 
     error = None
     try:
-        os.rename(joined_src_name, joined_dst_namefiles)
-    except Exception as e
+        os.rename(joined_src_name, joined_dst_name)
+    except Exception as e:
         error = str(e)
         add_to_remaining(src_name, remaining)
     
