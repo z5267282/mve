@@ -211,12 +211,12 @@ python3 treater.py
 ## overview
 The treater will read the earliest created file in `queue` and use it to apply transformations.  
 
-If `queue/` doesn't exist then the program terminates with exit code `ern.NO_QUEUE`.  
+If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUEUE`.  
 
-If `queue/` is empty then the program terminates with exit code `ern.EMPTY_QUEUE`.  
+If `queue/` is empty then the program terminates with exit code `err.EMPTY_QUEUE`.  
 
 All files will need to be joined together with folder `cfg.SOURCE`.  
-    + So the program terminates with exit code `ern.NO_SOURCE_FOLDER` if this folder does not exist
+    + So the program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist
 
 If `cfg.RENAMES` does not exist the program terminates with exit code `ern.NO_RENAMES_FOLDER`.  
 
