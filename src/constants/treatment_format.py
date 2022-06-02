@@ -2,8 +2,9 @@
 
 EDITS     = 'edits'
 # keys within edits
-EDIT_NAME  = 'new name'
-EDIT_TIMES = 'times'
+EDIT_ORIGINAL = 'original'
+EDIT_NAME     = 'new name'
+EDIT_TIMES    = 'times'
 
 RENAMES   = 'renames'
 DELETIONS = 'deletions'

@@ -106,16 +106,17 @@ A `JSON` dictionary that stores instructions for how files are to be treated.
 All files with a `treatment` structure are named with a timestamp in the form `DD.MM.YYYY - hhmm` .  
 
 All file names do not have a leading directory.  
+
+Note that the edits key must be a list to support multiple edit commands for a given file name.  
 ```
 {
-    trf.EDITS : {
+    trf.EDITS : [
         {
-            <file name> : {
-                trf.EDIT_NAME : [ file name ]
-                trf.TIMES     : [ 1 integer | 2 (natural numbers | timestamp in form <min:sec>) ]
-            }
+                trf.EDIT_ORIGINAL : [ original file name ]
+                trf.EDIT_NAME     : [ file name ]
+                trf.EDIT_TIMES    : [ 1 integer | 2 (natural numbers | timestamp in form <min:sec>) ]
         }
-    },
+    ],
     trf.RENAMES : {
         <file name> : <new file name>
     },

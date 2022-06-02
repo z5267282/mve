@@ -61,10 +61,12 @@ def parse_tokens(raw_tokens, command):
 
 
 def log_edit(name, edit_name, times, edits):
-    edits[name] = {
-        trf.EDIT_NAME  : edit_name,
-        trf.EDIT_TIMES : times
+    new_edit = {
+        trf.EDIT_ORIGINAL : name,
+        trf.EDIT_NAME     : edit_name,
+        trf.EDIT_TIMES    : times
     }
+    edits.append(new_edit)
 
 def do_end(name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.END)
@@ -196,7 +198,7 @@ def log_to_file(edits, renames, deletions):
 def main():
     run_checks()
 
-    edits, renames, deletions = dict(), dict(), list()
+    edits, renames, deletions = list(), dict(), list()
     run_loop(edits, renames, deletions)
 
     if not (edits or renames or deletions):
