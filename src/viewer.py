@@ -141,8 +141,7 @@ def do_delete(name, deletions):
 
 def view_video(name):
     joined_path = files.get_joined_path(cfg.SOURCE, name)
-    # TODO: load video
-    print(joined_path)
+    os.startfile(joined_path)
 
 def prompt(name):
     args = input(f'{name} : ').split(' ', 1)
