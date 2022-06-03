@@ -173,13 +173,11 @@ def update_history(current_file, joined_current_file):
 def write_errors(errors):
     error_file_name = util.generate_timestamped_file_name()
     joined_error_file_name = files.get_joined_path(fst.ERRORS, error_file_name)
+    paths = dict()
+    util.add_paths_to_dict(paths)
     data = {
         erf.ERRORS_VIDEOS: errors,
-        erf.ERRORS_PATHS : {
-            trf.SOURCE_PATH      : cfg.SOURCE,
-            trf.RENAME_PATH      : cfg.RENAMES,
-            trf.DESTINATION_PATH : cfg.DESTINATION
-        }
+        erf.ERRORS_PATHS : paths
     }
     util.write_to_json(data, joined_error_file_name)
 
