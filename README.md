@@ -94,7 +94,8 @@ Similar to the `treatment` structure, the videos must be able to support duplica
     ],
     erf.ERRORS_PATHS : {
         trf.SOURCE_PATH : [ list of folders in the source path ],
-        trf.RENAME_PATH : [ list of folders in the edit path ]
+        trf.RENAME_PATH : [ list of folders in the edit path ],
+        trf.DESTINATION_PATH : [ list of folders in the destination path ]
     }
 }
 ```
