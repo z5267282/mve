@@ -181,6 +181,8 @@ def run_loop(edits, renames, deletions):
     
     util.write_remaining(remaining)
 
+# TODO: function for writing paths to a dictionary
+
 def log_to_file(edits, renames, deletions):
     treatment_name = util.generate_timestamped_file_name()
     joined_treatment_name = files.get_joined_path(fst.QUEUE, treatment_name)
