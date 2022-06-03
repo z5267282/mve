@@ -190,7 +190,7 @@ def main():
     current_file = dequeue()
     joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
     treat_all(joined_current_file, remaining, errors)
-    update_history(current_file)
+    update_history(current_file, joined_current_file)
 
     if errors:
         write_errors(errors)
