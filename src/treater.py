@@ -53,6 +53,7 @@ def add_error(errors, name, message, command, data):
 def add_to_remaining(name, remaining):
     remaining.append(name)
 
+
 def handle_error(errors, remaining, name, message, command, data):
     add_error(errors, name, message, command, data)
     add_to_remaining(remaining, name)
@@ -73,14 +74,12 @@ def add_suffix(joined_path):
     return joined_path + video_editing.SUFFIX
 
 
-# this function needs the remaining list because it decides what video it picks
-def edit_one(edits_lock, remaining_lock, edits, remaining):
+def edit_one(edits_lock, remaining_lock, errors_lock, edits, remaining, errors):
     if not edits:
         return
 
-    edits_lock.acquire()
-    edit = edits.pop(0)
-    edits_lock.release()
+    with edits_lock:
+        edit = edits.pop(0)
 
     name = edit[trf.EDIT_ORIGINAL]
     joined_src_path = files.get_joined_path(cfg.SOURCE, name)
@@ -92,23 +91,20 @@ def edit_one(edits_lock, remaining_lock, edits, remaining):
     start = times[0]
     end = times[1] if len(times) == 2 else None 
 
-    error = None
     try:
         edit_video(joined_src_path, joined_dst_path, start, end)
     except Exception as e:
-        error = str(e)
-        remaining_lock.acquire()
-        # TODO fix all add_to_remainings
-        add_to_remaining(name, remaining)
-        remaining_lock.release()
+        with remaining_lock:
+            add_to_remaining(name, remaining)
 
-    return error
+        with errors_lock:
+            add_error(errors, name, str(e), trf.EDITS, edit)
 
-def edit_batch(edits, remaining):
+def edit_batch(edits, remaining, errors):
     edits_lock = multiprocessing.Lock()
     remaining_lock = multiprocessing.Lock()
     processes = [
-        multiprocessing.Process(target=edit_one, args=(edits_lock, remaining_lock, edits, remaining)) for _ in range(cfg.NUM_PROCESSES)
+        multiprocessing.Process(target=edit_one, args=(edits_lock, remaining_lock, edits, remaining, errors)) for _ in range(cfg.NUM_PROCESSES)
     ]
 
     for p in processes:
@@ -117,7 +113,7 @@ def edit_batch(edits, remaining):
     for p in processes:
         p.join()
 
-def do_rename(src_name, dst_name, remaining):
+def do_rename(src_name, dst_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
     joined_dst_name = files.get_joined_path(cfg.RENAMES, dst_name)
 
@@ -126,11 +122,10 @@ def do_rename(src_name, dst_name, remaining):
         os.rename(joined_src_name, joined_dst_name)
     except Exception as e:
         error = str(e)
-        add_to_remaining(src_name, remaining)
     
     return error
 
-def do_delete(src_name, remaining):
+def do_delete(src_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
 
     error = None
@@ -138,23 +133,31 @@ def do_delete(src_name, remaining):
         os.remove(joined_src_name)
     except Exception as e:
         error = str(e)
-        add_to_remaining(src_name, remaining)
     
     return error
 
-def treat_all(current_file):
+def treat_all(current_file, remaining, errors):
     joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
     data = util.read_from_json(joined_current_file)
-    remaining = util.load_remaining()
 
-    # TODO: handle errors!
     edits = data[trf.EDITS]
     while edits:
-        edit_batch(edits, remaining)
+        edit_batch(edits, remaining, errors) 
 
     renames = data[trf.RENAMES]
-    for rename in renames:
-        pass
+    for rename_source in renames:
+        new_name = renames[rename_source]
+        error = do_rename(rename_source, new_name)
+
+        if error:
+            handle_error(errors, remaining, rename_source, error, trf.RENAMES, new_name)
+    
+    deletions = data[trf.DELETIONS]
+    for deletion_name in deletions:
+        error = do_delete(deletion_name)
+
+        if error:
+            handle_error(errors, remaining, deletion_name, error, trf.DELETIONS, None)
 
 def update_history(current_file):
     pass
@@ -164,9 +167,10 @@ def write_errors():
 
 def main():
     run_checks()
-    
+
+    remaining, errors = util.load_remaining(), list()
     current_file = dequeue()
-    treat_all(current_file)
+    treat_all(current_file, remaining, errors)
     update_history(current_file)
     write_errors()
 
