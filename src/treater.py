@@ -51,12 +51,14 @@ def dequeue():
 
 
 def add_error(errors, name, message, command, data):
-    errors.append({
-        erf.ERROR_FILE_NAME : name,
-        erf.ERROR_MESSAGE   : message,
-        erf.ERROR_COMMAND   : command,
-        erf.ERROR_DATA      : data
-    })
+    errors.append(
+        {
+            erf.ERROR_FILE_NAME : name,
+            erf.ERROR_MESSAGE   : message,
+            erf.ERROR_COMMAND   : command,
+            erf.ERROR_DATA      : data
+        }
+    )
 
 def add_to_remaining(name, remaining):
     remaining.append(name)
