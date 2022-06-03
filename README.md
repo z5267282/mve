@@ -128,8 +128,9 @@ Note that the edits key must be a list to support multiple edit commands for a g
     trf.DELETIONS : [
         <file name>
     ],
-    trf.SOURCE_PATH : [ list of folders in the source path ],
-    trf.RENAME_PATH : [ list of folders in the edit path ]
+    trf.SOURCE_PATH      : [ list of folders in the source path ],
+    trf.RENAME_PATH      : [ list of folders in the edit path ],
+    trf.DESTINATION_PATH : [ list of folders in the destination path ]
 }
 ```
 
@@ -222,7 +223,7 @@ If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUE
 If `queue/` is empty then the program terminates with exit code `err.EMPTY_QUEUE`.  
 
 All files will need to be joined together with folder `cfg.SOURCE`.  
-    + So the program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist
++ So the program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist
 
 If `cfg.RENAMES` does not exist the program terminates with exit code `ern.NO_RENAMES_FOLDER`.  
 
@@ -232,11 +233,13 @@ The treatments are performed in the following order:
 3. deletions
 
 Edits are placed in `cfg.DESTINATION` .  
-    + So the program terminates with exit code `err.NO_DESTINATION_FOLDER` if this folder does not exist
++ So the program terminates with exit code `err.NO_DESTINATION_FOLDER` if this folder does not exist
 
 Once the treatments are completed, the earliest file in `queue` is moved to `history/` .  
++ If `history/` doesn't exist the program terminates with exit code `err.NO_HISTORY_FOLDER` .  
 
 Errors if any, are logged in `errors/` with its matching file structures.  
++ If `errors/` doesn't exist the program terminates with exit code `err.NO_ERRORS_FOLDER` .  
 
 When an error occurs, the file name of the offending treatment is appended to `remaining.json` , so that it can be re-treated upon the next viewing session
 + The error is then logged

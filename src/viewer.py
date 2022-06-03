@@ -182,15 +182,16 @@ def run_loop(edits, renames, deletions):
     util.write_remaining(remaining)
 
 def log_to_file(edits, renames, deletions):
-    treatment_name = f'{util.get_timestamp()}.json'
+    treatment_name = util.generate_timestamped_file_name()
     joined_treatment_name = files.get_joined_path(fst.QUEUE, treatment_name)
     data = {
         trf.EDITS     : edits,
         trf.RENAMES   : renames,
         trf.DELETIONS : deletions,
 
-        trf.SOURCE_PATH : cfg.SOURCE,
-        trf.RENAME_PATH : cfg.RENAMES
+        trf.SOURCE_PATH      : cfg.SOURCE,
+        trf.RENAME_PATH      : cfg.RENAMES,
+        trf.DESTINATION_PATH : cfg.DESTINATION
     }
     util.write_to_json(data, joined_treatment_name) 
 
