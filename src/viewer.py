@@ -190,11 +190,8 @@ def log_to_file(edits, renames, deletions):
         trf.EDITS     : edits,
         trf.RENAMES   : renames,
         trf.DELETIONS : deletions,
-
-        trf.SOURCE_PATH      : cfg.SOURCE,
-        trf.RENAME_PATH      : cfg.RENAMES,
-        trf.DESTINATION_PATH : cfg.DESTINATION
     }
+    add_paths_to_dictionary(data)
     util.write_to_json(data, joined_treatment_name) 
 
 def main():
