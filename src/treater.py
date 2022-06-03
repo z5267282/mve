@@ -26,12 +26,20 @@ def empty_queue():
 def no_renames():
     check_and_exit_if.no_folder(cfg.RENAMES, 'renames', err.NO_RENAMES_FOLDER)
 
+def no_history():
+    check_and_exit_if.no_folder(fst.HISTORY, 'history', err.NO_HISTORY_FOLDER)
+
+def no_errors():
+    check_and_exit_if.no_folder(fst.ERRORS, 'errors', err.NO_ERRORS_FOLDER)
+
 def run_checks():
     check_and_exit_if.bad_args(sys.argv)
     no_queue()
     empty_queue()
     check_and_exit_if.no_source_folder()
     no_renames()
+    no_history()
+    no_errors()
 
 
 def dequeue():
@@ -136,8 +144,7 @@ def do_delete(src_name):
     
     return error
 
-def treat_all(current_file, remaining, errors):
-    joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
+def treat_all(joined_current_file, remaining, errors):
     data = util.read_from_json(joined_current_file)
 
     edits = data[trf.EDITS]
@@ -159,20 +166,35 @@ def treat_all(current_file, remaining, errors):
         if error:
             handle_error(errors, remaining, deletion_name, error, trf.DELETIONS, None)
 
-def update_history(current_file):
-    pass
+def update_history(current_file, joined_current_file):
+    joined_history_file = files.get_joined_path(fst.HISTORY, current_file)
+    os.rename(joined_current_file, joined_history_file)
 
-def write_errors():
-    pass
+def write_errors(errors):
+    error_file_name = util.generate_timestamped_file_name()
+    joined_error_file_name = files.get_joined_path(fst.ERRORS, error_file_name)
+    data = {
+        erf.ERRORS_VIDEOS: errors,
+        erf.ERRORS_PATHS : {
+            trf.SOURCE_PATH      : cfg.SOURCE,
+            trf.RENAME_PATH      : cfg.RENAMES,
+            trf.DESTINATION_PATH : cfg.DESTINATION
+        }
+    }
+    util.write_to_json(data, joined_error_file_name)
 
 def main():
     run_checks()
 
     remaining, errors = util.load_remaining(), list()
     current_file = dequeue()
-    treat_all(current_file, remaining, errors)
+    joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
+    treat_all(joined_current_file, remaining, errors)
     update_history(current_file)
-    write_errors()
+
+    if errors:
+        write_errors(errors)
+        util.write_remaining(remaining)
 
 if __name__ == '__main__':
     main()

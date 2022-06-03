@@ -14,3 +14,7 @@ NO_DESTINATION_FOLDER = 7
 # queue
 NO_QUEUE    = 8 
 EMPTY_QUEUE = 9 
+
+# file structure folders
+NO_HISTORY_FOLDER = 10
+NO_ERRORS_FOLDER  = 11
