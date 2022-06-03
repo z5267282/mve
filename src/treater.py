@@ -1,5 +1,5 @@
 import os
-import moviepy as mvp
+import moviepy.editor as mvp
 import multiprocessing
 import sys
 
@@ -47,26 +47,29 @@ def dequeue():
     get_creation_time = lambda file_name: os.path.getctime(
         files.get_joined_path(fst.QUEUE, file_name)
     )
-    sorted(queue_files, key=get_creation_time)[0] 
+    return sorted(queue_files, key=get_creation_time)[0] 
 
+
+def create_error_dict(name, message, command, data):
+    return {
+        erf.ERROR_FILE_NAME : name,
+        erf.ERROR_MESSAGE   : message,
+        erf.ERROR_COMMAND   : command,
+        erf.ERROR_DATA      : data
+    }
 
 def add_error(errors, name, message, command, data):
     errors.append(
-        {
-            erf.ERROR_FILE_NAME : name,
-            erf.ERROR_MESSAGE   : message,
-            erf.ERROR_COMMAND   : command,
-            erf.ERROR_DATA      : data
-        }
+        create_error_dict(name, message, command, data)
     )
 
 def add_to_remaining(name, remaining):
     remaining.append(name)
 
-
 def handle_error(errors, remaining, name, message, command, data):
     add_error(errors, name, message, command, data)
     add_to_remaining(remaining, name)
+
 
 def edit_video(joined_src_path, joined_dst_path, start, end):
     with mvp.VideoFileClip(joined_src_path) as file:
@@ -83,14 +86,11 @@ def edit_video(joined_src_path, joined_dst_path, start, end):
 def add_suffix(joined_path):
     return joined_path + video_editing.SUFFIX
 
-
-def edit_one(edits_lock, remaining_lock, errors_lock, edits, remaining, errors):
-    if not edits:
+def edit_one(edits_queue, remaining_queue, errors_queue):
+    if edits_queue.empty():
         return
 
-    with edits_lock:
-        edit = edits.pop(0)
-
+    edit = edits_queue.get() 
     name = edit[trf.EDIT_ORIGINAL]
     joined_src_path = files.get_joined_path(cfg.SOURCE, name)
     joined_dst_path = add_suffix(
@@ -104,17 +104,15 @@ def edit_one(edits_lock, remaining_lock, errors_lock, edits, remaining, errors):
     try:
         edit_video(joined_src_path, joined_dst_path, start, end)
     except Exception as e:
-        with remaining_lock:
-            add_to_remaining(name, remaining)
-
-        with errors_lock:
-            add_error(errors, name, str(e), trf.EDITS, edit)
-
-def edit_batch(edits, remaining, errors):
-    edits_lock = multiprocessing.Lock()
-    remaining_lock = multiprocessing.Lock()
+        message = str(e)
+        remaining_queue.put(message)
+        errors_queue.put(
+            create_error_dict(name, message, trf.EDITS, edit)
+        )
+        
+def edit_batch(edits_queue, remaining_queue, errors_queue):
     processes = [
-        multiprocessing.Process(target=edit_one, args=(edits_lock, remaining_lock, edits, remaining, errors)) for _ in range(cfg.NUM_PROCESSES)
+        multiprocessing.Process(target=edit_one, args=(edits_queue, remaining_queue, errors_queue)) for _ in range(cfg.NUM_PROCESSES)
     ]
 
     for p in processes:
@@ -122,6 +120,22 @@ def edit_batch(edits, remaining, errors):
     
     for p in processes:
         p.join()
+    
+def edit_all(edits, remaining, errors):
+    edits_queue, remaining_queue, errors_queue = multiprocessing.Queue(), multiprocessing.Queue(), multiprocessing.Queue()
+
+    for e in edits:
+        edits_queue.put(e)
+
+    while not edits_queue.empty():
+        edit_batch(edits_queue, remaining_queue, errors_queue) 
+    
+    for queue, ls in zip([remaining_queue, errors_queue], [remaining, errors]):
+        while not queue.empty():
+            ls.append(
+                queue.get()
+            )
+
 
 def do_rename(src_name, dst_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
@@ -135,6 +149,15 @@ def do_rename(src_name, dst_name):
     
     return error
 
+def rename_all(renames, remaining, errors):
+    for rename_source in renames:
+        new_name = renames[rename_source]
+        error = do_rename(rename_source, new_name)
+
+        if error:
+            handle_error(errors, remaining, rename_source, error, trf.RENAMES, new_name)
+
+
 def do_delete(src_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
 
@@ -146,27 +169,25 @@ def do_delete(src_name):
     
     return error
 
-def treat_all(joined_current_file, remaining, errors):
-    data = util.read_from_json(joined_current_file)
-
-    edits = data[trf.EDITS]
-    while edits:
-        edit_batch(edits, remaining, errors) 
-
-    renames = data[trf.RENAMES]
-    for rename_source in renames:
-        new_name = renames[rename_source]
-        error = do_rename(rename_source, new_name)
-
-        if error:
-            handle_error(errors, remaining, rename_source, error, trf.RENAMES, new_name)
-    
-    deletions = data[trf.DELETIONS]
+def delete_all(deletions, remaining, errors):
     for deletion_name in deletions:
         error = do_delete(deletion_name)
 
         if error:
             handle_error(errors, remaining, deletion_name, error, trf.DELETIONS, None)
+
+
+def treat_all(joined_current_file, remaining, errors):
+    data = util.read_from_json(joined_current_file)
+
+    edits = data[trf.EDITS]
+    edit_all(edits, remaining, errors)
+
+    renames = data[trf.RENAMES]
+    rename_all(renames, remaining, errors)
+    
+    deletions = data[trf.DELETIONS]
+    delete_all(deletions, remaining, errors)
 
 def update_history(current_file, joined_current_file):
     joined_history_file = files.get_joined_path(fst.HISTORY, current_file)

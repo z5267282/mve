@@ -1,3 +1,4 @@
+import os
 import sys
 
 import config as cfg
@@ -11,7 +12,8 @@ import helpers.util as util
 def run_checks():
     check_and_exit_if.bad_args(sys.argv)
     check_and_exit_if.no_source_folder()
-    check_and_exit_if.files_remaining()
+    if os.path.exists(fst.REMAINING):
+        check_and_exit_if.files_remaining()
 
 
 def main():
