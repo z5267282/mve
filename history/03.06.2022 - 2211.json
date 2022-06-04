@@ -1,0 +1,57 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2021.12.17 - 20.21.51.08.DVR.mp4",
+            "new name": "upward amby adventures",
+            "times": [
+                "24"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2021.12.18 - 12.01.31.02.DVR.mp4",
+            "new name": "warmtic ramp slide spawn",
+            "times": [
+                "-7"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2021.12.18 - 12.38.20.03.DVR.mp4",
+            "new name": "product farm bomb and make it out alive",
+            "times": [
+                "-18"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2021.12.21 - 12.05.56.02.DVR.mp4",
+            "new name": "thunder mountain demo combo frags",
+            "times": [
+                "-15"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2021.12.21 - 12.06.49.03.DVR.mp4",
+            "new name": "thunder mountain demo frags continued  ",
+            "times": [
+                "-26"
+            ]
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "source path": [
+        "D:",
+        "Videos",
+        "Batches",
+        "1"
+    ],
+    "renames path": [
+        "D:",
+        "Videos",
+        "Renames"
+    ],
+    "destination path": [
+        "D:",
+        "Videos",
+        "Edits"
+    ]
+}
