@@ -1,6 +1,6 @@
+import concurrent.futures
 import os
 import moviepy.editor as mvp
-import multiprocessing
 import sys
 
 import config as cfg
@@ -86,11 +86,7 @@ def edit_video(joined_src_path, joined_dst_path, start, end):
 def add_suffix(joined_path):
     return joined_path + video_editing.SUFFIX
 
-def edit_one(edits_queue, remaining_queue, errors_queue):
-    if edits_queue.empty():
-        return
-
-    edit = edits_queue.get() 
+def edit_one(edit):
     name = edit[trf.EDIT_ORIGINAL]
     joined_src_path = files.get_joined_path(cfg.SOURCE, name)
     joined_dst_path = add_suffix(
@@ -101,41 +97,11 @@ def edit_one(edits_queue, remaining_queue, errors_queue):
     start = times[0]
     end = times[1] if len(times) == 2 else None 
 
-    try:
-        edit_video(joined_src_path, joined_dst_path, start, end)
-    except Exception as e:
-        message = str(e)
-        remaining_queue.put(message)
-        errors_queue.put(
-            create_error_dict(name, message, trf.EDITS, edit)
-        )
+    edit_video(joined_src_path, joined_dst_path, start, end)
         
-def edit_batch(edits_queue, remaining_queue, errors_queue):
-    processes = [
-        multiprocessing.Process(target=edit_one, args=(edits_queue, remaining_queue, errors_queue)) for _ in range(cfg.NUM_PROCESSES)
-    ]
-
-    for p in processes:
-        p.start()
-    
-    for p in processes:
-        p.join()
-    
 def edit_all(edits, remaining, errors):
-    edits_queue, remaining_queue, errors_queue = multiprocessing.Queue(), multiprocessing.Queue(), multiprocessing.Queue()
-
-    for e in edits:
-        edits_queue.put(e)
-
-    while not edits_queue.empty():
-        edit_batch(edits_queue, remaining_queue, errors_queue) 
-    
-    for queue, ls in zip([remaining_queue, errors_queue], [remaining, errors]):
-        while not queue.empty():
-            ls.append(
-                queue.get()
-            )
-
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        processes = executor.map(edit_one, edits)
 
 def do_rename(src_name, dst_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
