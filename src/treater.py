@@ -100,48 +100,39 @@ def edit_one(edit):
     edit_video(joined_src_path, joined_dst_path, start, end)
         
 def edit_all(edits, remaining, errors):
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        processes = executor.map(edit_one, edits)
+    with concurrent.futures.ProcessPoolExecutor(max_workers=cfg.NUM_PROCESSES) as executor:
+        results = [executor.submit(edit_one, edit) for edit in edits]
+        for future, edit in zip(concurrent.futures.as_completed(results), edits):
+            try:
+                future.result()
+            except Exception as e:
+                handle_error(errors, remaining, edit[trf.EDIT_ORIGINAL], str(e), trf.EDITS, edit)
 
 def do_rename(src_name, dst_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
     joined_dst_name = files.get_joined_path(cfg.RENAMES, dst_name)
 
-    error = None
-    try:
-        os.rename(joined_src_name, joined_dst_name)
-    except Exception as e:
-        error = str(e)
-    
-    return error
+    os.rename(joined_src_name, joined_dst_name)
 
 def rename_all(renames, remaining, errors):
     for rename_source in renames:
         new_name = renames[rename_source]
-        error = do_rename(rename_source, new_name)
-
-        if error:
-            handle_error(errors, remaining, rename_source, error, trf.RENAMES, new_name)
-
+        try:
+            do_rename(rename_source, new_name)
+        except Exception as e:
+            handle_error(errors, remaining, rename_source, str(e), trf.RENAMES, new_name)
 
 def do_delete(src_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
 
-    error = None
-    try:
-        os.remove(joined_src_name)
-    except Exception as e:
-        error = str(e)
-    
-    return error
+    os.remove(joined_src_name)
 
 def delete_all(deletions, remaining, errors):
     for deletion_name in deletions:
-        error = do_delete(deletion_name)
-
-        if error:
-            handle_error(errors, remaining, deletion_name, error, trf.DELETIONS, None)
-
+        try:
+            do_delete(deletion_name)
+        except Exception as e:
+            handle_error(errors, remaining, deletion_name, str(e), trf.DELETIONS, None)
 
 def treat_all(joined_current_file, remaining, errors):
     data = util.read_from_json(joined_current_file)
