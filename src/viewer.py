@@ -143,21 +143,26 @@ def view_video(name):
     joined_path = files.get_joined_path(cfg.SOURCE, name)
     os.startfile(joined_path)
 
-def prompt(name):
-    args = input(f'{name} : ').split(' ', 1)
+def prompt(name, padding, number_remaining):
+    args = input(f'{number_remaining:>{padding}} - {name} : ').split(' ', 1)
     command = args[0]
     raw_tokens = args[1] if len(args) == 2 else str()
     return command, raw_tokens
 
 def run_loop(edits, renames, deletions):
     remaining = util.load_remaining()
+    padding = len(
+        str(
+            len(remaining)
+        )
+    )
 
     while remaining:
         name = remaining[0]
         view_video(name)
         
         go_to_next_file = False
-        command, raw_tokens = prompt(name)
+        command, raw_tokens = prompt(name, padding, len(remaining))
         match command:
             case cmd.QUIT:
                 break
