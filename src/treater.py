@@ -110,7 +110,9 @@ def edit_all(edits, remaining, errors):
 
 def do_rename(src_name, dst_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
-    joined_dst_name = files.get_joined_path(cfg.RENAMES, dst_name)
+    joined_dst_name = add_suffix(
+        files.get_joined_path(cfg.RENAMES, dst_name)
+    )
 
     os.rename(joined_src_name, joined_dst_name)
 
