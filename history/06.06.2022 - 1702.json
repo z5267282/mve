@@ -1,0 +1,114 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2020.09.19 - 23.29.35.02.DVR.mp4",
+            "new name": "ohai 2 dimensional spies",
+            "times": [
+                "-22"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.20 - 23.37.26.02.mp4",
+            "new name": "landing on product fence thing",
+            "times": [
+                "-13"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.21 - 00.25.29.03.DVR.mp4",
+            "new name": "rohan nutty trap",
+            "times": [
+                "-25"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.21 - 01.26.42.04.DVR.mp4",
+            "new name": "48 product rock bomb",
+            "times": [
+                "0"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.21 - 01.26.42.04.DVR.mp4",
+            "new name": "living to tell the tale",
+            "times": [
+                "-41"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.21 - 01.27.52.05.DVR.mp4",
+            "new name": "sollys behind no hes not",
+            "times": [
+                "-11"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.23 - 21.28.54.03.DVR.mp4",
+            "new name": "badwater big plays theyre going tiles",
+            "times": [
+                "-27"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.24 - 20.38.44.03.DVR.mp4",
+            "new name": "harvest spawn to spawn 3k",
+            "times": [
+                "-16"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.26 - 22.39.32.02.DVR.mp4",
+            "new name": "muted the whole time",
+            "times": [
+                "-23"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.28 - 00.43.48.03.DVR.mp4",
+            "new name": "the tempus god",
+            "times": [
+                "-9"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.28 - 22.46.56.04.DVR.mp4",
+            "new name": "snake god arrow force plays",
+            "times": [
+                "-19"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2020.09.30 - 01.12.01.05.DVR.mp4",
+            "new name": "dropping nexus",
+            "times": [
+                "-10"
+            ]
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2020.09.24 - 20.38.44.03.DVR.mp4": "tal ozy ace zias team discussion",
+        "Team Fortress 2 2020.09.28 - 03.35.57.04.DVR.mp4": "gurney pugbait",
+        "Team Fortress 2 2020.09.30 - 00.59.19.04.DVR.mp4": "janga jarry fiasco icebreaker",
+        "Team Fortress 2 2020.09.30 - 01.31.45.06.DVR.mp4": "janga jarry pug 2"
+    },
+    "deletions": [
+        "Team Fortress 2 2020.09.24 - 20.38.44.02.mp4",
+        "Team Fortress 2 2020.09.29 - 23.58.01.03.DVR.mp4"
+    ],
+    "source path": [
+        "D:",
+        "Videos",
+        "Batches",
+        "3"
+    ],
+    "renames path": [
+        "D:",
+        "Videos",
+        "Renames"
+    ],
+    "destination path": [
+        "D:",
+        "Videos",
+        "Edits"
+    ]
+}
