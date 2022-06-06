@@ -1,0 +1,82 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2022.05.10 - 22.32.22.03.DVR.mp4",
+            "new name": "demoknight sitdown kid",
+            "times": [
+                "-4"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.05.10 - 22.38.10.05.DVR.mp4",
+            "new name": "doublecross sweating for no gain",
+            "times": [
+                "-70"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.05.22 - 20.17.42.04.DVR.mp4",
+            "new name": "pleeease",
+            "times": [
+                "-24"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.05.22 - 20.21.02.05.DVR.mp4",
+            "new name": "thyme what",
+            "times": [
+                "-6"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.05.22 - 21.00.44.06.DVR.mp4",
+            "new name": "and were out",
+            "times": [
+                "-18"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.05.22 - 22.12.41.07.DVR.mp4",
+            "new name": "jetpack airshot",
+            "times": [
+                "4:38",
+                "4:43"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.05.22 - 22.21.30.08.DVR.mp4",
+            "new name": "clean scout directs",
+            "times": [
+                "-9"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.05.24 - 21.37.30.02.DVR.mp4",
+            "new name": "the vivi almost",
+            "times": [
+                "-14"
+            ]
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2022.05.10 - 22.32.53.04.DVR.mp4": "surviving democracy",
+        "Team Fortress 2 2022.05.10 - 22.39.04.06.DVR.mp4": "doublecross sweating payoff"
+    },
+    "deletions": [],
+    "source path": [
+        "D:",
+        "Videos",
+        "Batches",
+        "1"
+    ],
+    "renames path": [
+        "D:",
+        "Videos",
+        "Renames"
+    ],
+    "destination path": [
+        "D:",
+        "Videos",
+        "Edits"
+    ]
+}

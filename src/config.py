@@ -1,5 +1,5 @@
 # folder paths
-SOURCE      = ['D:', 'Videos', 'Batches', '1']
+SOURCE      = ['D:', 'Videos', 'Batches', '2']
 RENAMES     = ['D:', 'Videos', 'Renames']
 DESTINATION = ['D:', 'Videos', 'Edits']
 

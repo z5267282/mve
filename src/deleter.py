@@ -1,4 +1,4 @@
-import os
+import shutil
 import sys
 
 import config as cfg
@@ -14,7 +14,7 @@ def run_checks():
 def main():
     run_checks()
 
-    files.do_folder_operation(cfg.SOURCE, os.remove)
+    files.do_folder_operation(cfg.SOURCE, shutil.rmtree)
 
 if __name__ == '__main__':
     main()
