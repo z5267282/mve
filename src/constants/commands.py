@@ -16,12 +16,12 @@ NUM_TOKENS = {
 MESSAGE = '''
 [e]nd      | [ time ] [ name ]
     + edit from [ time ] to end of clip.
-    + the time is in the form [ integer | timestamp in form <min-sec>) ]
+    + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [m]iddle   | [ start ] [ end ] [ name ]
     + edit from [ start ] to [ end ]
-    + start and end are the form [ natural number | timestamp in form <min-sec>) ]
+    + start and end are the form [ natural number | timestamp in form <[hour]-min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [r]ename   | [ name ]
