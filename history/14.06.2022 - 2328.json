@@ -5,28 +5,30 @@
         "Team Fortress 2 2019.08.04 - 01.05.37.04.DVR.mp4": "von scandal ram mvm banana"
     },
     "deletions": [],
-    "source path": [
-        "C:",
-        "\\",
-        "Users",
-        "Sunny",
-        "Videos",
-        "Team Fortress 2"
-    ],
-    "renames path": [
-        "C:",
-        "\\",
-        "Users",
-        "Sunny",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "C:",
-        "\\",
-        "Users",
-        "Sunny",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits"
+        ]
+    }
 }

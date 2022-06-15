@@ -15,28 +15,30 @@
         "Team Fortress 2 2019.07.05 - 01.02.58.02.mp4": "JOSH WHAT THE SHY MAZ 2"
     },
     "deletions": [],
-    "source path": [
-        "C:",
-        "\\",
-        "Users",
-        "Sunny",
-        "Videos",
-        "Team Fortress 2"
-    ],
-    "renames path": [
-        "C:",
-        "\\",
-        "Users",
-        "Sunny",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "C:",
-        "\\",
-        "Users",
-        "Sunny",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits"
+        ]
+    }
 }

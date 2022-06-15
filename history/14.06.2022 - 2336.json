@@ -70,28 +70,30 @@
     "deletions": [
         "Team Fortress 2 2019.08.07 - 02.23.07.10.DVR.mp4"
     ],
-    "source path": [
-        "C:",
-        "\\",
-        "Users",
-        "Sunny",
-        "Videos",
-        "Team Fortress 2"
-    ],
-    "renames path": [
-        "C:",
-        "\\",
-        "Users",
-        "Sunny",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "C:",
-        "\\",
-        "Users",
-        "Sunny",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits"
+        ]
+    }
 }
