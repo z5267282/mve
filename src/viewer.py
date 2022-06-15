@@ -94,7 +94,7 @@ def do_end(name, raw_tokens, edits):
         return False
     
     if re.match(r'[0-9]+', edit_name):
-        edit_name = reprompt_name()
+        edit_name = reprompt_name(edit_name)
 
     if edit_name is None:
         return False
