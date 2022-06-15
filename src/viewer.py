@@ -194,7 +194,7 @@ def log_to_file(edits, renames, deletions):
         trf.RENAMES   : renames,
         trf.DELETIONS : deletions,
     }
-    util.add_paths_to_dict(data)
+    data[trf.PATHS] = util.generate_paths_dict()
     util.write_to_json(data, joined_treatment_name) 
 
 def main():
