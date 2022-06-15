@@ -36,7 +36,9 @@ def stderr_print(message):
     print(message, file=sys.stderr)
 
 
-def add_paths_to_dict(dict):
-    dict[trf.SOURCE_PATH]      = cfg.SOURCE
-    dict[trf.RENAME_PATH]      = cfg.RENAMES
-    dict[trf.DESTINATION_PATH] = cfg.DESTINATION
+def generate_paths_dict():
+    return {
+        trf.SOURCE_PATH      : cfg.SOURCE,
+        trf.RENAME_PATH      : cfg.RENAMES,
+        trf.DESTINATION_PATH : cfg.DESTINATION
+    }

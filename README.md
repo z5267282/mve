@@ -129,9 +129,11 @@ Note that the edits key must be a list to support multiple edit commands for a g
     trf.DELETIONS : [
         <file name>
     ],
-    trf.SOURCE_PATH      : [ list of folders in the source path ],
-    trf.RENAME_PATH      : [ list of folders in the edit path ],
-    trf.DESTINATION_PATH : [ list of folders in the destination path ]
+    trf.PATHS : {
+        trf.SOURCE_PATH      : [ list of folders in the source path ],
+        trf.RENAME_PATH      : [ list of folders in the edit path ],
+        trf.DESTINATION_PATH : [ list of folders in the destination path ]
+    }
 }
 ```
 
