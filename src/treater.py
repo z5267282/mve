@@ -63,7 +63,7 @@ def add_error(errors, name, message, command, data):
         create_error_dict(name, message, command, data)
     )
 
-def add_to_remaining(name, remaining):
+def add_to_remaining(remaining, name):
     remaining.append(name)
 
 def handle_error(errors, remaining, name, message, command, data):
