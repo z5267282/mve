@@ -63,20 +63,22 @@
         "Team Fortress 2 2022.05.10 - 22.39.04.06.DVR.mp4": "doublecross sweating payoff"
     },
     "deletions": [],
-    "source path": [
-        "D:",
-        "Videos",
-        "Batches",
-        "1"
-    ],
-    "renames path": [
-        "D:",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "D:",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "D:",
+            "Videos",
+            "Batches",
+            "1"
+        ],
+        "renames path": [
+            "D:",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "D:",
+            "Videos",
+            "Edits"
+        ]
+    }
 }

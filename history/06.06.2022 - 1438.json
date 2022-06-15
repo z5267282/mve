@@ -13,20 +13,22 @@
         "Team Fortress 2 2020.06.02 - 01.51.14.02.DVR.mp4": "liz calski fun pug"
     },
     "deletions": [],
-    "source path": [
-        "D:",
-        "Videos",
-        "Batches",
-        "3"
-    ],
-    "renames path": [
-        "D:",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "D:",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "D:",
+            "Videos",
+            "Batches",
+            "3"
+        ],
+        "renames path": [
+            "D:",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "D:",
+            "Videos",
+            "Edits"
+        ]
+    }
 }
