@@ -68,6 +68,11 @@ def log_edit(name, edit_name, times, edits):
     }
     edits.append(new_edit)
 
+def reprompt_name(current_name):
+    print(f"the name '{current_name}' starts with a number are you sure you haven't misentered the [m]iddle command?")
+    change_name = input("type 'y' if you want to re-enter this command : ")
+    return None if change_name == 'y' else current_name
+
 def do_end(name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.END)
     if not tokens:
@@ -80,11 +85,18 @@ def do_end(name, raw_tokens, edits):
         time = raw_time
     else:
         time = parse_timestamp(raw_time)
+
     if time is None:
         print_time_format('', '[ integer | timestamp in form <[hour]-min-sec> ]')
         return False 
 
     if bad_name_format(edit_name):
+        return False
+    
+    if re.match(r'[0-9]+', edit_name):
+        edit_name = reprompt_name()
+
+    if edit_name is None:
         return False
 
     log_edit(name, edit_name, [time], edits)
