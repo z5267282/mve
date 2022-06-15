@@ -320,20 +320,22 @@
         "Team Fortress 2 2021.12.17 - 20.17.31.06.DVR.mp4": "badwater couch blackbox the end"
     },
     "deletions": [],
-    "source path": [
-        "D:",
-        "Videos",
-        "Batches",
-        "2"
-    ],
-    "renames path": [
-        "D:",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "D:",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "D:",
+            "Videos",
+            "Batches",
+            "2"
+        ],
+        "renames path": [
+            "D:",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "D:",
+            "Videos",
+            "Edits"
+        ]
+    }
 }

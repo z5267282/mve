@@ -175,20 +175,22 @@
     "deletions": [
         "Team Fortress 2 2021.12.27 - 18.16.32.09.DVR.mp4"
     ],
-    "source path": [
-        "D:",
-        "Videos",
-        "Batches",
-        "1"
-    ],
-    "renames path": [
-        "D:",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "D:",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "D:",
+            "Videos",
+            "Batches",
+            "1"
+        ],
+        "renames path": [
+            "D:",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "D:",
+            "Videos",
+            "Edits"
+        ]
+    }
 }

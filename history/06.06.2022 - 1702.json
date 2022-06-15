@@ -95,20 +95,22 @@
         "Team Fortress 2 2020.09.24 - 20.38.44.02.mp4",
         "Team Fortress 2 2020.09.29 - 23.58.01.03.DVR.mp4"
     ],
-    "source path": [
-        "D:",
-        "Videos",
-        "Batches",
-        "3"
-    ],
-    "renames path": [
-        "D:",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "D:",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "D:",
+            "Videos",
+            "Batches",
+            "3"
+        ],
+        "renames path": [
+            "D:",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "D:",
+            "Videos",
+            "Edits"
+        ]
+    }
 }

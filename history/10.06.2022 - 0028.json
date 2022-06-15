@@ -10,20 +10,22 @@
     ],
     "renames": {},
     "deletions": [],
-    "source path": [
-        "D:",
-        "Videos",
-        "Batches",
-        "3"
-    ],
-    "renames path": [
-        "D:",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "D:",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "D:",
+            "Videos",
+            "Batches",
+            "3"
+        ],
+        "renames path": [
+            "D:",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "D:",
+            "Videos",
+            "Edits"
+        ]
+    }
 }
