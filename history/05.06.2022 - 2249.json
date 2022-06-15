@@ -277,20 +277,22 @@
         "Team Fortress 2 2021.11.24 - 16.10.01.07.DVR.mp4": "harvest 12k original"
     },
     "deletions": [],
-    "source path": [
-        "D:",
-        "Videos",
-        "Batches",
-        "2"
-    ],
-    "renames path": [
-        "D:",
-        "Videos",
-        "Renames"
-    ],
-    "destination path": [
-        "D:",
-        "Videos",
-        "Edits"
-    ]
+    "paths": {
+        "source path": [
+            "D:",
+            "Videos",
+            "Batches",
+            "2"
+        ],
+        "renames path": [
+            "D:",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "D:",
+            "Videos",
+            "Edits"
+        ]
+    }
 }
