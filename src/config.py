@@ -1,7 +1,7 @@
 # folder paths
-SOURCE      = ['D:', 'Videos', 'Batches', '3']
-RENAMES     = ['D:', 'Videos', 'Renames']
-DESTINATION = ['D:', 'Videos', 'Edits']
+SOURCE      = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Team Fortress 2']
+RENAMES     = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Renames']
+DESTINATION = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Edits']
 
 # multi threading and processing
 NUM_THREADS   = 4

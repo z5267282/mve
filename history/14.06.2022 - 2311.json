@@ -1,0 +1,42 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2019.06.24 - 14.35.54.04.DVR.mp4",
+            "new name": "upward second to spawn",
+            "times": [
+                "2:29",
+                "2:42"
+            ]
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2019.06.24 - 14.33.00.03.DVR.mp4": "the first shadowplay",
+        "Team Fortress 2 2019.07.05 - 00.55.27.01.mp4": "JOSH WHAT THE SHY MAZ",
+        "Team Fortress 2 2019.07.05 - 01.02.58.02.mp4": "JOSH WHAT THE SHY MAZ 2"
+    },
+    "deletions": [],
+    "source path": [
+        "C:",
+        "\\",
+        "Users",
+        "Sunny",
+        "Videos",
+        "Team Fortress 2"
+    ],
+    "renames path": [
+        "C:",
+        "\\",
+        "Users",
+        "Sunny",
+        "Videos",
+        "Renames"
+    ],
+    "destination path": [
+        "C:",
+        "\\",
+        "Users",
+        "Sunny",
+        "Videos",
+        "Edits"
+    ]
+}
