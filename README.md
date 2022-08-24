@@ -228,7 +228,7 @@ If `queue/` is empty then the program terminates with exit code `err.EMPTY_QUEUE
 All files will need to be joined together with folder `cfg.SOURCE`.  
 + So the program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist
 
-If `cfg.RENAMES` does not exist the program terminates with exit code `ern.NO_RENAMES_FOLDER`.  
+If `cfg.RENAMES` does not exist the program terminates with exit code `err.NO_RENAMES_FOLDER`.  
 
 The treatments are performed in the following order:  
 1. edits
@@ -255,9 +255,9 @@ The number of threads per editing process can be changed in `cfg.NUM_THREADS` .
 ## overview
 The deletor deletes the folder `cfg.SOURCE` .  
 
-If `remaining.json` exists and contains a non-empty list, the program terminates with exit code `ern.FILES_REMAINING` .  
+If `remaining.json` exists and contains a non-empty list, the program terminates with exit code `err.FILES_REMAINING` .  
 
-If `cfg.SOURCE` doesn't exist then the program teriminates with exit code `ern.NO_SOURCE_FOLDER` .  
+If `cfg.SOURCE` doesn't exist then the program teriminates with exit code `err.NO_SOURCE_FOLDER` .  
 
 ## usage
 ```
