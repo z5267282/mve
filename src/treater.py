@@ -71,37 +71,18 @@ def handle_error(errors, remaining, name, message, command, data):
     add_to_remaining(remaining, name)
 
 
-def edit_video(joined_src_path, joined_dst_path, start, end):
-    args = [
-        'ffmpeg',
-        '-ss', start,
-        '-i', joined_src_path,
-        '-to', end,
-        '-codec', 'copy',
-        '-copyts', '-y', joined_dst_path
-    ]
-# args = [, '-sseof', '-10', '-i', name,  out]
-#     args ['ffmpeg', '-y'] + []
-    subprocess.run(args)
-
 def add_suffix(joined_path):
     return joined_path + video_editing.SUFFIX
 
-def get_duration(joined_path):
-    args = [
-        'ffprobe',
-        '-i',
-        joined_path,
-        '-v',
-        'quiet',
-        '-show_entries',
-        'format=duration',
-        '-hide_banner',
-        '-of',
-        'default=noprint_wrappers=1:nokey=1'
-    ]
-    result = subprocess.run(args, capture_output=True, text=True)
-    return int(float(result.stdout))
+def edit_video(joined_src_path, joined_dst_path, start, end):
+    args ['ffmpeg', '-y'] + []
+    if start.startswith('-1'):
+        args += ['-sseof', start]
+    args += ['-i', joined_src_path]
+    if not end is None:
+        args += ['-to', end]
+    args.append(joined_dst_path)
+    subprocess.run(args)
 
 def edit_one(edit):
     name = edit[trf.EDIT_ORIGINAL]
