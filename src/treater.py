@@ -1,6 +1,5 @@
 import concurrent.futures
 import os
-import moviepy.editor as mvp
 import subprocess
 import sys
 
@@ -81,6 +80,8 @@ def edit_video(joined_src_path, joined_dst_path, start, end):
         '-codec', 'copy',
         '-copyts', '-y', joined_dst_path
     ]
+# args = [, '-sseof', '-10', '-i', name,  out]
+#     args ['ffmpeg', '-y'] + []
     subprocess.run(args)
 
 def add_suffix(joined_path):
