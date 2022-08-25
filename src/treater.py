@@ -1,6 +1,7 @@
 import concurrent.futures
 import os
 import moviepy.editor as mvp
+import subprocess
 import sys
 
 import config as cfg
@@ -72,19 +73,34 @@ def handle_error(errors, remaining, name, message, command, data):
 
 
 def edit_video(joined_src_path, joined_dst_path, start, end):
-    with mvp.VideoFileClip(joined_src_path) as file:
-        clip = file.subclip(t_start=start, t_end=end)
-        clip.write_videofile(
-            joined_dst_path,
-            threads=cfg.NUM_THREADS,
-            fps=video_editing.FRAMES,
-            codec=video_editing.VCODEC,
-            preset=video_editing.COMPRESSION,
-            audio_codec=video_editing.ACODEC
-        )
+    args = [
+        'ffmpeg',
+        '-ss', start,
+        '-i', joined_src_path,
+        '-to', end,
+        '-codec', 'copy',
+        '-copyts', '-y', joined_dst_path
+    ]
+    subprocess.run(args)
 
 def add_suffix(joined_path):
     return joined_path + video_editing.SUFFIX
+
+def get_duration(joined_path):
+    args = [
+        'ffprobe',
+        '-i',
+        joined_path,
+        '-v',
+        'quiet',
+        '-show_entries',
+        'format=duration',
+        '-hide_banner',
+        '-of',
+        'default=noprint_wrappers=1:nokey=1'
+    ]
+    result = subprocess.run(args, capture_output=True, text=True)
+    return int(float(result.stdout))
 
 def edit_one(edit):
     name = edit[trf.EDIT_ORIGINAL]
