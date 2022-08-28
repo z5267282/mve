@@ -1,5 +1,4 @@
 import concurrent.futures
-from ntpath import join
 import os
 import subprocess
 import sys
