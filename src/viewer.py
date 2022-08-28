@@ -28,7 +28,7 @@ def print_time_format(name, form):
     print(f'the {name} time must be in the form {form}')
 
 def parse_timestamp(timestamp):
-    return timestamp.replace('-', ':') if re.fullmatch(r'([0-9]?[0-9]-)?[0-9]?[0-9]-[0-9]?[0-9]', timestamp) else None
+    return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
 
 def print_name_format():
     print('the name can only contain upper and lowercase letters, digits and spacebars')
