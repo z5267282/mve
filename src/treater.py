@@ -82,7 +82,7 @@ def edit_video(joined_src_path, joined_dst_path, start, end):
     if not end is None:
         args += ['-to', end]
     args.append(joined_dst_path)
-    subprocess.run(args)
+    subprocess.run(args, check=True)
 
 def edit_one(edit):
     name = edit[trf.EDIT_ORIGINAL]
