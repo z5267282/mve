@@ -247,10 +247,6 @@ Errors if any, are logged in `errors/` with its matching file structures.
 When an error occurs, the file name of the offending treatment is appended to `remaining.json` , so that it can be re-treated upon the next viewing session
 + The error is then logged
 
-Multiprocessing occurs for the editing stage and the number of processes can be changed in `cfg.NUM_PROCESSES` .  
-
-The number of threads per editing process can be changed in `cfg.NUM_THREADS` .  
-
 # 4 - deleter
 ## overview
 The deletor deletes the folder `cfg.SOURCE` .  
