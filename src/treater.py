@@ -74,11 +74,12 @@ def handle_error(errors, remaining, name, message, command, data):
 def add_suffix(joined_path):
     return joined_path + video_editing.SUFFIX
 
-def edit_video(joined_src_path, joined_dst_path, start, end):
-    args ['ffmpeg', '-y'] + []
-    if start.startswith('-1'):
-        args += ['-sseof', start]
-    args += ['-i', joined_src_path]
+def edit_video(joined_src_path, joined_dst_path, start, end=None):
+    args = [
+        'ffmpeg', '-y',
+        '-i', joined_src_path,
+        '-sseof' if start.startswith('-1') else '-ss', start,
+    ]
     if not end is None:
         args += ['-to', end]
     args.append(joined_dst_path)
@@ -92,10 +93,7 @@ def edit_one(edit):
     )
 
     times = edit[trf.EDIT_TIMES]
-    start = times[0]
-    end = times[1] if len(times) == 2 else None 
-
-    edit_video(joined_src_path, joined_dst_path, start, end)
+    edit_video(joined_src_path, joined_dst_path, *times)
         
 def edit_all(edits, remaining, errors):
     with concurrent.futures.ProcessPoolExecutor(max_workers=cfg.NUM_PROCESSES) as executor:
