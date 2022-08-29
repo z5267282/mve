@@ -174,6 +174,8 @@ The file name is displayed as a prompt, but the program joins this file name wit
 Upon viewing a video, the user enters one of the following commands which are then stored in `queue/` in a `treatment` - like structure.
 + If no treatment commands (as opposed to control flow commands) were entered, then then no file is created
 
+If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUEUE`.  
+
 ## commands
 ```
 [e]nd      | [ time ] [ name ]
@@ -246,6 +248,10 @@ Errors if any, are logged in `errors/` with its matching file structures.
 
 When an error occurs, the file name of the offending treatment is appended to `remaining.json` , so that it can be re-treated upon the next viewing session
 + The error is then logged
+
+Multiprocessing occurs for the editing stage and the number of processes can be changed in `cfg.NUM_PROCESSES` .  
+
+The number of threads per editing process can be changed in `cfg.NUM_THREADS` .  
 
 # 4 - deleter
 ## overview
