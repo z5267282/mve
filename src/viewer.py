@@ -22,6 +22,7 @@ def run_checks():
     check_and_exit_if.bad_args(sys.argv)
     no_remaining()
     check_and_exit_if.no_source_folder()
+    check_and_exit_if.no_queue()
 
 
 def print_time_format(name, form):

@@ -24,6 +24,9 @@ def no_folder(folder_paths, folder_desc, exit_code):
 def no_source_folder():
     no_folder(cfg.SOURCE, 'source', err.NO_SOURCE_FOLDER)
 
+def no_queue():
+    no_folder(fst.QUEUE, 'queue', err.NO_QUEUE)
+
 
 def files_remaining():
     if util.load_remaining():
