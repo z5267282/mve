@@ -153,7 +153,8 @@ def do_delete(name, deletions):
 
 def view_video(name):
     joined_path = files.get_joined_path(cfg.SOURCE, name)
-    os.startfile(joined_path)
+    if sys.platform.startswith('win'):
+        os.startfile(joined_path)
 
 def prompt(name, padding, number_remaining):
     args = input(f'{number_remaining:>{padding}} - {name} : ').split(' ', 1)
