@@ -127,7 +127,7 @@ def edit_one(edit):
 
     times = edit[trf.EDIT_TIMES]
     for t in times:
-        if not check_good_time(t):
+        if not check_good_time(joined_src_path, t):
             raise ValueError(f'invalid time: {t}')
     edit_video(joined_src_path, joined_dst_path, *times)
         
