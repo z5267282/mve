@@ -184,14 +184,17 @@ def update_history(current_file, joined_current_file):
     joined_history_file = files.get_joined_path(fst.HISTORY, current_file)
     os.rename(joined_current_file, joined_history_file)
 
-def write_errors(errors):
-    error_file_name = util.generate_timestamped_file_name()
+def write_errors(error_file_name, errors):
     joined_error_file_name = files.get_joined_path(fst.ERRORS, error_file_name)
     data = {
         erf.ERRORS_VIDEOS: errors,
         erf.ERRORS_PATHS : util.generate_paths_dict()
     }
     util.write_to_json(data, joined_error_file_name)
+
+def treatment_error(error_file_name):
+    print(f"one or more errors occurred during treatment logged in '{error_file_name}'", file=sys.stderr)
+    sys.exit(err.TREATMENT_ERROR)
 
 def main():
     run_checks()
@@ -203,8 +206,10 @@ def main():
     update_history(current_file, joined_current_file)
 
     if errors:
-        write_errors(errors)
+        error_file_name = util.generate_timestamped_file_name()
+        write_errors(error_file_name, errors)
         util.write_remaining(remaining)
+        treatment_error(error_file_name)
 
 if __name__ == '__main__':
     main()
