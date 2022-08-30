@@ -94,7 +94,7 @@ def get_timestamp_seconds(timestamp):
             for i, t in enumerate(reversed(timestamp.split(':')))
     )
 
-def check_good_time(joined_src_path, time):
+def in_duration_bounds(joined_src_path, time):
     duration = get_duration(joined_src_path)
 
     seconds = None
@@ -127,8 +127,8 @@ def edit_one(edit):
 
     times = edit[trf.EDIT_TIMES]
     for t in times:
-        if not check_good_time(joined_src_path, t):
-            raise ValueError(f'invalid time: {t}')
+        if not in_duration_bounds(joined_src_path, t):
+            raise ValueError(f'time not within video bounds: {t}')
     edit_video(joined_src_path, joined_dst_path, *times)
         
 def edit_all(edits, remaining, errors):
