@@ -180,7 +180,7 @@ If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUE
 ```
 [e]nd      | [ time ] [ name ]
     + edit from [ time ] to end of clip.
-    + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
+    + the time is in the form [ integer | timestamp in form <[hour-]min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [m]iddle   | [ start ] [ end ] [ name ]
