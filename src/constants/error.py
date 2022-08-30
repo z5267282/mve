@@ -18,3 +18,6 @@ EMPTY_QUEUE = 9
 # file structure folders
 NO_HISTORY_FOLDER = 10
 NO_ERRORS_FOLDER  = 11
+
+# treatment
+TREATMENT_ERROR = 12
