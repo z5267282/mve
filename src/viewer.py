@@ -13,14 +13,14 @@ import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 import helpers.util as util
 
-def no_remaining():
+def check_no_remaining():
     if not os.path.exists(fst.REMAINING):
         util.stderr_print(f"the remaining file '{fst.REMAINING}' doesn't exist")
         sys.exit(err.MISSING_REMAINING)
 
 def run_checks():
     check_and_exit_if.bad_args(sys.argv)
-    no_remaining()
+    check_no_remaining()
     check_and_exit_if.no_source_folder()
     check_and_exit_if.no_queue()
 
