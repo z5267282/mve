@@ -10,7 +10,7 @@ import constants.error as err
 import constants.errors_format as erf
 import constants.file_structure as fst
 import constants.treatment_format as trf
-import constants.video_editing as video_editing
+import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
@@ -70,7 +70,7 @@ def handle_error(errors, remaining, name, message, command, data):
 
 
 def add_suffix(joined_path):
-    return joined_path + video_editing.SUFFIX
+    return joined_path + vde.SUFFIX
 
 def get_duration(joined_src_path):
     args = [
@@ -114,10 +114,10 @@ def edit_moviepy(joined_src_path, joined_dst_path, start, end=None):
         clip.write_videofile(
             joined_dst_path,
             threads=cfg.NUM_THREADS,
-            fps=video_editing.FRAMES,
-            codec=video_editing.VCODEC,
-            preset=video_editing.COMPRESSION,
-            audio_codec=video_editing.ACODEC
+            fps=vde.FRAMES,
+            codec=vde.VCODEC,
+            preset=vde.COMPRESSION,
+            audio_codec=vde.ACODEC
         )
 
 def edit_ffmpeg(joined_src_path, joined_dst_path, start, end=None):
