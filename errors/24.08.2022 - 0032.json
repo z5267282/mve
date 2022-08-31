@@ -1,0 +1,34 @@
+{
+    "files": [
+        {
+            "file name": "Team Fortress 2 2020.07.10 - 20.09.22.02.DVR.mp4",
+            "message": "[WinError 17] The system cannot move the file to a different disk drive: 'D:\\\\Videos\\\\Team Fortress 2\\\\Team Fortress 2 2020.07.10 - 20.09.22.02.DVR.mp4' -> 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Renames\\\\josh 4s victory.mp4'",
+            "error": "renames",
+            "data": "josh 4s victory"
+        }
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits"
+        ]
+    }
+}
