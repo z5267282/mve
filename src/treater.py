@@ -16,10 +16,10 @@ import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 import helpers.util as util
 
-def empty_queue():
+def check_empty_queue():
     if not files.ls(fst.QUEUE):
         print(f"there are no files queued in folder '{fst.QUEUE}'")
-        sys.exit(err.EMPTY_QUEUE)
+        sys.exit(err.check_empty_queue)
 
 def no_renames():
     check_and_exit_if.no_folder(cfg.RENAMES, 'renames', err.NO_RENAMES_FOLDER)
@@ -33,7 +33,7 @@ def no_errors():
 def run_checks():
     check_and_exit_if.bad_args(sys.argv)
     check_and_exit_if.no_queue()
-    empty_queue()
+    check_empty_queue()
     check_and_exit_if.no_source_folder()
     no_renames()
     no_history()
