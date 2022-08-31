@@ -29,6 +29,9 @@ Where the script is to be run and all relevant code for the program is stored.
 ### 0.1.1 - `src/config.py`
 A `.py` file containing constants that can be changed each time the program is run.  
 
+The editing can either be done with `ffmpeg` or `MoviePy` .  
++ This is controlled by the value of `USE_MOVIEPY` .  
+
 It should be imported with the following statement:  
 
 ```py
