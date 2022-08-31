@@ -1,0 +1,35 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.52.30.36.DVR.mp4",
+            "new name": "the direct shit",
+            "times": [
+                "-14"
+            ]
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits"
+        ]
+    }
+}

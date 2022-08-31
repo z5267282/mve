@@ -1,0 +1,197 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2022.06.13 - 22.23.23.15.DVR.mp4",
+            "new name": "emerging from behind for the dub",
+            "times": [
+                "-35"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 22.25.22.16.DVR.mp4",
+            "new name": "amby bm",
+            "times": [
+                "-8"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 22.31.20.17.DVR.mp4",
+            "new name": "coming in with the clean pipes",
+            "times": [
+                "-16"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 22.33.34.18.DVR.mp4",
+            "new name": "people getting what they deserve",
+            "times": [
+                "-15"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 22.36.13.19.DVR.mp4",
+            "new name": "yikes antlers solly",
+            "times": [
+                "-6"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 22.45.33.20.DVR.mp4",
+            "new name": "the fighter",
+            "times": [
+                "-12"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 22.45.52.21.DVR.mp4",
+            "new name": "the fair crit",
+            "times": [
+                "6",
+                "10"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.08.17.22.DVR.mp4",
+            "new name": "upward the pyro rush",
+            "times": [
+                "-19"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.10.58.23.DVR.mp4",
+            "new name": "clean scout aim on dh solly",
+            "times": [
+                "10",
+                "14"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.10.58.23.DVR.mp4",
+            "new name": "demo the big det",
+            "times": [
+                "1:19",
+                "1:24"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.10.58.23.DVR.mp4",
+            "new name": "poor fucker got sent to the moon",
+            "times": [
+                "-12"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.11.12.24.DVR.mp4",
+            "new name": "the gloory cricky",
+            "times": [
+                "-4"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.15.59.25.DVR.mp4",
+            "new name": "who walks into a dh like that",
+            "times": [
+                "-20"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.18.05.26.DVR.mp4",
+            "new name": "the goated concheror",
+            "times": [
+                "-13"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.26.12.27.DVR.mp4",
+            "new name": "outplaying individuals to the next dimension or using luck",
+            "times": [
+                "-40"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.26.37.28.DVR.mp4",
+            "new name": "fun and games",
+            "times": [
+                "-18"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.28.18.29.DVR.mp4",
+            "new name": "fun and games 2",
+            "times": [
+                "0",
+                "1:35"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.30.49.30.DVR.mp4",
+            "new name": "the speed daemon",
+            "times": [
+                "-16"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.31.13.31.DVR.mp4",
+            "new name": "the speed daemon 2",
+            "times": [
+                "0",
+                "23"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.36.01.32.DVR.mp4",
+            "new name": "putting the g in goat",
+            "times": [
+                "-61"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.37.45.33.DVR.mp4",
+            "new name": "putting the g in goat 2",
+            "times": [
+                "0"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.46.28.34.DVR.mp4",
+            "new name": "destroying baffoons",
+            "times": [
+                "2:48"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 23.47.20.35.DVR.mp4",
+            "new name": "scout dove kill",
+            "times": [
+                "-7"
+            ]
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2022.06.13 - 22.13.30.13.DVR.mp4": "smae spawncamp adventures",
+        "Team Fortress 2 2022.06.13 - 22.17.43.14.DVR.mp4": "smae spawncamp adventures 2"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits"
+        ]
+    }
+}

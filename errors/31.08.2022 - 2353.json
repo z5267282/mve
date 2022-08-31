@@ -1,0 +1,38 @@
+{
+    "files": [
+        {
+            "file name": "Team Fortress 2 2022.06.13 - 23.52.30.36.DVR.mp4",
+            "message": "[Errno 22] Invalid argument\n\nMoviePy error: FFMPEG encountered the following error while writing file C:\\Users\\Sunny\\Videos\\Edits\\the direct shit.mp4:\n\n b'[mp4 @ 0000022e893b82c0] Could not find tag for codec rawvideo in stream #0, codec not currently supported in container\\r\\nCould not write header for output file #0 (incorrect codec parameters ?): Invalid argument\\r\\nError initializing output stream 0:0 -- \\r\\n'\n\nThe video export failed, possibly because the codec specified for the video (rawvideo) is not compatible with the given extension (mp4). Please specify a valid 'codec' argument in write_videofile. This would be 'libx264' or 'mpeg4' for mp4, 'libtheora' for ogv, 'libvpx for webm. Another possible reason is that the audio codec was not compatible with the video codec. For instance the video extensions 'ogv' and 'webm' only allow 'libvorbis' (default) as avideo codec.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2022.06.13 - 23.52.30.36.DVR.mp4",
+                "new name": "the direct shit",
+                "times": [
+                    "-14"
+                ]
+            }
+        }
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits"
+        ]
+    }
+}
