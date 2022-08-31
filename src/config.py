@@ -1,6 +1,6 @@
 # folder paths
 SOURCE      = ['D:', '\\', 'Videos', 'Team Fortress 2']
-RENAMES     = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Renames']
+RENAMES     = ['D:', '\\', 'Videos', 'Renames']
 DESTINATION = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Edits']
 
 # multi threading and processing

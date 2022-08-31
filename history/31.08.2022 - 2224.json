@@ -1,0 +1,112 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.34.45.02.DVR.mp4",
+            "new name": "thunder mountain the 1 2",
+            "times": [
+                "-13"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.36.00.03.DVR.mp4",
+            "new name": "strange fence character",
+            "times": [
+                "-7"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.36.51.04.DVR.mp4",
+            "new name": "thunder mountain fence adventures",
+            "times": [
+                "-14"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.37.48.05.DVR.mp4",
+            "new name": "thunder mountain sitdown son dh",
+            "times": [
+                "-4"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.38.28.06.DVR.mp4",
+            "new name": "the spy hunter",
+            "times": [
+                "22",
+                "38"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.43.02.07.DVR.mp4",
+            "new name": "what a fucking joke",
+            "times": [
+                "4:12",
+                "4:22"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.49.39.08.DVR.mp4",
+            "new name": "yikes there champion dh",
+            "times": [
+                "-4"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.50.47.09.DVR.mp4",
+            "new name": "do not",
+            "times": [
+                "-8"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.53.05.10.DVR.mp4",
+            "new name": "dh demo crit",
+            "times": [
+                "1:38",
+                "1:44"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 21.53.05.10.DVR.mp4",
+            "new name": "what a fucking escape",
+            "times": [
+                "-24"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.06.13 - 22.12.23.12.DVR.mp4",
+            "new name": "scout spawncamp 8k",
+            "times": [
+                "2:22"
+            ]
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2022.06.13 - 21.57.13.11.DVR.mp4": "adventures with woody"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits"
+        ]
+    }
+}
