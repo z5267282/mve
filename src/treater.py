@@ -211,7 +211,7 @@ def write_errors(error_file_name, errors):
     }
     util.write_to_json(data, joined_error_file_name)
 
-def treatment_error(error_file_name):
+def exit_treatment_error(error_file_name):
     print(f"one or more errors occurred during treatment logged in '{error_file_name}'", file=sys.stderr)
     sys.exit(err.TREATMENT_ERROR)
 
@@ -228,7 +228,7 @@ def main():
         error_file_name = util.generate_timestamped_file_name()
         write_errors(error_file_name, errors)
         util.write_remaining(remaining)
-        treatment_error(error_file_name)
+        exit_treatment_error(error_file_name)
 
 if __name__ == '__main__':
     main()
