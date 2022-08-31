@@ -1,5 +1,6 @@
 import concurrent.futures
 import os
+import moviepy.editor as mvp
 import subprocess
 import sys
 
@@ -107,7 +108,19 @@ def in_duration_bounds(joined_src_path, time):
 
     return seconds >= 0 and seconds <= duration
 
-def edit_video(joined_src_path, joined_dst_path, start, end=None):
+def edit_moviepy(joined_src_path, joined_dst_path, start, end=None):
+    with mvp.VideoFileClip(joined_src_path) as file:
+        clip = file.subclip(t_start=start, t_end=end)
+        clip.write_videofile(
+            joined_dst_path,
+            threads=cfg.NUM_THREADS,
+            fps=video_editing.FRAMES,
+            codec=video_editing.VCODEC,
+            preset=video_editing.COMPRESSION,
+            audio_codec=video_editing.ACODEC
+        )
+
+def edit_ffmpeg(joined_src_path, joined_dst_path, start, end=None):
     args = ['ffmpeg', '-y']
     source = ['-i', joined_src_path]
     args += ['-sseof', start, *source] if start.startswith('-') else [*source, '-ss', start]
@@ -117,6 +130,12 @@ def edit_video(joined_src_path, joined_dst_path, start, end=None):
         
     args.append(joined_dst_path)
     subprocess.run(args, check=True)
+
+def edit_video(joined_src_path, joined_dst_path, start, end=None):
+    if cfg.USE_MOVIEPY:
+        edit_moviepy(joined_src_path, joined_dst_path, start, end)
+    else:
+        edit_ffmpeg(joined_src_path, joined_dst_path, start, end)
 
 def edit_one(edit):
     name = edit[trf.EDIT_ORIGINAL]
