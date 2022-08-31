@@ -22,13 +22,14 @@ def run_checks():
     check_and_exit_if.bad_args(sys.argv)
     no_remaining()
     check_and_exit_if.no_source_folder()
+    check_and_exit_if.no_queue()
 
 
 def print_time_format(name, form):
     print(f'the {name} time must be in the form {form}')
 
 def parse_timestamp(timestamp):
-    return timestamp.replace('-', ':') if re.fullmatch(r'([0-9]?[0-9]-)?[0-9]?[0-9]-[0-9]?[0-9]', timestamp) else None
+    return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
 
 def print_name_format():
     print('the name can only contain upper and lowercase letters, digits and spacebars')
@@ -153,7 +154,8 @@ def do_delete(name, deletions):
 
 def view_video(name):
     joined_path = files.get_joined_path(cfg.SOURCE, name)
-    os.startfile(joined_path)
+    if sys.platform.startswith('win'):
+        os.startfile(joined_path)
 
 def prompt(name, padding, number_remaining):
     args = input(f'{number_remaining:>{padding}} - {name} : ').split(' ', 1)

@@ -1,6 +1,6 @@
 import concurrent.futures
 import os
-import moviepy.editor as mvp
+import subprocess
 import sys
 
 import config as cfg
@@ -14,9 +14,6 @@ import constants.video_editing as video_editing
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 import helpers.util as util
-
-def no_queue():
-    check_and_exit_if.no_folder(fst.QUEUE, 'queue', err.NO_QUEUE)
 
 def empty_queue():
     if not files.ls(fst.QUEUE):
@@ -34,7 +31,7 @@ def no_errors():
 
 def run_checks():
     check_and_exit_if.bad_args(sys.argv)
-    no_queue()
+    check_and_exit_if.no_queue()
     empty_queue()
     check_and_exit_if.no_source_folder()
     no_renames()
@@ -71,20 +68,55 @@ def handle_error(errors, remaining, name, message, command, data):
     add_to_remaining(remaining, name)
 
 
-def edit_video(joined_src_path, joined_dst_path, start, end):
-    with mvp.VideoFileClip(joined_src_path) as file:
-        clip = file.subclip(t_start=start, t_end=end)
-        clip.write_videofile(
-            joined_dst_path,
-            threads=cfg.NUM_THREADS,
-            fps=video_editing.FRAMES,
-            codec=video_editing.VCODEC,
-            preset=video_editing.COMPRESSION,
-            audio_codec=video_editing.ACODEC
-        )
-
 def add_suffix(joined_path):
     return joined_path + video_editing.SUFFIX
+
+def get_duration(joined_src_path):
+    args = [
+        'ffprobe',
+        '-i',
+        joined_src_path,
+        '-v',
+        'quiet',
+        '-show_entries',
+        'format=duration',
+        '-hide_banner',
+        '-of',
+        'default=noprint_wrappers=1:nokey=1'
+    ]
+    result = subprocess.run(args, capture_output=True, text=True)
+
+    return int(float(result.stdout))
+
+def get_timestamp_seconds(timestamp):
+    return sum(
+        int(t) * (60 ** i)
+            for i, t in enumerate(reversed(timestamp.split(':')))
+    )
+
+def in_duration_bounds(joined_src_path, time):
+    duration = get_duration(joined_src_path)
+
+    seconds = None
+    if time.startswith('-'):
+        seconds = int(time[1:]) 
+    elif ':' in time:
+        seconds = get_timestamp_seconds(time)
+    else:
+        seconds = int(time)
+
+    return seconds >= 0 and seconds <= duration
+
+def edit_video(joined_src_path, joined_dst_path, start, end=None):
+    args = ['ffmpeg', '-y']
+    source = ['-i', joined_src_path]
+    args += ['-sseof', start, *source] if start.startswith('-') else [*source, '-ss', start]
+
+    if not end is None:
+        args += ['-to', end]
+        
+    args.append(joined_dst_path)
+    subprocess.run(args, check=True)
 
 def edit_one(edit):
     name = edit[trf.EDIT_ORIGINAL]
@@ -94,10 +126,10 @@ def edit_one(edit):
     )
 
     times = edit[trf.EDIT_TIMES]
-    start = times[0]
-    end = times[1] if len(times) == 2 else None 
-
-    edit_video(joined_src_path, joined_dst_path, start, end)
+    for t in times:
+        if not in_duration_bounds(joined_src_path, t):
+            raise ValueError(f'time not within video bounds: {t}')
+    edit_video(joined_src_path, joined_dst_path, *times)
         
 def edit_all(edits, remaining, errors):
     with concurrent.futures.ProcessPoolExecutor(max_workers=cfg.NUM_PROCESSES) as executor:
@@ -152,14 +184,17 @@ def update_history(current_file, joined_current_file):
     joined_history_file = files.get_joined_path(fst.HISTORY, current_file)
     os.rename(joined_current_file, joined_history_file)
 
-def write_errors(errors):
-    error_file_name = util.generate_timestamped_file_name()
+def write_errors(error_file_name, errors):
     joined_error_file_name = files.get_joined_path(fst.ERRORS, error_file_name)
     data = {
         erf.ERRORS_VIDEOS: errors,
         erf.ERRORS_PATHS : util.generate_paths_dict()
     }
     util.write_to_json(data, joined_error_file_name)
+
+def treatment_error(error_file_name):
+    print(f"one or more errors occurred during treatment logged in '{error_file_name}'", file=sys.stderr)
+    sys.exit(err.TREATMENT_ERROR)
 
 def main():
     run_checks()
@@ -171,8 +206,10 @@ def main():
     update_history(current_file, joined_current_file)
 
     if errors:
-        write_errors(errors)
+        error_file_name = util.generate_timestamped_file_name()
+        write_errors(error_file_name, errors)
         util.write_remaining(remaining)
+        treatment_error(error_file_name)
 
 if __name__ == '__main__':
     main()
