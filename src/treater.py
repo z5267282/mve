@@ -212,7 +212,7 @@ def write_errors(error_file_name, errors):
     util.write_to_json(data, joined_error_file_name)
 
 def exit_treatment_error(error_file_name):
-    print(f"one or more errors occurred during treatment logged in '{error_file_name}'", file=sys.stderr)
+    util.stderr_print(f"one or more errors occurred during treatment logged in '{error_file_name}'")
     sys.exit(err.TREATMENT_ERROR)
 
 def main():
