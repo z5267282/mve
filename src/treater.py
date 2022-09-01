@@ -19,7 +19,7 @@ import helpers.util as util
 def check_empty_queue():
     if not files.ls(fst.QUEUE):
         print(f"there are no files queued in folder '{fst.QUEUE}'")
-        sys.exit(err.check_empty_queue)
+        sys.exit(err.NO_QUEUE)
 
 def no_renames():
     check_and_exit_if.no_folder(cfg.RENAMES, 'renames', err.NO_RENAMES_FOLDER)
