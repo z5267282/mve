@@ -26,23 +26,16 @@ def run_checks():
 
 
 def print_time_format(name, form):
-    print(f'the {name} time must be in the form {form}')
+    util.stderr_print(f'the {name} time must be in the form {form}')
 
 def parse_timestamp(timestamp):
     return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
 
 def print_name_format():
-    print('the name can only contain upper and lowercase letters, digits and spacebars')
+    util.stderr_print('the name can only contain upper and lowercase letters, digits and spacebars')
 
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
-
-def bad_name_format(name):
-    if not correct_name_format(name):
-        print_name_format()
-        return True
-
-    return False
 
 
 def do_continue(remaining, name):
@@ -77,7 +70,7 @@ def reprompt_name(current_name):
 def do_end(name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.END)
     if not tokens:
-        print('[e]nd | [ time ] [ name ]')
+        util.stderr_print('[e]nd | [ time ] [ name ]')
         return False
 
     raw_time, edit_name = tokens
@@ -91,7 +84,8 @@ def do_end(name, raw_tokens, edits):
         print_time_format('', '[ integer | timestamp in form <[hour]-min-sec> ]')
         return False 
 
-    if bad_name_format(edit_name):
+    if not correct_name_format(name):
+        print_name_format()
         return False
     
     if re.match(r'[0-9]+', edit_name):
@@ -106,7 +100,7 @@ def do_end(name, raw_tokens, edits):
 def do_middle(name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.MIDDLE)
     if not tokens:
-        print('[m]iddle | [ start ] [ end ] [ name ]')
+        util.stderr_print('[m]iddle | [ start ] [ end ] [ name ]')
         return False
 
     start, end, edit_name = tokens
@@ -123,7 +117,12 @@ def do_middle(name, raw_tokens, edits):
 
         times.append(time)
     
-    if bad_name_format(edit_name):
+    if not correct_name_format(name):
+        print_name_format()
+        return False
+
+    if not correct_name_format(name):
+        print_name_format()
         return False
 
     log_edit(name, edit_name, times, edits)
@@ -135,11 +134,12 @@ def log_rename(name, new_name, renames):
 def do_rename(name, raw_tokens, renames):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
-        print('[r]ename | [ name ]')
+        util.stderr_print('[r]ename | [ name ]')
         return False
     
     new_name, = tokens
-    if bad_name_format(new_name):
+    if not correct_name_format(new_name):
+        print_name_format()
         return False
     
     log_rename(name, new_name, renames)
@@ -193,12 +193,13 @@ def run_loop(edits, renames, deletions):
             case cmd.DELETE:
                 go_to_next_file = do_delete(name, deletions)
             case _:
-                print(f"invalid command '{command}' - press {cmd.HELP} for a list of commands")
+                util.stderr_print(f"invalid command '{command}' - press {cmd.HELP} for a list of commands")
 
         if go_to_next_file:
             remaining.pop(0)
     
     util.write_remaining(remaining)
+
 
 def log_to_file(edits, renames, deletions):
     treatment_name = util.generate_timestamped_file_name()
@@ -210,6 +211,7 @@ def log_to_file(edits, renames, deletions):
     }
     data[trf.PATHS] = util.generate_paths_dict()
     util.write_to_json(data, joined_treatment_name) 
+
 
 def main():
     run_checks()
