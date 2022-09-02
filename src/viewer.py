@@ -39,8 +39,8 @@ def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
 
 
-def do_continue(remaining, name):
-    remaining.insert(0, name)
+def do_continue(remaining, base_name):
+    remaining.insert(0, base_name)
 
 def do_help():
     print(cmd.MESSAGE)
@@ -78,8 +78,8 @@ def get_timestamp_seconds(timestamp):
             for i, t in enumerate(reversed(timestamp.split(':')))
     )
 
-def in_duration_bounds(name, time):
-    joined_src_path = files.get_joined_path(cfg.SOURCE, name)
+def in_duration_bounds(base_name, time):
+    joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
     duration = get_duration(joined_src_path)
 
     seconds = None
@@ -95,9 +95,9 @@ def in_duration_bounds(name, time):
 def print_duration_error(time, name):
     util.stderr_print(f"time '{time}' is not in the bounds of video {name}")
 
-def log_edit(name, edit_name, times, edits):
+def log_edit(base_name, edit_name, times, edits):
     new_edit = {
-        trf.EDIT_ORIGINAL : name,
+        trf.EDIT_ORIGINAL : base_name,
         trf.EDIT_NAME     : edit_name,
         trf.EDIT_TIMES    : times
     }
@@ -108,7 +108,7 @@ def reprompt_name(current_name):
     change_name = input("type 'y' if you want to re-enter this command : ")
     return None if change_name == 'y' else current_name
 
-def do_end(name, raw_tokens, edits):
+def do_end(base_name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.END)
     if not tokens:
         util.stderr_print('[e]nd | [ time ] [ name ]')
@@ -125,11 +125,11 @@ def do_end(name, raw_tokens, edits):
         print_time_format('end', '[ integer | timestamp in form <[hour]-min-sec> ]')
         return False 
     
-    if not in_duration_bounds(name, time):
+    if not in_duration_bounds(base_name, time):
         print_duration_error()
         return False 
 
-    if not correct_name_format(name):
+    if not correct_name_format(base_name):
         print_name_format()
         return False
     
@@ -139,10 +139,10 @@ def do_end(name, raw_tokens, edits):
     if edit_name is None:
         return False
 
-    log_edit(name, edit_name, [time], edits)
+    log_edit(base_name, edit_name, [time], edits)
     return True
 
-def do_middle(name, raw_tokens, edits):
+def do_middle(base_name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.MIDDLE)
     if not tokens:
         util.stderr_print('[m]iddle | [ start ] [ end ] [ name ]')
@@ -161,27 +161,27 @@ def do_middle(name, raw_tokens, edits):
             print_time_format(description, '[ natural number | timestamp in form <[hour]-min-sec> ]')
             return False
         
-        if not in_duration_bounds(name, time):
-            print_duration_error(time, name)
+        if not in_duration_bounds(base_name, time):
+            print_duration_error(time, base_name)
             return False
 
         times.append(time)
     
-    if not correct_name_format(name):
+    if not correct_name_format(base_name):
         print_name_format()
         return False
 
-    if not correct_name_format(name):
+    if not correct_name_format(base_name):
         print_name_format()
         return False
 
-    log_edit(name, edit_name, times, edits)
+    log_edit(base_name, edit_name, times, edits)
     return True
 
-def log_rename(name, new_name, renames):
-    renames[name] = new_name
+def log_rename(old_name, new_name, renames):
+    renames[old_name] = new_name
 
-def do_rename(name, raw_tokens, renames):
+def do_rename(base_name, raw_tokens, renames):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
         util.stderr_print('[r]ename | [ name ]')
@@ -192,23 +192,23 @@ def do_rename(name, raw_tokens, renames):
         print_name_format()
         return False
     
-    log_rename(name, new_name, renames)
+    log_rename(base_name, new_name, renames)
     return True
 
-def log_delete(name, deletions):
-    deletions.append(name)
+def log_delete(base_name, deletions):
+    deletions.append(base_name)
 
-def do_delete(name, deletions):
-    log_delete(name, deletions)
+def do_delete(base_name, deletions):
+    log_delete(base_name, deletions)
     return True
 
-def view_video(name):
-    joined_path = files.get_joined_path(cfg.SOURCE, name)
+def view_video(base_name):
+    joined_path = files.get_joined_path(cfg.SOURCE, base_name)
     if sys.platform.startswith('win'):
         os.startfile(joined_path)
 
-def prompt(name, padding, number_remaining):
-    args = input(f'{number_remaining:>{padding}} - {name} : ').split(' ', 1)
+def prompt(base_name, padding, number_remaining):
+    args = input(f'{number_remaining:>{padding}} - {base_name} : ').split(' ', 1)
     command = args[0]
     raw_tokens = args[1] if len(args) == 2 else str()
     return command, raw_tokens
@@ -222,26 +222,26 @@ def run_loop(edits, renames, deletions):
     )
 
     while remaining:
-        name = remaining[0]
-        view_video(name)
+        base_name = remaining[0]
+        view_video(base_name)
         
         go_to_next_file = False
-        command, raw_tokens = prompt(name, padding, len(remaining))
+        command, raw_tokens = prompt(base_name, padding, len(remaining))
         match command:
             case cmd.QUIT:
                 break
             case cmd.CONTINUE:
-                do_continue(remaining, name)
+                do_continue(remaining, base_name)
             case cmd.HELP:
                 do_help()
             case cmd.END:
-                go_to_next_file = do_end(name, raw_tokens, edits)
+                go_to_next_file = do_end(base_name, raw_tokens, edits)
             case cmd.MIDDLE:
-                go_to_next_file = do_middle(name, raw_tokens, edits)
+                go_to_next_file = do_middle(base_name, raw_tokens, edits)
             case cmd.RENAME:
-                go_to_next_file = do_rename(name, raw_tokens, renames)
+                go_to_next_file = do_rename(base_name, raw_tokens, renames)
             case cmd.DELETE:
-                go_to_next_file = do_delete(name, deletions)
+                go_to_next_file = do_delete(base_name, deletions)
             case _:
                 util.stderr_print(f"invalid command '{command}' - press {cmd.HELP} for a list of commands")
 
