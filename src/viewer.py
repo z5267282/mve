@@ -129,7 +129,7 @@ def do_end(name, raw_tokens, edits):
         print_duration_error()
         return False 
 
-    if not correct_name_format(name):
+    if not correct_name_format(edit_name):
         print_name_format()
         return False
     
@@ -167,11 +167,7 @@ def do_middle(name, raw_tokens, edits):
 
         times.append(time)
     
-    if not correct_name_format(name):
-        print_name_format()
-        return False
-
-    if not correct_name_format(name):
+    if not correct_name_format(edit_name):
         print_name_format()
         return False
 
