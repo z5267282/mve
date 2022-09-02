@@ -6,4 +6,4 @@ ERROR_MESSAGE   = 'message'
 ERROR_COMMAND   = 'error'
 ERROR_DATA      = 'data'
 
-ERRORS_PATHS  = 'paths'
+ERRORS_PATHS = 'paths'

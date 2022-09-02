@@ -1,5 +1,5 @@
 # suffix for edited videos
-SUFFIX      = '.mp4'
+SUFFIX = '.mp4'
 
 # moviepy clip editing
 FRAMES      = 60
