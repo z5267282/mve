@@ -3,6 +3,22 @@ A movie editing tool using multiprocessing.
 
 This program can only be run on Windows.  
 
+## style
+All the `src/*.py` files have a `main()` function.  
++ Big functions are written in the order they appear in `main()` .  
+    + Big functions are separated by double newlines.  
++ Small functions are written in the order they appear in big ones.  
+```
+    small_1()
+    small_2()
+    ...
+
+    big_1():
+        small_1()
+        small_2()
+        ...
+```
+
 # 0 - file structure
 ```
 mve/
