@@ -199,9 +199,11 @@ def treat_all(joined_current_file, remaining, errors):
     deletions = data[trf.DELETIONS]
     delete_all(deletions, remaining, errors)
 
+
 def update_history(current_file, joined_current_file):
     joined_history_file = files.get_joined_path(fst.HISTORY, current_file)
     os.rename(joined_current_file, joined_history_file)
+
 
 def write_errors(error_file_name, errors):
     joined_error_file_name = files.get_joined_path(fst.ERRORS, error_file_name)
@@ -215,6 +217,13 @@ def exit_treatment_error(error_file_name):
     util.stderr_print(f"one or more errors occurred during treatment logged in '{error_file_name}'")
     sys.exit(err.TREATMENT_ERROR)
 
+def handle_errors(remaining, errors):
+    error_file_name = util.generate_timestamped_file_name()
+    write_errors(error_file_name, errors)
+    util.write_remaining(remaining)
+    exit_treatment_error(error_file_name)
+
+
 def main():
     run_checks()
 
@@ -225,10 +234,7 @@ def main():
     update_history(current_file, joined_current_file)
 
     if errors:
-        error_file_name = util.generate_timestamped_file_name()
-        write_errors(error_file_name, errors)
-        util.write_remaining(remaining)
-        exit_treatment_error(error_file_name)
+        handle_errors()
 
 if __name__ == '__main__':
     main()
