@@ -129,7 +129,7 @@ def do_end(base_name, raw_tokens, edits):
         print_duration_error()
         return False 
 
-    if not correct_name_format(base_name):
+    if not correct_name_format(edit_name):
         print_name_format()
         return False
     
