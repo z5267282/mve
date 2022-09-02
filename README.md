@@ -62,6 +62,7 @@ A folder documenting constants that **are not** to be changed.
 
 All files in this folder should be imported with one of the following 3 letter abreviations:  
 ```py
+import constants.colour as clr
 import constants.commands as cmd
 import constants.error as err
 import constants.errors_format as erf
