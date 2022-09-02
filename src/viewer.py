@@ -1,5 +1,6 @@
 import os
 import re
+import subprocess
 import sys
 
 import config as cfg
@@ -54,6 +55,46 @@ def parse_tokens(raw_tokens, command):
     return tokens if len(tokens) == n_tokens else []
 
 
+def get_duration(joined_src_path):
+    args = [
+        'ffprobe',
+        '-i',
+        joined_src_path,
+        '-v',
+        'quiet',
+        '-show_entries',
+        'format=duration',
+        '-hide_banner',
+        '-of',
+        'default=noprint_wrappers=1:nokey=1'
+    ]
+    result = subprocess.run(args, capture_output=True, text=True)
+
+    return int(float(result.stdout))
+
+def get_timestamp_seconds(timestamp):
+    return sum(
+        int(t) * (60 ** i)
+            for i, t in enumerate(reversed(timestamp.split(':')))
+    )
+
+def in_duration_bounds(name, time):
+    joined_src_path = files.get_joined_path(cfg.SOURCE, name)
+    duration = get_duration(joined_src_path)
+
+    seconds = None
+    if time.startswith('-'):
+        seconds = int(time[1:]) 
+    elif ':' in time:
+        seconds = get_timestamp_seconds(time)
+    else:
+        seconds = int(time)
+
+    return seconds >= 0 and seconds <= duration
+
+def print_duration_error(time, name):
+    util.stderr_print(f"time '{time}' is not in the bounds of video {name}")
+
 def log_edit(name, edit_name, times, edits):
     new_edit = {
         trf.EDIT_ORIGINAL : name,
@@ -81,7 +122,11 @@ def do_end(name, raw_tokens, edits):
         time = parse_timestamp(raw_time)
 
     if time is None:
-        print_time_format('', '[ integer | timestamp in form <[hour]-min-sec> ]')
+        print_time_format('end', '[ integer | timestamp in form <[hour]-min-sec> ]')
+        return False 
+    
+    if not in_duration_bounds(name, time):
+        print_duration_error()
         return False 
 
     if not correct_name_format(name):
@@ -106,13 +151,18 @@ def do_middle(name, raw_tokens, edits):
     start, end, edit_name = tokens
     times = []
     for value, description in zip([start, end], ['start', 'end']):
+        time = None
         if re.fullmatch(r'[0-9]+', value):
-            times.append(value)
-            continue 
+            time = value
+        else:
+            time = parse_timestamp(value) 
 
-        time = parse_timestamp(value)
         if time is None:
             print_time_format(description, '[ natural number | timestamp in form <[hour]-min-sec> ]')
+            return False
+        
+        if not in_duration_bounds(name, time):
+            print_duration_error(time, name)
             return False
 
         times.append(time)
