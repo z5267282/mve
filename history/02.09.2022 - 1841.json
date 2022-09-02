@@ -1,0 +1,86 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2022.08.08 - 17.08.38.11.DVR.mp4",
+            "new name": "spetsnaz double clipped",
+            "times": [
+                "-5"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.08.08 - 17.10.48.12.DVR.mp4",
+            "new name": "a clean sentry surf away",
+            "times": [
+                "1:54",
+                "2:0"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.08.08 - 17.11.19.13.DVR.mp4",
+            "new name": "ratatouille the eureka effecting engi",
+            "times": [
+                "-7"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.08.08 - 17.19.35.14.DVR.mp4",
+            "new name": "getting out alive lolll",
+            "times": [
+                "-16"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.08.08 - 17.21.02.15.DVR.mp4",
+            "new name": "the bells badwater spwan camp",
+            "times": [
+                "-19"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.08.08 - 17.36.33.16.DVR.mp4",
+            "new name": "a parasite exorcision",
+            "times": [
+                "-42"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.08.08 - 17.59.06.17.DVR.mp4",
+            "new name": "lucafastab rex",
+            "times": [
+                "0",
+                "4"
+            ]
+        },
+        {
+            "original": "Team Fortress 2 2022.08.08 - 17.59.06.17.DVR.mp4",
+            "new name": "le ze gome escape",
+            "times": [
+                "-11"
+            ]
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits"
+        ]
+    }
+}
