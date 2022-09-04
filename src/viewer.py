@@ -276,6 +276,7 @@ def run_loop(edits, renames, deletions):
             remaining.pop(0)
     
     util.write_remaining(remaining)
+    return len(remaining)
 
 
 def log_to_file(edits, renames, deletions):
@@ -294,12 +295,12 @@ def main():
     run_checks()
 
     edits, renames, deletions = list(), dict(), list()
-    run_loop(edits, renames, deletions)
+    num_remaining = run_loop(edits, renames, deletions)
 
-    if not (edits or renames or deletions):
-        return
+    if edits or renames or deletions:
+        log_to_file(edits, renames, deletions)
 
-    log_to_file(edits, renames, deletions)
+    util.exit_success(f'exited with {util.colour_print(clr.CYAN, num_remaining)} files remaining')
 
 if __name__ == '__main__':
     main()
