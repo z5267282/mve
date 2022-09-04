@@ -45,6 +45,14 @@ def print_name_format():
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
 
+def check_file_exists(name, folder):
+    if os.path.exists(
+        files.get_joined_path(folder, name)        
+    ):
+        util.print_error(f"the file '{util.highlight(name)}' exists in the folder {folder}")
+        return True
+    
+    return False
 
 def do_continue(remaining, base_name):
     remaining.insert(0, base_name)
@@ -147,6 +155,9 @@ def do_end(base_name, raw_tokens, edits):
         print_name_format()
         return False
     
+    if check_file_exists(edit_name, cfg.DESTINATION):
+        return False
+
     edit_name = handle_leading_number(edit_name)
 
     if edit_name is None:
@@ -184,6 +195,9 @@ def do_middle(base_name, raw_tokens, edits):
         print_name_format()
         return False
     
+    if check_file_exists(edit_name, cfg.DESTINATION):
+        return False
+    
     edit_name = handle_leading_number(edit_name)
 
     if edit_name is None:
@@ -209,6 +223,9 @@ def do_rename(base_name, raw_tokens, renames):
     new_name = handle_leading_number(new_name)
 
     if new_name is None:
+        return False
+    
+    if check_file_exists(new_name, cfg.RENAMES):
         return False
     
     log_rename(base_name, new_name, renames)
