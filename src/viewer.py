@@ -15,6 +15,9 @@ import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 import helpers.util as util
 
+def highlight_command(command):
+    return util.colour_print(clr.PURPLE, command)
+
 def check_no_remaining():
     if not os.path.exists(fst.REMAINING):
         util.stderr_print(f"the remaining file '{util.highlight(fst.REMAINING)}' doesn't exist")
@@ -56,6 +59,9 @@ def tokenise(raw_tokens, splits):
     return raw_tokens.split(' ', splits)
 
 def parse_tokens(raw_tokens, command):
+    if not raw_tokens:
+        return []
+
     n_tokens = cmd.NUM_TOKENS[command]
     tokens = tokenise(raw_tokens, n_tokens - 1)
     return tokens if len(tokens) == n_tokens else []
@@ -121,7 +127,7 @@ def handle_leading_number(name):
 def do_end(base_name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.END)
     if not tokens:
-        print_usage_error('[e]nd | [ time ] [ name ]')
+        print_usage_error(f'[{highlight_command("e")}]nd | [ time ] [ name ]')
         return False
 
     raw_time, edit_name = tokens
@@ -154,7 +160,7 @@ def do_end(base_name, raw_tokens, edits):
 def do_middle(base_name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.MIDDLE)
     if not tokens:
-        print_usage_error('[m]iddle | [ start ] [ end ] [ name ]')
+        print_usage_error(f'[{highlight_command("m")}]iddle | [ start ] [ end ] [ name ]')
         return False
 
     start, end, edit_name = tokens
@@ -194,7 +200,7 @@ def log_rename(old_name, new_name, renames):
 def do_rename(base_name, raw_tokens, renames):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
-        print_usage_error('[r]ename | [ name ]')
+        print_usage_error(f'[{highlight_command("r")}]ename | [ name ]')
         return False
     
     new_name, = tokens
