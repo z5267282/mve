@@ -99,7 +99,7 @@ def in_duration_bounds(base_name, time):
     return seconds >= 0 and seconds <= duration
 
 def print_duration_error(time, name):
-    print_error(f"time '{time}' is not in the bounds of video {name}")
+    print_error(f"time '{util.highlight(time)}' is not in the bounds of video {name}")
 
 def log_edit(base_name, edit_name, times, edits):
     new_edit = {
@@ -110,7 +110,7 @@ def log_edit(base_name, edit_name, times, edits):
     edits.append(new_edit)
 
 def reprompt_name(current_name):
-    print(f"[ {clr.YELLOW}warning{clr.RESET} ] ", end='')
+    print(f'[ {clr.YELLOW}warning{clr.RESET} ] ', end='')
     print(f"the name '{current_name}' starts with a number are you sure you haven't misentered the [m]iddle command?")
     change_name = input("type 'y' if you want to re-enter this command : ")
     return None if change_name == 'y' else current_name
@@ -136,7 +136,7 @@ def do_end(base_name, raw_tokens, edits):
         return False 
     
     if not in_duration_bounds(base_name, time):
-        print_duration_error()
+        print_duration_error(time, base_name)
         return False 
 
     if not correct_name_format(edit_name):
@@ -228,7 +228,8 @@ def view_video(base_name):
             subprocess.run(['open', joined_path])
 
 def prompt(base_name, padding, number_remaining):
-    args = input(f'{number_remaining:>{padding}} - {base_name} : ').split(' ', 1)
+    coloured_remaining = f'[ {clr.CYAN}{number_remaining:>{padding}}{clr.RESET} ]'
+    args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
     command = args[0]
     raw_tokens = args[1] if len(args) == 2 else str()
     return command, raw_tokens
@@ -263,7 +264,7 @@ def run_loop(edits, renames, deletions):
             case cmd.DELETE:
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
-                print_error(f"invalid command '{command}' - press {cmd.HELP} for a list of commands")
+                print_error(f"invalid command '{util.highlight(command)}' - press {cmd.HELP} for a list of commands")
 
         if go_to_next_file:
             remaining.pop(0)

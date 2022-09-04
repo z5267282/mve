@@ -4,6 +4,7 @@ import sys
 
 import config as cfg
 
+import constants.colour as clr
 import constants.json_settings as jsn
 import constants.file_structure as fst
 import constants.treatment_format as trf
@@ -42,3 +43,10 @@ def generate_paths_dict():
         trf.RENAME_PATH      : cfg.RENAMES,
         trf.DESTINATION_PATH : cfg.DESTINATION
     }
+
+
+def colour_print(colour, string):
+    return f'{colour}{string}{clr.RESET}'
+
+def highlight(string):
+    return colour_print(clr.BLUE, string)
