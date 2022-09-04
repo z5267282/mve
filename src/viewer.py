@@ -200,8 +200,12 @@ def do_delete(base_name, deletions):
 
 def view_video(base_name):
     joined_path = files.get_joined_path(cfg.SOURCE, base_name)
-    if sys.platform.startswith('win'):
+
+    system = sys.platform
+    if system.startswith('win'):
         os.startfile(joined_path)
+    elif system.startswith('darwin'):
+        subprocess.run(['open', joined_path])
 
 def prompt(base_name, padding, number_remaining):
     args = input(f'{number_remaining:>{padding}} - {base_name} : ').split(' ', 1)
