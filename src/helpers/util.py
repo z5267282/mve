@@ -52,6 +52,10 @@ def highlight(string):
     return colour_print(clr.BLUE, string)
 
 
+def print_error(message):
+    stderr_print(f'[ {clr.RED}error{clr.RESET} ] {message}')
+
+
 def exit_success(message):
     print(f'[ {colour_print(clr.GREEN, "success")} ] {message}')
     sys.exit(0)

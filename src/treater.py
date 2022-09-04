@@ -175,7 +175,7 @@ def write_errors(error_file_name, errors):
     util.write_to_json(data, joined_error_file_name)
 
 def exit_treatment_error(error_file_name):
-    util.stderr_print(f"one or more errors occurred during treatment logged in '{error_file_name}'")
+    util.print_error(f"one or more errors occurred during treatment logged in '{util.highlight(error_file_name)}'")
     sys.exit(err.TREATMENT_ERROR)
 
 def handle_errors(remaining, errors):
@@ -195,7 +195,10 @@ def main():
     update_history(current_file, joined_current_file)
 
     if errors:
-        handle_errors()
+        handle_errors(remaining, errors)
+
+    util.exit_success('successfully treated all files')
+
 
 if __name__ == '__main__':
     main()
