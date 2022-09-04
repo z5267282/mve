@@ -199,6 +199,5 @@ def main():
 
     util.exit_success('successfully treated all files')
 
-
 if __name__ == '__main__':
     main()
