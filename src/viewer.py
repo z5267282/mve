@@ -5,6 +5,7 @@ import sys
 
 import config as cfg
 
+import constants.colour as clr
 import constants.commands as cmd
 import constants.error as err
 import constants.file_structure as fst
@@ -25,15 +26,20 @@ def run_checks():
     check_and_exit_if.no_source_folder()
     check_and_exit_if.no_queue()
 
+def print_error(message):
+    util.stderr_print(f'[ {clr.RED}error{clr.RESET} ] {message}')
+
+def print_usage_error(format):
+    print_error(f'usage: {format}')
 
 def print_time_format(name, form):
-    util.stderr_print(f'the {name} time must be in the form {form}')
+    print_error(f'the {name} time must be in the form {form}')
 
 def parse_timestamp(timestamp):
     return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
 
 def print_name_format():
-    util.stderr_print('the name can only contain upper and lowercase letters, digits and spacebars')
+    print_error('the name can only contain upper and lowercase letters, digits and spacebars')
 
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
@@ -93,7 +99,7 @@ def in_duration_bounds(base_name, time):
     return seconds >= 0 and seconds <= duration
 
 def print_duration_error(time, name):
-    util.stderr_print(f"time '{time}' is not in the bounds of video {name}")
+    print_error(f"time '{time}' is not in the bounds of video {name}")
 
 def log_edit(base_name, edit_name, times, edits):
     new_edit = {
@@ -104,14 +110,18 @@ def log_edit(base_name, edit_name, times, edits):
     edits.append(new_edit)
 
 def reprompt_name(current_name):
+    print(f"[ {clr.YELLOW}warning{clr.RESET} ] ", end='')
     print(f"the name '{current_name}' starts with a number are you sure you haven't misentered the [m]iddle command?")
     change_name = input("type 'y' if you want to re-enter this command : ")
     return None if change_name == 'y' else current_name
 
+def handle_leading_number(name):
+    return reprompt_name(name) if re.match(r'[0-9]+', name) else name
+
 def do_end(base_name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.END)
     if not tokens:
-        util.stderr_print('[e]nd | [ time ] [ name ]')
+        print_usage_error('[e]nd | [ time ] [ name ]')
         return False
 
     raw_time, edit_name = tokens
@@ -133,8 +143,7 @@ def do_end(base_name, raw_tokens, edits):
         print_name_format()
         return False
     
-    if re.match(r'[0-9]+', edit_name):
-        edit_name = reprompt_name(edit_name)
+    edit_name = handle_leading_number(edit_name)
 
     if edit_name is None:
         return False
@@ -145,7 +154,7 @@ def do_end(base_name, raw_tokens, edits):
 def do_middle(base_name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.MIDDLE)
     if not tokens:
-        util.stderr_print('[m]iddle | [ start ] [ end ] [ name ]')
+        print_usage_error('[m]iddle | [ start ] [ end ] [ name ]')
         return False
 
     start, end, edit_name = tokens
@@ -170,6 +179,11 @@ def do_middle(base_name, raw_tokens, edits):
     if not correct_name_format(edit_name):
         print_name_format()
         return False
+    
+    edit_name = handle_leading_number(edit_name)
+
+    if edit_name is None:
+        return False
 
     log_edit(base_name, edit_name, times, edits)
     return True
@@ -180,12 +194,17 @@ def log_rename(old_name, new_name, renames):
 def do_rename(base_name, raw_tokens, renames):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
-        util.stderr_print('[r]ename | [ name ]')
+        print_usage_error('[r]ename | [ name ]')
         return False
     
     new_name, = tokens
     if not correct_name_format(new_name):
         print_name_format()
+        return False
+
+    new_name = handle_leading_number(new_name)
+
+    if new_name is None:
         return False
     
     log_rename(base_name, new_name, renames)
@@ -244,7 +263,7 @@ def run_loop(edits, renames, deletions):
             case cmd.DELETE:
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
-                util.stderr_print(f"invalid command '{command}' - press {cmd.HELP} for a list of commands")
+                print_error(f"invalid command '{command}' - press {cmd.HELP} for a list of commands")
 
         if go_to_next_file:
             remaining.pop(0)
