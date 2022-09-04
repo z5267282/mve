@@ -9,3 +9,6 @@ NUM_PROCESSES = 4
 
 # MoviePy
 USE_MOVIEPY = True
+
+# testing
+TESTING = False
