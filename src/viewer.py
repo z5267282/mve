@@ -205,7 +205,8 @@ def view_video(base_name):
     if system.startswith('win'):
         os.startfile(joined_path)
     elif system.startswith('darwin'):
-        subprocess.run(['open', joined_path])
+        if not cfg.TESTING:
+            subprocess.run(['open', joined_path])
 
 def prompt(base_name, padding, number_remaining):
     args = input(f'{number_remaining:>{padding}} - {base_name} : ').split(' ', 1)

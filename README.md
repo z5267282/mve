@@ -48,6 +48,10 @@ A `.py` file containing constants that can be changed each time the program is r
 The editing can either be done with `ffmpeg` or `MoviePy` .  
 + This is controlled by the value of `USE_MOVIEPY` .  
 
+Testing in `mve-tests` is done on Mac.  
++ In testing mode files are not opened in `src/viewer.py` .  
++ Testing mode is toggled via `TESTING` .  
+
 It should be imported with the following statement:  
 
 ```py
