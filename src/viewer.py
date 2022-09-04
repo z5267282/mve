@@ -249,7 +249,7 @@ def view_video(base_name):
             subprocess.run(['open', joined_path])
 
 def prompt(base_name, padding, number_remaining):
-    coloured_remaining = f'[ {clr.CYAN}{number_remaining:>{padding}}{clr.RESET} ]'
+    coloured_remaining = f'[ {clr.CYAN}{number_remaining:^{padding}}{clr.RESET} ]'
     args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
     command = args[0]
     raw_tokens = args[1] if len(args) == 2 else str()
