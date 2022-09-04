@@ -29,20 +29,18 @@ def run_checks():
     check_and_exit_if.no_source_folder()
     check_and_exit_if.no_queue()
 
-def print_error(message):
-    util.stderr_print(f'[ {clr.RED}error{clr.RESET} ] {message}')
 
 def print_usage_error(format):
-    print_error(f'usage: {format}')
+    util.print_error(f'usage: {format}')
 
 def print_time_format(name, form):
-    print_error(f'the {name} time must be in the form {form}')
+    util.print_error(f'the {name} time must be in the form {form}')
 
 def parse_timestamp(timestamp):
     return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
 
 def print_name_format():
-    print_error('the name can only contain upper and lowercase letters, digits and spacebars')
+    util.print_error('the name can only contain upper and lowercase letters, digits and spacebars')
 
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
@@ -105,7 +103,7 @@ def in_duration_bounds(base_name, time):
     return seconds >= 0 and seconds <= duration
 
 def print_duration_error(time, name):
-    print_error(f"time '{util.highlight(time)}' is not in the bounds of video {name}")
+    util.print_error(f"time '{util.highlight(time)}' is not in the bounds of video {name}")
 
 def log_edit(base_name, edit_name, times, edits):
     new_edit = {
@@ -270,7 +268,7 @@ def run_loop(edits, renames, deletions):
             case cmd.DELETE:
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
-                print_error(f"invalid command '{util.highlight(command)}' - press {cmd.HELP} for a list of commands")
+                util.print_error(f"invalid command '{util.highlight(command)}' - press {cmd.HELP} for a list of commands")
 
         if go_to_next_file:
             remaining.pop(0)
