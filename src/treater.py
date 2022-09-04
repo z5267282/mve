@@ -10,6 +10,7 @@ import constants.error as err
 import constants.errors_format as erf
 import constants.file_structure as fst
 import constants.treatment_format as trf
+import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
