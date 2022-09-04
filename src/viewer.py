@@ -10,6 +10,7 @@ import constants.commands as cmd
 import constants.error as err
 import constants.file_structure as fst
 import constants.treatment_format as trf
+import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
@@ -17,6 +18,11 @@ import helpers.util as util
 
 def highlight_command(command):
     return util.colour_print(clr.PURPLE, command)
+
+
+def add_suffix(name):
+    return f'{name}.{vde.SUFFIX}'
+
 
 def check_no_remaining():
     if not os.path.exists(fst.REMAINING):
@@ -155,12 +161,12 @@ def do_end(base_name, raw_tokens, edits):
         print_name_format()
         return False
     
-    if check_file_exists(edit_name, cfg.DESTINATION):
-        return False
-
     edit_name = handle_leading_number(edit_name)
-
     if edit_name is None:
+        return False
+    
+    edit_name = add_suffix(edit_name)
+    if check_file_exists(edit_name, cfg.DESTINATION):
         return False
 
     log_edit(base_name, edit_name, [time], edits)
@@ -199,8 +205,11 @@ def do_middle(base_name, raw_tokens, edits):
         return False
     
     edit_name = handle_leading_number(edit_name)
-
     if edit_name is None:
+        return False
+    
+    edit_name = add_suffix(edit_name)
+    if check_file_exists(edit_name, cfg.DESTINATION):
         return False
 
     log_edit(base_name, edit_name, times, edits)
@@ -225,6 +234,7 @@ def do_rename(base_name, raw_tokens, renames):
     if new_name is None:
         return False
     
+    new_name = add_suffix(new_name)
     if check_file_exists(new_name, cfg.RENAMES):
         return False
     
