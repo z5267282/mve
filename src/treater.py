@@ -69,8 +69,6 @@ def handle_error(errors, remaining, name, message, command, data):
     add_to_remaining(remaining, name)
 
 
-def add_suffix(joined_path):
-    return joined_path + vde.SUFFIX
 
 def edit_moviepy(joined_src_path, joined_dst_path, start, end=None):
     with mvp.VideoFileClip(joined_src_path) as file:
@@ -104,13 +102,11 @@ def edit_video(joined_src_path, joined_dst_path, start, end=None):
 def edit_one(edit):
     name = edit[trf.EDIT_ORIGINAL]
     joined_src_path = files.get_joined_path(cfg.SOURCE, name)
-    joined_dst_path = add_suffix(
-        files.get_joined_path(cfg.DESTINATION, edit[trf.EDIT_NAME])
-    )
+    joined_dst_path = files.get_joined_path(cfg.DESTINATION, edit[trf.EDIT_NAME])
 
     times = edit[trf.EDIT_TIMES]
     edit_video(joined_src_path, joined_dst_path, *times)
-        
+
 def edit_all(edits, remaining, errors):
     with concurrent.futures.ProcessPoolExecutor(max_workers=cfg.NUM_PROCESSES) as executor:
         results = [executor.submit(edit_one, edit) for edit in edits]
@@ -122,9 +118,7 @@ def edit_all(edits, remaining, errors):
 
 def do_rename(src_name, dst_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
-    joined_dst_name = add_suffix(
-        files.get_joined_path(cfg.RENAMES, dst_name)
-    )
+    joined_dst_name = files.get_joined_path(cfg.RENAMES, dst_name)
 
     os.rename(joined_src_name, joined_dst_name)
 

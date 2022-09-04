@@ -10,6 +10,7 @@ import constants.commands as cmd
 import constants.error as err
 import constants.file_structure as fst
 import constants.treatment_format as trf
+import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
@@ -17,6 +18,11 @@ import helpers.util as util
 
 def highlight_command(command):
     return util.colour_print(clr.PURPLE, command)
+
+
+def add_suffix(name):
+    return f'{name}.{vde.SUFFIX}'
+
 
 def check_no_remaining():
     if not os.path.exists(fst.REMAINING):
@@ -45,6 +51,14 @@ def print_name_format():
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
 
+def check_file_exists(name, folder):
+    if os.path.exists(
+        files.get_joined_path(folder, name)        
+    ):
+        util.print_error(f"the file '{util.highlight(name)}' exists in the folder {folder}")
+        return True
+    
+    return False
 
 def do_continue(remaining, base_name):
     remaining.insert(0, base_name)
@@ -148,8 +162,11 @@ def do_end(base_name, raw_tokens, edits):
         return False
     
     edit_name = handle_leading_number(edit_name)
-
     if edit_name is None:
+        return False
+    
+    edit_name = add_suffix(edit_name)
+    if check_file_exists(edit_name, cfg.DESTINATION):
         return False
 
     log_edit(base_name, edit_name, [time], edits)
@@ -184,9 +201,15 @@ def do_middle(base_name, raw_tokens, edits):
         print_name_format()
         return False
     
+    if check_file_exists(edit_name, cfg.DESTINATION):
+        return False
+    
     edit_name = handle_leading_number(edit_name)
-
     if edit_name is None:
+        return False
+    
+    edit_name = add_suffix(edit_name)
+    if check_file_exists(edit_name, cfg.DESTINATION):
         return False
 
     log_edit(base_name, edit_name, times, edits)
@@ -211,6 +234,10 @@ def do_rename(base_name, raw_tokens, renames):
     if new_name is None:
         return False
     
+    new_name = add_suffix(new_name)
+    if check_file_exists(new_name, cfg.RENAMES):
+        return False
+    
     log_rename(base_name, new_name, renames)
     return True
 
@@ -232,7 +259,7 @@ def view_video(base_name):
             subprocess.run(['open', joined_path])
 
 def prompt(base_name, padding, number_remaining):
-    coloured_remaining = f'[ {clr.CYAN}{number_remaining:>{padding}}{clr.RESET} ]'
+    coloured_remaining = f'[ {clr.CYAN}{number_remaining:^{padding}}{clr.RESET} ]'
     args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
     command = args[0]
     raw_tokens = args[1] if len(args) == 2 else str()
