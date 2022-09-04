@@ -17,7 +17,7 @@ import helpers.util as util
 
 def check_no_remaining():
     if not os.path.exists(fst.REMAINING):
-        util.stderr_print(f"the remaining file '{fst.REMAINING}' doesn't exist")
+        util.stderr_print(f"the remaining file '{util.highlight(fst.REMAINING)}' doesn't exist")
         sys.exit(err.MISSING_REMAINING)
 
 def run_checks():
@@ -111,7 +111,7 @@ def log_edit(base_name, edit_name, times, edits):
 
 def reprompt_name(current_name):
     print(f'[ {clr.YELLOW}warning{clr.RESET} ] ', end='')
-    print(f"the name '{current_name}' starts with a number are you sure you haven't misentered the [m]iddle command?")
+    print(f"the name '{util.highlight(current_name)}' starts with a number are you sure you haven't misentered the [m]iddle command?")
     change_name = input("type 'y' if you want to re-enter this command : ")
     return None if change_name == 'y' else current_name
 
