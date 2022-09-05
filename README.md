@@ -100,9 +100,9 @@ Similar to the `treatment` structure, the videos must be able to support duplica
         }
     ],
     erf.ERRORS_PATHS : {
-        trf.SOURCE_PATH : [ list of folders in the source path ],
-        trf.RENAME_PATH : [ list of folders in the edit path ],
-        trf.DESTINATION_PATH : [ list of folders in the destination path ]
+        trf.SOURCE_PATH : [ list of folders of the path where videos are sourced from ],
+        trf.RENAME_PATH : [ list of folders of the path where renames are to be placed  ],
+        trf.DESTINATION_PATH : [ list of folders of the path where edits are to be placed ]
     }
 }
 ```
@@ -137,9 +137,9 @@ Note that the edits key must be a list to support multiple edit commands for a g
         <file name>
     ],
     trf.PATHS : {
-        trf.SOURCE_PATH      : [ list of folders in the source path ],
-        trf.RENAME_PATH      : [ list of folders in the edit path ],
-        trf.DESTINATION_PATH : [ list of folders in the destination path ]
+        trf.SOURCE_PATH : [ list of folders of the path where videos are sourced from ],
+        trf.RENAME_PATH : [ list of folders of the path where renames are to be placed  ],
+        trf.DESTINATION_PATH : [ list of folders of the path where edits are to be placed ]
     }
 }
 ```
@@ -292,14 +292,14 @@ Multiprocessing occurs for the editing stage and the number of processes can be 
 The number of threads per editing process can be changed in `cfg.NUM_THREADS` .  
 
 # 4 - deleter
-## overview
-The deletor deletes the folder `cfg.SOURCE` .  
-
-If `remaining.json` exists and contains a non-empty list, the program terminates with exit code `err.FILES_REMAINING` .  
-
-If `cfg.SOURCE` doesn't exist then the program teriminates with exit code `err.NO_SOURCE_FOLDER` .  
-
 ## usage
 ```
 python3 deleter.py
 ```
+
+## overview
+The deleter deletes the folder `cfg.SOURCE` .  
+
+If `remaining.json` exists and contains a non-empty list, the program terminates with exit code `err.FILES_REMAINING` .  
+
+If `cfg.SOURCE` doesn't exist then the program teriminates with exit code `err.NO_SOURCE_FOLDER` .  
