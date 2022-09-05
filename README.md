@@ -1,23 +1,7 @@
 # mve
 A movie editing tool using multiprocessing.  
 
-This program can only be run on Windows.  
-
-## style
-All the `src/*.py` files have a `main()` function.  
-+ Big functions are written in the order they appear in `main()` .  
-    + Big functions are separated by double newlines.  
-+ Small functions are written in the order they appear in big ones.  
-```
-    small_1()
-    small_2()
-    ...
-
-    big_1():
-        small_1()
-        small_2()
-        ...
-```
+This program can be run on Windows or Mac.  
 
 # 0 - file structure
 ```
@@ -48,8 +32,7 @@ A `.py` file containing constants that can be changed each time the program is r
 The editing can either be done with `ffmpeg` or `MoviePy` .  
 + This is controlled by the value of `USE_MOVIEPY` .  
 
-Testing in `mve-tests` is done on Mac.  
-+ In testing mode files are not opened in `src/viewer.py` .  
++ In testing mode files are not opened in the `viewer` .  
 + Testing mode is toggled via `TESTING` .  
 
 It should be imported with the following statement:  
@@ -159,6 +142,36 @@ Note that the edits key must be a list to support multiple edit commands for a g
         trf.DESTINATION_PATH : [ list of folders in the destination path ]
     }
 }
+```
+
+# Style
+The code body begins with a double newline beneath the last import.  
+
+All the following programs have a `main()` function.  
+Helper functions of main are separated by a double newline.  
+Functions are thereafter written in stack order:  
+
+```
+    def main():
+        A()
+        B()
+    
+
+    def A():
+        b()
+        d()
+    
+    def b():
+        c()
+    
+    def c()
+
+    def d():
+        ...
+    
+
+    def B():
+        ...
 ```
 
 # 1 - generator
