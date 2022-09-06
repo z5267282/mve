@@ -15,13 +15,14 @@ def main():
     new_files = files.ls(cfg.SOURCE)
     util.write_to_json(new_files, fst.REMAINING)
 
+    util.exit_success(f"placed file names into '{util.highlight(fst.REMAINING)}' from folder {cfg.SOURCE}")
+
 
 def run_checks():
     check_and_exit_if.bad_args(sys.argv)
     check_and_exit_if.no_source_folder()
     if os.path.exists(fst.REMAINING):
         check_and_exit_if.files_remaining()
-
 
 if __name__ == '__main__':
     main()
