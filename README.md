@@ -88,7 +88,7 @@ All files are named with a timestamp in the form `DD.MM.YYYY - hhmm`.
 
 It is a `JSON` dictionary where each key is structured in the following way.  
 
-Similar to the `treatment` structure, the videos must be able to support duplicate filenames and hence a list of objects is used.  
+File names could be duplicated and hence a list of objects is used.  
 ```
 {
     erf.ERRORS_VIDEOS : [
@@ -108,7 +108,7 @@ Similar to the `treatment` structure, the videos must be able to support duplica
 ```
 
 ## 0.3 - `history/`
-A folder storing past `treatment` - structured files from `queue` .  
+A folder storing past `treatment` - structured files from `queue/` .  
 
 ## 0.4 - `queue/`
 A folder which contains a list of `treatment` - structured `JSON` files.  
@@ -120,7 +120,7 @@ All files with a `treatment` structure are named with a timestamp in the form `D
 
 All file names do not have a leading directory.  
 
-Note that the edits key must be a list to support multiple edit commands for a given file name.  
+There can be multiple edit commands with the same file name.  
 ```
 {
     trf.EDITS : [
@@ -250,6 +250,8 @@ If an error occurs nothing is logged and the video is reshown, with input also b
 The following errors are checked against:  
 1. Correct number of arguments
 2. Correctly formatted arguments
+3. [ when applicable ] New name does not exist in the output folder
+4. [ when applicable ] Timestamps in bounds of the video
 
 # 3 - treater
 ## usage
@@ -258,7 +260,7 @@ python3 treater.py
 ```
 
 ## overview
-The treater will read the earliest created file in `queue` and use it to apply transformations.  
+The treater will read the earliest created file in `queue/` and use it to apply transformations.  
 
 If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUEUE`.  
 
