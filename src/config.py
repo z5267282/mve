@@ -1,5 +1,5 @@
 # folder paths
-SOURCE      = ['D:', '\\', 'Videos', 'Minecraft']
+SOURCE      = ['D:', '\\', 'TF2 BIG', 'Team Fortress 2', '3']
 RENAMES     = ['D:', '\\', 'Videos', 'MC Renames']
 DESTINATION = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Edits', 'Minecraft']
 
