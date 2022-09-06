@@ -1,3 +1,4 @@
+# command key mappings
 END      = 'e'
 MIDDLE   = 'm'
 RENAME   = 'r'
@@ -13,6 +14,7 @@ NUM_TOKENS = {
     RENAME : 1,
 }
 
+# help message
 MESSAGE = '''
 [e]nd      | [ time ] [ name ]
     + edit from [ time ] to end of clip.
