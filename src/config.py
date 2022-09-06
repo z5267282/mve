@@ -12,3 +12,6 @@ USE_MOVIEPY = True
 
 # testing
 TESTING = False
+
+# colours
+BOLD = True
