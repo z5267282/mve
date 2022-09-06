@@ -113,7 +113,7 @@ def do_end(base_name, raw_tokens, edits):
         return False
 
     raw_time, edit_name = tokens
-    time = check_time(base_name, raw_time, r'-?[0-9]+', 'start', 'end', '[ integer | timestamp in form <[hour]-min-sec> ]')
+    time = check_time(base_name, raw_time, r'-?[0-9]+', 'start', '[ integer | timestamp in form <[hour]-min-sec> ]')
     if time is None:
         return False
 
