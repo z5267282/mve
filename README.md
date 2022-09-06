@@ -32,8 +32,10 @@ A `.py` file containing constants that can be changed each time the program is r
 The editing can either be done with `ffmpeg` or `MoviePy` .  
 + This is controlled by the value of `USE_MOVIEPY` .  
 
-+ In testing mode files are not opened in the `viewer` .  
+In testing mode files are not opened in the `viewer` .  
 + Testing mode is toggled via `TESTING` .  
+
+The boldness of colours can be toggled via `BOLD` .  
 
 It should be imported with the following statement:  
 
