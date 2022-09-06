@@ -54,7 +54,9 @@ def run_loop(edits, renames, deletions):
         view_video(base_name)
         
         go_to_next_file = False
-        command, raw_tokens = prompt(base_name, padding, len(remaining))
+        command, raw_tokens = prompt(
+            base_name, padding, len(remaining)
+        )
         match command:
             case cmd.QUIT:
                 break
@@ -192,12 +194,21 @@ def get_duration(joined_src_path):
     ]
     result = subprocess.run(args, capture_output=True, text=True)
 
-    return int(float(result.stdout))
+    return int(
+        round(
+            float(result.stdout),
+            0
+        )
+    )
 
 def get_timestamp_seconds(timestamp):
     return sum(
         int(t) * (60 ** i)
-            for i, t in enumerate(reversed(timestamp.split(':')))
+            for i, t in enumerate(
+                reversed(
+                    timestamp.split(':')
+                )
+            )
     )
 
 def print_duration_error(time, name):
