@@ -10,7 +10,9 @@ def do_folder_operation(paths_list, handler):
     return handler(path)
 
 def ls(paths_list):
-    return sorted(do_folder_operation(paths_list, os.listdir))
+    return sorted(
+        do_folder_operation(paths_list, os.listdir)
+    )
 
 def folder_exists(paths_list):
     return do_folder_operation(paths_list, os.path.exists)
