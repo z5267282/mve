@@ -80,14 +80,16 @@ def run_loop(edits, renames, deletions):
     return len(remaining)
 
 def view_video(base_name):
+    if cfg.TESTING:
+        return
+
     joined_path = files.get_joined_path(cfg.SOURCE, base_name)
 
     system = sys.platform
     if system.startswith('win'):
         os.startfile(joined_path)
     elif system.startswith('darwin'):
-        if not cfg.TESTING:
-            subprocess.run(['open', joined_path])
+        subprocess.run(['open', joined_path])
 
 def prompt(base_name, padding, number_remaining):
     coloured_remaining = f'[ {clr.CYAN}{number_remaining:^{padding}}{clr.RESET} ]'
