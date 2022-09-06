@@ -109,23 +109,13 @@ def do_help():
 def do_end(base_name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.END)
     if not tokens:
-        print_usage_error(f'[{highlight_command("e")}]nd | [ time ] [ name ]')
+        print_usage_error(f'[{highlight_command(cmd.END)}]nd | [ time ] [ name ]')
         return False
 
     raw_time, edit_name = tokens
-    time = None
-    if re.fullmatch(r'-?[0-9]+', raw_time):
-        time = raw_time
-    else:
-        time = parse_timestamp(raw_time)
-
+    time = check_time(base_name, raw_time, r'-?[0-9]+', 'start', 'end', '[ integer | timestamp in form <[hour]-min-sec> ]')
     if time is None:
-        print_time_format('end', '[ integer | timestamp in form <[hour]-min-sec> ]')
-        return False 
-    
-    if not in_duration_bounds(base_name, time):
-        print_duration_error(time, base_name)
-        return False 
+        return False
 
     edit_name = check_edit_name(edit_name)
     if edit_name is None:
@@ -257,24 +247,14 @@ def log_edit(base_name, edit_name, times, edits):
 def do_middle(base_name, raw_tokens, edits):
     tokens = parse_tokens(raw_tokens, cmd.MIDDLE)
     if not tokens:
-        print_usage_error(f'[{highlight_command("m")}]iddle | [ start ] [ end ] [ name ]')
+        print_usage_error(f'[{highlight_command(cmd.MIDDLE)}]iddle | [ start ] [ end ] [ name ]')
         return False
 
     start, end, edit_name = tokens
     times = []
-    for value, description in zip([start, end], ['start', 'end']):
-        time = None
-        if re.fullmatch(r'[0-9]+', value):
-            time = value
-        else:
-            time = parse_timestamp(value) 
-
+    for raw_time, description in zip([start, end], ['start', 'end']):
+        time = check_time(base_name, raw_time, r'[0-9]+', description, '[ natural number | timestamp in form <[hour]-min-sec> ]')
         if time is None:
-            print_time_format(description, '[ natural number | timestamp in form <[hour]-min-sec> ]')
-            return False
-        
-        if not in_duration_bounds(base_name, time):
-            print_duration_error(time, base_name)
             return False
 
         times.append(time)
@@ -286,10 +266,25 @@ def do_middle(base_name, raw_tokens, edits):
     log_edit(base_name, edit_name, times, edits)
     return True
 
+def check_time(base_name, raw_time, regex, description, format):
+    time = None
+    if re.fullmatch(regex, time):
+        time = raw_time
+    else:
+        time = parse_timestamp(raw_time)
+
+    if time is None:
+        print_time_format(description, format)
+    elif not in_duration_bounds(base_name, time):
+        print_duration_error(time, base_name)
+        time = None
+    
+    return time
+
 def do_rename(base_name, raw_tokens, renames):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
-        print_usage_error(f'[{highlight_command("r")}]ename | [ name ]')
+        print_usage_error(f'[{highlight_command(cmd.RENAME)}]ename | [ name ]')
         return False
     
     new_name, = tokens
