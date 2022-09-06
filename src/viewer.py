@@ -26,7 +26,7 @@ def main():
     if edits or renames or deletions:
         log_to_file(edits, renames, deletions)
 
-    util.exit_success(f'exited with {util.colour_print(clr.CYAN, num_remaining)} files remaining')
+    util.exit_success(f'exited with {util.colour_format(clr.CYAN, num_remaining)} files remaining')
 
 
 def run_checks():
@@ -155,7 +155,7 @@ def print_usage_error(format):
     util.print_error(f'usage: {format}')
 
 def highlight_command(command):
-    return util.colour_print(clr.PURPLE, command)
+    return util.colour_format(clr.PURPLE, command)
 
 def parse_timestamp(timestamp):
     return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
