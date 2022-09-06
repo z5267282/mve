@@ -9,6 +9,7 @@ import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 import helpers.util as util
 
+
 def main():
     run_checks()
 
