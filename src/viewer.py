@@ -92,7 +92,7 @@ def view_video(base_name):
         subprocess.run(['open', joined_path])
 
 def prompt(base_name, padding, number_remaining):
-    coloured_remaining = f'[ {clr.CYAN}{number_remaining:^{padding}}{clr.RESET} ]'
+    coloured_remaining = util.colour_box(clr.CYAN, f'{number_remaining:^{padding}}')
     args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
     command = args[0]
     raw_tokens = args[1] if len(args) == 2 else str()
@@ -213,7 +213,7 @@ def handle_leading_number(name):
     return reprompt_name(name) if re.match(r'[0-9]+', name) else name
 
 def reprompt_name(current_name):
-    warn = f'[ {clr.YELLOW}warning{clr.RESET} ]'
+    warn = util.colour_box(clr.YELLOW, 'warning')
     print(f"{warn} the name '{util.highlight(current_name)}' starts with a number are you sure you haven't misentered the [m]iddle command?")
     change_name = input(f"{warn} type 'y' if you want to re-enter this command : ")
     return None if change_name == 'y' else current_name

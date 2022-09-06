@@ -55,7 +55,7 @@ def highlight(string):
     return colour_format(clr.BLUE, string)
 
 def colour_box(colour, message):
-    return f'[ {colour}{message}{clr.RESET} ]'
+    return f'[ {colour_format(colour, message)} ]'
 
 
 def print_error(message):
