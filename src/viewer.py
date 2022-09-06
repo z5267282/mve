@@ -213,9 +213,9 @@ def handle_leading_number(name):
     return reprompt_name(name) if re.match(r'[0-9]+', name) else name
 
 def reprompt_name(current_name):
-    print(f'[ {clr.YELLOW}warning{clr.RESET} ] ', end='')
-    print(f"the name '{util.highlight(current_name)}' starts with a number are you sure you haven't misentered the [m]iddle command?")
-    change_name = input("type 'y' if you want to re-enter this command : ")
+    warn = f'[ {clr.YELLOW}warning{clr.RESET} ]'
+    print(f"{warn} the name '{util.highlight(current_name)}' starts with a number are you sure you haven't misentered the [m]iddle command?")
+    change_name = input(f"{warn} type 'y' if you want to re-enter this command : ")
     return None if change_name == 'y' else current_name
 
 def add_suffix(name):
