@@ -176,6 +176,8 @@ Functions are thereafter written in stack order:
         ...
 ```
 
+All files end with a lone newline.  
+
 # 1 - generator
 ## usage
 ```
