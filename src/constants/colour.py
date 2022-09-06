@@ -1,5 +1,6 @@
 import config as cfg
 
+
 # cannot make a static variable so manually insert int value
 BLACK  = f'\033[{int(cfg.BOLD)};30m'
 RED    = f'\033[{int(cfg.BOLD)};31m'

@@ -9,12 +9,16 @@ import constants.file_structure as fst
 import helpers.files as files
 import helpers.util as util
 
+# Command line args checking
+
 def bad_args(argv):
     program_name, args = argv[0], argv[1:]
     if args:
         util.stderr_print(f'usage: python3 {os.path.basename(program_name)}')
         sys.exit(err.BAD_COMMAND_LINE_ARGS)
 
+
+# Folder checking
 
 def no_folder(folder_paths, folder_desc, exit_code):
     if not files.folder_exists(folder_paths):
@@ -27,6 +31,8 @@ def no_source_folder():
 def no_queue():
     no_folder(fst.QUEUE, 'queue', err.NO_QUEUE)
 
+
+# Remaining related
 
 def files_remaining():
     if util.load_remaining():
