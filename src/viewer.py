@@ -127,16 +127,8 @@ def do_end(base_name, raw_tokens, edits):
         print_duration_error(time, base_name)
         return False 
 
-    if not correct_name_format(edit_name):
-        print_name_format()
-        return False
-    
-    edit_name = handle_leading_number(edit_name)
+    edit_name = check_edit_name(edit_name)
     if edit_name is None:
-        return False
-    
-    edit_name = add_suffix(edit_name)
-    if check_file_exists(edit_name, cfg.DESTINATION):
         return False
 
     log_edit(base_name, edit_name, [time], edits)
@@ -164,6 +156,19 @@ def parse_timestamp(timestamp):
 
 def print_time_format(name, form):
     util.print_error(f'the {name} time must be in the form {form}')
+
+def check_edit_name(edit_name):
+    if not correct_name_format(edit_name):
+        print_name_format()
+        return None
+    
+    edit_name = handle_leading_number(edit_name)
+    if not edit_name is None:
+        edit_name = add_suffix(edit_name)
+        if check_file_exists(edit_name, cfg.DESTINATION):
+            return None
+
+    return edit_name
 
 def in_duration_bounds(base_name, time):
     joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
@@ -274,19 +279,8 @@ def do_middle(base_name, raw_tokens, edits):
 
         times.append(time)
     
-    if not correct_name_format(edit_name):
-        print_name_format()
-        return False
-    
-    if check_file_exists(edit_name, cfg.DESTINATION):
-        return False
-    
-    edit_name = handle_leading_number(edit_name)
+    edit_name = check_edit_name(edit_name)
     if edit_name is None:
-        return False
-    
-    edit_name = add_suffix(edit_name)
-    if check_file_exists(edit_name, cfg.DESTINATION):
         return False
 
     log_edit(base_name, edit_name, times, edits)
