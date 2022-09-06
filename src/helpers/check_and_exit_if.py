@@ -9,6 +9,7 @@ import constants.file_structure as fst
 import helpers.files as files
 import helpers.util as util
 
+
 # Command line args checking
 
 def bad_args(argv):

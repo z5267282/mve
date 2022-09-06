@@ -41,11 +41,13 @@ def generate_timestamped_file_name():
 
 
 # Stderr
+
 def stderr_print(message):
     print(message, file=sys.stderr)
 
 
 # Treatment format
+
 def generate_paths_dict():
     return {
         trf.SOURCE_PATH      : cfg.SOURCE,
