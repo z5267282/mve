@@ -54,9 +54,12 @@ def colour_format(colour, string):
 def highlight(string):
     return colour_format(clr.BLUE, string)
 
+def colour_box(colour, message):
+    return f'[ {colour}{message}{clr.RESET} ]'
+
 
 def print_error(message):
-    stderr_print(f'[ {clr.RED}error{clr.RESET} ] {message}')
+    stderr_print(f'{colour_box(clr.RED, "error")} {message}')
 
 
 def exit_success(message):
@@ -64,5 +67,5 @@ def exit_success(message):
         r'\.py$', '',
         os.path.basename(sys.argv[0])
     )
-    print(f'[ {colour_format(clr.GREEN, "success")} ] {base_name} {message}')
+    print(f'{colour_box(clr.GREEN, "success")} {base_name} {message}')
     sys.exit(0)
