@@ -93,7 +93,6 @@ def edit_one(edit):
     times = edit[trf.EDIT_TIMES]
     edit_video(joined_src_path, joined_dst_path, *times)
 
-
 def edit_video(joined_src_path, joined_dst_path, start, end=None):
     if cfg.USE_MOVIEPY:
         edit_moviepy(joined_src_path, joined_dst_path, start, end)
