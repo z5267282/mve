@@ -100,8 +100,8 @@ Similar to the `treatment` structure, the videos must be able to support duplica
         }
     ],
     erf.ERRORS_PATHS : {
-        trf.SOURCE_PATH : [ list of folders of the path where videos are sourced from ],
-        trf.RENAME_PATH : [ list of folders of the path where renames are to be placed  ],
+        trf.SOURCE_PATH      : [ list of folders of the path where videos are sourced from ],
+        trf.RENAME_PATH      : [ list of folders of the path where renames are to be placed ],
         trf.DESTINATION_PATH : [ list of folders of the path where edits are to be placed ]
     }
 }
@@ -137,8 +137,8 @@ Note that the edits key must be a list to support multiple edit commands for a g
         <file name>
     ],
     trf.PATHS : {
-        trf.SOURCE_PATH : [ list of folders of the path where videos are sourced from ],
-        trf.RENAME_PATH : [ list of folders of the path where renames are to be placed  ],
+        trf.SOURCE_PATH      : [ list of folders of the path where videos are sourced from ],
+        trf.RENAME_PATH      : [ list of folders of the path where renames are to be placed ],
         trf.DESTINATION_PATH : [ list of folders of the path where edits are to be placed ]
     }
 }
