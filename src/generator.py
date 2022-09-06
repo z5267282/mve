@@ -25,5 +25,6 @@ def run_checks():
     if os.path.exists(fst.REMAINING):
         check_and_exit_if.files_remaining()
 
+
 if __name__ == '__main__':
     main()
