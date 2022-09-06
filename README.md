@@ -147,6 +147,17 @@ There can be multiple edit commands with the same file name.
 ```
 
 # Style
+## Import blocks
+All blocks of imports are written in alphabetical order.  
+A single newline separates import blocks
+
+Standard libraries are imported first.  
+Then import blocks are ordered the following way if used:  
+1. `config`
+2. `constants`
+3. `helpers`
+
+## Body
 The code body begins with a double newline beneath the last import.  
 
 All the following programs have a `main()` function.  

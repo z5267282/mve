@@ -1,5 +1,4 @@
 # keys within a treatment
-
 EDITS         = 'edits'
 # keys within edits
 EDIT_ORIGINAL = 'original'
