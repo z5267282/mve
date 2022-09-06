@@ -1,5 +1,7 @@
 import datetime as dt
 import json
+import os
+import re
 import sys
 
 import config as cfg
@@ -8,6 +10,7 @@ import constants.colour as clr
 import constants.json_settings as jsn
 import constants.file_structure as fst
 import constants.treatment_format as trf
+
 
 def write_to_json(item, file_path):
     with open(file_path, 'w') as f:
@@ -45,11 +48,11 @@ def generate_paths_dict():
     }
 
 
-def colour_print(colour, string):
+def colour_format(colour, string):
     return f'{colour}{string}{clr.RESET}'
 
 def highlight(string):
-    return colour_print(clr.BLUE, string)
+    return colour_format(clr.BLUE, string)
 
 
 def print_error(message):
@@ -57,5 +60,9 @@ def print_error(message):
 
 
 def exit_success(message):
-    print(f'[ {colour_print(clr.GREEN, "success")} ] {message}')
+    base_name = re.sub(
+        r'\.py$', '',
+        os.path.basename(sys.argv[0])
+    )
+    print(f'[ {colour_format(clr.GREEN, "success")} ] {base_name} {message}')
     sys.exit(0)
