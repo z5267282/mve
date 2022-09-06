@@ -17,7 +17,7 @@ def main():
     util.write_to_json(new_files, fst.REMAINING)
 
     joined_path = files.get_joined_path(cfg.SOURCE, '')
-    util.exit_success(f"placed file names from the folder '{util.highlight(joined_path)}' have been placed in {fst.REMAINING}")
+    util.exit_success(f"placed file names from the folder '{util.highlight(joined_path)}' in {fst.REMAINING}")
 
 
 def run_checks():
