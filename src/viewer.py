@@ -105,7 +105,9 @@ def do_continue(remaining, base_name):
     remaining.insert(0, base_name)
 
 def do_help():
-    print(cmd.MESSAGE)
+    print(
+        re.sub(r'\[(.)\]', lambda match: f'[{highlight_command(match.group(1))}]', cmd.MESSAGE)
+    )
 
 def do_end(base_name, raw_tokens, edits):
     return do_one_time_edit(base_name, raw_tokens, cmd.END, 'nd', 'start', lambda t: [t], edits)
