@@ -26,7 +26,7 @@ def main():
     if edits or renames or deletions:
         log_to_file(edits, renames, deletions)
 
-    util.exit_success(f'exited with {util.colour_format(clr.CYAN, num_remaining)} file{"" if num_remaining == 1 else "s"} remaining')
+    util.exit_success(f'exited with {util.colour_format(clr.CYAN, num_remaining)} file{str() if num_remaining == 1 else "s"} remaining')
 
 
 def run_checks():
@@ -96,9 +96,9 @@ def view_video(base_name):
 
 def prompt(base_name, padding, number_remaining):
     coloured_remaining = util.colour_box(clr.CYAN, f'{number_remaining:^{padding}}')
-    args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
-    command = args[0]
-    raw_tokens = args[1] if len(args) == 2 else str()
+    args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1).sort(reverse=True)
+    command = args.pop()
+    raw_tokens = args.pop() if args else str()
     return command, raw_tokens
 
 def do_continue(remaining, base_name):
