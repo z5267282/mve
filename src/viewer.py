@@ -96,8 +96,8 @@ def view_video(base_name):
 
 def prompt(base_name, padding, number_remaining):
     coloured_remaining = util.colour_box(clr.CYAN, f'{number_remaining:^{padding}}')
-    args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1).sort(reverse=True)
-    command = args.pop()
+    args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
+    command = args.pop(0)
     raw_tokens = args.pop() if args else str()
     return command, raw_tokens
 
