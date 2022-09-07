@@ -66,6 +66,8 @@ def run_loop(edits, renames, deletions):
                 do_help()
             case cmd.END:
                 go_to_next_file = do_end(base_name, raw_tokens, edits)
+            case cmd.START:
+                go_to_next_file = do_start(base_name, raw_tokens, edits)
             case cmd.MIDDLE:
                 go_to_next_file = do_middle(base_name, raw_tokens, edits)
             case cmd.RENAME:
@@ -86,7 +88,6 @@ def view_video(base_name):
         return
 
     joined_path = files.get_joined_path(cfg.SOURCE, base_name)
-
     system = sys.platform
     if system.startswith('win'):
         os.startfile(joined_path)
@@ -107,13 +108,18 @@ def do_help():
     print(cmd.MESSAGE)
 
 def do_end(base_name, raw_tokens, edits):
-    tokens = parse_tokens(raw_tokens, cmd.END)
-    if not tokens:
-        print_usage_error(f'[{highlight_command(cmd.END)}]nd | [ time ] [ name ]')
+    return do_one_time_edit(base_name, raw_tokens, cmd.END, 'nd', 'start', lambda t: [t], edits)
+
+def do_one_time_edit(base_name, raw_tokens, command, command_rest, description, time_to_list_formatter, edits):
+    tokens = handle_tokens(raw_tokens, command, f'{command_rest} | [ time ] [ name ]')
+    if tokens is None:
         return False
 
     raw_time, edit_name = tokens
-    time = check_time(base_name, raw_time, r'-?[0-9]+', 'start', '[ integer | timestamp in form <[hour]-min-sec> ]')
+    time = check_time(
+        base_name, raw_time, r'-?[0-9]+',
+        description, '[ integer | timestamp in form <[hour]-min-sec> ]'
+    )
     if time is None:
         return False
 
@@ -121,8 +127,18 @@ def do_end(base_name, raw_tokens, edits):
     if edit_name is None:
         return False
 
-    log_edit(base_name, edit_name, [time], edits)
+    times = time_to_list_formatter(time)
+
+    log_edit(base_name, edit_name, times, edits)
     return True
+
+def handle_tokens(raw_tokens, command, format):
+    tokens = parse_tokens(raw_tokens, cmd.END)
+    if not tokens:
+        print_usage_error(f'[{highlight_command(command)}]{format}')
+        return None
+    
+    return tokens
 
 def parse_tokens(raw_tokens, command):
     if not raw_tokens:
@@ -244,10 +260,12 @@ def log_edit(base_name, edit_name, times, edits):
     }
     edits.append(new_edit)
 
+def do_start(base_name, raw_tokens, edits):
+    return do_one_time_edit(base_name, raw_tokens, cmd.START, 'tart', 'end', lambda t: [0, t], edits)
+
 def do_middle(base_name, raw_tokens, edits):
-    tokens = parse_tokens(raw_tokens, cmd.MIDDLE)
-    if not tokens:
-        print_usage_error(f'[{highlight_command(cmd.MIDDLE)}]iddle | [ start ] [ end ] [ name ]')
+    tokens = handle_tokens(raw_tokens, cmd.MIDDLE, 'iddle | [ start ] [ end ] [ name ]')
+    if tokens is None:
         return False
 
     start, end, edit_name = tokens
@@ -267,7 +285,7 @@ def do_middle(base_name, raw_tokens, edits):
     return True
 
 def check_time(base_name, raw_time, regex, description, format):
-    time = None
+    time = raw_time
     if re.fullmatch(regex, time):
         time = raw_time
     else:
