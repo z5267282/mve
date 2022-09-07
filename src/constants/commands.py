@@ -1,5 +1,6 @@
 # command key mappings
 END      = 'e'
+START    = 's'
 MIDDLE   = 'm'
 RENAME   = 'r'
 DELETE   = 'd'
@@ -9,7 +10,8 @@ HELP     = 'h'
 
 # number of tokens expected by commands that need extra arguments
 NUM_TOKENS = {
-    END : 2,
+    END    : 2,
+    START  : 2,
     MIDDLE : 3,
     RENAME : 1,
 }
@@ -18,6 +20,11 @@ NUM_TOKENS = {
 MESSAGE = '''
 [e]nd      | [ time ] [ name ]
     + edit from [ time ] to end of clip.
+    + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
+    + the name can only contain upper and lowercase letters, digits and spacebars
+
+[s]tart    | [ time ] [ name ]
+    + edit from start to [ time ] of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
