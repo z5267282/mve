@@ -1,3 +1,5 @@
+import functools
+import operator
 import os
 import re
 import subprocess
@@ -135,7 +137,7 @@ def do_one_time_edit(base_name, raw_tokens, command, command_rest, description, 
     return True
 
 def handle_tokens(raw_tokens, command, format):
-    tokens = parse_tokens(raw_tokens, cmd.END)
+    tokens = parse_tokens(raw_tokens, command)
     if not tokens:
         print_usage_error(f'[{highlight_command(command)}]{format}')
         return None
@@ -158,6 +160,21 @@ def print_usage_error(format):
 
 def highlight_command(command):
     return util.colour_format(clr.PURPLE, command)
+
+def check_time(base_name, raw_time, regex, description, format):
+    time = raw_time
+    if re.fullmatch(regex, time):
+        time = raw_time
+    else:
+        time = parse_timestamp(raw_time)
+
+    if time is None:
+        print_time_format(description, format)
+    elif not in_duration_bounds(base_name, time):
+        print_duration_error(time, base_name)
+        time = None
+    
+    return time
 
 def parse_timestamp(timestamp):
     return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
@@ -278,6 +295,14 @@ def do_middle(base_name, raw_tokens, edits):
 
         times.append(time)
     
+    # TODO
+    # if not check_times_in_order(times):
+    #     util.print_error(
+    #         'end time {} is not after the start time {}'.format(
+    #             util.highlight(t) for t in times
+    #         )
+    #     )
+    
     edit_name = check_edit_name(edit_name)
     if edit_name is None:
         return False
@@ -285,20 +310,14 @@ def do_middle(base_name, raw_tokens, edits):
     log_edit(base_name, edit_name, times, edits)
     return True
 
-def check_time(base_name, raw_time, regex, description, format):
-    time = raw_time
-    if re.fullmatch(regex, time):
-        time = raw_time
-    else:
-        time = parse_timestamp(raw_time)
-
-    if time is None:
-        print_time_format(description, format)
-    elif not in_duration_bounds(base_name, time):
-        print_duration_error(time, base_name)
-        time = None
+# TODO
+# def check_times_in_order(times):
+#     print(times)
+#     if len(times) == 1:
+#         return True
     
-    return time
+#     durations = [ get_duration(t) for t in times ].reverse()
+#     return functools.reduce(operator.sub, durations) > 0
 
 def do_rename(base_name, raw_tokens, renames):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
