@@ -95,8 +95,10 @@ def edit_one(edit):
 
 def edit_video(joined_src_path, joined_dst_path, start, end=None):
     if cfg.USE_MOVIEPY:
+        print('dog')
         edit_moviepy(joined_src_path, joined_dst_path, start, end)
     else:
+        print('cat')
         edit_ffmpeg(joined_src_path, joined_dst_path, start, end)
 
 def edit_moviepy(joined_src_path, joined_dst_path, start, end=None):
