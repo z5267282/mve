@@ -209,8 +209,7 @@ def get_duration(joined_src_path):
 
     return int(
         round(
-            float(result.stdout),
-            0
+            float(result.stdout), 0
         )
     )
 
