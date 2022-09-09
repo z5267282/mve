@@ -127,9 +127,9 @@ There can be multiple edit commands with the same file name.
 {
     trf.EDITS : [
         {
-                trf.EDIT_ORIGINAL : [ original file name ]
-                trf.EDIT_NAME     : [ file name ]
-                trf.EDIT_TIMES    : [ 1 integer | 2 (natural numbers | timestamp in form <min:sec>) ]
+                trf.EDIT_ORIGINAL : [ original file name ],
+                trf.EDIT_NAME     : [ file name ],
+                trf.EDIT_TIMES    : [ [ structure ] ]
         }
     ],
     trf.RENAMES : {
@@ -145,6 +145,31 @@ There can be multiple edit commands with the same file name.
     }
 }
 ```
+
+### `[ structure ]` for `trf.EDITS`
+The values for `trf.EDITS` are complex based on the edit command and hence they have been listed here:  
+```
+cmd.END = {
+    trf.EDIT_TIMES_START : [ integer | timestamp in the form <[hh:]mm:ss> ],
+    trd.EDIT_TIMES_END   : null
+}
+
+cmd.START = {
+    trf.EDIT_TIMES_START : null,
+    trd.EDIT_TIMES_END   : [ natural number | timestamp in the form <[hh:]mm:ss> ]
+}
+
+cmd.MIDDLE = {
+    trf.EDIT_TIMES_START : [ natural number | timestamp in the form <[hh:]mm:ss> ],
+    trd.EDIT_TIMES_END   : [ natural number | timestamp in the form <[hh:]mm:ss> ]
+}
+
+cmd.WHOLE = {
+    trf.EDIT_TIMES_START : null,
+    trd.EDIT_TIMES_END   : null
+}
+```
+
 
 # Style
 ## Import blocks

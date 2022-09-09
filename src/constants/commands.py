@@ -2,6 +2,7 @@
 END      = 'e'
 START    = 's'
 MIDDLE   = 'm'
+WHOLE    = 'w'
 RENAME   = 'r'
 DELETE   = 'd'
 CONTINUE = 'c'
@@ -13,7 +14,8 @@ NUM_TOKENS = {
     END    : 2,
     START  : 2,
     MIDDLE : 3,
-    RENAME : 1,
+    WHOLE  : 1,
+    RENAME : 1
 }
 
 # help message
@@ -31,6 +33,11 @@ MESSAGE = '''
 [m]iddle   | [ start ] [ end ] [ name ]
     + edit from [ start ] to [ end ]
     + start and end are the form [ natural number | timestamp in form <[hour]-min-sec> ]
+    + the name can only contain upper and lowercase letters, digits and spacebars
+
+[w]hole    | [ name ]
+    + edit the entire clip from start to end
+    + like running [ s 0 ] 
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [r]ename   | [ name ]
