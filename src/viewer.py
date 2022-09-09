@@ -72,6 +72,8 @@ def run_loop(edits, renames, deletions):
                 go_to_next_file = do_start(base_name, raw_tokens, edits)
             case cmd.MIDDLE:
                 go_to_next_file = do_middle(base_name, raw_tokens, edits)
+            case cmd.WHOLE:
+                go_to_next_file = do_whole(base_name, raw_tokens, edits)
             case cmd.RENAME:
                 go_to_next_file = do_rename(base_name, raw_tokens, renames)
             case cmd.DELETE:
@@ -133,7 +135,9 @@ def do_one_time_edit(base_name, raw_tokens, command, command_rest, description, 
 
     times = time_to_list_formatter(time)
 
-    log_edit(base_name, edit_name, times, edits)
+    # TODO: fix start and end times
+    start, end = 0, 0
+    log_edit(base_name, edit_name, edits, start, end)
     return True
 
 def handle_tokens(raw_tokens, command, format):
@@ -270,11 +274,14 @@ def check_file_exists(name, folder):
     
     return False
 
-def log_edit(base_name, edit_name, times, edits):
+def log_edit(base_name, edit_name, edits, start=None, end=None):
     new_edit = {
         trf.EDIT_ORIGINAL : base_name,
         trf.EDIT_NAME     : edit_name,
-        trf.EDIT_TIMES    : times
+        trf.EDIT_TIMES    : {
+            trf.EDIT_TIMES_START : start,
+            trf.EDIT_TIMES_END   : end
+        }
     }
     edits.append(new_edit)
 
@@ -307,8 +314,13 @@ def do_middle(base_name, raw_tokens, edits):
     if edit_name is None:
         return False
 
-    log_edit(base_name, edit_name, times, edits)
+    # TODO: actually fix times
+    start, end = 0, 0
+    log_edit(base_name, edit_name, edits, start, end)
     return True
+
+def do_whole(base_name, raw_tokens, edits):
+    return False
 
 # TODO
 # def check_times_in_order(times):
