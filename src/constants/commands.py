@@ -31,42 +31,40 @@ NUM_TOKENS = {
 }
 
 # help message
-HELP_MESSAGE = '''
-{}
+HELP_MESSAGE = f'''
+{{{END}}}
     + edit from [ start ] to end of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
-{}
+{{{START}}}
     + edit from start to [ time ] of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
-{}
+{{{MIDDLE}}}
     + edit from [ start ] to [ end ]
     + start and end are the form [ natural number | timestamp in form <[hour]-min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
-{}
+{{{WHOLE}}}
     + edit the entire clip from start to end
     + like running [ s 0 ] 
     + the name can only contain upper and lowercase letters, digits and spacebars
 
-{}
+{{{RENAME}}}
     + rename the clip to [ name ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
-{}
+{{{DELETE}}}
     + delete the clip
 
-{}
+{{{CONTINUE}}}
     + re-add the current clip so it can be transformed twice
 
-{}
+{{{QUIT}}}
     + quit the viewer and save a new treatment structured file to queue/
 
-{}
+{{{HELP}}}
     + print this message
-'''.format(
-    *USAGE_MSGS.values()
-)
+'''.format_map(USAGE_MSGS)
