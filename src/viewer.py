@@ -113,31 +113,8 @@ def do_help():
     )
 
 def do_end(base_name, raw_tokens, edits):
-    return do_one_time_edit(base_name, raw_tokens, cmd.END, 'nd', 'start', lambda t: [t], edits)
-
-def do_one_time_edit(base_name, raw_tokens, command, command_rest, description, time_to_list_formatter, edits):
-    tokens = handle_tokens(raw_tokens, command, f'{command_rest} | [ time ] [ name ]')
-    if tokens is None:
-        return False
-
-    raw_time, edit_name = tokens
-    time = check_time(
-        base_name, raw_time, r'-?[0-9]+',
-        description, '[ integer | timestamp in form <[hour]-min-sec> ]'
-    )
-    if time is None:
-        return False
-
-    edit_name = check_edit_name(edit_name)
-    if edit_name is None:
-        return False
-
-    times = time_to_list_formatter(time)
-
-    # TODO: fix start and end times
-    start, end = 0, 0
-    log_edit(base_name, edit_name, edits, start, end)
-    return True
+    pass
+    # return do_one_time_edit(base_name, raw_tokens, cmd.END, 'nd', 'start', lambda t: [t], edits)
 
 def handle_tokens(raw_tokens, command, format):
     tokens = parse_tokens(raw_tokens, command)
