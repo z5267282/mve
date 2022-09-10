@@ -1,4 +1,3 @@
-from importlib import invalidate_caches
 import os
 import re
 import subprocess
@@ -124,20 +123,40 @@ def highlight_command(command):
     return util.colour_format(clr.PURPLE, command)
 
 def do_end(base_name, raw_tokens, edits):
-    tokens = parse_tokens(raw_tokens, cmd.END)
+    return do_edit(
+        cmd.END, base_name, raw_tokens, edits, 
+        lambda tokens: (tokens[0], None, tokens[1]),
+        integer=True
+    )
+
+def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, integer=False):
+    tokens = parse_tokens(raw_tokens, command)
     if tokens is None:
         return False
     
-    start, edit_name = tokens
-    start = format_time(start, r'-?[0-9]+', False, '[ integer | timestamp in form <[hour]-min-sec> ]')
-    if not check_times(base_name, start=start):
+    start, end, edit_name = start_end_name_unpacker(tokens)
+    regex, format = r'[0-9]+', '[ natural number | timestamp in form <[hour]-min-sec> ]'
+    if integer:
+        regex, format = r'?-[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
+    
+    if not start is None:
+        start = format_time(start, regex, True, format)
+        if start is None:
+            return False
+        
+    if not end is None:
+        end = format_time(end, regex, False, format)
+        if end is None:
+            return False
+    
+    if not check_times(base_name, start, end):
         return False
-
-    edit_name = check_edit_name(edit_name)
+        
+    edit_name = handle_new_name(edit_name)
     if edit_name is None:
         return False
-
-    log_edit(base_name, edit_name, edits, start=start)
+    
+    log_edit(base_name, edit_name, edits, start, end)
     return True
 
 def parse_tokens(raw_tokens, command):
@@ -183,7 +202,7 @@ def parse_timestamp(timestamp):
 def print_time_format(is_start, format):
     util.print_error(f'the {get_start_end_description(is_start)} time must be in the format {format}')
 
-def check_times(base_name, start=None, end=None):
+def check_times(base_name, start, end):
     if start is None and end is None:
         return True
 
@@ -226,7 +245,10 @@ def get_duration(joined_src_path):
         'default=noprint_wrappers=1:nokey=1'
     ]
     result = subprocess.run(args, capture_output=True, text=True)
-    match = re.match(r'([(0-9)]+)\.([0-9])', result.stdout)
+    return round_float(result.stdout)
+
+def round_float(float_string):
+    match = re.match(r'([(0-9)]+)\.([0-9])', float_string)
     whole_number, tenths = int(match.group(1)), int(match.group(2))
     return whole_number + (tenths >= 5)
 
@@ -265,18 +287,18 @@ def get_timestamp_seconds(timestamp):
             )
     )
 
-def check_edit_name(edit_name):
-    if not correct_name_format(edit_name):
+def handle_new_name(new_name):
+    if not correct_name_format(new_name):
         print_name_format()
         return None
     
-    edit_name = handle_leading_number(edit_name)
-    if not edit_name is None:
-        edit_name = add_suffix(edit_name)
-        if check_file_exists(edit_name, cfg.DESTINATION):
+    new_name = handle_leading_number(new_name)
+    if not new_name is None:
+        new_name = add_suffix(new_name)
+        if check_file_exists(new_name, cfg.DESTINATION):
             return None
 
-    return edit_name
+    return new_name
 
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
@@ -309,7 +331,7 @@ def check_file_exists(name, folder):
     
     return False
 
-def log_edit(base_name, edit_name, edits, start=None, end=None):
+def log_edit(base_name, edit_name, edits, start, end):
     new_edit = {
         trf.EDIT_ORIGINAL : base_name,
         trf.EDIT_NAME     : edit_name,
@@ -321,71 +343,31 @@ def log_edit(base_name, edit_name, edits, start=None, end=None):
     edits.append(new_edit)
 
 def do_start(base_name, raw_tokens, edits):
-    tokens = parse_tokens(raw_tokens, cmd.START)
-    if tokens is None:
-        return False
-    
-    end, edit_name = tokens
-    end = format_time(end, r'[0-9]+', False, '[ natural number | timestamp in form <[hour]-min-sec> ]')
-    if not check_times(base_name, end=end):
-        return False
-
-    edit_name = check_edit_name(edit_name)
-    if edit_name is None:
-        return False
-
-    log_edit(base_name, edit_name, edits, end=end)
-    return True
+    return do_edit(
+        cmd.START, base_name, raw_tokens, edits,
+        lambda tokens: (None, tokens[0], tokens[1])
+    )
 
 def do_middle(base_name, raw_tokens, edits):
-    tokens = parse_tokens(raw_tokens, cmd.MIDDLE)
-    if tokens is None:
-        return False
-
-    start, end, edit_name = tokens
-    start = format_time(start, r'[0-9]+', False, '[ natural number | timestamp in form <[hour]-min-sec> ]')
-    end = format_time(end, r'[0-9]+', False, '[ natural number | timestamp in form <[hour]-min-sec> ]')
-    if not check_times(base_name, start=start, end=end):
-        return False
-
-    edit_name = check_edit_name(edit_name)
-    if edit_name is None:
-        return False
-
-    log_edit(base_name, edit_name, edits, start=start, end=end)
-    return True
+    return do_edit(
+        cmd.MIDDLE, base_name, raw_tokens, edits,
+        lambda tokens: tokens
+    )
 
 def do_whole(base_name, raw_tokens, edits):
-    tokens = parse_tokens(raw_tokens, cmd.WHOLE)
-    if tokens is None:
-        return False
-    
-    edit_name, = tokens
-    edit_name = check_edit_name(edit_name)
-    if edit_name is None:
-        return False
-    
-    log_edit(base_name, edit_name, edits)
-    return True
+    return do_edit(
+        cmd.WHOLE, base_name, raw_tokens, edits,
+        lambda tokens: (None, None, tokens[0])
+    )
 
 def do_rename(base_name, raw_tokens, renames):
-    tokens = split_tokens(raw_tokens, cmd.RENAME)
+    tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
-        print_usage_error(f'[{highlight_command(cmd.RENAME)}]ename | [ name ]')
         return False
     
     new_name, = tokens
-    if not correct_name_format(new_name):
-        print_name_format()
-        return False
-
-    new_name = handle_leading_number(new_name)
-
+    new_name = handle_new_name(new_name)
     if new_name is None:
-        return False
-    
-    new_name = add_suffix(new_name)
-    if check_file_exists(new_name, cfg.RENAMES):
         return False
     
     log_rename(base_name, new_name, renames)
