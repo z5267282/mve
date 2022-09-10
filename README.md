@@ -255,14 +255,24 @@ If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUE
 
 ## commands
 ```
-[e]nd      | [ time ] [ name ]
-    + edit from [ time ] to end of clip.
-    + the time is in the form [ integer | timestamp in form <[hour-]min-sec> ]
+[e]nd      | [ start ] [ name ]
+    + edit from [ start ] to end of clip.
+    + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
+    + the name can only contain upper and lowercase letters, digits and spacebars
+
+[s]tart    | [ end ] [ name ]
+    + edit from start to [ time ] of clip.
+    + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [m]iddle   | [ start ] [ end ] [ name ]
     + edit from [ start ] to [ end ]
     + start and end are the form [ natural number | timestamp in form <[hour]-min-sec> ]
+    + the name can only contain upper and lowercase letters, digits and spacebars
+
+[w]hole    | [ name ]
+    + edit the entire clip from start to end
+    + like running [ s 0 ] 
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 [r]ename   | [ name ]
