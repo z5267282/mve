@@ -164,7 +164,56 @@ def print_usage_error(format):
 def highlight_command(command):
     return util.colour_format(clr.PURPLE, command)
 
-def check_time(base_name, raw_time, regex, description, format):
+
+def check_times(base_name, start=None, end=None):
+    if start is None and end is None:
+        return True
+
+    joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
+    duration = get_duration(joined_src_path)
+    if start is None:
+        if not check_in_bounds(end, get_seconds(end), duration, base_name, is_start=False):
+            return False
+        
+        return True
+    
+    if end is None:
+        if not check_in_bounds(start, get_seconds(start), duration, base_name):
+            return False
+        
+        return True
+    
+    start_seconds, end_seconds = get_seconds(start), get_seconds(end)
+    for time, seconds, is_start in zip([start, end], [start_seconds, end_seconds], [True, False]):
+        if not check_in_bounds(time, seconds, duration, base_name, is_start=is_start):
+            return False
+
+    if not end_seconds > start_seconds:
+        util.print_error(f"the end time '{util.highlight(end)}' must be bigger than the start time '{util.highlight(start)}'")
+        return False
+    
+    return True
+
+def get_seconds(time):
+    if time.startswith('-'):
+        return int(time[1:])
+
+    if ':' in time:
+        return get_timestamp_seconds(time)
+
+    return int(time)
+
+def check_in_bounds(time, seconds, duration, base_name, is_start=True):
+    if not in_duration_bounds(seconds, duration):
+        print_duration_error(time, base_name, is_start)
+        return False
+    
+    return True
+
+def in_duration_bounds(seconds, duration):
+    return seconds >= 0 and seconds <= duration
+
+def format_time(raw_time, regex, is_start, format):
     time = raw_time
     if re.fullmatch(regex, time):
         time = raw_time
@@ -172,19 +221,18 @@ def check_time(base_name, raw_time, regex, description, format):
         time = parse_timestamp(raw_time)
 
     if time is None:
-        print_time_format(description, format)
-    # TODO fix function call
-    # elif not in_duration_bounds(base_name, time):
-    #     print_duration_error(time, base_name)
-    #     time = None
+        print_time_format(is_start, format)
     
     return time
+
+def get_start_end_description(is_start):
+    return 'start' if is_start else 'end'
 
 def parse_timestamp(timestamp):
     return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
 
-def print_time_format(name, form):
-    util.print_error(f'the {name} time must be in the form {form}')
+def print_time_format(is_start, format):
+    util.print_error(f'the {get_start_end_description(is_start)} time must be in the format {format}')
 
 def check_edit_name(edit_name):
     if not correct_name_format(edit_name):
@@ -198,21 +246,6 @@ def check_edit_name(edit_name):
             return None
 
     return edit_name
-
-def in_duration_bounds(base_name, time):
-    # joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
-    # duration = get_duration(joined_src_path)
-
-    # seconds = None
-    # if time.startswith('-'):
-    #     seconds = int(time[1:])
-    # elif ':' in time:
-    #     seconds = get_timestamp_seconds(time)
-    # else:
-    #     seconds = int(time)
-
-    # return seconds >= 0 and seconds <= duration
-    pass
 
 def get_duration(joined_src_path):
     args = [
@@ -245,8 +278,8 @@ def get_timestamp_seconds(timestamp):
             )
     )
 
-def print_duration_error(time, name, end=False):
-    util.print_error(f"the {'end' if end else 'start'} time '{util.highlight(time)}' is not in the bounds of video {name}")
+def print_duration_error(time, name, is_start):
+    util.print_error(f"the {'start' if is_start else 'end'} time '{util.highlight(time)}' is not in the bounds of video {name}")
 
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
@@ -287,61 +320,21 @@ def log_edit(base_name, edit_name, edits, start=None, end=None):
     edits.append(new_edit)
 
 def do_start(base_name, raw_tokens, edits):
-    # return do_one_time_edit(base_name, raw_tokens, cmd.START, 'tart', 'end', lambda t: [0, t], edits)
-    tokens = handle_tokens(raw_tokens, cmd.START, 'tart', '[ natural number | timestamp in form <[hour]-min-sec> ]')
+    tokens = handle_tokens(raw_tokens, cmd.START, 'tart', '[ time ] [ name ]')
     if tokens is None:
         return False
     
     end, edit_name = tokens
-
+    end = format_time(end, r'[0-9]+', False, '[ natural number | timestamp in form <[hour]-min-sec> ]')
+    if not check_times(base_name, end=end):
+        return False
 
     edit_name = check_edit_name(edit_name)
     if edit_name is None:
         return False
 
+    log_edit(base_name, edit_name, edits, end=end)
     return True
-
-# TODO: clean up
-
-def check_times(base_name, start=None, end=None):
-    start_seconds = get_seconds(start) if not start is None else None
-    end_seconds = get_seconds(end) if not end is None else None
-    if start_seconds is None and end_seconds is None:
-        return True
-    
-    joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
-    duration = get_duration(joined_src_path)
-    if start_seconds is None:
-        if not in_bounds(end_seconds, duration):
-            print_duration_error(end, base_name, end=True)
-            return False
-
-        return True
-
-    if end_seconds is None:
-        if not in_bounds(start_seconds, duration):
-            print_duration_error(start, base_name)
-            return False
-
-        return True
-    
-    for seconds, time, end in zip([start_seconds, end_seconds], [start, end], [False, True]):
-        if not in_bounds(seconds, duration):
-            print_duration_error()
-
-    return in_bounds(start_seconds) and in_bounds(end_seconds) and end_seconds > start_seconds
-
-def get_seconds(time):
-    if time.startswith('-'):
-        return int(time[1:])
-
-    if ':' in time:
-        return get_timestamp_seconds(time)
-
-    return int(time)
-
-def in_bounds(seconds, duration):
-    return seconds >= 0 and seconds <= duration
 
 
 def do_middle(base_name, raw_tokens, edits):
