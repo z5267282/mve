@@ -140,12 +140,12 @@ def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, inte
         regex, format = r'?-[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
     
     if not start is None:
-        start = format_time(start, regex, True, format)
+        start = parse_time(start, regex, True, format)
         if start is None:
             return False
         
     if not end is None:
-        end = format_time(end, regex, False, format)
+        end = parse_time(end, regex, False, format)
         if end is None:
             return False
     
@@ -184,7 +184,7 @@ def tokenise(raw_tokens, splits):
 def print_usage_error(format):
     util.print_error(f'usage: {format}')
 
-def format_time(raw_time, regex, is_start, format):
+def parse_time(raw_time, regex, is_start, format):
     time = raw_time
     if re.fullmatch(regex, time):
         time = raw_time
