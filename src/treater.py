@@ -91,17 +91,16 @@ def edit_one(edit):
     joined_dst_path = files.get_joined_path(cfg.DESTINATION, edit[trf.EDIT_NAME])
 
     times = edit[trf.EDIT_TIMES]
-    edit_video(joined_src_path, joined_dst_path, *times)
+    start, end = times[trf.EDIT_TIMES_START], times[trf.EDIT_TIMES_END]
+    edit_video(joined_src_path, joined_dst_path, start, end)
 
-def edit_video(joined_src_path, joined_dst_path, start, end=None):
+def edit_video(joined_src_path, joined_dst_path, start, end):
     if cfg.USE_MOVIEPY:
-        print('dog')
         edit_moviepy(joined_src_path, joined_dst_path, start, end)
     else:
-        print('cat')
         edit_ffmpeg(joined_src_path, joined_dst_path, start, end)
 
-def edit_moviepy(joined_src_path, joined_dst_path, start, end=None):
+def edit_moviepy(joined_src_path, joined_dst_path, start, end):
     with mvp.VideoFileClip(joined_src_path) as file:
         clip = file.subclip(t_start=start, t_end=end)
         clip.write_videofile(
@@ -113,10 +112,12 @@ def edit_moviepy(joined_src_path, joined_dst_path, start, end=None):
             audio_codec=vde.ACODEC
         )
 
-def edit_ffmpeg(joined_src_path, joined_dst_path, start, end=None):
+def edit_ffmpeg(joined_src_path, joined_dst_path, start, end):
     args = ['ffmpeg', '-y']
     source = ['-i', joined_src_path]
-    args += ['-sseof', start, *source] if start.startswith('-') else [*source, '-ss', start]
+
+    if not start is None:
+        args += ['-sseof', start, *source] if start.startswith('-') else [*source, '-ss', start]
 
     if not end is None:
         args += ['-to', end]
