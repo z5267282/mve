@@ -113,8 +113,21 @@ def do_help():
     )
 
 def do_end(base_name, raw_tokens, edits):
-    pass
-    # return do_one_time_edit(base_name, raw_tokens, cmd.END, 'nd', 'start', lambda t: [t], edits)
+    tokens = handle_tokens(raw_tokens, cmd.END, 'nd | [ start ] [ name ]')
+    if tokens is None:
+        return False
+    
+    start, edit_name = tokens
+    start = format_time(start, r'-?[0-9]+', False, '[ integer | timestamp in form <[hour]-min-sec> ]')
+    if not check_times(base_name, start=start):
+        return False
+
+    edit_name = check_edit_name(edit_name)
+    if edit_name is None:
+        return False
+
+    log_edit(base_name, edit_name, edits, start=start)
+    return True
 
 def handle_tokens(raw_tokens, command, format):
     tokens = parse_tokens(raw_tokens, command)
@@ -141,6 +154,23 @@ def print_usage_error(format):
 def highlight_command(command):
     return util.colour_format(clr.PURPLE, command)
 
+def format_time(raw_time, regex, is_start, format):
+    time = raw_time
+    if re.fullmatch(regex, time):
+        time = raw_time
+    else:
+        time = parse_timestamp(raw_time)
+
+    if time is None:
+        print_time_format(is_start, format)
+    
+    return time
+
+def parse_timestamp(timestamp):
+    return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
+
+def print_time_format(is_start, format):
+    util.print_error(f'the {get_start_end_description(is_start)} time must be in the format {format}')
 
 def check_times(base_name, start=None, end=None):
     if start is None and end is None:
@@ -171,59 +201,6 @@ def check_times(base_name, start=None, end=None):
     
     return True
 
-def get_seconds(time):
-    if time.startswith('-'):
-        return int(time[1:])
-
-    if ':' in time:
-        return get_timestamp_seconds(time)
-
-    return int(time)
-
-def check_in_bounds(time, seconds, duration, base_name, is_start=True):
-    if not in_duration_bounds(seconds, duration):
-        print_duration_error(time, base_name, is_start)
-        return False
-    
-    return True
-
-def in_duration_bounds(seconds, duration):
-    return seconds >= 0 and seconds <= duration
-
-def format_time(raw_time, regex, is_start, format):
-    time = raw_time
-    if re.fullmatch(regex, time):
-        time = raw_time
-    else:
-        time = parse_timestamp(raw_time)
-
-    if time is None:
-        print_time_format(is_start, format)
-    
-    return time
-
-def get_start_end_description(is_start):
-    return 'start' if is_start else 'end'
-
-def parse_timestamp(timestamp):
-    return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
-
-def print_time_format(is_start, format):
-    util.print_error(f'the {get_start_end_description(is_start)} time must be in the format {format}')
-
-def check_edit_name(edit_name):
-    if not correct_name_format(edit_name):
-        print_name_format()
-        return None
-    
-    edit_name = handle_leading_number(edit_name)
-    if not edit_name is None:
-        edit_name = add_suffix(edit_name)
-        if check_file_exists(edit_name, cfg.DESTINATION):
-            return None
-
-    return edit_name
-
 def get_duration(joined_src_path):
     args = [
         'ffprobe',
@@ -245,6 +222,31 @@ def get_duration(joined_src_path):
         )
     )
 
+def check_in_bounds(time, seconds, duration, base_name, is_start=True):
+    if not in_duration_bounds(seconds, duration):
+        print_duration_error(time, base_name, is_start)
+        return False
+    
+    return True
+
+def in_duration_bounds(seconds, duration):
+    return seconds >= 0 and seconds <= duration
+
+def print_duration_error(time, name, is_start):
+    util.print_error(f"the {get_start_end_description(is_start)} time '{util.highlight(time)}' is not in the bounds of video {name}")
+
+def get_start_end_description(is_start):
+    return 'start' if is_start else 'end'
+
+def get_seconds(time):
+    if time.startswith('-'):
+        return int(time[1:])
+
+    if ':' in time:
+        return get_timestamp_seconds(time)
+
+    return int(time)
+
 def get_timestamp_seconds(timestamp):
     return sum(
         int(t) * (60 ** i)
@@ -255,8 +257,18 @@ def get_timestamp_seconds(timestamp):
             )
     )
 
-def print_duration_error(time, name, is_start):
-    util.print_error(f"the {'start' if is_start else 'end'} time '{util.highlight(time)}' is not in the bounds of video {name}")
+def check_edit_name(edit_name):
+    if not correct_name_format(edit_name):
+        print_name_format()
+        return None
+    
+    edit_name = handle_leading_number(edit_name)
+    if not edit_name is None:
+        edit_name = add_suffix(edit_name)
+        if check_file_exists(edit_name, cfg.DESTINATION):
+            return None
+
+    return edit_name
 
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
@@ -297,7 +309,7 @@ def log_edit(base_name, edit_name, edits, start=None, end=None):
     edits.append(new_edit)
 
 def do_start(base_name, raw_tokens, edits):
-    tokens = handle_tokens(raw_tokens, cmd.START, 'tart', '[ time ] [ name ]')
+    tokens = handle_tokens(raw_tokens, cmd.START, 'tart', '[ end ] [ name ]')
     if tokens is None:
         return False
     
@@ -313,49 +325,26 @@ def do_start(base_name, raw_tokens, edits):
     log_edit(base_name, edit_name, edits, end=end)
     return True
 
-
 def do_middle(base_name, raw_tokens, edits):
     tokens = handle_tokens(raw_tokens, cmd.MIDDLE, 'iddle | [ start ] [ end ] [ name ]')
     if tokens is None:
         return False
 
     start, end, edit_name = tokens
-    times = []
-    for raw_time, description in zip([start, end], ['start', 'end']):
-        time = check_time(base_name, raw_time, r'[0-9]+', description, '[ natural number | timestamp in form <[hour]-min-sec> ]')
-        if time is None:
-            return False
+    start = format_time(start, r'[0-9]+', False, '[ natural number | timestamp in form <[hour]-min-sec> ]')
+    end = format_time(end, r'[0-9]+', False, '[ natural number | timestamp in form <[hour]-min-sec> ]')
+    if not check_times(base_name, start=start, end=end):
+        return False
 
-        times.append(time)
-    
-    # TODO
-    # if not check_times_in_order(times):
-    #     util.print_error(
-    #         'end time {} is not after the start time {}'.format(
-    #             util.highlight(t) for t in times
-    #         )
-    #     )
-    
     edit_name = check_edit_name(edit_name)
     if edit_name is None:
         return False
 
-    # TODO: actually fix times
-    start, end = 0, 0
-    log_edit(base_name, edit_name, edits, start, end)
+    log_edit(base_name, edit_name, edits, end=end)
     return True
 
 def do_whole(base_name, raw_tokens, edits):
     return False
-
-# TODO
-# def check_times_in_order(times):
-#     print(times)
-#     if len(times) == 1:
-#         return True
-    
-#     durations = [ get_duration(t) for t in times ].reverse()
-#     return functools.reduce(operator.sub, durations) > 0
 
 def do_rename(base_name, raw_tokens, renames):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
