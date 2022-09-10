@@ -1,5 +1,4 @@
-import functools
-import operator
+from importlib import invalidate_caches
 import os
 import re
 import subprocess
@@ -174,9 +173,10 @@ def check_time(base_name, raw_time, regex, description, format):
 
     if time is None:
         print_time_format(description, format)
-    elif not in_duration_bounds(base_name, time):
-        print_duration_error(time, base_name)
-        time = None
+    # TODO fix function call
+    # elif not in_duration_bounds(base_name, time):
+    #     print_duration_error(time, base_name)
+    #     time = None
     
     return time
 
@@ -200,18 +200,19 @@ def check_edit_name(edit_name):
     return edit_name
 
 def in_duration_bounds(base_name, time):
-    joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
-    duration = get_duration(joined_src_path)
+    # joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
+    # duration = get_duration(joined_src_path)
 
-    seconds = None
-    if time.startswith('-'):
-        seconds = int(time[1:]) 
-    elif ':' in time:
-        seconds = get_timestamp_seconds(time)
-    else:
-        seconds = int(time)
+    # seconds = None
+    # if time.startswith('-'):
+    #     seconds = int(time[1:])
+    # elif ':' in time:
+    #     seconds = get_timestamp_seconds(time)
+    # else:
+    #     seconds = int(time)
 
-    return seconds >= 0 and seconds <= duration
+    # return seconds >= 0 and seconds <= duration
+    pass
 
 def get_duration(joined_src_path):
     args = [
@@ -244,8 +245,8 @@ def get_timestamp_seconds(timestamp):
             )
     )
 
-def print_duration_error(time, name):
-    util.print_error(f"time '{util.highlight(time)}' is not in the bounds of video {name}")
+def print_duration_error(time, name, end=False):
+    util.print_error(f"the {'end' if end else 'start'} time '{util.highlight(time)}' is not in the bounds of video {name}")
 
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
@@ -286,7 +287,62 @@ def log_edit(base_name, edit_name, edits, start=None, end=None):
     edits.append(new_edit)
 
 def do_start(base_name, raw_tokens, edits):
-    return do_one_time_edit(base_name, raw_tokens, cmd.START, 'tart', 'end', lambda t: [0, t], edits)
+    # return do_one_time_edit(base_name, raw_tokens, cmd.START, 'tart', 'end', lambda t: [0, t], edits)
+    tokens = handle_tokens(raw_tokens, cmd.START, 'tart', '[ natural number | timestamp in form <[hour]-min-sec> ]')
+    if tokens is None:
+        return False
+    
+    end, edit_name = tokens
+
+
+    edit_name = check_edit_name(edit_name)
+    if edit_name is None:
+        return False
+
+    return True
+
+# TODO: clean up
+
+def check_times(base_name, start=None, end=None):
+    start_seconds = get_seconds(start) if not start is None else None
+    end_seconds = get_seconds(end) if not end is None else None
+    if start_seconds is None and end_seconds is None:
+        return True
+    
+    joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
+    duration = get_duration(joined_src_path)
+    if start_seconds is None:
+        if not in_bounds(end_seconds, duration):
+            print_duration_error(end, base_name, end=True)
+            return False
+
+        return True
+
+    if end_seconds is None:
+        if not in_bounds(start_seconds, duration):
+            print_duration_error(start, base_name)
+            return False
+
+        return True
+    
+    for seconds, time, end in zip([start_seconds, end_seconds], [start, end], [False, True]):
+        if not in_bounds(seconds, duration):
+            print_duration_error()
+
+    return in_bounds(start_seconds) and in_bounds(end_seconds) and end_seconds > start_seconds
+
+def get_seconds(time):
+    if time.startswith('-'):
+        return int(time[1:])
+
+    if ':' in time:
+        return get_timestamp_seconds(time)
+
+    return int(time)
+
+def in_bounds(seconds, duration):
+    return seconds >= 0 and seconds <= duration
+
 
 def do_middle(base_name, raw_tokens, edits):
     tokens = handle_tokens(raw_tokens, cmd.MIDDLE, 'iddle | [ start ] [ end ] [ name ]')
