@@ -161,8 +161,8 @@ def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, inte
 
 def parse_tokens(raw_tokens, command):
     tokens = split_tokens(raw_tokens, command)
-    no_double_spaces = re.sub(r' {2,}', r' ', cmd.USAGE_MSGS[command])
     if not tokens:
+        no_double_spaces = re.sub(r' {2,}', r' ', cmd.USAGE_MSGS[command])
         print_usage_error(
             highlight_all_commands(no_double_spaces)
         )
