@@ -20,12 +20,12 @@ NUM_TOKENS = {
 
 # help message
 MESSAGE = '''
-[e]nd      | [ time ] [ name ]
-    + edit from [ time ] to end of clip.
+[e]nd      | [ start ] [ name ]
+    + edit from [ start ] to end of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
-[s]tart    | [ time ] [ name ]
+[s]tart    | [ end ] [ name ]
     + edit from start to [ time ] of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
     + the name can only contain upper and lowercase letters, digits and spacebars
