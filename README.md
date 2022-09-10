@@ -3,6 +3,8 @@ A movie editing tool using multiprocessing.
 
 This program can be run on Windows or Mac.  
 
+The program requires at least `python 3.6` to ensure that dictionary insertion order is preserved.  
+
 # 0 - file structure
 ```
 mve/
