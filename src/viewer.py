@@ -109,11 +109,22 @@ def do_continue(remaining, base_name):
 
 def do_help():
     print(
-        re.sub(r'\[(.)\]', lambda match: f'[{highlight_command(match.group(1))}]', cmd.MESSAGE)
+        highlight_all_commands(cmd.HELP_MESSAGE)
     )
 
+def highlight_all_commands(string):
+    repl = lambda match: '[{}]'.format(
+        highlight_command(
+            match.group(1)
+        )
+    )
+    return re.sub(r'\[(.)\]', repl, string)
+
+def highlight_command(command):
+    return util.colour_format(clr.PURPLE, command)
+
 def do_end(base_name, raw_tokens, edits):
-    tokens = handle_tokens(raw_tokens, cmd.END, 'nd | [ start ] [ name ]')
+    tokens = parse_tokens(raw_tokens, cmd.END)
     if tokens is None:
         return False
     
@@ -129,15 +140,18 @@ def do_end(base_name, raw_tokens, edits):
     log_edit(base_name, edit_name, edits, start=start)
     return True
 
-def handle_tokens(raw_tokens, command, format):
-    tokens = parse_tokens(raw_tokens, command)
+def parse_tokens(raw_tokens, command):
+    tokens = split_tokens(raw_tokens, command)
+    no_double_spaces = re.sub(r' {2,}', r' ', cmd.USAGE_MSGS[command])
     if not tokens:
-        print_usage_error(f'[{highlight_command(command)}]{format}')
+        print_usage_error(
+            highlight_all_commands(no_double_spaces)
+        )
         return None
     
     return tokens
 
-def parse_tokens(raw_tokens, command):
+def split_tokens(raw_tokens, command):
     if not raw_tokens:
         return []
 
@@ -150,9 +164,6 @@ def tokenise(raw_tokens, splits):
 
 def print_usage_error(format):
     util.print_error(f'usage: {format}')
-
-def highlight_command(command):
-    return util.colour_format(clr.PURPLE, command)
 
 def format_time(raw_time, regex, is_start, format):
     time = raw_time
@@ -215,12 +226,9 @@ def get_duration(joined_src_path):
         'default=noprint_wrappers=1:nokey=1'
     ]
     result = subprocess.run(args, capture_output=True, text=True)
-
-    return int(
-        round(
-            float(result.stdout), 0
-        )
-    )
+    match = re.match(r'([(0-9)]+)\.([0-9])', result.stdout)
+    whole_number, tenths = int(match.group(1)), int(match.group(2))
+    return whole_number + (tenths >= 5)
 
 def check_in_bounds(time, seconds, duration, base_name, is_start=True):
     if not in_duration_bounds(seconds, duration):
@@ -281,7 +289,11 @@ def handle_leading_number(name):
 
 def reprompt_name(current_name):
     warn = util.colour_box(clr.YELLOW, 'warning')
-    print(f"{warn} the name '{util.highlight(current_name)}' starts with a number are you sure you haven't misentered the [m]iddle command?")
+    print(
+        "{} the name '{}' starts with a number are you sure you haven't misentered the [{}]iddle command?".format(
+            warn, util.highlight(current_name), highlight_command(cmd.MIDDLE)
+        )
+    )
     change_name = input(f"{warn} type 'y' if you want to re-enter this command : ")
     return None if change_name == 'y' else current_name
 
@@ -309,7 +321,7 @@ def log_edit(base_name, edit_name, edits, start=None, end=None):
     edits.append(new_edit)
 
 def do_start(base_name, raw_tokens, edits):
-    tokens = handle_tokens(raw_tokens, cmd.START, 'tart', '[ end ] [ name ]')
+    tokens = parse_tokens(raw_tokens, cmd.START)
     if tokens is None:
         return False
     
@@ -326,7 +338,7 @@ def do_start(base_name, raw_tokens, edits):
     return True
 
 def do_middle(base_name, raw_tokens, edits):
-    tokens = handle_tokens(raw_tokens, cmd.MIDDLE, 'iddle | [ start ] [ end ] [ name ]')
+    tokens = parse_tokens(raw_tokens, cmd.MIDDLE)
     if tokens is None:
         return False
 
@@ -340,14 +352,24 @@ def do_middle(base_name, raw_tokens, edits):
     if edit_name is None:
         return False
 
-    log_edit(base_name, edit_name, edits, end=end)
+    log_edit(base_name, edit_name, edits, start=start, end=end)
     return True
 
 def do_whole(base_name, raw_tokens, edits):
-    return False
+    tokens = parse_tokens(raw_tokens, cmd.WHOLE)
+    if tokens is None:
+        return False
+    
+    edit_name, = tokens
+    edit_name = check_edit_name(edit_name)
+    if edit_name is None:
+        return False
+    
+    log_edit(base_name, edit_name, edits)
+    return True
 
 def do_rename(base_name, raw_tokens, renames):
-    tokens = parse_tokens(raw_tokens, cmd.RENAME)
+    tokens = split_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
         print_usage_error(f'[{highlight_command(cmd.RENAME)}]ename | [ name ]')
         return False
