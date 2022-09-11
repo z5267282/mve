@@ -3,9 +3,9 @@
         {
             "original": "Team Fortress 2 2020.07.10 - 20.09.22.02.DVR.mp4",
             "new name": "the rockstar",
-            "times": [
-                "-21"
-            ]
+            "times": {
+                "start": "-21"
+            }
         }
     ],
     "renames": {

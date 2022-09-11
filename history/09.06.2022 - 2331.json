@@ -3,18 +3,18 @@
         {
             "original": "Team Fortress 2 2020.09.21 - 01.26.42.04.DVR.mp4",
             "new name": "product rock bomb",
-            "times": [
-                "0",
-                "48"
-            ]
+            "times": {
+                "start": "0",
+                "end": "48"
+            }
         },
         {
             "original": "Team Fortress 2 2020.07.06 - 01.36.09.08.mp4",
             "new name": "the process godbow finale",
-            "times": [
-                "0",
-                "33"
-            ]
+            "times": {
+                "start": "0",
+                "end": "33"
+            }
         }
     ],
     "renames": {},

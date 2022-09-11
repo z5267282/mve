@@ -3,17 +3,17 @@
         {
             "original": "calski liz lan photos.mp4",
             "new name": "liz lan photos 1",
-            "times": [
-                "1:42:20"
-            ]
+            "times": {
+                "start": "1:42:20"
+            }
         },
         {
             "original": "calski liz lan photos.mp4",
             "new name": "liz lan photos 0",
-            "times": [
-                "1:41:14",
-                "1:41:41"
-            ]
+            "times": {
+                "start": "1:41:14",
+                "end": "1:41:41"
+            }
         }
     ],
     "renames": {},

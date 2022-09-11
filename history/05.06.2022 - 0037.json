@@ -3,16 +3,16 @@
         {
             "original": "Team Fortress 2 2021.12.22 - 10.47.54.02.DVR.mp4",
             "new name": "badwater hunstman rampage",
-            "times": [
-                "-28"
-            ]
+            "times": {
+                "start": "-28"
+            }
         },
         {
             "original": "Team Fortress 2 2021.12.22 - 10.48.58.03.DVR.mp4",
             "new name": "huntsman flame close up",
-            "times": [
-                "-13"
-            ]
+            "times": {
+                "start": "-13"
+            }
         }
     ],
     "renames": {},

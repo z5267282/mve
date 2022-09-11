@@ -3,10 +3,10 @@
         {
             "original": "midway thru nexus farmed by panic attack.mp4",
             "new name": "nexus para farmed by panic attack",
-            "times": [
-                "2:58",
-                "3:14"
-            ]
+            "times": {
+                "start": "2:58",
+                "end": "3:14"
+            }
         }
     ],
     "renames": {
