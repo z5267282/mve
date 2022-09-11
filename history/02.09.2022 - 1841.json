@@ -3,60 +3,60 @@
         {
             "original": "Team Fortress 2 2022.08.08 - 17.08.38.11.DVR.mp4",
             "new name": "spetsnaz double clipped",
-            "times": [
-                "-5"
-            ]
+            "times": {
+                "start": "-5"
+            }
         },
         {
             "original": "Team Fortress 2 2022.08.08 - 17.10.48.12.DVR.mp4",
             "new name": "a clean sentry surf away",
-            "times": [
-                "1:54",
-                "2:0"
-            ]
+            "times": {
+                "start": "1:54",
+                "end": "2:0"
+            }
         },
         {
             "original": "Team Fortress 2 2022.08.08 - 17.11.19.13.DVR.mp4",
             "new name": "ratatouille the eureka effecting engi",
-            "times": [
-                "-7"
-            ]
+            "times": {
+                "start": "-7"
+            }
         },
         {
             "original": "Team Fortress 2 2022.08.08 - 17.19.35.14.DVR.mp4",
             "new name": "getting out alive lolll",
-            "times": [
-                "-16"
-            ]
+            "times": {
+                "start": "-16"
+            }
         },
         {
             "original": "Team Fortress 2 2022.08.08 - 17.21.02.15.DVR.mp4",
             "new name": "the bells badwater spwan camp",
-            "times": [
-                "-19"
-            ]
+            "times": {
+                "start": "-19"
+            }
         },
         {
             "original": "Team Fortress 2 2022.08.08 - 17.36.33.16.DVR.mp4",
             "new name": "a parasite exorcision",
-            "times": [
-                "-42"
-            ]
+            "times": {
+                "start": "-42"
+            }
         },
         {
             "original": "Team Fortress 2 2022.08.08 - 17.59.06.17.DVR.mp4",
             "new name": "lucafastab rex",
-            "times": [
-                "0",
-                "4"
-            ]
+            "times": {
+                "start": "0",
+                "end": "4"
+            }
         },
         {
             "original": "Team Fortress 2 2022.08.08 - 17.59.06.17.DVR.mp4",
             "new name": "le ze gome escape",
-            "times": [
-                "-11"
-            ]
+            "times": {
+                "start": "-11"
+            }
         }
     ],
     "renames": {},

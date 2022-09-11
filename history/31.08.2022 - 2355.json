@@ -3,9 +3,9 @@
         {
             "original": "Team Fortress 2 2022.06.13 - 23.52.30.36.DVR.mp4",
             "new name": "the direct shit",
-            "times": [
-                "-14"
-            ]
+            "times": {
+                "start": "-14"
+            }
         }
     ],
     "renames": {},

@@ -3,9 +3,9 @@
         {
             "original": "Team Fortress 2 2019.07.11 - 18.06.29.01.mp4",
             "new name": "rohan myyyst ceekay adventures",
-            "times": [
-                "-254"
-            ]
+            "times": {
+                "start": "-254"
+            }
         }
     ],
     "renames": {},

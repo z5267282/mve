@@ -3,10 +3,10 @@
         {
             "original": "Team Fortress 2 2019.06.24 - 14.35.54.04.DVR.mp4",
             "new name": "upward second to spawn",
-            "times": [
-                "2:29",
-                "2:42"
-            ]
+            "times": {
+                "start": "2:29",
+                "end": "2:42"
+            }
         }
     ],
     "renames": {
