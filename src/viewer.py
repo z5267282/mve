@@ -41,7 +41,7 @@ def check_no_remaining():
         sys.exit(err.MISSING_REMAINING)
 
 
-def run_loop(edits: list, renames: dict, deletions: list) -> int:
+def run_loop(edits, renames, deletions):
     remaining = util.load_remaining()
     padding = len(
         str(
