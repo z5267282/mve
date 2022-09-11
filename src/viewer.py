@@ -137,7 +137,7 @@ def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, inte
     start, end, edit_name = start_end_name_unpacker(tokens)
     regex, format = r'[0-9]+', '[ natural number | timestamp in form <[hour]-min-sec> ]'
     if integer:
-        regex, format = r'?-[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
+        regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
     
     if not start is None:
         start = parse_time(start, regex, True, format)
