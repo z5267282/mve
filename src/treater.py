@@ -112,7 +112,7 @@ def edit_moviepy(joined_src_path, joined_dst_path, start, end):
             preset=vde.COMPRESSION,
             audio_codec=vde.ACODEC
         )
-    
+
 def edit_ffmpeg(joined_src_path, joined_dst_path, start, end):
     source = ['-accurate_seek', '-i', joined_src_path]
     args = ['ffmpeg', '-y', *generate_ffmpeg_args(source, start, end), '-c', 'copy', joined_dst_path]
