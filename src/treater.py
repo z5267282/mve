@@ -73,7 +73,7 @@ def treat_all(joined_current_file, remaining, errors):
 
     renames = data[trf.RENAMES]
     rename_all(renames, remaining, errors)
-    
+
     deletions = data[trf.DELETIONS]
     delete_all(deletions, remaining, errors)
 
@@ -122,13 +122,13 @@ def edit_ffmpeg(joined_src_path, joined_dst_path, start, end):
 def generate_ffmpeg_args(source, start, end):
     if start is None and end is None:
         return source
-    
+
     if start is None:
         return [*source, '-to', end]
-    
+
     if end is None:
         return ['-sseof' if start.startswith('-') else '-ss', start, *source]
-    
+
     relative_time = str(
         time_handlers.get_seconds(end) - time_handlers.get_seconds(start)
     )

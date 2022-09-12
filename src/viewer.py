@@ -53,7 +53,7 @@ def run_loop(edits, renames, deletions):
     while remaining:
         base_name = remaining[0]
         view_video(base_name)
-        
+
         go_to_next_file = False
         command, raw_tokens = prompt(
             base_name, padding, len(remaining)
@@ -82,7 +82,7 @@ def run_loop(edits, renames, deletions):
 
         if go_to_next_file:
             remaining.pop(0)
-    
+
     util.write_remaining(remaining)
     return len(remaining)
 
@@ -134,29 +134,29 @@ def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, inte
     tokens = parse_tokens(raw_tokens, command)
     if tokens is None:
         return False
-    
+
     start, end, edit_name = start_end_name_unpacker(tokens)
     regex, format = r'[0-9]+', '[ natural number | timestamp in form <[hour]-min-sec> ]'
     if integer:
         regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
-    
+
     if not start is None:
         start = parse_time(start, regex, True, format)
         if start is None:
             return False
-        
+
     if not end is None:
         end = parse_time(end, regex, False, format)
         if end is None:
             return False
-    
+
     if not check_times(base_name, start, end):
         return False
-        
+
     edit_name = handle_new_name(edit_name)
     if edit_name is None:
         return False
-    
+
     log_edit(base_name, edit_name, edits, start, end)
     return True
 
@@ -168,7 +168,7 @@ def parse_tokens(raw_tokens, command):
             highlight_all_commands(no_double_spaces)
         )
         return None
-    
+
     return tokens
 
 def split_tokens(raw_tokens, command):
@@ -194,7 +194,7 @@ def parse_time(raw_time, regex, is_start, format):
 
     if time is None:
         print_time_format(is_start, format)
-    
+
     return time
 
 def parse_timestamp(timestamp):
@@ -212,15 +212,15 @@ def check_times(base_name, start, end):
     if start is None:
         if not check_in_bounds(end, time_handlers.get_seconds(end), duration, base_name, is_start=False):
             return False
-        
+
         return True
-    
+
     if end is None:
         if not check_in_bounds(start, time_handlers.get_seconds(start), duration, base_name):
             return False
-        
+
         return True
-    
+
     start_seconds, end_seconds = time_handlers.get_seconds(start), time_handlers.get_seconds(end)
     for time, seconds, is_start in zip([start, end], [start_seconds, end_seconds], [True, False]):
         if not check_in_bounds(time, seconds, duration, base_name, is_start=is_start):
@@ -229,7 +229,7 @@ def check_times(base_name, start, end):
     if not end_seconds > start_seconds:
         util.print_error(f"the end time '{util.highlight(end)}' must be bigger than the start time '{util.highlight(start)}'")
         return False
-    
+
     return True
 
 def get_duration(joined_src_path):
@@ -257,7 +257,7 @@ def check_in_bounds(time, seconds, duration, base_name, is_start=True):
     if not in_duration_bounds(seconds, duration):
         print_duration_error(time, base_name, is_start)
         return False
-    
+
     return True
 
 def in_duration_bounds(seconds, duration):
@@ -273,7 +273,7 @@ def handle_new_name(new_name):
     if not correct_name_format(new_name):
         print_name_format()
         return None
-    
+
     new_name = handle_leading_number(new_name)
     if not new_name is None:
         new_name = add_suffix(new_name)
@@ -310,7 +310,7 @@ def check_file_exists(name, folder):
     ):
         util.print_error(f"the file '{util.highlight(name)}' exists in the folder {folder}")
         return True
-    
+
     return False
 
 def log_edit(base_name, edit_name, edits, start, end):
@@ -346,12 +346,12 @@ def do_rename(base_name, raw_tokens, renames):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
         return False
-    
+
     new_name, = tokens
     new_name = handle_new_name(new_name)
     if new_name is None:
         return False
-    
+
     log_rename(base_name, new_name, renames)
     return True
 
