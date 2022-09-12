@@ -1,5 +1,3 @@
-import datetime as dt
-import json
 import os
 import re
 import sys
@@ -10,23 +8,8 @@ import constants.colour as clr
 import constants.treatment_format as trf
 
 
-# Timestamping
-
-def get_timestamp():
-    right_now = dt.datetime.now()
-    return right_now.strftime('%d.%m.%Y - %H%M')
-
-def generate_timestamped_file_name():
-    return f'{get_timestamp()}.json'
-
-
-# Stderr
-
 def stderr_print(message):
     print(message, file=sys.stderr)
-
-
-# Treatment format
 
 def generate_paths_dict():
     return {
