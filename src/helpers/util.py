@@ -24,7 +24,7 @@ def print_error(message):
 
 def exit_success(message):
     base_name = re.sub(
-        r'\.py$', '',
+        r'\.py$', r'',
         os.path.basename(sys.argv[0])
     )
     print(f'{colours.colour_box(clr.GREEN, "success")} {base_name} {message}')
