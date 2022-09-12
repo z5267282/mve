@@ -24,7 +24,7 @@ def read_from_json(file_path):
     return data
 
 def load_remaining():
-    return read_from_json(fst.REMAINING) 
+    return read_from_json(fst.REMAINING)
 
 def write_remaining(remaining):
     write_to_json(remaining, fst.REMAINING)

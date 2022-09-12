@@ -62,7 +62,7 @@ def dequeue():
     get_creation_time = lambda file_name: os.path.getctime(
         files.get_joined_path(fst.QUEUE, file_name)
     )
-    return sorted(queue_files, key=get_creation_time)[0] 
+    return sorted(queue_files, key=get_creation_time)[0]
 
 
 def treat_all(joined_current_file, remaining, errors):
