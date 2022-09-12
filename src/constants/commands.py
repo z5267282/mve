@@ -49,7 +49,7 @@ HELP_MESSAGE = f'''
 
 {{{WHOLE}}}
     + edit the entire clip from start to end
-    + like running [ s 0 ] 
+    + like running [ s 0 ]
     + the name can only contain upper and lowercase letters, digits and spacebars
 
 {{{RENAME}}}

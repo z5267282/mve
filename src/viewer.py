@@ -125,7 +125,7 @@ def highlight_command(command):
 
 def do_end(base_name, raw_tokens, edits):
     return do_edit(
-        cmd.END, base_name, raw_tokens, edits, 
+        cmd.END, base_name, raw_tokens, edits,
         lambda tokens: (tokens[0], None, tokens[1]),
         integer=True
     )
@@ -277,7 +277,9 @@ def handle_new_name(new_name):
     new_name = handle_leading_number(new_name)
     if not new_name is None:
         new_name = add_suffix(new_name)
+        print('here')
         if check_file_exists(new_name, cfg.DESTINATION):
+            print('there')
             return None
 
     return new_name
@@ -305,8 +307,9 @@ def add_suffix(name):
     return f'{name}.{vde.SUFFIX}'
 
 def check_file_exists(name, folder):
+    print(files.get_joined_path(folder, name))
     if os.path.exists(
-        files.get_joined_path(folder, name)        
+        files.get_joined_path(folder, name)
     ):
         util.print_error(f"the file '{util.highlight(name)}' exists in the folder {folder}")
         return True
@@ -375,7 +378,7 @@ def log_to_file(edits, renames, deletions):
         trf.DELETIONS : deletions,
     }
     data[trf.PATHS] = util.generate_paths_dict()
-    util.write_to_json(data, joined_treatment_name) 
+    util.write_to_json(data, joined_treatment_name)
 
 
 if __name__ == '__main__':
