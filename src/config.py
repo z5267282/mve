@@ -8,7 +8,7 @@ NUM_THREADS   = 4
 NUM_PROCESSES = 4 
 
 # MoviePy
-USE_MOVIEPY = True
+USE_MOVIEPY = False 
 
 # testing
 TESTING = False
