@@ -116,6 +116,7 @@ def edit_moviepy(joined_src_path, joined_dst_path, start, end):
 def edit_ffmpeg(joined_src_path, joined_dst_path, start, end):
     source = ['-accurate_seek', '-i', joined_src_path]
     args = ['ffmpeg', '-y', *generate_ffmpeg_args(source, start, end), '-c', 'copy', joined_dst_path]
+    print(args)
     subprocess.run(args, check=True)
 
 def generate_ffmpeg_args(source, start, end):
@@ -128,7 +129,10 @@ def generate_ffmpeg_args(source, start, end):
     if end is None:
         return ['-sseof' if start.startswith('-') else '-ss', start, *source]
     
-    return ['-ss', start, *source, '-to', time_handlers.get_seconds(end) - time_handlers.get_seconds(start)]
+    relative_time = str(
+        time_handlers.get_seconds(end) - time_handlers.get_seconds(start)
+    )
+    return ['-ss', start, *source, '-to', relative_time]
 
 def handle_error(errors, remaining, name, message, command, data):
     add_error(errors, name, message, command, data)
