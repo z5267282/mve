@@ -14,12 +14,12 @@ import constants.treatment_format as trf
 
 # JSON
 
-def write_to_json(item, file_path):
-    with open(file_path, 'w') as f:
+def write_to_json(item, joined_path):
+    with open(joined_path, 'w') as f:
         json.dump(item, f, indent=jsn.INDENT_SPACES)
 
-def read_from_json(file_path):
-    with open(file_path, 'r') as f:
+def read_from_json(joined_path):
+    with open(joined_path, 'r') as f:
         data = json.load(f)
     return data
 
