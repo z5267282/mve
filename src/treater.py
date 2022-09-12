@@ -115,7 +115,7 @@ def edit_moviepy(joined_src_path, joined_dst_path, start, end):
     
 def edit_ffmpeg(joined_src_path, joined_dst_path, start, end):
     source = ['-accurate_seek', '-i', joined_src_path]
-    args = ['ffmpeg', '-y', *generate_ffmpeg_args(source, start, end), joined_dst_path]
+    args = ['ffmpeg', '-y', *generate_ffmpeg_args(source, start, end), '-c', 'copy', joined_dst_path]
     subprocess.run(args, check=True)
 
 def generate_ffmpeg_args(source, start, end):
