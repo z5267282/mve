@@ -13,6 +13,7 @@ import constants.treatment_format as trf
 import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
+import helpers.colours as colours
 import helpers.files as files
 import helpers.json_handlers as json_handlers
 import helpers.time_handlers as time_handlers
@@ -29,7 +30,7 @@ def main():
     if edits or renames or deletions:
         log_to_file(edits, renames, deletions)
 
-    util.exit_success(f'exited with {util.colour_format(clr.CYAN, num_remaining)} file{str() if num_remaining == 1 else "s"} remaining')
+    util.exit_success(f'exited with {colours.colour_format(clr.CYAN, num_remaining)} file{str() if num_remaining == 1 else "s"} remaining')
 
 
 def run_checks():
@@ -40,7 +41,7 @@ def run_checks():
 
 def check_no_remaining():
     if not os.path.exists(fst.REMAINING):
-        util.stderr_print(f"the remaining file '{util.highlight(fst.REMAINING)}' doesn't exist")
+        util.stderr_print(f"the remaining file '{colours.highlight(fst.REMAINING)}' doesn't exist")
         sys.exit(err.MISSING_REMAINING)
 
 
@@ -80,7 +81,7 @@ def run_loop(edits, renames, deletions):
             case cmd.DELETE:
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
-                util.print_error(f"invalid command '{util.highlight(command)}' - press {cmd.HELP} for a list of commands")
+                util.print_error(f"invalid command '{colours.highlight(command)}' - press {cmd.HELP} for a list of commands")
 
         if go_to_next_file:
             remaining.pop(0)
@@ -123,7 +124,7 @@ def highlight_all_commands(string):
     return re.sub(r'\[(.)\]', repl, string)
 
 def highlight_command(command):
-    return util.colour_format(clr.PURPLE, command)
+    return colours.colour_format(clr.PURPLE, command)
 
 def do_end(base_name, raw_tokens, edits):
     return do_edit(
@@ -229,7 +230,7 @@ def check_times(base_name, start, end):
             return False
 
     if not end_seconds > start_seconds:
-        util.print_error(f"the end time '{util.highlight(end)}' must be bigger than the start time '{util.highlight(start)}'")
+        util.print_error(f"the end time '{colours.highlight(end)}' must be bigger than the start time '{colours.highlight(start)}'")
         return False
 
     return True
@@ -266,7 +267,7 @@ def in_duration_bounds(seconds, duration):
     return seconds >= 0 and seconds <= duration
 
 def print_duration_error(time, name, is_start):
-    util.print_error(f"the {get_start_end_description(is_start)} time '{util.highlight(time)}' is not in the bounds of video {name}")
+    util.print_error(f"the {get_start_end_description(is_start)} time '{colours.highlight(time)}' is not in the bounds of video {name}")
 
 def get_start_end_description(is_start):
     return 'start' if is_start else 'end'
@@ -297,7 +298,7 @@ def reprompt_name(current_name):
     warn = util.colour_box(clr.YELLOW, 'warning')
     print(
         "{} the name '{}' starts with a number are you sure you haven't misentered the [{}]iddle command?".format(
-            warn, util.highlight(current_name), highlight_command(cmd.MIDDLE)
+            warn, colours.highlight(current_name), highlight_command(cmd.MIDDLE)
         )
     )
     change_name = input(f"{warn} type 'y' if you want to re-enter this command : ")
@@ -310,7 +311,7 @@ def check_file_exists(name, folder):
     if os.path.exists(
         files.get_joined_path(folder, name)
     ):
-        util.print_error(f"the file '{util.highlight(name)}' exists in the folder {folder}")
+        util.print_error(f"the file '{colours.highlight(name)}' exists in the folder {folder}")
         return True
 
     return False

@@ -13,6 +13,7 @@ import constants.treatment_format as trf
 import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
+import helpers.colours as colours
 import helpers.files as files
 import helpers.json_handlers as json_handlers
 import helpers.time_handlers as time_handlers
@@ -203,7 +204,7 @@ def write_errors(error_file_name, errors):
     json_handlers.write_to_json(data, joined_error_file_name)
 
 def exit_treatment_error(error_file_name):
-    util.print_error(f"one or more errors occurred during treatment logged in '{util.highlight(error_file_name)}'")
+    util.print_error(f"one or more errors occurred during treatment logged in '{colours.highlight(error_file_name)}'")
     sys.exit(err.TREATMENT_ERROR)
 
 
