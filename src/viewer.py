@@ -153,7 +153,7 @@ def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, inte
     if not check_times(base_name, start, end):
         return False
 
-    edit_name = handle_new_name(edit_name)
+    edit_name = handle_new_name(edit_name, cfg.DESTINATION)
     if edit_name is None:
         return False
 
@@ -269,7 +269,7 @@ def print_duration_error(time, name, is_start):
 def get_start_end_description(is_start):
     return 'start' if is_start else 'end'
 
-def handle_new_name(new_name):
+def handle_new_name(new_name, dst_folder):
     if not correct_name_format(new_name):
         print_name_format()
         return None
@@ -277,9 +277,7 @@ def handle_new_name(new_name):
     new_name = handle_leading_number(new_name)
     if not new_name is None:
         new_name = add_suffix(new_name)
-        print('here')
-        if check_file_exists(new_name, cfg.DESTINATION):
-            print('there')
+        if check_file_exists(new_name, dst_folder):
             return None
 
     return new_name
@@ -307,7 +305,6 @@ def add_suffix(name):
     return f'{name}.{vde.SUFFIX}'
 
 def check_file_exists(name, folder):
-    print(files.get_joined_path(folder, name))
     if os.path.exists(
         files.get_joined_path(folder, name)
     ):
@@ -351,7 +348,7 @@ def do_rename(base_name, raw_tokens, renames):
         return False
 
     new_name, = tokens
-    new_name = handle_new_name(new_name)
+    new_name = handle_new_name(new_name, cfg.RENAMES)
     if new_name is None:
         return False
 
