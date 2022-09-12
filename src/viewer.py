@@ -14,6 +14,7 @@ import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
+import helpers.time_handlers as time_handlers
 import helpers.util as util
 
 
@@ -209,18 +210,18 @@ def check_times(base_name, start, end):
     joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
     duration = get_duration(joined_src_path)
     if start is None:
-        if not check_in_bounds(end, get_seconds(end), duration, base_name, is_start=False):
+        if not check_in_bounds(end, time_handlers.get_seconds(end), duration, base_name, is_start=False):
             return False
         
         return True
     
     if end is None:
-        if not check_in_bounds(start, get_seconds(start), duration, base_name):
+        if not check_in_bounds(start, time_handlers.get_seconds(start), duration, base_name):
             return False
         
         return True
     
-    start_seconds, end_seconds = get_seconds(start), get_seconds(end)
+    start_seconds, end_seconds = time_handlers.get_seconds(start), time_handlers.get_seconds(end)
     for time, seconds, is_start in zip([start, end], [start_seconds, end_seconds], [True, False]):
         if not check_in_bounds(time, seconds, duration, base_name, is_start=is_start):
             return False
@@ -267,25 +268,6 @@ def print_duration_error(time, name, is_start):
 
 def get_start_end_description(is_start):
     return 'start' if is_start else 'end'
-
-def get_seconds(time):
-    if time.startswith('-'):
-        return int(time[1:])
-
-    if ':' in time:
-        return get_timestamp_seconds(time)
-
-    return int(time)
-
-def get_timestamp_seconds(timestamp):
-    return sum(
-        int(t) * (60 ** i)
-            for i, t in enumerate(
-                reversed(
-                    timestamp.split(':')
-                )
-            )
-    )
 
 def handle_new_name(new_name):
     if not correct_name_format(new_name):
