@@ -195,20 +195,20 @@ Functions are thereafter written in stack order:
     def main():
         A()
         B()
-    
+
 
     def A():
         b()
         d()
-    
+
     def b():
         c()
-    
+
     def c()
 
     def d():
         ...
-    
+
 
     def B():
         ...
