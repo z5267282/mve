@@ -14,6 +14,7 @@ import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
+import helpers.json_handlers as json_handlers
 import helpers.time_handlers as time_handlers
 import helpers.util as util
 
@@ -21,7 +22,7 @@ import helpers.util as util
 def main():
     run_checks()
 
-    remaining, errors = util.load_remaining(), list()
+    remaining, errors = json_handlers.load_remaining(), list()
     current_file = dequeue()
     joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
     treat_all(joined_current_file, remaining, errors)
@@ -66,7 +67,7 @@ def dequeue():
 
 
 def treat_all(joined_current_file, remaining, errors):
-    data = util.read_from_json(joined_current_file)
+    data = json_handlers.read_from_json(joined_current_file)
 
     edits = data[trf.EDITS]
     edit_all(edits, remaining, errors)
@@ -189,7 +190,7 @@ def update_history(current_file, joined_current_file):
 def handle_errors(remaining, errors):
     error_file_name = util.generate_timestamped_file_name()
     write_errors(error_file_name, errors)
-    util.write_remaining(remaining)
+    json_handlers.write_remaining(remaining)
     exit_treatment_error(error_file_name)
 
 def write_errors(error_file_name, errors):
@@ -198,7 +199,7 @@ def write_errors(error_file_name, errors):
         erf.ERRORS_VIDEOS: errors,
         erf.ERRORS_PATHS : util.generate_paths_dict()
     }
-    util.write_to_json(data, joined_error_file_name)
+    json_handlers.write_to_json(data, joined_error_file_name)
 
 def exit_treatment_error(error_file_name):
     util.print_error(f"one or more errors occurred during treatment logged in '{util.highlight(error_file_name)}'")

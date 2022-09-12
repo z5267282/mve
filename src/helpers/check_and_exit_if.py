@@ -7,6 +7,7 @@ import constants.error as err
 import constants.file_structure as fst
 
 import helpers.files as files
+import helpers.json_handlers as json_handlers
 import helpers.util as util
 
 
@@ -36,6 +37,6 @@ def no_queue():
 # Remaining related
 
 def files_remaining():
-    if util.load_remaining():
+    if json_handlers.load_remaining():
         util.stderr_print(f"there are files yet to be treated in '{fst.REMAINING}'")
         sys.exit(err.FILES_REMAINING)
