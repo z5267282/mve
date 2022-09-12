@@ -14,6 +14,7 @@ import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
+import helpers.json_handlers as json_handlers
 import helpers.time_handlers as time_handlers
 import helpers.util as util
 
@@ -43,7 +44,7 @@ def check_no_remaining():
 
 
 def run_loop(edits, renames, deletions):
-    remaining = util.load_remaining()
+    remaining = json_handlers.load_remaining()
     padding = len(
         str(
             len(remaining)
@@ -83,7 +84,7 @@ def run_loop(edits, renames, deletions):
         if go_to_next_file:
             remaining.pop(0)
 
-    util.write_remaining(remaining)
+    json_handlers.write_remaining(remaining)
     return len(remaining)
 
 def view_video(base_name):
@@ -375,7 +376,7 @@ def log_to_file(edits, renames, deletions):
         trf.DELETIONS : deletions,
     }
     data[trf.PATHS] = util.generate_paths_dict()
-    util.write_to_json(data, joined_treatment_name)
+    json_handlers.write_to_json(data, joined_treatment_name)
 
 
 if __name__ == '__main__':
