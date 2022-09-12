@@ -14,6 +14,7 @@ import constants.video_editing as vde
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
+import helpers.time_handlers as time_handlers
 import helpers.util as util
 
 
@@ -111,19 +112,23 @@ def edit_moviepy(joined_src_path, joined_dst_path, start, end):
             preset=vde.COMPRESSION,
             audio_codec=vde.ACODEC
         )
-
+    
 def edit_ffmpeg(joined_src_path, joined_dst_path, start, end):
-    args = ['ffmpeg', '-y']
-    source = ['-i', joined_src_path]
-
-    if not start is None:
-        args += ['-sseof', start, *source] if start.startswith('-') else [*source, '-ss', start]
-
-    if not end is None:
-        args += ['-to', end]
-        
-    args.append(joined_dst_path)
+    source = ['-accurate_seek', '-i', joined_src_path]
+    args = ['ffmpeg', '-y', *generate_ffmpeg_args(source, start, end), joined_dst_path]
     subprocess.run(args, check=True)
+
+def generate_ffmpeg_args(source, start, end):
+    if start is None and end is None:
+        return source
+    
+    if start is None:
+        return [*source, '-to', end]
+    
+    if end is None:
+        return ['-sseof' if start.startswith('-') else '-ss', start, *source]
+    
+    return ['-ss', start, *source, '-to', time_handlers.get_seconds(end) - time_handlers.get_seconds(start)]
 
 def handle_error(errors, remaining, name, message, command, data):
     add_error(errors, name, message, command, data)
