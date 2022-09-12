@@ -16,6 +16,7 @@ import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 import helpers.json_handlers as json_handlers
 import helpers.time_handlers as time_handlers
+import helpers.timestamps as timestamps
 import helpers.util as util
 
 
@@ -368,7 +369,7 @@ def log_delete(base_name, deletions):
 
 
 def log_to_file(edits, renames, deletions):
-    treatment_name = util.generate_timestamped_file_name()
+    treatment_name = timestamps.generate_timestamped_file_name()
     joined_treatment_name = files.get_joined_path(fst.QUEUE, treatment_name)
     data = {
         trf.EDITS     : edits,
