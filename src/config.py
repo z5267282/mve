@@ -5,13 +5,13 @@ DESTINATION = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Edits', 'Minecraft']
 
 # multi threading and processing
 NUM_THREADS   = 4
-NUM_PROCESSES = 4 
+NUM_PROCESSES = 4
 
 # MoviePy
-USE_MOVIEPY = False 
+USE_MOVIEPY = False
 
 # testing
 TESTING = False
 
 # colours
-BOLD = False 
+BOLD = False
