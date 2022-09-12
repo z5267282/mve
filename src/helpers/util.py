@@ -22,9 +22,6 @@ def generate_paths_dict():
 def print_error(message):
     stderr_print(f'{colours.colour_box(clr.RED, "error")} {message}')
 
-
-# Success
-
 def exit_success(message):
     base_name = re.sub(
         r'\.py$', '',
