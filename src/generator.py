@@ -6,6 +6,7 @@ import config as cfg
 import constants.file_structure as fst
 
 import helpers.check_and_exit_if as check_and_exit_if
+import helpers.colours as colours
 import helpers.json_handlers as json_handlers
 import helpers.files as files
 import helpers.util as util
@@ -18,7 +19,7 @@ def main():
     json_handlers.write_to_json(new_files, fst.REMAINING)
 
     joined_path = files.get_joined_path(cfg.SOURCE, '')
-    util.exit_success(f"placed file names from the folder '{util.highlight(joined_path)}' in {fst.REMAINING}")
+    util.exit_success(f"placed file names from the folder '{colours.highlight(joined_path)}' in {fst.REMAINING}")
 
 
 def run_checks():
