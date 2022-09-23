@@ -1,0 +1,113 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2020.02.15 - 16.11.18.04.DVR.mp4",
+            "new name": "the demon slayer class.mp4",
+            "times": {
+                "start": "4:49",
+                "end": "4:53"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.23 - 20.56.51.02.DVR.mp4",
+            "new name": "spiral as.mp4",
+            "times": {
+                "start": "4:53",
+                "end": "4:57"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.23 - 22.18.50.07.DVR.mp4",
+            "new name": "the spy demo disguise last push.mp4",
+            "times": {
+                "start": "-26",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.24 - 01.10.26.09.DVR.mp4",
+            "new name": "the maroon 5 monster yknow deserved force.mp4",
+            "times": {
+                "start": "-23",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.03.02 - 16.25.01.04.DVR.mp4",
+            "new name": "couldnt save it in the end.mp4",
+            "times": {
+                "start": "4:1",
+                "end": "4:10"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.03.03 - 01.20.17.02.DVR.mp4",
+            "new name": "cant escape death twicer.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.03.21 - 01.24.03.04.DVR.mp4",
+            "new name": "enk holding the fort.mp4",
+            "times": {
+                "start": "4:29",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.03.24 - 21.31.13.09.DVR.mp4",
+            "new name": "randy clutchbow.mp4",
+            "times": {
+                "start": "4:45",
+                "end": "4:53"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.03.24 - 21.42.33.11.mp4",
+            "new name": "randy the doh.mp4",
+            "times": {
+                "start": "11:18",
+                "end": "11:52"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.03.27 - 23.40.02.08.DVR.mp4",
+            "new name": "ah lux mate.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [
+        "Team Fortress 2 2020.03.21 - 00.55.41.03.DVR.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "4"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "4"
+        ]
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2020.02.14 - 22.11.15.06.DVR.mp4",
+            "new name": "smae we sponsor toxicity.mp4",
+            "times": {
+                "start": "-48",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "4"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "4"
+        ]
+    }
+}
