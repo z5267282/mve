@@ -1,0 +1,119 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2019.12.13 - 17.33.46.05.DVR.mp4",
+            "new name": "the end of berko.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2019.12.14 - 21.29.50.07.DVR.mp4",
+            "new name": "the tilt rockets.mp4",
+            "times": {
+                "start": "4:24",
+                "end": "4:30"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.01.29 - 15.06.03.04.DVR.mp4",
+            "new name": "the spiral dream.mp4",
+            "times": {
+                "start": "4:44",
+                "end": "4:49"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.01.31 - 23.41.14.04.DVR.mp4",
+            "new name": "freak.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.01 - 22.06.03.05.DVR.mp4",
+            "new name": "the vent that should have been.mp4",
+            "times": {
+                "start": "-12",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.04 - 20.56.19.04.DVR.mp4",
+            "new name": "the gran 4k.mp4",
+            "times": {
+                "start": "4:28",
+                "end": "4:38"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.05 - 14.54.52.07.DVR.mp4",
+            "new name": "les airshots.mp4",
+            "times": {
+                "start": "4:44",
+                "end": "4:56"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.06 - 22.12.31.02.DVR.mp4",
+            "new name": "numerous pyromancers.mp4",
+            "times": {
+                "start": "-25",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.08 - 22.31.21.10.DVR.mp4",
+            "new name": "use use use.mp4",
+            "times": {
+                "start": null,
+                "end": "17"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.08 - 22.31.21.10.DVR.mp4",
+            "new name": "jd goomba trev frag vid.mp4",
+            "times": {
+                "start": "-20",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.08 - 22.31.21.10.DVR.mp4",
+            "new name": "walking into the hs.mp4",
+            "times": {
+                "start": "3:2",
+                "end": "3:11"
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "4"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "4"
+        ]
+    }
+}

@@ -1,0 +1,103 @@
+{
+    "edits": [
+        {
+            "original": "vonixyy shut up sam.mp4",
+            "new name": "von shut up sam.mp4",
+            "times": {
+                "start": "-33",
+                "end": null
+            }
+        },
+        {
+            "original": "zach calling his dad daddy.mp4",
+            "new name": "zach daddy.mp4",
+            "times": {
+                "start": "-22",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2019.11.24 - 21.30.45.10.DVR.mp4",
+            "new name": "the goated back cap.mp4",
+            "times": {
+                "start": "4:26",
+                "end": "4:51"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2019.11.26 - 00.05.35.03.DVR.mp4",
+            "new name": "sphilliz core down.mp4",
+            "times": {
+                "start": "-24",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2019.11.26 - 00.54.32.05.DVR.mp4",
+            "new name": "did anyone just see that.mp4",
+            "times": {
+                "start": "-38",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2019.12.08 - 22.03.59.05.DVR.mp4",
+            "new name": "smecklebot.mp4",
+            "times": {
+                "start": "4:47",
+                "end": "4:52"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2019.12.10 - 00.39.02.02.DVR.mp4",
+            "new name": "tilt rockets to secure dub.mp4",
+            "times": {
+                "start": "4:33",
+                "end": "4:50"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2019.12.10 - 22.29.23.05.DVR.mp4",
+            "new name": "yachty turns on cheats.mp4",
+            "times": {
+                "start": "-22",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2019.12.10 - 23.49.16.08.DVR.mp4",
+            "new name": "the andy fiasco.mp4",
+            "times": {
+                "start": "4:3",
+                "end": "4:31"
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "4"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "4"
+        ]
+    }
+}
