@@ -167,7 +167,6 @@ def rename_all(renames, remaining, errors):
 def do_rename(src_name, dst_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
     joined_dst_name = files.get_joined_path(cfg.RENAMES, dst_name)
-
     os.rename(joined_src_name, joined_dst_name)
 
 def delete_all(deletions, remaining, errors):
@@ -179,7 +178,6 @@ def delete_all(deletions, remaining, errors):
 
 def do_delete(src_name):
     joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
-
     os.remove(joined_src_name)
 
 
