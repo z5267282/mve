@@ -1,0 +1,151 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2020.05.25 - 22.06.45.03.DVR.mp4",
+            "new name": "gully 9k pug.mp4",
+            "times": {
+                "start": "2:32",
+                "end": null
+            }
+        },
+        {
+            "original": "amby drop.mp4",
+            "new name": "outtathyme.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "berko insane escape.mp4",
+            "new name": "berko the goated escape.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "fat 4k flank granary.mp4",
+            "new name": "z 4k gran.mp4",
+            "times": {
+                "start": "-25",
+                "end": null
+            }
+        },
+        {
+            "original": "g boen binyam josh alt 8.mp4",
+            "new name": "emgee telefrag.mp4",
+            "times": {
+                "start": "4:8",
+                "end": "4:12"
+            }
+        },
+        {
+            "original": "gurney dropping to arrow.mp4",
+            "new name": "gurney dropping to arrow.mp4",
+            "times": {
+                "start": "-26",
+                "end": null
+            }
+        },
+        {
+            "original": "last snakewater sync.mp4",
+            "new name": "calski becomes connor mcgreggor.mp4",
+            "times": {
+                "start": null,
+                "end": "14"
+            }
+        },
+        {
+            "original": "last snakewater sync.mp4",
+            "new name": "snakewater sky high sync.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "p nutty shotty jump.mp4",
+            "new name": "the rocky pocket answers all.mp4",
+            "times": {
+                "start": "-12",
+                "end": null
+            }
+        },
+        {
+            "original": "p pumpkin crit kill.mp4",
+            "new name": "the halloween krumpkin.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "pu perfect unflash med kill.mp4",
+            "new name": "how did this happen.mp4",
+            "times": {
+                "start": "-25",
+                "end": null
+            }
+        },
+        {
+            "original": "rj long wall jump sunshine.mp4",
+            "new name": "sunshine strange downward wall rj.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "rj process speedshot.mp4",
+            "new name": "process speedshot ramp.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "rocky shot.mp4",
+            "new name": "tal rocky shot.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "s attempted demo all pipe defence.mp4",
+            "new name": "every pipe wasnt enough.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "6"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "6"
+        ]
+    }
+}
