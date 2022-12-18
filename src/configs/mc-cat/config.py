@@ -1,5 +1,5 @@
 # folder paths
-SOURCE      = ['D:', '\\', 'Videos', 'MC Cat']
+SOURCE      = ['D:', '\\', 'Videos' 'MC Cat']
 RENAMES     = ['D:', '\\', 'Videos', 'Renames']
 DESTINATION = ["C:", "\\", "Users", "Sunny", "OneDrive - UNSW", "Documents", "UHC", "cat video"]
 
