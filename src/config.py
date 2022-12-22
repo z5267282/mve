@@ -1,7 +1,7 @@
 # folder paths
-SOURCE      = ['D:', '\\', 'Videos', 'MC Cat']
+SOURCE      = ['D:', '\\', 'Videos', '16']
 RENAMES     = ['D:', '\\', 'Videos', 'Renames']
-DESTINATION = ["C:", "\\", "Users", "Sunny", "OneDrive - UNSW", "Documents", "UHC", "cat video"]
+DESTINATION = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Edits', 'TF2', '16']
 
 # multi threading and processing
 NUM_THREADS   = 4
