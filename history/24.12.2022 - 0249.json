@@ -1,0 +1,50 @@
+{
+    "edits": [
+        {
+            "original": "rj logjam rollout.mp4",
+            "new name": "logjam shutter to mid.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "rj product rock.mp4",
+            "new name": "product concrete to cliff.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "g auz asian.mp4": "no wonder pudon got banned.mp4",
+        "rj product rock.mp4": "auz pep talk.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "8"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "8"
+        ]
+    }
+}

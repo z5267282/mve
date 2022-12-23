@@ -1,0 +1,41 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2019.10.22 - 18.11.34.02.DVR.mp4",
+            "new name": "smile.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2019.10.24 - 22.00.38.06.DVR.mp4": "forefather revealing his master plan.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "9"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "8"
+        ]
+    }
+}

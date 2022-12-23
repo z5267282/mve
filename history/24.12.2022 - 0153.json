@@ -1,0 +1,112 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2022.10.24 - 23.41.54.04.DVR.mp4",
+            "new name": "nurf diffed.mp4",
+            "times": {
+                "start": "-16",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2022.10.24 - 23.45.10.05.DVR.mp4",
+            "new name": "peep dodgeball.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2022.11.04 - 20.55.04.02.DVR.mp4",
+            "new name": "a spec.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2022.11.04 - 20.59.36.03.DVR.mp4",
+            "new name": "demoknight diff.mp4",
+            "times": {
+                "start": "-3",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2022.11.04 - 22.58.07.04.DVR.mp4",
+            "new name": "poor devils.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2022.11.05 - 23.36.54.02.DVR.mp4",
+            "new name": "ring the bells.mp4",
+            "times": {
+                "start": "-33",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2022.11.05 - 23.39.45.03.DVR.mp4",
+            "new name": "the telecrocket.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2022.11.05 - 23.57.07.04.DVR.mp4",
+            "new name": "the meat grinder.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2022.11.06 - 00.04.44.05.DVR.mp4",
+            "new name": "the acooma shot.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2022.11.06 - 00.06.00.06.DVR.mp4",
+            "new name": "the acooma shot 2.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2022.11.04 - 20.59.36.03.DVR.mp4": "jp discussion.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "16"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "16"
+        ]
+    }
+}
