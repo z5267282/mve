@@ -1,0 +1,132 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2020.04.15 - 22.13.56.15.DVR.mp4",
+            "new name": "zach agent delta sitdown.mp4",
+            "times": {
+                "start": "-60",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.04.19 - 17.56.35.17.DVR.mp4",
+            "new name": "anerysum joining stream string.mp4",
+            "times": {
+                "start": "-40",
+                "end": null
+            }
+        },
+        {
+            "original": "boston bashering uber med.mp4",
+            "new name": "boston basher ubered med.mp4",
+            "times": {
+                "start": "4:20",
+                "end": "4:25"
+            }
+        },
+        {
+            "original": "p bottle drop.mp4",
+            "new name": "bottle drop.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        },
+        {
+            "original": "p im gonna be moved moved midway.mp4",
+            "new name": "badwater frammm.mp4",
+            "times": {
+                "start": "2:28",
+                "end": "2:50"
+            }
+        },
+        {
+            "original": "p random crit upward cart kills.mp4",
+            "new name": "holy crocket.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "p shotgun combo ceekay hazza cheating.mp4",
+            "new name": "ceekay cheating rocky pocket.mp4",
+            "times": {
+                "start": "-28",
+                "end": null
+            }
+        },
+        {
+            "original": "rj slide off wall no fall damage.mp4",
+            "new name": "sliding off wall no fall damage.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "scandal pyro defence.mp4",
+            "new name": "scandal the goated pyro.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "upward nest farm.mp4",
+            "new name": "upward nest farm auz youre retarded.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "vonixyy my daddy is my provider.mp4",
+            "new name": "von dad provider.mp4",
+            "times": {
+                "start": "-47",
+                "end": null
+            }
+        },
+        {
+            "original": "vonixyy rape is good.mp4",
+            "new name": "rpae is good.mp4",
+            "times": {
+                "start": "-39",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "g boen binyam josh alt 3.mp4": "boen infiltration moment.mp4",
+        "o AOP golden cap.mp4": "aop golden cap.mp4",
+        "pu hazza goss.mp4": "hazza goss.mp4",
+        "upward nest farm.mp4": "bibbore auz fiasco.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "10"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "10"
+        ]
+    }
+}
