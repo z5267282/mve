@@ -1,0 +1,198 @@
+{
+    "files": [
+        {
+            "file name": "Team Fortress 2 2019.10.22 - 20.22.45.05.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-6', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2019.11.02 - 21.52.41.02.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\badwater roof slide.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2019.10.22 - 20.22.45.05.DVR.mp4",
+                "new name": "demoknight charge double pipe.mp4",
+                "times": {
+                    "start": "-15",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2019.10.23 - 20.11.48.05.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-15', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2019.10.22 - 20.22.45.05.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\demoknight charge double pipe.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2019.10.23 - 20.11.48.05.DVR.mp4",
+                "new name": "ultra as.mp4",
+                "times": {
+                    "start": "-8",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2019.11.02 - 21.52.41.02.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-8', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2019.10.23 - 20.11.48.05.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\ultra as.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2019.11.02 - 21.52.41.02.DVR.mp4",
+                "new name": "badwater roof slide.mp4",
+                "times": {
+                    "start": "-6",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2019.11.09 - 22.12.24.04.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-7', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2019.11.09 - 22.12.24.04.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\meff encounter.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2019.11.09 - 22.12.24.04.DVR.mp4",
+                "new name": "meff encounter.mp4",
+                "times": {
+                    "start": "-7",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2019.11.22 - 22.52.51.02.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-11', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2019.11.24 - 23.59.05.17.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\the badwater spawncamp bottle special.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2019.11.22 - 22.52.51.02.DVR.mp4",
+                "new name": "sen stands still but gets them all.mp4",
+                "times": {
+                    "start": "-8",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2019.11.24 - 23.59.05.17.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-40', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2019.12.13 - 14.16.21.02.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\friendly heavy invasion ft demokight as.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2019.11.24 - 23.59.05.17.DVR.mp4",
+                "new name": "the badwater spawncamp bottle special.mp4",
+                "times": {
+                    "start": "-11",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2019.12.02 - 22.05.18.04.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-8', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2019.11.22 - 22.52.51.02.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\sen stands still but gets them all.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2019.12.02 - 22.05.18.04.DVR.mp4",
+                "new name": "rias im pughost in everything.mp4",
+                "times": {
+                    "start": "-41",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2019.12.13 - 14.16.21.02.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-41', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2019.12.02 - 22.05.18.04.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\rias im pughost in everything.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2019.12.13 - 14.16.21.02.DVR.mp4",
+                "new name": "friendly heavy invasion ft demokight as.mp4",
+                "times": {
+                    "start": "-40",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2019.12.14 - 22.50.36.08.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-6', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2019.12.14 - 22.50.36.08.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\jd predicted as.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2019.12.14 - 22.50.36.08.DVR.mp4",
+                "new name": "jd predicted as.mp4",
+                "times": {
+                    "start": "-6",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2020.01.29 - 22.50.09.11.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-16', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2020.01.29 - 22.50.09.11.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\badwater first spiral cart bomb.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2020.01.29 - 22.50.09.11.DVR.mp4",
+                "new name": "badwater first spiral cart bomb.mp4",
+                "times": {
+                    "start": "-16",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2020.02.05 - 23.17.13.03.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-ss', '1:37', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2020.02.05 - 23.17.13.03.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\gurney inviting bibbore alt.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2020.02.05 - 23.17.13.03.DVR.mp4",
+                "new name": "gurney inviting bibbore alt.mp4",
+                "times": {
+                    "start": "1:37",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2020.02.17 - 17.03.10.04.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-10', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2020.02.17 - 17.03.10.04.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\process clean jumps skip original.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2020.02.17 - 17.03.10.04.DVR.mp4",
+                "new name": "process clean jumps skip original.mp4",
+                "times": {
+                    "start": "-10",
+                    "end": null
+                }
+            }
+        },
+        {
+            "file name": "Team Fortress 2 2020.02.22 - 14.44.25.03.DVR.mp4",
+            "message": "Command '['ffmpeg', '-y', '-sseof', '-10', '-accurate_seek', '-i', 'D:\\\\TF2 BIG\\\\Team Fortress 2\\\\12\\\\Team Fortress 2 2020.02.22 - 14.44.25.03.DVR.mp4', '-c', 'copy', 'C:\\\\Users\\\\Sunny\\\\Videos\\\\Edits\\\\TF2\\\\12\\\\ceekay the capper doesnt work.mp4']' returned non-zero exit status 1.",
+            "error": "edits",
+            "data": {
+                "original": "Team Fortress 2 2020.02.22 - 14.44.25.03.DVR.mp4",
+                "new name": "ceekay the capper doesnt work.mp4",
+                "times": {
+                    "start": "-10",
+                    "end": null
+                }
+            }
+        }
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "12"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "12"
+        ]
+    }
+}
