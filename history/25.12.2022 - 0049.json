@@ -1,0 +1,39 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2020.03.29 - 00.33.39.04.DVR.mp4",
+            "new name": "von med dodge.mp4",
+            "times": {
+                "start": "-31",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "12"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "12"
+        ]
+    }
+}

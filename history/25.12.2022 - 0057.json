@@ -1,0 +1,123 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2020.04.12 - 00.42.06.14.DVR.mp4",
+            "new name": "lux gets out alive.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.04.23 - 21.55.12.02.DVR.mp4",
+            "new name": "zach nearly banning wohxye minecraft.mp4",
+            "times": {
+                "start": "-31",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.05.07 - 23.37.50.02.DVR.mp4",
+            "new name": "inter badge bob the soldier main.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.05.20 - 00.06.37.02.DVR.mp4",
+            "new name": "direct hit on parramatta road.mp4",
+            "times": {
+                "start": "-16",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.05.20 - 00.08.59.03.DVR.mp4",
+            "new name": "calski singing santuary.mp4",
+            "times": {
+                "start": "-27",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.05.23 - 01.56.48.02.DVR.mp4",
+            "new name": "namey what is this.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.06.01 - 19.18.14.03.DVR.mp4",
+            "new name": "sunshine mid to bats skip.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        },
+        {
+            "original": "doulbe jump destruction.mp4",
+            "new name": "double jump destruction.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "p base jumper airshot frags upward.mp4",
+            "new name": "base jumper as.mp4",
+            "times": {
+                "start": "-20",
+                "end": null
+            }
+        },
+        {
+            "original": "p insane sentry surf.mp4",
+            "new name": "the great sentry surf.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "s gulley mini ramp surf.mp4",
+            "new name": "gulley big door surf.mp4",
+            "times": {
+                "start": "2:10",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2020.04.13 - 21.10.02.05.DVR.mp4": "josh defeat swiftwater.mp4",
+        "Team Fortress 2 2020.04.13 - 21.15.30.06.DVR.mp4": "josh defeat swiftwater 2.mp4",
+        "Team Fortress 2 2020.06.01 - 22.16.32.06.DVR.mp4": "rias pug server lil slamm discussion.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "12"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "12"
+        ]
+    }
+}
