@@ -1,0 +1,108 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2019.11.21 - 17.15.15.03.DVR.mp4",
+            "new name": "encountering ella in a pub.mp4",
+            "times": {
+                "start": "-33",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.08 - 12.28.01.04.DVR.mp4",
+            "new name": "the glorious black box tunnel play.mp4",
+            "times": {
+                "start": "-40",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.15 - 16.18.01.09.DVR.mp4",
+            "new name": "a successful logjam demo defence.mp4",
+            "times": {
+                "start": "-16",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.02.23 - 21.25.16.06.DVR.mp4",
+            "new name": "the octowang special.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.04.11 - 21.28.11.07.DVR.mp4",
+            "new name": "a product tear.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.04.15 - 23.08.46.21.DVR.mp4",
+            "new name": "ram trying to charge out of an as.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.04.17 - 23.26.11.04.DVR.mp4",
+            "new name": "ashville postuber plays.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "gotaki rocky shot.mp4",
+            "new name": "gotaki rocky shot.mp4",
+            "times": {
+                "start": "-20",
+                "end": null
+            }
+        },
+        {
+            "original": "p low health pumpkin crit frags.mp4",
+            "new name": "its all in the pumpkin.mp4",
+            "times": {
+                "start": "57",
+                "end": "1:19"
+            }
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2019.11.12 - 20.49.36.04.DVR.mp4": "adolo aop discussion.mp4",
+        "Team Fortress 2 2020.02.05 - 12.49.55.03.DVR.mp4": "the all sniper pub.mp4",
+        "Team Fortress 2 2020.04.13 - 21.17.53.07.DVR.mp4": "josh siwft copium.mp4",
+        "Team Fortress 2 2020.05.10 - 22.27.55.04.DVR.mp4": "smae the apes.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "14"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "14"
+        ]
+    }
+}
