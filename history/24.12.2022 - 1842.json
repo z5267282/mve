@@ -1,0 +1,73 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2020.03.26 - 18.25.15.03.DVR.mp4",
+            "new name": "snakewater second crate slide.mp4",
+            "times": {
+                "start": "4:30",
+                "end": "4:34"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.03.27 - 21.11.48.03.DVR.mp4",
+            "new name": "raelen ozy same voice.mp4",
+            "times": {
+                "start": "-45",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.03.29 - 20.14.04.04.DVR.mp4",
+            "new name": "rias pass moment.mp4",
+            "times": {
+                "start": "-12",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.04.13 - 23.01.13.12.DVR.mp4",
+            "new name": "bird perma airblast.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2020.04.13 - 23.19.40.13.DVR.mp4",
+            "new name": "kratus von beef 2.mp4",
+            "times": {
+                "start": "-90",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2020.04.13 - 23.01.13.12.DVR.mp4": "kratus von beef.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "TF2 BIG",
+            "Team Fortress 2",
+            "10"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2",
+            "10"
+        ]
+    }
+}
