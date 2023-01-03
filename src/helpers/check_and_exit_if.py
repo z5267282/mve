@@ -33,6 +33,14 @@ def no_source_folder():
 def no_queue():
     no_folder(fst.QUEUE, 'queue', err.NO_QUEUE)
 
+def one_of_config_folders_missing():
+    for folder, desc, code in zip(
+        [cfg.SOURCE, cfg.RENAMES, cfg.DESTINATION],
+        ['source', 'renames', 'destination'],
+        [err.NO_SOURCE_FOLDER, err.NO_RENAMES_FOLDER, err.NO_DESTINATION_FOLDER]
+    ):
+        no_folder(folder, desc, code)
+
 
 # Remaining related
 
