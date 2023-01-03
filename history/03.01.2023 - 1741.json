@@ -1,0 +1,63 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2022.12.26 - 01.39.41.09.DVR.mp4",
+            "new name": "hitboxes f3 similar to switching mode.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2022.12.26 - 02.29.04.10.DVR.mp4",
+            "new name": "ghast attempt 1.mp4",
+            "times": {
+                "start": "2:10",
+                "end": "3:44"
+            }
+        },
+        {
+            "original": "Minecraft 2022.12.26 - 02.32.54.11.DVR.mp4",
+            "new name": "first ghast captured.mp4",
+            "times": {
+                "start": "2:51",
+                "end": "3:12"
+            }
+        },
+        {
+            "original": "Minecraft 2022.12.26 - 02.35.00.12.DVR.mp4",
+            "new name": "uneasy alliance.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Minecraft 2022.12.26 - 02.32.54.11.DVR.mp4": "ghast capture full.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Summer Minecraft Events"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Summer Minecraft"
+        ]
+    }
+}

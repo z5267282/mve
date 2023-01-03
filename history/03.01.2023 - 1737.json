@@ -1,0 +1,66 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2022.12.25 - 14.39.47.03.DVR.mp4",
+            "new name": "dinnerbone warden the end.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2022.12.26 - 00.02.28.06.DVR.mp4",
+            "new name": "elder guardian relocation.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2022.12.26 - 00.24.52.07.DVR.mp4",
+            "new name": "elder guardian relocation 2.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2022.12.26 - 01.08.54.08.DVR.mp4",
+            "new name": "enderman doing 360s.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Minecraft 2022.12.25 - 02.24.21.04.mp4": "dinnerbone warden.mp4",
+        "Minecraft 2022.12.25 - 14.02.59.02.DVR.mp4": "dinnerbone warden 2.mp4",
+        "Minecraft 2022.12.25 - 14.39.47.03.DVR.mp4": "dinnerbone warden 3.mp4",
+        "Minecraft 2022.12.26 - 00.24.52.07.DVR.mp4": "elder guardian relocation full.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Summer Minecraft Events"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Summer Minecraft"
+        ]
+    }
+}
