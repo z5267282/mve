@@ -40,24 +40,16 @@ def run_checks():
     check_and_exit_if.bad_args(sys.argv)
     check_and_exit_if.no_queue()
     check_empty_queue()
-    check_and_exit_if.no_source_folder()
-    no_renames()
+    check_and_exit_if.one_of_config_folders_missing()
     no_history()
-    no_errors()
 
 def check_empty_queue():
     if not files.ls(fst.QUEUE):
         print(f"there are no files queued in folder '{fst.QUEUE}'")
         sys.exit(err.EMPTY_QUEUE)
 
-def no_renames():
-    check_and_exit_if.no_folder(cfg.RENAMES, 'renames', err.NO_RENAMES_FOLDER)
-
 def no_history():
     check_and_exit_if.no_folder(fst.HISTORY, 'history', err.NO_HISTORY_FOLDER)
-
-def no_errors():
-    check_and_exit_if.no_folder(fst.ERRORS, 'errors', err.NO_ERRORS_FOLDER)
 
 
 def dequeue():

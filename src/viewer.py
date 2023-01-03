@@ -36,8 +36,8 @@ def main():
 def run_checks():
     check_and_exit_if.bad_args(sys.argv)
     check_no_remaining()
-    check_and_exit_if.no_source_folder()
     check_and_exit_if.no_queue()
+    check_and_exit_if.one_of_config_folders_missing()
 
 def check_no_remaining():
     if not os.path.exists(fst.REMAINING):
