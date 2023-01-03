@@ -250,10 +250,18 @@ When the viewer is run files are sequentially opened for viewing in from the lis
 The file name is displayed as a prompt, but the program joins this file name with the folder `cfg.SOURCE` to locate the file.  
 + The program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist
 
+If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUEUE`.  
+
 Upon viewing a video, the user enters one of the following commands which are then stored in `queue/` in a `treatment` - like structure.
 + If no treatment commands (as opposed to control flow commands) were entered, then then no file is created
 
-If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUEUE`.  
+The folder paths to the source, renames and destination folders are logged in a viewing session for use by the treater.  
+Hence if one of the following folders does not exist, the viewier will exit with the corresponding exit code:  
+```
+cfg.SOURCE      -> err.NO_SOURCE_FOLDER
+cfg.RENAMES     -> err.NO_RENAMES_FOLDER
+cfg.DESTINATION -> err.NO_DESTINATION_FOLDER
+```
 
 ## commands
 ```
