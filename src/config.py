@@ -1,7 +1,7 @@
 # folder paths
 SOURCE      = ['D:', '\\', 'Videos', 'Minecraft']
-RENAMES     = ['D:', '\\', 'Videos', 'Summer Minecraft Events']
-DESTINATION = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Edits', 'Summer Minecraft']
+RENAMES     = ['D:', '\\', 'Videos', 'MC 23']
+DESTINATION = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Edits', 'Minecraft 23']
 
 # multi threading and processing
 NUM_THREADS   = 4
