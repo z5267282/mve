@@ -8,8 +8,10 @@ with open('treated-files.json') as f:
     files = json.load(f)
 
 for f in files:
-    paths = cfg.SOURCE + [f]
-    full_path = os.path.join(*paths)
-    # if os.path.exists(full_path):
+    src, dst = os.path.join(*(cfg.SOURCE + [f])), os.path.join(*(cfg.RENAMES + [f]))
+
+    # if os.path.exists(src):
     #     continue
-    # print(f"error with: {full_path}")
+    # print(f"error with: {src}")
+
+    os.rename(src, dst)
