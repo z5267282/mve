@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import tempfile
 
 import constants.error as err
 import constants.file_structure as fst
@@ -23,23 +24,51 @@ def main():
     old = ''
     with open(old_cfg_file, 'r') as f:
         old = json.load(f)
-        old_paths = get_cfg_paths(old)
     
-    new_dir, old_dir, cfg_dir, src_dir = [ files.join_folder(dir_paths) for dir_paths in [
-        new_paths, old_paths, fst.CONFIGS, ['.']
+    new_d, cwd = [
+        get_dir_fd(dir_paths) for dir_paths in [
+            new_paths, ['.']
         ]
     ]
-    with \
-        os.open(new_dir, os.O_RDWR) as nd, \
-        os.open(old_dir, os.O_RDWR) as od, \
-        os.open(cfg_dir, os.O_RDWR) as cd, \
-        os.open(src_dir, os.O_RDWR) as sd:
 
-        print(nd)
+    old_d = None if old == new else get_dir_fd(
+        get_cfg_paths(old)
+    )
+
+    with tempfile.TemporaryDirectory() as t:
+        tmp_d = open_folder(t)
+        
+        move_pair(cwd, tmp_d)
+        move_pair(new_d, cwd)
+
+        real_old_d = new_d if old_d is None else old_d
+        move_pair(tmp_d, real_old_d)
+
+        os.close(tmp_d)
+    
+    for dir in [new_d, cwd]:
+        os.close(dir)
+
+    if not old is None:
+        os.close(old_d)
     
 
 def get_cfg_paths(title):
     return fst.CONFIGS + [title]
+
+def open_folder(path):
+    return os.open(path, os.O_RDONLY)
+
+def get_dir_fd(dir_paths):
+    return open_folder(
+        files.join_folder(dir_paths),
+    )
+
+
+def move_pair(src_fd, dst_fd):
+    for item in [fst.REMAINING, fst.CONFIG]:
+        os.rename(item, item, src_dir_fd=src_fd, dst_dir_fd=dst_fd)
+
 
 if __name__ == '__main__':
     main()
