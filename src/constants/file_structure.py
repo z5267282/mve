@@ -5,3 +5,7 @@ REMAINING = 'remaining.json'
 QUEUE   = ['..', 'queue']
 HISTORY = ['..', 'history']
 ERRORS  = ['..', 'errors']
+
+# configs
+CONFIGS = ['configs']
+CURRENT_CONFIG = CONFIGS + ['current']

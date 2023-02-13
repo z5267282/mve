@@ -295,7 +295,7 @@ def handle_leading_number(name):
     return reprompt_name(name) if re.match(r'[0-9]+', name) else name
 
 def reprompt_name(current_name):
-    warn = colours.colour_box(clr.YELLOW, 'warning')
+    warn = colours.warning()
     print(
         "{} the name '{}' starts with a number are you sure you haven't misentered the [{}]iddle command?".format(
             warn, colours.highlight(current_name), highlight_command(cmd.MIDDLE)
