@@ -23,7 +23,6 @@ def main():
 
     current_cfg_file = os.path.join(*fst.CURRENT_CONFIG)
     check_and_exit_if.no_file(current_cfg_file, 'current config', err.NO_CURRENT_CONFIG)
-
     current = ''
     with open(current_cfg_file, 'r') as f:
         current = json.load(f)
