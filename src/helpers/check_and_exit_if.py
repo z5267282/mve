@@ -25,7 +25,8 @@ def bad_args(argv, length, usage_message):
         )
         sys.exit(err.BAD_COMMAND_LINE_ARGS)
 
-no_args = lambda argv: bad_args(argv, 0, '')
+def no_args(argv):
+    bad_args(argv, 0, '')
 
 
 # Folder checking
