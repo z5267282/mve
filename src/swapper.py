@@ -8,6 +8,7 @@ import constants.file_structure as fst
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
+import helpers.json_handlers as json_handlers
 
 
 def main():
@@ -51,6 +52,8 @@ def main():
 
     if not old is None:
         os.close(old_d)
+    
+    json_handlers.write_to_json(new, old_cfg_file)
     
 
 def get_cfg_paths(title):
