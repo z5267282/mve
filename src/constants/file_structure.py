@@ -1,5 +1,6 @@
 # files
 REMAINING = 'remaining.json'
+CONFIG    = 'config.py'
 
 # folders
 QUEUE   = ['..', 'queue']
