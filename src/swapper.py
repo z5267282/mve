@@ -15,20 +15,31 @@ def main():
     check_and_exit_if.no_folder(fst.CONFIGS, 'configs', err.NO_CONFIGS_FOLDER)
 
     new, = sys.argv[1:]
-    config_paths = fst.CONFIGS + [new]
-    check_and_exit_if.no_folder(config_paths, f"the '{new}' config", err.NO_CONFIG)
+    new_paths = get_cfg_paths(new)
+    check_and_exit_if.no_folder(new_paths, f"the '{new}' config", err.NO_CONFIG)
 
-    old_cfg_file = os.path.join(*fst.CURRENT_CONFIG)
+    old_cfg_file = files.get_joined_path(fst.CONFIGS, fst.CURRENT_CONFIG)
     check_and_exit_if.no_file(old_cfg_file, 'current config', err.NO_CURRENT_CONFIG)
     old = ''
     with open(old_cfg_file, 'r') as f:
         old = json.load(f)
+        old_paths = get_cfg_paths(old)
     
-    with 
+    new_dir, old_dir, cfg_dir, src_dir = [ files.join_folder(dir_paths) for dir_paths in [
+        new_paths, old_paths, fst.CONFIGS, ['.']
+        ]
+    ]
+    with \
+        os.open(new_dir, os.O_RDWR) as nd, \
+        os.open(old_dir, os.O_RDWR) as od, \
+        os.open(cfg_dir, os.O_RDWR) as cd, \
+        os.open(src_dir, os.O_RDWR) as sd:
 
-    new_rem, new_cfg = [ files.get_joined_path(fst.CONFIGS + [new], file) for file in [fst.REMAINING, fst.CONFIG] ]
-    old_rem, old_cfg = fst.REMAINING, 
+        print(nd)
+    
 
+def get_cfg_paths(title):
+    return fst.CONFIGS + [title]
 
 if __name__ == '__main__':
     main()
