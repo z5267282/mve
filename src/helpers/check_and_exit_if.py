@@ -13,7 +13,7 @@ import helpers.util as util
 
 # Command line args checking
 
-def check_args(argv, length, usage_message, code):
+def bad_args(argv, length, usage_message):
     program_name, args = argv[0], argv[1:]
     if len(args) != length:
         util.stderr_print(
@@ -23,9 +23,9 @@ def check_args(argv, length, usage_message, code):
                 usage_message
             )
         )
-        sys.exit(code)
+        sys.exit(err.BAD_COMMAND_LINE_ARGS)
 
-no_args = lambda argv: check_args(argv, 0, '', err.BAD_COMMAND_LINE_ARGS)
+no_args = lambda argv: bad_args(argv, 0, '')
 
 
 # Folder checking

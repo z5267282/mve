@@ -9,3 +9,6 @@ def highlight(string):
 
 def colour_box(colour, message):
     return f'[ {colour_format(colour, message)} ]'
+
+def warning():
+    return colour_box(clr.YELLOW, 'warning')
