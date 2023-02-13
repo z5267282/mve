@@ -58,6 +58,7 @@ import constants.commands as cmd
 import constants.error as err
 import constants.errors_format as erf
 import constants.file_structure as fst
+import constants.generation as gen
 import constants.json_settings as jsn
 import constants.treatment_format as trf
 import constants.video_editing as vde
@@ -233,6 +234,9 @@ If `remaining.json` does exist, and the list it contains is not empty, the progr
 If `remaining.json` does not exist, it is **created**.  
 
 If the list is empty, it is **overwritten**.  
+
+Files are stored from most recent to least recent.  
++ This can be toggled via `gen.RECENT`
 
 # 2 - viewer
 ## usage
