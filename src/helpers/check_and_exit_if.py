@@ -6,6 +6,7 @@ import config as cfg
 import constants.error as err
 import constants.file_structure as fst
 
+import helpers.colours as colours
 import helpers.files as files
 import helpers.json_handlers as json_handlers
 import helpers.util as util
@@ -30,6 +31,11 @@ def no_args(argv):
 
 
 # Folder checking
+
+def no_file(joined_path, desc, code):
+    if not os.path.exists(joined_path):
+        util.stderr_print(f"the {desc} file '{colours.highlight(joined_path)}' doesn't exist")
+        sys.exit(code)
 
 def no_folder(folder_paths, folder_desc, exit_code):
     if not files.folder_exists(folder_paths):
