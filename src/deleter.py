@@ -19,7 +19,7 @@ def main():
 
 
 def run_checks():
-    check_and_exit_if.bad_args(sys.argv)
+    check_and_exit_if.no_args(sys.argv)
     check_and_exit_if.files_remaining()
     check_and_exit_if.no_source_folder()
 
