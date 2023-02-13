@@ -13,11 +13,19 @@ import helpers.util as util
 
 # Command line args checking
 
-def bad_args(argv):
+def check_args(argv, length, usage_message, code):
     program_name, args = argv[0], argv[1:]
-    if args:
-        util.stderr_print(f'usage: python3 {os.path.basename(program_name)}')
-        sys.exit(err.BAD_COMMAND_LINE_ARGS)
+    if len(args) != length:
+        util.stderr_print(
+            'usage: python3 {}{}{}'.format(
+                os.path.basename(program_name),
+                ' ' if args else '',
+                usage_message
+            )
+        )
+        sys.exit(code)
+
+no_args = lambda argv: check_args(argv, 0, '', err.BAD_COMMAND_LINE_ARGS)
 
 
 # Folder checking

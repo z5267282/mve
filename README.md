@@ -365,3 +365,19 @@ The deleter deletes the folder `cfg.SOURCE` .
 If `remaining.json` exists and contains a non-empty list, the program terminates with exit code `err.FILES_REMAINING` .  
 
 If `cfg.SOURCE` doesn't exist then the program teriminates with exit code `err.NO_SOURCE_FOLDER` .  
+
+## 5 - swapper
+## usage
+```
+python3 swapper.py [config name]
+```
+
+The swapper is used to change between config files.  
+
+Config files should be named in a folder within `src/configs` and contain a separate
+```
++ config.py
++ remaining.json
+```
+
+The current config is maintained as a string in `src/current.json`

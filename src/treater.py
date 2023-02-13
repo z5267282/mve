@@ -37,7 +37,7 @@ def main():
 
 
 def run_checks():
-    check_and_exit_if.bad_args(sys.argv)
+    check_and_exit_if.no_args(sys.argv)
     check_and_exit_if.no_queue()
     check_empty_queue()
     check_and_exit_if.one_of_config_folders_missing()
