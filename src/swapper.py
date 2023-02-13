@@ -6,9 +6,7 @@ import constants.error as err
 import constants.file_structure as fst
 
 import helpers.check_and_exit_if as check_and_exit_if
-import helpers.colours as colours
 import helpers.files as files
-import helpers.util as util
 
 
 def main():
@@ -25,18 +23,12 @@ def main():
     old = ''
     with open(old_cfg_file, 'r') as f:
         old = json.load(f)
-
-    # if config == current:
-    #     warn = colours.warning()
-    #     print(f"{warn} do you want to overwrite the existing config for {config}?")
-    #     confirm = input(f"{warn} type 'y' if so : ")
-    #     if confirm != 'y':
-    #         sys.exit(0)
+    
+    with 
 
     new_rem, new_cfg = [ files.get_joined_path(fst.CONFIGS + [new], file) for file in [fst.REMAINING, fst.CONFIG] ]
     old_rem, old_cfg = fst.REMAINING, 
 
-    # print(remaining, cfg_file)
 
 if __name__ == '__main__':
     main()
