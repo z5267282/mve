@@ -40,9 +40,7 @@ def run_checks():
     check_and_exit_if.one_of_config_folders_missing()
 
 def check_no_remaining():
-    if not os.path.exists(fst.REMAINING):
-        util.stderr_print(f"the remaining file '{colours.highlight(fst.REMAINING)}' doesn't exist")
-        sys.exit(err.MISSING_REMAINING)
+    check_and_exit_if.no_file(fst.REMAINING, 'remaining', err.MISSING_REMAINING)
 
 
 def run_loop(edits, renames, deletions):

@@ -8,4 +8,4 @@ ERRORS  = ['..', 'errors']
 
 # configs
 CONFIGS = ['configs']
-CURRENT_CONFIG = CONFIGS + ['current']
+CURRENT_CONFIG = CONFIGS + ['current.json']
