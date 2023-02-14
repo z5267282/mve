@@ -15,7 +15,7 @@ def do_folder_operation(paths_list, handler):
 def ls(paths_list, recent=False):
     return sorted(
         do_folder_operation(paths_list, os.listdir),
-        reversed=recent 
+        reverse=recent 
     )
 
 def folder_exists(paths_list):
