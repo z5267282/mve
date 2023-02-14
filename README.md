@@ -384,4 +384,12 @@ Config files should be named in a folder within `src/configs` and contain a sepa
 + remaining.json
 ```
 
-The current config is maintained as a string in `src/current.json`
+The current config is maintained as a string in `src/current.json` .  
+
+The swapper moves `config.py` and `remaining.json` of the given config into `src` .  
+
+The new config can be the same as the old one.  
+
+If `src/configs` doesn't exist the program terminates with exit code `err.NO_CONFIGS_FOLDER` .  
+
+If the given config doesn't exist the program term terminates with exit code `err.NO_CONFIG` .  
