@@ -30,12 +30,16 @@ def no_args(argv):
     bad_args(argv, 0, '')
 
 
-# Folder checking
+# File checking
 
 def no_file(joined_path, desc, code):
     if not os.path.exists(joined_path):
         util.stderr_print(f"the {desc} file '{colours.highlight(joined_path)}' doesn't exist")
         sys.exit(code)
+
+
+# Folder checking
+
 
 def no_folder(folder_paths, folder_desc, exit_code):
     if not files.folder_exists(folder_paths):
