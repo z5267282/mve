@@ -395,8 +395,8 @@ The swapper is used to change to a new set of given config files.
 The current config is maintained as a string in `src/configs/current.json` .  
 + If this file doesn't exist the program terminates with exit code `err.NO_CURRENT_CONFIG` .  
 
-The swapper moves the files inside the given config into `src` and accordingly updates the current config.  
+The swapper moves the files inside the given config into `src/` and accordingly updates the current config.  
 
-The given config can be the same as the current one.  
+The given config can be the same as the current one and files in the current config folder are overwritten with those in `src/` .  
 
-If either of `config.py` or `remaining.json` do not exist in `src` or the given folder the program terminates accordingly with exit code `err.NO_CONFIG_CONF_FILE` or `err.NO_CONFIG_REMAINING` .  
+If either of `config.py` or `remaining.json` do not exist in `src/` or the given folder the program terminates accordingly with exit code `err.NO_CONFIG_CONF_FILE` or `err.NO_CONFIG_REMAINING` .  
