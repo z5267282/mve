@@ -11,6 +11,8 @@ mve/
     src/
         + config.py
 
+        configs/
+            + current.json
         constants/
         helpers/
 
@@ -46,6 +48,8 @@ import config as cfg
 ```
 
 For the remainder of the documentation will also follow this notation.  
+
+Given that the config is imported as a module, no program checks for it existence.  
 
 ### 0.1.2 - `src/constants/`
 A folder documenting constants that **are not** to be changed.  
@@ -173,7 +177,6 @@ cmd.WHOLE = {
 }
 ```
 
-
 # Style
 ## Import blocks
 All blocks of imports are written in alphabetical order.  
@@ -236,7 +239,7 @@ If `remaining.json` does not exist, it is **created**.
 If the list is empty, it is **overwritten**.  
 
 Files are stored from most recent to least recent.  
-+ This can be toggled via `gen.RECENT`
++ This can be toggled via `gen.RECENT` .  
 
 # 2 - viewer
 ## usage
@@ -252,12 +255,12 @@ If `remaining.json` doesn't exist the program terminates with exit code `err.MIS
 When the viewer is run files are sequentially opened for viewing in from the list inside of `remaining.json`.  
 
 The file name is displayed as a prompt, but the program joins this file name with the folder `cfg.SOURCE` to locate the file.  
-+ The program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist
++ The program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist.  
 
 If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUEUE`.  
 
 Upon viewing a video, the user enters one of the following commands which are then stored in `queue/` in a `treatment` - like structure.
-+ If no treatment commands (as opposed to control flow commands) were entered, then then no file is created
++ If no treatment commands (as opposed to control flow commands) were entered, then then no file is created.  
 
 The folder paths to the source, renames and destination folders are logged in a viewing session for use by the treater.  
 Hence if one of the following folders does not exist, the viewier will exit with the corresponding exit code:  
@@ -331,7 +334,7 @@ If `queue/` doesn't exist then the program terminates with exit code `err.NO_QUE
 If `queue/` is empty then the program terminates with exit code `err.EMPTY_QUEUE`.  
 
 All files will need to be joined together with folder `cfg.SOURCE`.  
-+ So the program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist
++ So the program terminates with exit code `err.NO_SOURCE_FOLDER` if this folder does not exist.  
 
 If `cfg.RENAMES` does not exist the program terminates with exit code `err.NO_RENAMES_FOLDER`.  
 
@@ -341,7 +344,7 @@ The treatments are performed in the following order:
 3. deletions
 
 Edits are placed in `cfg.DESTINATION` .  
-+ So the program terminates with exit code `err.NO_DESTINATION_FOLDER` if this folder does not exist
++ So the program terminates with exit code `err.NO_DESTINATION_FOLDER` if this folder does not exist.  
 
 Once the treatments are completed, the earliest file in `queue` is moved to `history/` .  
 + If `history/` doesn't exist the program terminates with exit code `err.NO_HISTORY_FOLDER` .  
@@ -350,8 +353,8 @@ Errors if any, are logged in `errors/` with its matching file structures.
 + If `errors/` doesn't exist the program terminates with exit code `err.NO_ERRORS_FOLDER` .  
 
 When an error occurs, the file name of the offending treatment is appended to `remaining.json` , so that it can be re-treated upon the next viewing session
-+ The error is then logged
-+ The program terminates with exit code `err.TREATMENT_ERROR`
++ The error is then logged.  
++ The program terminates with exit code `err.TREATMENT_ERROR` .  
 
 Multiprocessing occurs for the editing stage and the number of processes can be changed in `cfg.NUM_PROCESSES` .  
 
@@ -376,7 +379,7 @@ If `cfg.SOURCE` doesn't exist then the program teriminates with exit code `err.N
 python3 swapper.py [config name]
 ```
 
-The swapper is used to change between config files.  
+Multilple configs can exist for the program.  
 
 Config files should be named in a folder within `src/configs` and contain a separate
 ```
@@ -384,12 +387,16 @@ Config files should be named in a folder within `src/configs` and contain a sepa
 + remaining.json
 ```
 
-The current config is maintained as a string in `src/current.json` .  
-
-The swapper moves `config.py` and `remaining.json` of the given config into `src` .  
-
-The new config can be the same as the old one.  
-
 If `src/configs` doesn't exist the program terminates with exit code `err.NO_CONFIGS_FOLDER` .  
 
-If the given config doesn't exist the program term terminates with exit code `err.NO_CONFIG` .  
+The swapper is used to change to a new set of given config files.  
++ If the given config doesn't exist the program term terminates with exit code `err.NO_CONFIG` .  
+
+The current config is maintained as a string in `src/configs/current.json` .  
++ If this file doesn't exist the program terminates with exit code `err.NO_CURRENT_CONFIG` .  
+
+The swapper moves the files inside the given config into `src` and accordingly updates the current config.  
+
+The given config can be the same as the current one.  
+
+If either of `config.py` or `remaining.json` do not exist in `src` or the given folder the program terminates accordingly with exit code `err.NO_CONFIG_CONF_FILE` or `err.NO_CONFIG_REMAINING` .  
