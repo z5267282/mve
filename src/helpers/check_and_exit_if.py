@@ -43,7 +43,6 @@ def no_file(joined_path, desc, code):
 
 # Folder checking
 
-
 def no_folder(folder_paths, folder_desc, exit_code):
     if not files.folder_exists(folder_paths):
         util.stderr_print(f"{folder_desc} folder '{folder_paths}' does not exist")
