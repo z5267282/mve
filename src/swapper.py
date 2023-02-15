@@ -36,6 +36,9 @@ def handle_new_config_paths(new):
     check_and_exit_if.no_folder(new_paths, f"the '{new}' config", err.NO_CONFIG)
     return new_paths
 
+def get_cfg_paths(title):
+    return fst.CONFIGS + [title]
+
 
 def handle_current_config():
     old_cfg_file = files.get_joined_path(fst.CONFIGS, fst.CURRENT_CONFIG)
@@ -76,9 +79,6 @@ def get_dir_fd(dir_paths):
 
 def open_folder(path):
     return os.open(path, os.O_RDONLY)
-
-def get_cfg_paths(title):
-    return fst.CONFIGS + [title]
 
 
 def swap_files(new_d, old_d, cwd):
