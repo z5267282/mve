@@ -399,4 +399,4 @@ The swapper moves the files inside the given config into `src/` and accordingly 
 
 The given config can be the same as the current one and files in the current config folder are overwritten with those in `src/` .  
 
-If either of `config.py` or `remaining.json` do not exist in `src/` or the given folder the program terminates accordingly with exit code `err.NO_CONFIG_CONF_FILE` or `err.NO_CONFIG_REMAINING` .  
+If either of `config.py` or `remaining.json` do not exist in `src/` or the given folder, the program terminates accordingly with exit code `err.NO_CONFIG_CONF_FILE` or `err.NO_CONFIG_REMAINING` .  
