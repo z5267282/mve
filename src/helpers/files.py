@@ -15,6 +15,9 @@ def do_folder_operation(paths_list, handler):
 def ls(paths_list, recent=False):
     return sorted(
         do_folder_operation(paths_list, os.listdir),
+        key=lambda file_name: os.path.getctime(
+            get_joined_path(paths_list, file_name)
+        ),
         reverse=recent 
     )
 
