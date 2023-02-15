@@ -37,7 +37,7 @@ def no_args(argv):
 
 def no_file(joined_path, desc, code):
     if not os.path.exists(joined_path):
-        util.stderr_print(f"the {desc} file '{colours.highlight(joined_path)}' doesn't exist")
+        util.stderr_print(f"the {desc} file '{colours.highlight(joined_path)}' does not exist")
         sys.exit(code)
 
 
