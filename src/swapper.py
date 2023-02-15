@@ -78,8 +78,7 @@ def get_dir_fd(dir_paths):
     )
 
 def open_folder(path):
-    # return os.open(path, os.O_RDONLY)
-    return os.open(path, 0x2000)
+    return os.open(path, os.O_RDONLY)
 
 
 def swap_files(new_d, old_d, cwd):
