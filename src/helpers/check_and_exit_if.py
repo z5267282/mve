@@ -16,15 +16,18 @@ import helpers.util as util
 
 def bad_args(argv, length, usage_message):
     program_name, args = argv[0], argv[1:]
-    if len(args) != length:
-        util.stderr_print(
-            'usage: python3 {}{}{}'.format(
-                os.path.basename(program_name),
-                ' ' if args else '',
-                usage_message
-            )
+
+    if len(args) == length:
+        return
+
+    util.stderr_print(
+        'usage: python3 {}{}{}'.format(
+            os.path.basename(program_name),
+            ' ' if usage_message else '',
+            usage_message
         )
-        sys.exit(err.BAD_COMMAND_LINE_ARGS)
+    )
+    sys.exit(err.BAD_COMMAND_LINE_ARGS)
 
 def no_args(argv):
     bad_args(argv, 0, '')
