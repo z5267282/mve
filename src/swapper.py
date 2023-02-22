@@ -18,10 +18,11 @@ def main():
     new_paths = handle_new_config_paths(new)
 
     old, old_cfg_file = handle_current_config()
-    new_d, old_d, cwd = handle_folder_descriptors(new, new_paths, old)
+    old_paths = get_cfg_paths(old)
 
-    swap_files(new_d, old_d, cwd)
-    close_folders(new_d, old_d, cwd)
+    check_config_files()
+
+    swap_files(new_paths, old_paths)
 
     json_handlers.write_to_json(new, old_cfg_file)
 
@@ -50,18 +51,9 @@ def handle_current_config():
     return old, old_cfg_file
 
 
-def handle_folder_descriptors(new, new_paths, old):
-    paths_lists = [
-        new_paths, ['.']
-    ]
-    for paths_list in paths_lists:
+def check_config_files(new_paths, old_paths):
+    for paths_list in [new_paths, old_paths]:
         check_config_pair(paths_list)
-
-    new_d, cwd = [get_dir_fd(dir_paths) for dir_paths in paths_lists]
-    old_d = None if old == new else get_dir_fd(
-        get_cfg_paths(old)
-    )
-    return new_d, old_d, cwd
 
 def check_config_pair(paths_list):
     for item, desc, code in zip(
@@ -72,41 +64,30 @@ def check_config_pair(paths_list):
         joined_path = files.get_joined_path(paths_list, item)
         check_and_exit_if.no_file(joined_path, desc, code)
     
-def get_dir_fd(dir_paths):
-    return open_folder(
-        files.join_folder(dir_paths),
-    )
 
-def open_folder(path):
-    return os.open(path, os.O_RDONLY)
+"""
+    cur -> tmp
+    new -> cur
+    tmp -> cur
+"""
 
+def swap_files(new_paths, old_paths):
+    new_dir, old_dir = [
+        os.path.join(*paths_list) for paths_list in
+            [new_paths, old_paths]
+    ]
 
-def swap_files(new_d, old_d, cwd):
     with tempfile.TemporaryDirectory() as t:
-        tmp_d = open_folder(t)
-        
-        move_pair(cwd, tmp_d)
-        move_pair(new_d, cwd)
-
-        real_old_d = new_d if old_d is None else old_d
-        move_pair(tmp_d, real_old_d)
-
-        close_folder(tmp_d)
+        move_pair('.', t)
+        move_pair(new_dir, '.')
+        move_pair(t, old_dir)
     
-def move_pair(src_fd, dst_fd):
+def move_pair(src, dst):
     for item in [fst.CONFIG, fst.REMAINING]:
-        os.rename(item, item, src_dir_fd=src_fd, dst_dir_fd=dst_fd)
-
-def close_folder(dir_fd):
-    os.close(dir_fd)
-    
-
-def close_folders(new_d, old_d, cwd):
-    for dir in [new_d, cwd]:
-        close_folder(dir)
-
-    if not old_d is None:
-        close_folder(old_d)
+        os.rename(
+            os.path.join(src, item),
+            os.path.join(dst, item)
+        )
 
 
 if __name__ == '__main__':
