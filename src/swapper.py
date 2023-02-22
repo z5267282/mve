@@ -20,7 +20,7 @@ def main():
     old, old_cfg_file = handle_current_config()
     old_paths = get_cfg_paths(old)
 
-    check_config_files()
+    check_config_files(new_paths)
 
     swap_files(new_paths, old_paths)
 
@@ -51,8 +51,10 @@ def handle_current_config():
     return old, old_cfg_file
 
 
-def check_config_files(new_paths, old_paths):
-    for paths_list in [new_paths, old_paths]:
+def check_config_files(new_paths):
+    for paths_list in [
+        new_paths, ['.']
+    ]:
         check_config_pair(paths_list)
 
 def check_config_pair(paths_list):
