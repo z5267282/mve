@@ -1,0 +1,117 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.02.22 - 22.31.13.04.DVR.mp4",
+            "new name": "the ginga bows.mp4",
+            "times": {
+                "start": "4:35",
+                "end": "4:57"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.22 - 21.49.23.03.DVR.mp4",
+            "new name": "bomb with a b.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.22 - 21.47.12.02.DVR.mp4",
+            "new name": "logjam roamer special.mp4",
+            "times": {
+                "start": "-34",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.15 - 21.26.16.08.DVR.mp4",
+            "new name": "8k on thunder mountain defence to secure dub.mp4",
+            "times": {
+                "start": "-124",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.15 - 21.09.15.07.DVR.mp4",
+            "new name": "ninjaneer.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.15 - 20.55.04.06.DVR.mp4",
+            "new name": "pocket and med spy revolver.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.15 - 20.52.35.05.DVR.mp4",
+            "new name": "chadoofs day.mp4",
+            "times": {
+                "start": "-23",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.15 - 20.52.02.04.DVR.mp4",
+            "new name": "chadoof 1.mp4",
+            "times": {
+                "start": "2:31",
+                "end": "2:41"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.15 - 20.52.02.04.DVR.mp4",
+            "new name": "chadoof 2.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.15 - 20.45.22.03.DVR.mp4",
+            "new name": "npc comp discussion.mp4",
+            "times": {
+                "start": "-113",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.15 - 20.20.19.02.DVR.mp4",
+            "new name": "first epug dub.mp4",
+            "times": {
+                "start": "-24",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}
