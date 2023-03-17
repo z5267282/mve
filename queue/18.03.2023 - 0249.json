@@ -1,0 +1,45 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.01.30 - 19.07.13.03.DVR.mp4",
+            "new name": "impossible to force grow pandas.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.01.29 - 17.10.28.03.DVR.mp4",
+            "new name": "arctic fox hunt.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "MC Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Minecraft 23"
+        ]
+    }
+}
