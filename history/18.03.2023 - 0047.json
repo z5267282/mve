@@ -1,0 +1,77 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.03.02 - 00.27.38.02.DVR.mp4",
+            "new name": "what was that nether sound.mp4",
+            "times": {
+                "start": "4:45",
+                "end": "4:55"
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.19 - 02.11.59.08.DVR.mp4",
+            "new name": "the three fish.mp4",
+            "times": {
+                "start": "-121",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.19 - 00.00.20.07.DVR.mp4",
+            "new name": "flying through the trap door.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.18 - 23.40.23.06.DVR.mp4",
+            "new name": "grass growing live.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.18 - 23.31.58.05.DVR.mp4",
+            "new name": "bee.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.18 - 23.22.42.04.DVR.mp4",
+            "new name": "polar bear.mp4",
+            "times": {
+                "start": "-58",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "MC Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Minecraft 23"
+        ]
+    }
+}

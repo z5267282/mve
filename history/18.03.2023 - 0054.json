@@ -1,0 +1,109 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.02.18 - 23.03.43.03.DVR.mp4",
+            "new name": "blaze.mp4",
+            "times": {
+                "start": "45",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.18 - 23.01.01.02.DVR.mp4",
+            "new name": "blaze trapping.mp4",
+            "times": {
+                "start": "-47",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.18 - 04.34.07.07.DVR.mp4",
+            "new name": "perfect amount of emerald blocks.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.18 - 02.47.24.06.DVR.mp4",
+            "new name": "perfectly exhausted emerald.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.18 - 00.37.56.05.DVR.mp4",
+            "new name": "the gifted packed ice.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.17 - 22.58.22.04.DVR.mp4",
+            "new name": "warden parrot 1.mp4",
+            "times": {
+                "start": "0",
+                "end": "4"
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.17 - 22.58.22.04.DVR.mp4",
+            "new name": "warden parrot 2.mp4",
+            "times": {
+                "start": "34",
+                "end": "37"
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.17 - 22.57.41.03.DVR.mp4",
+            "new name": "warden parrot 3.mp4",
+            "times": {
+                "start": "4:49",
+                "end": "4:56"
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.17 - 22.38.18.02.DVR.mp4",
+            "new name": "hearbeat.mp4",
+            "times": {
+                "start": "4:45",
+                "end": "4:51"
+            }
+        },
+        {
+            "original": "Minecraft 2023.02.15 - 22.45.34.09.DVR.mp4",
+            "new name": "murdering ocelot.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "MC Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Minecraft 23"
+        ]
+    }
+}

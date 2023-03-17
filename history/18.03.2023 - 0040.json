@@ -1,0 +1,109 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.03.17 - 23.18.50.05.DVR.mp4",
+            "new name": "falling amby hs.mp4",
+            "times": {
+                "start": "2:13",
+                "end": "2:15"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.03.17 - 23.16.31.04.DVR.mp4",
+            "new name": "as amby hs.mp4",
+            "times": {
+                "start": "1:5",
+                "end": "1:8"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.03.17 - 23.15.21.03.DVR.mp4",
+            "new name": "amby fun.mp4",
+            "times": {
+                "start": "4:15",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.03.17 - 23.04.37.02.DVR.mp4",
+            "new name": "the krocket.mp4",
+            "times": {
+                "start": "-3",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.03.10 - 22.08.40.02.DVR.mp4",
+            "new name": "dont ever challenge.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.03.03 - 19.15.25.04.DVR.mp4",
+            "new name": "flare gun.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.03.03 - 19.14.52.03.DVR.mp4",
+            "new name": "flare yikes.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.03.03 - 19.08.27.02.DVR.mp4",
+            "new name": "the second flare.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.25 - 21.58.40.08.DVR.mp4",
+            "new name": "summer cup dub.mp4",
+            "times": {
+                "start": "-83",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.25 - 21.53.00.07.DVR.mp4",
+            "new name": "summer cup logjam defence.mp4",
+            "times": {
+                "start": "-45",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}
