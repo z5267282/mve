@@ -1,0 +1,37 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.05.03 - 00.28.23.15.DVR.mp4",
+            "new name": "deathguard the poor bastard.mp4",
+            "times": {
+                "start": "4:10",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}
