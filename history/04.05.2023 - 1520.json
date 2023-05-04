@@ -1,0 +1,37 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.04.21 - 21.39.09.07.DVR.mp4",
+            "new name": "med heavy 2k good.mp4",
+            "times": {
+                "start": "1:4",
+                "end": "1:8"
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}
