@@ -1,0 +1,103 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.05.05 - 15.49.55.53.DVR.mp4",
+            "new name": "rampage 15.mp4",
+            "times": {
+                "start": "15",
+                "end": "23"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 15.49.30.52.DVR.mp4",
+            "new name": "jetpack pyro gets do notted.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 15.49.07.51.DVR.mp4",
+            "new name": "10k on a  jetpack pyro.mp4",
+            "times": {
+                "start": "24",
+                "end": "30"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 15.48.32.50.DVR.mp4",
+            "new name": "pyro and demoknight pest control.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 15.48.07.48.DVR.mp4",
+            "new name": "oatlmeal yewl rocket.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 15.47.53.47.DVR.mp4",
+            "new name": "1 2 demo med deletion with spy help.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 15.47.34.46.DVR.mp4",
+            "new name": "thunder mountain drop down and crocket.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 15.47.09.45.DVR.mp4",
+            "new name": "fool gets predicted around the corner with ease.mp4",
+            "times": {
+                "start": "-12",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 15.44.27.44.DVR.mp4",
+            "new name": "comitting for the plus 2.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [
+        "Team Fortress 2 2023.05.05 - 15.48.07.49.DVR.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}
