@@ -45,7 +45,6 @@ def handle_current_config():
     old_cfg_file = files.get_joined_path(fst.CONFIGS, fst.CURRENT_CONFIG)
     check_and_exit_if.no_file(old_cfg_file, 'current config', err.NO_CURRENT_CONFIG)
     
-    old = ''
     with open(old_cfg_file, 'r') as f:
         old = json.load(f)
     return old, old_cfg_file
@@ -67,13 +66,13 @@ def check_config_pair(paths_list):
         check_and_exit_if.no_file(joined_path, desc, code)
     
 
-"""
-    cur -> tmp
-    new -> cur
-    tmp -> cur
-"""
-
 def swap_files(new_paths, old_paths):
+    """
+        cur -> tmp
+        new -> cur
+        tmp -> cur
+    """
+
     new_dir, old_dir = [
         os.path.join(*paths_list) for paths_list in
             [new_paths, old_paths]
