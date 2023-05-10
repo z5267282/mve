@@ -1,0 +1,37 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.05.10 - 22.51.53.30.DVR.mp4",
+            "new name": "the conch dream ends at the clutches of fire.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}
