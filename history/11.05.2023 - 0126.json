@@ -1,0 +1,38 @@
+{
+    "edits": [
+        {
+            "original": "thunder mountain 13k was insufficient.mp4",
+            "new name": "the winger dream was insufficient.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "TF2"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}
