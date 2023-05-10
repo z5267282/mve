@@ -1,0 +1,46 @@
+{
+    "edits": [
+        {
+            "original": "Desktop 2023.04.08 - 21.57.32.02.DVR.mp4",
+            "new name": "seng mega merge.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Desktop 2023.02.22 - 22.38.16.05.DVR.mp4": "ginga summer cup.mp4",
+        "Desktop 2022.09.17 - 00.36.36.03.mp4": "bouchard lmao.mp4"
+    },
+    "deletions": [
+        "Desktop 2023.05.08 - 13.14.16.02.DVR.mp4",
+        "Desktop 2023.05.06 - 15.26.51.04.DVR.mp4",
+        "Desktop 2023.04.26 - 23.50.37.03.DVR.mp4",
+        "Desktop 2023.04.26 - 22.28.27.02.DVR.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Desktop"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "Desktop"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Desktop"
+        ]
+    }
+}
