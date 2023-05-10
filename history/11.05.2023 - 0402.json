@@ -1,0 +1,64 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.05.10 - 16.27.28.22.DVR.mp4",
+            "new name": "jungle nitwit.mp4",
+            "times": {
+                "start": "1:44",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.05.10 - 15.14.23.20.DVR.mp4",
+            "new name": "near death experience.mp4",
+            "times": {
+                "start": "-27",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.05.10 - 14.53.10.19.DVR.mp4",
+            "new name": "deathdealer787 is me.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.05.04 - 23.50.45.15.DVR.mp4",
+            "new name": "bitch came outta nowhere.mp4",
+            "times": {
+                "start": "-16",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [
+        "Minecraft 2023.05.10 - 15.32.35.21.DVR.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "MC"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Minecraft 23"
+        ]
+    }
+}
