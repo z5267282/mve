@@ -1,0 +1,54 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.06.11 - 17.04.05.02.DVR.mp4",
+            "new name": "ownage ashville uber.mp4",
+            "times": {
+                "start": "-12",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.06.04 - 20.56.09.03.DVR.mp4",
+            "new name": "swift walking out to destruction.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.06.04 - 20.34.58.02.DVR.mp4",
+            "new name": "uber surf to survival.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "TF2"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2 23.5"
+        ]
+    }
+}
