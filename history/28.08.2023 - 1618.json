@@ -1,0 +1,193 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.08.24 - 00.36.46.10.DVR.mp4",
+            "new name": "near death experience.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.08.24 - 00.25.11.09.DVR.mp4",
+            "new name": "warden sound at iron farm.mp4",
+            "times": {
+                "start": "4:36",
+                "end": "4:42"
+            }
+        },
+        {
+            "original": "Minecraft 2023.08.23 - 23.41.09.08.DVR.mp4",
+            "new name": "perfect depth perception.mp4",
+            "times": {
+                "start": "-19",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.17 - 02.37.41.05.DVR.mp4",
+            "new name": "iron farm villagers struck by lightning.mp4",
+            "times": {
+                "start": "52",
+                "end": "60"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.17 - 02.36.25.04.DVR.mp4",
+            "new name": "four golden skeles.mp4",
+            "times": {
+                "start": "4:20",
+                "end": "4:48"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 01.10.45.11.DVR.mp4",
+            "new name": "waterlogged chest creeper farm.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 01.07.25.09.DVR.mp4",
+            "new name": "the last gateway.mp4",
+            "times": {
+                "start": "-17",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 00.57.10.07.DVR.mp4",
+            "new name": "dragon fight last 2.mp4",
+            "times": {
+                "start": "-21",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 00.45.34.06.DVR.mp4",
+            "new name": "dragon fight last 3.mp4",
+            "times": {
+                "start": "-18",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 00.42.25.05.DVR.mp4",
+            "new name": "dragon fight last 4.mp4",
+            "times": {
+                "start": "-17",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 00.40.18.04.DVR.mp4",
+            "new name": "dragon fight last 5 and regen view.mp4",
+            "times": {
+                "start": "-78",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.12 - 23.11.36.03.DVR.mp4",
+            "new name": "dragon fight last 6.mp4",
+            "times": {
+                "start": "-16",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.12 - 22.18.19.02.DVR.mp4",
+            "new name": "perfect obsidian barrel.mp4",
+            "times": {
+                "start": "4:34",
+                "end": "4:37"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.11 - 00.00.56.02.DVR.mp4",
+            "new name": "charged creeper near death.mp4",
+            "times": {
+                "start": "-17",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.09 - 02.13.53.09.DVR.mp4",
+            "new name": "the last moved villager to nether.mp4",
+            "times": {
+                "start": "2:42",
+                "end": "3:31"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.08 - 21.28.23.05.DVR.mp4",
+            "new name": "warden sniff.mp4",
+            "times": {
+                "start": "4:46",
+                "end": "4:51"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.08 - 16.56.48.02.DVR.mp4",
+            "new name": "the tale of the appearing minecart in portal.mp4",
+            "times": {
+                "start": "-49",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.08 - 01.28.23.04.DVR.mp4",
+            "new name": "the battle to get into the wall.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.07 - 23.33.44.03.DVR.mp4",
+            "new name": "a rough flight with a perfect landing.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.07 - 01.31.07.04.DVR.mp4",
+            "new name": "cat screech.mp4",
+            "times": {
+                "start": "4:49",
+                "end": "4:53"
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [
+        "Minecraft 2023.08.27 - 00.36.49.03.DVR.mp4",
+        "Minecraft 2023.07.13 - 01.03.26.08.DVR.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "MC"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Minecraft 23.5"
+        ]
+    }
+}
