@@ -1,0 +1,134 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.07.07 - 00.39.24.03.DVR.mp4",
+            "new name": "obsidian 3 19s.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.06 - 03.38.58.03.DVR.mp4",
+            "new name": "black rabbit hunting.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.05 - 23.43.55.02.DVR.mp4",
+            "new name": "the pickaxe drop.mp4",
+            "times": {
+                "start": "-24",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.04 - 23.46.16.04.DVR.mp4",
+            "new name": "nether roof seamless.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.04 - 23.19.40.03.DVR.mp4",
+            "new name": "chicken death particle.mp4",
+            "times": {
+                "start": "4:41",
+                "end": "4:48"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.04 - 23.14.12.02.DVR.mp4",
+            "new name": "depth perception goat.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.04 - 03.43.29.03.DVR.mp4",
+            "new name": "the lucky egg.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.04 - 01.50.25.02.DVR.mp4",
+            "new name": "panda moat flooding.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.03 - 19.10.32.07.DVR.mp4",
+            "new name": "pale white dot finishes the cat collection.mp4",
+            "times": {
+                "start": "-53",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.03 - 19.06.43.06.DVR.mp4",
+            "new name": "the block was premined.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.03 - 19.03.02.05.DVR.mp4",
+            "new name": "perfect 32 block stacks of iron.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.03 - 18.57.29.04.DVR.mp4",
+            "new name": "swamp nitwit.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.03 - 18.27.48.03.DVR.mp4",
+            "new name": "the last swampie.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "MC"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Minecraft 23.5"
+        ]
+    }
+}

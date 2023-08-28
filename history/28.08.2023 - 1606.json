@@ -1,0 +1,195 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.53.00.12.DVR.mp4",
+            "new name": "couch crit adventure.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.48.43.11.DVR.mp4",
+            "new name": "crit blackbox pyro med.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.46.46.10.DVR.mp4",
+            "new name": "critting jack294 the hacker.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.46.15.09.DVR.mp4",
+            "new name": "couch uber escape ends in crocket.mp4",
+            "times": {
+                "start": "-57",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.31.54.08.DVR.mp4",
+            "new name": "thunder mountain spawn securing victory.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.31.45.07.DVR.mp4",
+            "new name": "crocket on med and heavy.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.27.33.06.DVR.mp4",
+            "new name": "i might mvp poor buddy.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.26.44.05.DVR.mp4",
+            "new name": "i might mvp spwancamp dom amby.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.26.13.04.DVR.mp4",
+            "new name": "assassin amby.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.24.45.03.DVR.mp4",
+            "new name": "john halo amby in the face.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.27 - 11.23.17.02.DVR.mp4",
+            "new name": "the axe and bullet.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.24 - 22.47.56.04.DVR.mp4",
+            "new name": "the enforcer.mp4",
+            "times": {
+                "start": "4:33",
+                "end": "4:53"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.24 - 22.34.09.03.DVR.mp4",
+            "new name": "donting people fan ella discussion.mp4",
+            "times": {
+                "start": "-33",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.24 - 22.31.20.02.DVR.mp4",
+            "new name": "bots vs fan.mp4",
+            "times": {
+                "start": "-41",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.23 - 23.31.49.07.DVR.mp4",
+            "new name": "the classic sidestab.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.23 - 23.15.39.03.DVR.mp4",
+            "new name": "he got the pack but was still enforced.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.08.23 - 23.03.18.02.DVR.mp4",
+            "new name": "second scoper exterminated.mp4",
+            "times": {
+                "start": "4:51",
+                "end": "4:57"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.06.11 - 17.04.05.02.DVR.mp4",
+            "new name": "sheep nexus destruction.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.06.04 - 20.56.09.03.DVR.mp4",
+            "new name": "thyme raze farm.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.06.04 - 20.34.58.02.DVR.mp4",
+            "new name": "warmtic to infinity and beyond.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2023.08.23 - 23.30.53.04.DVR.mp4": "the longest overtime.mp4"
+    },
+    "deletions": [
+        "Team Fortress 2 2023.08.23 - 23.31.07.06.DVR.mp4",
+        "Team Fortress 2 2023.08.23 - 23.30.53.05.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "TF2"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2 23.5"
+        ]
+    }
+}
