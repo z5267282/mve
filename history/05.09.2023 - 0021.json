@@ -1,0 +1,160 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.09.04 - 23.50.24.06.DVR.mp4",
+            "new name": "ghandi moves himself.mp4",
+            "times": {
+                "start": "-37",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.04 - 23.41.59.05.DVR.mp4",
+            "new name": "the armoured zombie collection.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.04 - 23.30.04.04.DVR.mp4",
+            "new name": "tropical fish collection.mp4",
+            "times": {
+                "start": "-22",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.04 - 23.03.55.03.DVR.mp4",
+            "new name": "the cichild.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.04 - 22.21.34.02.DVR.mp4",
+            "new name": "literally struck by lightning.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.04 - 02.02.00.07.DVR.mp4",
+            "new name": "the bat holy fuck.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.04 - 01.07.36.06.DVR.mp4",
+            "new name": "bat gets trapped the dumb bot.mp4",
+            "times": {
+                "start": "-21",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.04 - 01.05.06.05.DVR.mp4",
+            "new name": "bat literally teleports out of the block.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.03 - 23.44.57.04.DVR.mp4",
+            "new name": "bat glass tube finish.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.03 - 23.29.37.03.DVR.mp4",
+            "new name": "bedrock breaking.mp4",
+            "times": {
+                "start": "4:37",
+                "end": "4:50"
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.03 - 23.14.57.02.DVR.mp4",
+            "new name": "emerald block crafting perfect multiple of 9.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.02 - 23.33.05.03.DVR.mp4",
+            "new name": "the horse stables done.mp4",
+            "times": {
+                "start": "-43",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.02 - 21.23.52.02.DVR.mp4",
+            "new name": "villagers eating up emeralds.mp4",
+            "times": {
+                "start": "-34",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.02 - 14.23.54.02.DVR.mp4",
+            "new name": "emerald block another perfect multiple of 9.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.02 - 00.34.31.02.DVR.mp4",
+            "new name": "baby zombie under base.mp4",
+            "times": {
+                "start": "4:43",
+                "end": "4:47"
+            }
+        },
+        {
+            "original": "Minecraft 2023.08.31 - 00.25.57.42.DVR.mp4",
+            "new name": "changing wooden stairs since world creation.mp4",
+            "times": {
+                "start": "-45",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [
+        "Minecraft 2023.08.30 - 22.42.53.41.DVR.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "MC"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Minecraft 23.5"
+        ]
+    }
+}
