@@ -1,0 +1,150 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.10.08 - 23.31.45.04.DVR.mp4",
+            "new name": "thunder mountain cart bomb.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.10.08 - 23.29.05.03.DVR.mp4",
+            "new name": "headshot on running scout thunder mountain roof.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.10.07 - 16.30.16.06.DVR.mp4",
+            "new name": "harvest spawn to right corridor.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.10.07 - 16.11.46.05.DVR.mp4",
+            "new name": "harvest house down to 1hp fight against fan scout.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.10.07 - 16.07.20.04.DVR.mp4",
+            "new name": "8k on scout on harvest ends with a close quarters choke against a backburner.mp4",
+            "times": {
+                "start": "1:14",
+                "end": "2:29"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.10.07 - 16.07.20.04.DVR.mp4",
+            "new name": "complete destruction defence of harvest point soldier 12k.mp4",
+            "times": {
+                "start": "-54",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.10.07 - 15.31.50.03.DVR.mp4",
+            "new name": "the no hud rocket crushes a falling scout.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.10.07 - 15.29.39.02.DVR.mp4",
+            "new name": "new ashville cleanup.mp4",
+            "times": {
+                "start": "-20",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.09.07 - 14.13.23.09.DVR.mp4",
+            "new name": "i literally have no idea how i died to the scorch shot harvest roof.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.09.07 - 13.54.05.08.DVR.mp4",
+            "new name": "clean airshot prediction rocket on scout.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.09.07 - 13.51.56.07.DVR.mp4",
+            "new name": "bombing in and getting airshot on jumping scout.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.09.07 - 13.33.54.06.DVR.mp4",
+            "new name": "hunting down a spawning engi lmao badwater last blu spawn.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.09.07 - 13.19.33.05.DVR.mp4",
+            "new name": "deleting people on badwater last uzi lover soldier gets deleted.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.09.07 - 13.17.49.04.DVR.mp4",
+            "new name": "badwater third corridor fun extermination flank.mp4",
+            "times": {
+                "start": "-44",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.09.07 - 13.14.09.03.DVR.mp4",
+            "new name": "a distant bomb with the sticky jumper on badwater to second 2k pipes.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "TF2"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "22"
+        ]
+    }
+}

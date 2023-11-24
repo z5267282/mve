@@ -1,0 +1,54 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.09.10 - 01.00.41.02.DVR.mp4",
+            "new name": "finishing nice layer of netherite beacon perimeter.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.08 - 00.27.37.02.DVR.mp4",
+            "new name": "getting my own flame arrow reflected on me.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.07 - 12.37.10.02.DVR.mp4",
+            "new name": "there goes cupid into the flames.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "MC"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "23.75"
+        ]
+    }
+}
