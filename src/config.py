@@ -1,7 +1,7 @@
 # folder paths
 SOURCE      = ["D:", "\\", "Videos", "Team Fortress 2"]
 RENAMES     = ["D:", "\\", "Videos", "Renames", "TF2"]
-DESTINATION = ["C:", "\\", "Users", "Sunny", "Videos", "Edits", "24"]
+DESTINATION = ["C:", "\\", "Users", "Sunny", "Videos", "Edits", "25"]
 
 # multi threading and processing
 NUM_THREADS   = 4
