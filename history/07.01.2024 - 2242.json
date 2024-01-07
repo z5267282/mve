@@ -1,0 +1,42 @@
+{
+    "edits": [
+        {
+            "original": "RPReplay_Final1704518238.mov",
+            "new name": "the double then tripple diamond.mp4",
+            "times": {
+                "start": "2:36",
+                "end": "2:47"
+            }
+        },
+        {
+            "original": "RPReplay_Final1704518238.mov",
+            "new name": "slot machine lucky spin.mp4",
+            "times": {
+                "start": "2:40",
+                "end": "2:47"
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "/",
+            "Users",
+            "sunny",
+            "Downloads"
+        ],
+        "renames path": [
+            "/",
+            "Users",
+            "sunny",
+            "Desktop"
+        ],
+        "destination path": [
+            "/",
+            "Users",
+            "sunny",
+            "Desktop"
+        ]
+    }
+}
