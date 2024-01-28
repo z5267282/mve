@@ -1,0 +1,78 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.12.10 - 00.39.51.06.DVR.mp4",
+            "new name": "bots into the water.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.12.10 - 00.39.32.05.DVR.mp4",
+            "new name": "demo 2k sniper revolver.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.12.10 - 00.38.36.04.DVR.mp4",
+            "new name": "scout gets deleted from crit.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.12.10 - 00.36.36.03.DVR.mp4",
+            "new name": "the getaway that should have been but the rocket did not hit.mp4",
+            "times": {
+                "start": "-24",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.12.09 - 23.47.25.02.DVR.mp4",
+            "new name": "speck who is he market gardener as.mp4",
+            "times": {
+                "start": "3:54",
+                "end": "4:15"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.12.07 - 23.49.39.10.DVR.mp4",
+            "new name": "the unluckiest crater out of window upward.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "TF2"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "24"
+        ]
+    }
+}
