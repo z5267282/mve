@@ -33,7 +33,9 @@ def main():
     if edits or renames or deletions:
         log_to_file(edits, renames, deletions)
 
-    util.exit_success(f'exited with {colours.colour_format(clr.CYAN, num_remaining)} file{str() if num_remaining == 1 else "s"} remaining')
+    util.exit_success(
+        util.format_remaining(num_remaining)
+    )
 
 
 def run_checks():
