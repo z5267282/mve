@@ -370,13 +370,16 @@ def log_delete(base_name, deletions):
 def log_to_file(edits, renames, deletions):
     treatment_name = timestamps.generate_timestamped_file_name()
     joined_treatment_name = files.get_joined_path(fst.QUEUE, treatment_name)
-    data = {
+    data = wrap_session(edits, renames, deletions)
+    data[trf.PATHS] = util.generate_paths_dict()
+    json_handlers.write_to_json(data, joined_treatment_name)
+
+def wrap_session(edits, renames, deletions):
+    return {
         trf.EDITS     : edits,
         trf.RENAMES   : renames,
         trf.DELETIONS : deletions,
     }
-    data[trf.PATHS] = util.generate_paths_dict()
-    json_handlers.write_to_json(data, joined_treatment_name)
 
 
 if __name__ == '__main__':
