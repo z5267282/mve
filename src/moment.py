@@ -1,5 +1,5 @@
 from json import dumps
-import os
+import pathlib
 import sys
 
 import constants.error as err
@@ -16,17 +16,23 @@ def main():
     paths = gen_paths()
     # TODO : MAKE INTO FLAG
     remaining, errors = gen_remaining(paths, False), []
+
     edits, renames, deletions = list(), dict(), list()
-    run_loop(edits, renames, deletions, paths)
+    num_remaining = run_loop(remaining, edits, renames, deletions, paths)
     data = wrap_session(edits, renames, deletions)
+    print(
+        util.format_remaining(num_remaining)
+    )
+
     treat_all(data, remaining, errors)
     handle_errors(errors)
     util.exit_treat_all_good()
 
 
 def gen_paths() -> paths.Paths:
-    source = input("enter source folder : ")
-    edits = input("enter ")
+    print("enter absolute paths for the following folders")
+    source = input("source : ")
+    edits = input("edits : ")
     return paths.Paths(
         decompose_path_into_folders(source),
         decompose_path_into_folders(edits),
@@ -39,8 +45,9 @@ def gen_remaining(paths : paths.Paths, recent : bool) -> list[str]:
 
 
 def decompose_path_into_folders(abs_path : str) -> list[str]:
-    normalised = os.path.normpath(abs_path)
-    return normalised.split(os.path.sep)
+    path : pathlib.Path = pathlib.Path(abs_path)
+    print(list(path.parts))
+    return list(path.parts)
 
 
 def handle_errors(errors):
