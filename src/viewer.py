@@ -45,6 +45,12 @@ def check_no_remaining():
 
 
 def run_loop(remaining, edits, renames, deletions):
+    print(cfg.SOURCE)
+    print(cfg.DESTINATION)
+    print(cfg.RENAMES)
+    print("DONE")
+
+def _run_loop(remaining, edits, renames, deletions):
     padding = len(
         str(
             len(remaining)
