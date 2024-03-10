@@ -24,7 +24,7 @@ def main():
         util.format_remaining(num_remaining)
     )
 
-    treat_all(data, remaining, errors)
+    treat_all(data, remaining, errors, paths)
     handle_errors(errors)
     util.exit_treat_all_good()
 
