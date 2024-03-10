@@ -34,8 +34,7 @@ def main():
     if errors:
         handle_errors(remaining, errors)
 
-    util.exit_success('successfully treated all files')
-
+    util.exit_treat_all_good()
 
 def run_checks():
     check_and_exit_if.no_args(sys.argv)

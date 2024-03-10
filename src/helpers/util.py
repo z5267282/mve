@@ -29,3 +29,6 @@ def exit_success(message):
     )
     print(f'{colours.colour_box(clr.GREEN, "success")} {base_name} {message}')
     sys.exit(0)
+
+def exit_treat_all_good():
+    exit_success('successfully treated all files')
