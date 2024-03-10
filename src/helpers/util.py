@@ -8,6 +8,10 @@ import constants.colour as clr
 import constants.treatment_format as trf
 
 import helpers.colours as colours
+import helpers.paths as paths
+
+def create_paths_from_config():
+    return paths.Paths(cfg.SOURCE, cfg.DESTINATION, cfg.RENAMES)
 
 def stderr_print(message):
     print(message, file=sys.stderr)
