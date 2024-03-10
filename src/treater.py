@@ -27,7 +27,8 @@ def main():
     remaining, errors = json_handlers.load_remaining(), list()
     current_file = dequeue()
     joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
-    treat_all(joined_current_file, remaining, errors)
+    data = json_handlers.read_from_json(joined_current_file)
+    treat_all(data, remaining, errors)
     update_history(current_file, joined_current_file)
 
     if errors:
@@ -57,9 +58,7 @@ def dequeue():
     return queue_files[0]
 
 
-def treat_all(joined_current_file, remaining, errors):
-    data = json_handlers.read_from_json(joined_current_file)
-
+def treat_all(data, remaining, errors):
     edits = data[trf.EDITS]
     edit_all(edits, remaining, errors)
 
