@@ -24,8 +24,9 @@ import helpers.util as util
 def main():
     run_checks()
 
+    remaining = json_handlers.load_remaining()
     edits, renames, deletions = list(), dict(), list()
-    num_remaining = run_loop(edits, renames, deletions)
+    num_remaining = run_loop(remaining, edits, renames, deletions)
 
     if edits or renames or deletions:
         log_to_file(edits, renames, deletions)
@@ -43,8 +44,7 @@ def check_no_remaining():
     check_and_exit_if.no_file(fst.REMAINING, 'remaining', err.MISSING_REMAINING)
 
 
-def run_loop(edits, renames, deletions):
-    remaining = json_handlers.load_remaining()
+def run_loop(remaining, edits, renames, deletions):
     padding = len(
         str(
             len(remaining)
