@@ -46,7 +46,6 @@ def gen_remaining(paths : paths.Paths, recent : bool) -> list[str]:
 
 def decompose_path_into_folders(abs_path : str) -> list[str]:
     path : pathlib.Path = pathlib.Path(abs_path)
-    print(list(path.parts))
     return list(path.parts)
 
 
