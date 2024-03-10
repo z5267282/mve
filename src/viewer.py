@@ -16,6 +16,7 @@ import helpers.check_and_exit_if as check_and_exit_if
 import helpers.colours as colours
 import helpers.files as files
 import helpers.json_handlers as json_handlers
+import helpers.paths as paths
 import helpers.time_handlers as time_handlers
 import helpers.timestamps as timestamps
 import helpers.util as util
@@ -26,7 +27,8 @@ def main():
 
     remaining = json_handlers.load_remaining()
     edits, renames, deletions = list(), dict(), list()
-    num_remaining = run_loop(remaining, edits, renames, deletions)
+    folders = paths.Paths(cfg.SOURCE, cfg.DESTINATION, cfg.RENAMES)
+    num_remaining = run_loop(remaining, edits, renames, deletions, folders)
 
     if edits or renames or deletions:
         log_to_file(edits, renames, deletions)
@@ -44,7 +46,7 @@ def check_no_remaining():
     check_and_exit_if.no_file(fst.REMAINING, 'remaining', err.MISSING_REMAINING)
 
 
-def run_loop(remaining, edits, renames, deletions):
+def run_loop(remaining, edits, renames, deletions, paths : paths.Paths):
     padding = len(
         str(
             len(remaining)
@@ -53,7 +55,7 @@ def run_loop(remaining, edits, renames, deletions):
 
     while remaining:
         base_name = remaining[0]
-        view_video(base_name)
+        view_video(base_name, paths)
 
         go_to_next_file = False
         command, raw_tokens = prompt(
@@ -67,15 +69,15 @@ def run_loop(remaining, edits, renames, deletions):
             case cmd.HELP:
                 do_help()
             case cmd.END:
-                go_to_next_file = do_end(base_name, raw_tokens, edits)
+                go_to_next_file = do_end(base_name, raw_tokens, edits, paths)
             case cmd.START:
-                go_to_next_file = do_start(base_name, raw_tokens, edits)
+                go_to_next_file = do_start(base_name, raw_tokens, edits, paths)
             case cmd.MIDDLE:
-                go_to_next_file = do_middle(base_name, raw_tokens, edits)
+                go_to_next_file = do_middle(base_name, raw_tokens, edits, paths)
             case cmd.WHOLE:
-                go_to_next_file = do_whole(base_name, raw_tokens, edits)
+                go_to_next_file = do_whole(base_name, raw_tokens, edits, paths)
             case cmd.RENAME:
-                go_to_next_file = do_rename(base_name, raw_tokens, renames)
+                go_to_next_file = do_rename(base_name, raw_tokens, renames, paths)
             case cmd.DELETE:
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
@@ -87,11 +89,11 @@ def run_loop(remaining, edits, renames, deletions):
     json_handlers.write_remaining(remaining)
     return len(remaining)
 
-def view_video(base_name):
+def view_video(base_name, paths : paths.Paths):
     if cfg.TESTING:
         return
 
-    joined_path = files.get_joined_path(cfg.SOURCE, base_name)
+    joined_path = files.get_joined_path(paths.source, base_name)
     system = sys.platform
     if system.startswith('win'):
         os.startfile(joined_path)
@@ -124,14 +126,14 @@ def highlight_all_commands(string):
 def highlight_command(command):
     return colours.colour_format(clr.PURPLE, command)
 
-def do_end(base_name, raw_tokens, edits):
+def do_end(base_name, raw_tokens, edits, paths : paths.Paths):
     return do_edit(
         cmd.END, base_name, raw_tokens, edits,
-        lambda tokens: (tokens[0], None, tokens[1]),
+        lambda tokens: (tokens[0], None, tokens[1]), paths,
         integer=True
     )
 
-def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, integer=False):
+def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, paths : paths.Paths, integer=False):
     tokens = parse_tokens(raw_tokens, command)
     if tokens is None:
         return False
@@ -151,10 +153,10 @@ def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, inte
         if end is None:
             return False
 
-    if not check_times(base_name, start, end):
+    if not check_times(base_name, start, end, paths):
         return False
 
-    edit_name = handle_new_name(edit_name, cfg.DESTINATION)
+    edit_name = handle_new_name(edit_name, paths.edits)
     if edit_name is None:
         return False
 
@@ -204,11 +206,11 @@ def parse_timestamp(timestamp):
 def print_time_format(is_start, format):
     util.print_error(f'the {get_start_end_description(is_start)} time must be in the format {format}')
 
-def check_times(base_name, start, end):
+def check_times(base_name, start, end, paths : paths.Paths):
     if start is None and end is None:
         return True
 
-    joined_src_path = files.get_joined_path(cfg.SOURCE, base_name)
+    joined_src_path = files.get_joined_path(paths.source, base_name)
     duration = get_duration(joined_src_path)
     if start is None:
         if not check_in_bounds(end, time_handlers.get_seconds(end), duration, base_name, is_start=False):
@@ -325,31 +327,31 @@ def log_edit(base_name, edit_name, edits, start, end):
     }
     edits.append(new_edit)
 
-def do_start(base_name, raw_tokens, edits):
+def do_start(base_name, raw_tokens, edits, paths : paths.Paths):
     return do_edit(
         cmd.START, base_name, raw_tokens, edits,
-        lambda tokens: (None, tokens[0], tokens[1])
+        lambda tokens: (None, tokens[0], tokens[1]), paths
     )
 
-def do_middle(base_name, raw_tokens, edits):
+def do_middle(base_name, raw_tokens, edits, paths : paths.Paths):
     return do_edit(
         cmd.MIDDLE, base_name, raw_tokens, edits,
-        lambda tokens: tokens
+        lambda tokens: tokens, paths
     )
 
-def do_whole(base_name, raw_tokens, edits):
+def do_whole(base_name, raw_tokens, edits, paths : paths.Paths):
     return do_edit(
         cmd.WHOLE, base_name, raw_tokens, edits,
-        lambda tokens: (None, None, tokens[0])
+        lambda tokens: (None, None, tokens[0]), paths
     )
 
-def do_rename(base_name, raw_tokens, renames):
+def do_rename(base_name, raw_tokens, renames, paths : paths.Paths):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
         return False
 
     new_name, = tokens
-    new_name = handle_new_name(new_name, cfg.RENAMES)
+    new_name = handle_new_name(new_name, paths.renames)
     if new_name is None:
         return False
 
