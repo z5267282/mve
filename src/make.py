@@ -9,6 +9,7 @@
 
 import json
 import os
+import pathlib
 import re
 import sys
 
@@ -49,7 +50,9 @@ def stringify_path(display: str) -> str:
     if not os.path.exists(folder):
         util.print_error(f"the {display} folder {folder} doesn't exist")
         sys.exit(3)
-    folders: list[str] = os.path.split(folder)
+    folders: list[str] = list(
+        pathlib.Path(folder).parts
+    )
     return json.dumps(folders)
 
 
