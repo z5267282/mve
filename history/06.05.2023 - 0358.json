@@ -1,0 +1,79 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.05.06 - 01.59.01.11.DVR.mp4",
+            "new name": "barnblitz tilt demoman dub.mp4",
+            "times": {
+                "start": "-36",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.06 - 01.53.13.10.DVR.mp4",
+            "new name": "scout walks into rocket barnblitz.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.06 - 01.51.54.09.DVR.mp4",
+            "new name": "short circuit gets do notted.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.06 - 01.16.10.08.DVR.mp4",
+            "new name": "walk in and ding ding ding.mp4",
+            "times": {
+                "start": "-16",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.06 - 01.13.12.06.DVR.mp4",
+            "new name": "my pocket soldier dreams.mp4",
+            "times": {
+                "start": "-19",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.06 - 01.12.26.05.DVR.mp4",
+            "new name": "badwater drop down tunnel farm.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [
+        "Team Fortress 2 2023.05.06 - 01.13.12.07.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}

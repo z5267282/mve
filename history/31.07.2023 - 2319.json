@@ -1,0 +1,33 @@
+{
+    "edits": [],
+    "renames": {
+        "Desktop 2023.06.04 - 22.22.19.06.mp4": "mertens rg.mp4",
+        "Desktop 2023.06.04 - 21.33.31.05.mp4": "mertens rg set 3.mp4",
+        "Desktop 2023.06.04 - 21.13.08.04.mp4": "mertens rg set 2.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Desktop"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "Desktop"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Mertens RG"
+        ]
+    }
+}

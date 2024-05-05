@@ -1,0 +1,88 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.11.11 - 16.23.56.05.DVR.mp4",
+            "new name": "perfectly flying into the bed.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.11.04 - 00.30.49.02.DVR.mp4",
+            "new name": "revealing a perfect three of netherite.mp4",
+            "times": {
+                "start": "-11",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.10 - 14.09.08.07.DVR.mp4",
+            "new name": "getting the last cleric in gold farm.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.10 - 11.42.37.05.DVR.mp4",
+            "new name": "getting effectively struct by lightning.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.10 - 11.34.57.04.DVR.mp4",
+            "new name": "the last bedrock in the nether beacon perimeter.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.10 - 10.57.54.03.DVR.mp4",
+            "new name": "nearly dying because of a random piglin in gold farm thank the gods for resistance beacon.mp4",
+            "times": {
+                "start": "-34",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.09.10 - 10.10.06.02.DVR.mp4",
+            "new name": "crafting the perfect amount of levers.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Minecraft 2023.09.10 - 12.21.51.06.DVR.mp4": "finishing nether beacon.mp4"
+    },
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "MC"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "23.75"
+        ]
+    }
+}

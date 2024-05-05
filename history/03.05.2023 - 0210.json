@@ -1,0 +1,194 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.05.03 - 00.22.00.14.DVR.mp4",
+            "new name": "demoknight crit destruction.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.03 - 00.08.01.13.DVR.mp4",
+            "new name": "engi hunt after payload dub.mp4",
+            "times": {
+                "start": "-17",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.03 - 00.02.02.12.DVR.mp4",
+            "new name": "unlucky crocket.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.03 - 00.00.32.11.DVR.mp4",
+            "new name": "pyro tries to challenge.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 23.55.53.09.DVR.mp4",
+            "new name": "the badwater conch dream full story.mp4",
+            "times": {
+                "start": "-50",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 23.55.53.09.DVR.mp4",
+            "new name": "badwater drop down and conch.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 23.52.24.08.DVR.mp4",
+            "new name": "pyro crit.mp4",
+            "times": {
+                "start": "1:9",
+                "end": "1:12"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 23.51.09.07.DVR.mp4",
+            "new name": "crushed in the blink of an eye.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 23.36.52.05.DVR.mp4",
+            "new name": "steven computer.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 23.32.44.03.DVR.mp4",
+            "new name": "steven gets outplayed.mp4",
+            "times": {
+                "start": "-30",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 23.30.21.02.DVR.mp4",
+            "new name": "walk in and destroy.mp4",
+            "times": {
+                "start": "4:43",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 01.26.45.23.DVR.mp4",
+            "new name": "the borneo dream.mp4",
+            "times": {
+                "start": "-32",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 01.25.40.22.DVR.mp4",
+            "new name": "borneo scout frags.mp4",
+            "times": {
+                "start": "-16",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 01.15.25.21.DVR.mp4",
+            "new name": "spy invis goomba boost.mp4",
+            "times": {
+                "start": "-12",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 01.12.52.20.DVR.mp4",
+            "new name": "how did they know heavy gru revolver.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 01.00.14.19.DVR.mp4",
+            "new name": "thunder mountain last 30 second overtime.mp4",
+            "times": {
+                "start": "-52",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 00.53.37.18.DVR.mp4",
+            "new name": "scout thunder mountain.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 00.52.32.17.DVR.mp4",
+            "new name": "do not demoknight.mp4",
+            "times": {
+                "start": "19",
+                "end": "23"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 00.52.04.16.DVR.mp4",
+            "new name": "drop down kill.mp4",
+            "times": {
+                "start": "11",
+                "end": "15"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.02 - 00.51.45.15.DVR.mp4",
+            "new name": "ring around the rosie.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2023.05.02 - 23.56.05.10.DVR.mp4": "badwater crushed at last win.mp4",
+        "Team Fortress 2 2023.05.02 - 23.35.21.04.DVR.mp4": "steven yikes.mp4"
+    },
+    "deletions": [
+        "Team Fortress 2 2023.05.02 - 23.37.18.06.DVR.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}

@@ -1,0 +1,77 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.05.09 - 23.17.14.09.DVR.mp4",
+            "new name": "a posthumous dub.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.09 - 23.01.22.08.DVR.mp4",
+            "new name": "revenge is sweet.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.09 - 22.36.32.07.DVR.mp4",
+            "new name": "thunder mountain pocket adventures with pyrovision goggles.mp4",
+            "times": {
+                "start": "-12",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.09 - 22.19.02.06.DVR.mp4",
+            "new name": "vdiot the idiot.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.09 - 22.10.08.05.DVR.mp4",
+            "new name": "i like the part where the bullet makes a sound but does not shoot.mp4",
+            "times": {
+                "start": "-16",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.09 - 22.05.52.04.DVR.mp4",
+            "new name": "thunder mountain stab fun.mp4",
+            "times": {
+                "start": "1:23",
+                "end": "1:54"
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}

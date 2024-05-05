@@ -1,0 +1,109 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.02.25 - 20.32.13.06.DVR.mp4",
+            "new name": "summer cup nuke.mp4",
+            "times": {
+                "start": "3:43",
+                "end": "3:49"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.25 - 20.32.13.06.DVR.mp4",
+            "new name": "soapdm farmage.mp4",
+            "times": {
+                "start": "-16",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.25 - 20.23.25.05.DVR.mp4",
+            "new name": "summer cup med drop shutter.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.25 - 20.09.21.04.DVR.mp4",
+            "new name": "pengstah airshot.mp4",
+            "times": {
+                "start": "2:37",
+                "end": "2:42"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.25 - 20.06.10.03.DVR.mp4",
+            "new name": "summer cup backcap.mp4",
+            "times": {
+                "start": "-20",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.25 - 19.17.01.02.DVR.mp4",
+            "new name": "the scandal shot.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.22 - 22.31.13.04.DVR.mp4",
+            "new name": "villa mid farmage.mp4",
+            "times": {
+                "start": "-25",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.22 - 21.49.23.03.DVR.mp4",
+            "new name": "logjam mid fun.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.22 - 21.47.12.02.DVR.mp4",
+            "new name": "logjam 3k.mp4",
+            "times": {
+                "start": "-34",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.02.22 - 21.47.12.02.DVR.mp4",
+            "new name": "the logjam brain.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}

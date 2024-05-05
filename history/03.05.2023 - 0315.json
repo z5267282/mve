@@ -1,0 +1,61 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.04.21 - 22.50.00.25.DVR.mp4",
+            "new name": "in and out with the amby.mp4",
+            "times": {
+                "start": "3:56",
+                "end": "3:59"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.04.21 - 22.45.48.24.DVR.mp4",
+            "new name": "black box eagle bomb.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.04.21 - 22.36.43.23.DVR.mp4",
+            "new name": "where did he go getting reflected.mp4",
+            "times": {
+                "start": "-10",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.04.21 - 22.29.00.22.DVR.mp4",
+            "new name": "premature endings.mp4",
+            "times": {
+                "start": "1",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}

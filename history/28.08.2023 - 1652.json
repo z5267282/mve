@@ -1,0 +1,78 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.06.03 - 17.47.23.02.DVR.mp4",
+            "new name": "cat spawns.mp4",
+            "times": {
+                "start": "-8",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.03 - 02.05.56.07.DVR.mp4",
+            "new name": "curing of swamp zombie villager.mp4",
+            "times": {
+                "start": "-97",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.03 - 01.38.00.05.DVR.mp4",
+            "new name": "get down mr spawn zombie villager.mp4",
+            "times": {
+                "start": "-47",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.03 - 01.03.47.04.DVR.mp4",
+            "new name": "phantom noise.mp4",
+            "times": {
+                "start": "4:45",
+                "end": "4:49"
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.03 - 00.12.41.02.DVR.mp4",
+            "new name": "the jungle nitwit.mp4",
+            "times": {
+                "start": "-6",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.06.02 - 01.37.37.02.DVR.mp4",
+            "new name": "the jungle collection.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "MC"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Minecraft 23.5"
+        ]
+    }
+}

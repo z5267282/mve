@@ -1,0 +1,177 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.05.05 - 20.36.15.133.DVR.mp4",
+            "new name": "thunder mountain 4k ends with a skillstick.mp4",
+            "times": {
+                "start": "-43",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 20.29.40.132.DVR.mp4",
+            "new name": "badwater fan flank ends with demoknight kill.mp4",
+            "times": {
+                "start": "1:55",
+                "end": "2:27"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 20.27.06.131.DVR.mp4",
+            "new name": "crit scattergun cart.mp4",
+            "times": {
+                "start": "27",
+                "end": "35"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 20.26.24.130.DVR.mp4",
+            "new name": "badwater scout 9k.mp4",
+            "times": {
+                "start": "-93",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 20.23.44.129.DVR.mp4",
+            "new name": "badwater scout 6k double meatshot.mp4",
+            "times": {
+                "start": "-64",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 20.17.57.128.DVR.mp4",
+            "new name": "harvest do not gameplay.mp4",
+            "times": {
+                "start": "-43",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 20.08.32.126.DVR.mp4",
+            "new name": "thunder mountain roof scout clutch.mp4",
+            "times": {
+                "start": "-33",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 19.55.17.125.DVR.mp4",
+            "new name": "counter birdwatcher.mp4",
+            "times": {
+                "start": "1:25",
+                "end": "1:30"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 19.51.03.124.DVR.mp4",
+            "new name": "thunder mountain backdoor fun as flick.mp4",
+            "times": {
+                "start": "-53",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 19.45.30.123.DVR.mp4",
+            "new name": "narlock the bot gets balanced nest crocket.mp4",
+            "times": {
+                "start": "-25",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 19.38.21.122.DVR.mp4",
+            "new name": "pyro med vaccinator comes to an end.mp4",
+            "times": {
+                "start": "-7",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 19.33.00.121.DVR.mp4",
+            "new name": "san the bot trying to be down with the yoda hat.mp4",
+            "times": {
+                "start": "-15",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 19.21.05.119.DVR.mp4",
+            "new name": "delete the pyromancer as a class.mp4",
+            "times": {
+                "start": "2:26",
+                "end": "3:37"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 19.17.24.118.DVR.mp4",
+            "new name": "bot tries to shahansah me.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 19.15.43.117.DVR.mp4",
+            "new name": "amby scout frag.mp4",
+            "times": {
+                "start": "4:54",
+                "end": "4:57"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 19.06.56.116.DVR.mp4",
+            "new name": "the sneaky spy clutch.mp4",
+            "times": {
+                "start": "-43",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 18.53.00.115.DVR.mp4",
+            "new name": "dh demoknight 2k.mp4",
+            "times": {
+                "start": "-14",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.05 - 18.42.10.114.DVR.mp4",
+            "new name": "7k scout and nebula rq.mp4",
+            "times": {
+                "start": "-85",
+                "end": null
+            }
+        }
+    ],
+    "renames": {
+        "Team Fortress 2 2023.05.05 - 20.10.27.127.DVR.mp4": "thunder mountain 13k was insufficient.mp4"
+    },
+    "deletions": [
+        "Team Fortress 2 2023.05.05 - 19.31.03.120.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}

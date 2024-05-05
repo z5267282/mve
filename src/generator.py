@@ -4,6 +4,7 @@ import sys
 import config as cfg
 
 import constants.file_structure as fst
+import constants.generation as gen
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.colours as colours
@@ -15,7 +16,7 @@ import helpers.util as util
 def main():
     run_checks()
 
-    new_files = files.ls(cfg.SOURCE)
+    new_files = files.ls(cfg.SOURCE, gen.RECENT)
     json_handlers.write_to_json(new_files, fst.REMAINING)
 
     joined_path = files.get_joined_path(cfg.SOURCE, '')
@@ -23,7 +24,7 @@ def main():
 
 
 def run_checks():
-    check_and_exit_if.bad_args(sys.argv)
+    check_and_exit_if.no_args(sys.argv)
     check_and_exit_if.no_source_folder()
     if os.path.exists(fst.REMAINING):
         check_and_exit_if.files_remaining()

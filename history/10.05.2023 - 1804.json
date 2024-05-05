@@ -1,0 +1,109 @@
+{
+    "edits": [
+        {
+            "original": "Team Fortress 2 2023.05.08 - 22.58.16.08.DVR.mp4",
+            "new name": "sniper gets terminated mid air.mp4",
+            "times": {
+                "start": "-4",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.08 - 22.58.08.07.DVR.mp4",
+            "new name": "thunder mountain 5k ends with a pyro getting utterly predicted.mp4",
+            "times": {
+                "start": "-71",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.08 - 22.50.39.06.DVR.mp4",
+            "new name": "untouched by even the phlog pyro.mp4",
+            "times": {
+                "start": null,
+                "end": "3"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.08 - 22.50.28.05.DVR.mp4",
+            "new name": "10k trumpet ends with a crocket on sniper.mp4",
+            "times": {
+                "start": "-18",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.08 - 22.49.53.04.DVR.mp4",
+            "new name": "a demobot charge ends with an interesting thunder mountain spawn ramp slide.mp4",
+            "times": {
+                "start": "-20",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.08 - 22.48.24.03.DVR.mp4",
+            "new name": "thundering on with a 5k.mp4",
+            "times": {
+                "start": "-40",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.08 - 22.42.37.02.DVR.mp4",
+            "new name": "no name gets disrespected.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.08 - 22.26.57.02.DVR.mp4",
+            "new name": "the strange case of the no queue.mp4",
+            "times": {
+                "start": "2:29",
+                "end": "2:48"
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.06 - 13.59.41.03.DVR.mp4",
+            "new name": "up close and personal amby hs.mp4",
+            "times": {
+                "start": "-9",
+                "end": null
+            }
+        },
+        {
+            "original": "Team Fortress 2 2023.05.06 - 13.41.27.02.DVR.mp4",
+            "new name": "cow mangler gets his brain mangled instead.mp4",
+            "times": {
+                "start": "-5",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Team Fortress 2"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "TF2"
+        ]
+    }
+}

@@ -16,6 +16,7 @@ import helpers.check_and_exit_if as check_and_exit_if
 import helpers.colours as colours
 import helpers.files as files
 import helpers.json_handlers as json_handlers
+import helpers.paths as paths
 import helpers.time_handlers as time_handlers
 import helpers.timestamps as timestamps
 import helpers.util as util
@@ -27,72 +28,61 @@ def main():
     remaining, errors = json_handlers.load_remaining(), list()
     current_file = dequeue()
     joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
-    treat_all(joined_current_file, remaining, errors)
+    data = json_handlers.read_from_json(joined_current_file)
+    folders = util.create_paths_from_config()
+    treat_all(data, remaining, errors, folders)
     update_history(current_file, joined_current_file)
 
     if errors:
         handle_errors(remaining, errors)
 
-    util.exit_success('successfully treated all files')
+    util.exit_treat_all_good()
 
 
 def run_checks():
-    check_and_exit_if.bad_args(sys.argv)
+    check_and_exit_if.no_args(sys.argv)
     check_and_exit_if.no_queue()
     check_empty_queue()
-    check_and_exit_if.no_source_folder()
-    no_renames()
+    check_and_exit_if.one_of_config_folders_missing()
     no_history()
-    no_errors()
 
 def check_empty_queue():
     if not files.ls(fst.QUEUE):
         print(f"there are no files queued in folder '{fst.QUEUE}'")
         sys.exit(err.EMPTY_QUEUE)
 
-def no_renames():
-    check_and_exit_if.no_folder(cfg.RENAMES, 'renames', err.NO_RENAMES_FOLDER)
-
 def no_history():
     check_and_exit_if.no_folder(fst.HISTORY, 'history', err.NO_HISTORY_FOLDER)
-
-def no_errors():
-    check_and_exit_if.no_folder(fst.ERRORS, 'errors', err.NO_ERRORS_FOLDER)
 
 
 def dequeue():
     queue_files = files.ls(fst.QUEUE)
-    get_creation_time = lambda file_name: os.path.getctime(
-        files.get_joined_path(fst.QUEUE, file_name)
-    )
-    return sorted(queue_files, key=get_creation_time)[0]
+    return queue_files[0]
 
 
-def treat_all(joined_current_file, remaining, errors):
-    data = json_handlers.read_from_json(joined_current_file)
-
+def treat_all(data, remaining, errors, paths : paths.Paths):
     edits = data[trf.EDITS]
-    edit_all(edits, remaining, errors)
+    edit_all(edits, remaining, errors, paths)
 
     renames = data[trf.RENAMES]
-    rename_all(renames, remaining, errors)
+    rename_all(renames, remaining, errors, paths)
 
     deletions = data[trf.DELETIONS]
-    delete_all(deletions, remaining, errors)
+    delete_all(deletions, remaining, errors, paths)
 
-def edit_all(edits, remaining, errors):
+def edit_all(edits, remaining, errors, paths : paths.Paths):
     with concurrent.futures.ProcessPoolExecutor(max_workers=cfg.NUM_PROCESSES) as executor:
-        results = [executor.submit(edit_one, edit) for edit in edits]
+        results = [executor.submit(edit_one, edit, paths) for edit in edits]
         for future, edit in zip(concurrent.futures.as_completed(results), edits):
             try:
                 future.result()
             except Exception as e:
                 handle_error(errors, remaining, edit[trf.EDIT_ORIGINAL], str(e), trf.EDITS, edit)
 
-def edit_one(edit):
+def edit_one(edit, paths : paths.Paths):
     name = edit[trf.EDIT_ORIGINAL]
-    joined_src_path = files.get_joined_path(cfg.SOURCE, name)
-    joined_dst_path = files.get_joined_path(cfg.DESTINATION, edit[trf.EDIT_NAME])
+    joined_src_path = files.get_joined_path(paths.source, name)
+    joined_dst_path = files.get_joined_path(paths.edits, edit[trf.EDIT_NAME])
 
     times = edit[trf.EDIT_TIMES]
     start, end = times[trf.EDIT_TIMES_START], times[trf.EDIT_TIMES_END]
@@ -156,28 +146,28 @@ def create_error_dict(name, message, command, data):
 def add_to_remaining(remaining, name):
     remaining.append(name)
 
-def rename_all(renames, remaining, errors):
+def rename_all(renames, remaining, errors, paths : paths.Paths):
     for rename_source in renames:
         new_name = renames[rename_source]
         try:
-            do_rename(rename_source, new_name)
+            do_rename(rename_source, new_name, paths)
         except Exception as e:
             handle_error(errors, remaining, rename_source, str(e), trf.RENAMES, new_name)
 
-def do_rename(src_name, dst_name):
-    joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
-    joined_dst_name = files.get_joined_path(cfg.RENAMES, dst_name)
+def do_rename(src_name, dst_name, paths : paths.Paths):
+    joined_src_name = files.get_joined_path(paths.source, src_name)
+    joined_dst_name = files.get_joined_path(paths.renames, dst_name)
     os.rename(joined_src_name, joined_dst_name)
 
-def delete_all(deletions, remaining, errors):
+def delete_all(deletions, remaining, errors, paths : paths.Paths):
     for deletion_name in deletions:
         try:
-            do_delete(deletion_name)
+            do_delete(deletion_name, paths)
         except Exception as e:
             handle_error(errors, remaining, deletion_name, str(e), trf.DELETIONS, None)
 
-def do_delete(src_name):
-    joined_src_name = files.get_joined_path(cfg.SOURCE, src_name)
+def do_delete(src_name, paths : paths.Paths):
+    joined_src_name = files.get_joined_path(paths.source, src_name)
     os.remove(joined_src_name)
 
 

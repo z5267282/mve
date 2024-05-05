@@ -1,0 +1,110 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2023.07.17 - 02.37.41.05.DVR.mp4",
+            "new name": "iron farm villagers turn into witches lightning.mp4",
+            "times": {
+                "start": "54",
+                "end": "1:2"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.17 - 02.36.25.04.DVR.mp4",
+            "new name": "waking up to thunderstorm.mp4",
+            "times": {
+                "start": "1:25",
+                "end": "1:40"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.17 - 02.36.25.04.DVR.mp4",
+            "new name": "three gold skeletons.mp4",
+            "times": {
+                "start": "4:23",
+                "end": "4:47"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 01.10.45.11.DVR.mp4",
+            "new name": "creeper farm waterlogged chest.mp4",
+            "times": {
+                "start": "-3",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 01.07.25.09.DVR.mp4",
+            "new name": "dragon kill 20.mp4",
+            "times": {
+                "start": "-65",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 01.03.26.08.DVR.mp4",
+            "new name": "the ring of distant end city portals.mp4",
+            "times": {
+                "start": "-20",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 00.57.10.07.DVR.mp4",
+            "new name": "dragon kill end 2.mp4",
+            "times": {
+                "start": null,
+                "end": "56"
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 00.57.10.07.DVR.mp4",
+            "new name": "dragon kill end 3.mp4",
+            "times": {
+                "start": "-69",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 00.45.34.06.DVR.mp4",
+            "new name": "dragon kill end 4.mp4",
+            "times": {
+                "start": "-67",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2023.07.13 - 00.42.25.05.DVR.mp4",
+            "new name": "dragon kill end 5.mp4",
+            "times": {
+                "start": "-75",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "MC"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Minecraft 23.5"
+        ]
+    }
+}

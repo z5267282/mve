@@ -1,0 +1,52 @@
+{
+    "edits": [
+        {
+            "original": "Desktop 2023.11.23 - 00.00.09.02.DVR.mp4",
+            "new name": "onedrive restarts itself.mp4",
+            "times": {
+                "start": "4:47",
+                "end": "4:56"
+            }
+        },
+        {
+            "original": "Desktop 2023.11.21 - 21.44.26.03.DVR.mp4",
+            "new name": "so much thunder.mp4",
+            "times": {
+                "start": "3:4",
+                "end": "3:51"
+            }
+        }
+    ],
+    "renames": {
+        "Desktop 2023.09.19 - 21.10.12.03.mp4": "saville friedsam.mp4",
+        "Desktop 2023.09.06 - 23.33.07.03.DVR.mp4": "citadel oa.mp4"
+    },
+    "deletions": [
+        "Desktop 2023.09.19 - 21.09.28.02.mp4",
+        "Desktop 2023.09.06 - 22.33.47.02.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Desktop"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "Desktop"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "23.75"
+        ]
+    }
+}

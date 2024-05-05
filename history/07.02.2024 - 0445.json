@@ -1,0 +1,67 @@
+{
+    "edits": [
+        {
+            "original": "Minecraft 2024.02.06 - 01.42.20.06.DVR.mp4",
+            "new name": "flying into the permanent water source.mp4",
+            "times": {
+                "start": "-13",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2024.02.04 - 03.46.04.05.DVR.mp4",
+            "new name": "trapping the first spider jockey.mp4",
+            "times": {
+                "start": "2:40",
+                "end": null
+            }
+        },
+        {
+            "original": "Minecraft 2024.02.04 - 03.08.54.04.DVR.mp4",
+            "new name": "spider dies after hitting minecart.mp4",
+            "times": {
+                "start": "4:44",
+                "end": "4:46"
+            }
+        },
+        {
+            "original": "Minecraft 2024.02.01 - 18.30.48.02.DVR.mp4",
+            "new name": "ghast spawns in nether bore.mp4",
+            "times": {
+                "start": "-12",
+                "end": null
+            }
+        }
+    ],
+    "renames": {},
+    "deletions": [
+        "Minecraft 2024.02.06 - 01.48.48.07.DVR.mp4",
+        "Minecraft 2024.02.04 - 02.35.16.03.DVR.mp4",
+        "Minecraft 2024.02.02 - 22.38.49.11.DVR.mp4",
+        "Minecraft 2024.01.29 - 21.07.48.02.DVR.mp4"
+    ],
+    "paths": {
+        "source path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Minecraft"
+        ],
+        "renames path": [
+            "D:",
+            "\\",
+            "Videos",
+            "Renames",
+            "MC"
+        ],
+        "destination path": [
+            "C:",
+            "\\",
+            "Users",
+            "Sunny",
+            "Videos",
+            "Edits",
+            "Summer 24"
+        ]
+    }
+}
