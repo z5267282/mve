@@ -1,7 +1,6 @@
-# folder paths
-SOURCE      = ['D:', '\\', 'Videos', 'Minecraft']
-RENAMES     = ['D:', '\\', 'Videos', 'Renames', 'MC']
-DESTINATION = ['C:', '\\', 'Users', 'Sunny', 'Videos', 'Edits', 'Summer 24']
+SOURCE      = ["/", "Users", "sunny", "Desktop", "Team Fortress 2"]
+RENAMES     = ["/", "Users", "sunny", "Desktop"]
+DESTINATION = ["/", "Users", "sunny", "Movies", "frag"] 
 
 # multi threading and processing
 NUM_THREADS   = 4
