@@ -6,7 +6,7 @@ import constants.error as err
 import constants.json_settings as jsn
 
 import helpers.files as files
-import helpers.paths as paths
+from helpers.paths import Paths
 import helpers.util as util
 
 from treater import treat_all
@@ -14,7 +14,6 @@ from viewer import run_loop, wrap_session
 
 def main():
     paths = gen_paths()
-    # TODO : MAKE INTO FLAG
     remaining, errors = gen_remaining(paths, False), []
 
     edits, renames, deletions = list(), dict(), list()
@@ -29,18 +28,18 @@ def main():
     util.exit_treat_all_good()
 
 
-def gen_paths() -> paths.Paths:
+def gen_paths() -> Paths:
     print("enter absolute paths for the following folders")
     source = input("source : ")
     edits = input("edits : ")
-    return paths.Paths(
+    return Paths(
         decompose_path_into_folders(source),
         decompose_path_into_folders(edits),
         decompose_path_into_folders(edits)
     )
 
 
-def gen_remaining(paths : paths.Paths, recent : bool) -> list[str]:
+def gen_remaining(paths : Paths, recent : bool) -> list[str]:
     return files.ls(paths.source, recent=recent)
 
 
