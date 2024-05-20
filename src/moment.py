@@ -1,6 +1,7 @@
 from json import dumps
 import pathlib
 import sys
+from typing import Any
 
 import constants.error as err
 import constants.json_settings as jsn
@@ -48,7 +49,7 @@ def decompose_path_into_folders(abs_path : str) -> list[str]:
     return list(path.parts)
 
 
-def handle_errors(errors):
+def handle_errors(errors : dict[str, Any]):
     if errors:
         util.print_error(
             dumps(errors, indent=jsn.INDENT_SPACES)
