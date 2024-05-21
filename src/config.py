@@ -10,45 +10,47 @@ import helpers.files as files
 import helpers.util as util
 
 
-def create_config():
-    def expect_paths_list(contents: dict[str, Any], key: str, code: int) -> str:
-        if key not in contents:
-            util.print_error(f"{contents} not in configuration file")
-            sys.exit(code)
-        return contents[key]
+class Config:
+    def __init__(self, contents: dict[str, Any]) -> "Config":
+        # folders
+        self.SOURCE: list[str] = expect_paths_list(
+            contents, "SOURCE", error.CONFIG_MISSING_SOURCE
+        )
+        self.RENAMES: list[str] = expect_paths_list(
+            contents, "RENAMES", error.CONFIG_MISSING_RENAMES
+        )
+        self.DESTINATION: list[str] = expect_paths_list(
+            contents, "DESTINATION", error.CONFIG_MISSING_DESTINATION
+        )
 
-    class Configuration:
-        def __init__(self, contents: dict[str, Any]) -> "Configuration":
-            # folders
-            self.SOURCE: list[str] = expect_paths_list(
-                contents, "SOURCE", error.CONFIG_MISSING_SOURCE
-            )
-            self.RENAMES: list[str] = expect_paths_list(
-                contents, "RENAMES", error.CONFIG_MISSING_RENAMES
-            )
-            self.DESTINATION: list[str] = expect_paths_list(
-                contents, "DESTINATION", error.CONFIG_MISSING_DESTINATION
-            )
+        # multi threading and processing
+        self.NUM_THREADS: int = contents.get(
+            "NUM_THREADS", defaults.NUM_THREADS
+        )
+        self.NUM_PROCESSES: int = contents.get(
+            "NUM_PROCESSES", defaults.NUM_PROCESSES
+        )
 
-            # multi threading and processing
-            self.NUM_THREADS: int = contents.get(
-                "NUM_THREADS", defaults.NUM_THREADS
-            )
-            self.NUM_PROCESSES: int = contents.get(
-                "NUM_PROCESSES", defaults.NUM_PROCESSES
-            )
+        # moviepy
+        self.USE_MOVIEPY: bool = contents.get(
+            "USE_MOVIEPY", defaults.USE_MOVIEPY
+        )
 
-            # moviepy
-            self.USE_MOVIEPY: bool = contents.get(
-                "USE_MOVIEPY", defaults.USE_MOVIEPY
-            )
+        # testing
+        self.TESTING: bool = contents.get("TESTING", defaults.TESTING)
 
-            # testing
-            self.TESTING: bool = contents.get("TESTING", defaults.TESTING)
+        # colours
+        self.BOLD: bool = contents.get("BOLD", defaults.BOLD)
 
-            # colours
-            self.BOLD: bool = contents.get("BOLD", defaults.BOLD)
 
+def expect_paths_list(contents: dict[str, Any], key: str, code: int) -> str:
+    if key not in contents:
+        util.print_error(f"{contents} not in configuration file")
+        sys.exit(code)
+    return contents[key]
+
+
+def create_config() -> Config:
     current_path = files.get_joined_path(
         file_structure.CONFIGS, "current.json")
     try:
@@ -69,7 +71,7 @@ def create_config():
             f"the current config does not have a corresponding file {config_path}"
         )
 
-    return Configuration(config)
+    return Config(config)
 
 
-cfg = create_config()
+cfg: Config = create_config()
