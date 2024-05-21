@@ -13,6 +13,7 @@ import helpers.util as util
 from treater import treat_all
 from viewer import run_loop, wrap_session
 
+
 def main():
     paths = gen_paths()
     remaining, errors = gen_remaining(paths, False), []
@@ -40,16 +41,16 @@ def gen_paths() -> Paths:
     )
 
 
-def gen_remaining(paths : Paths, recent : bool) -> list[str]:
+def gen_remaining(paths: Paths, recent: bool) -> list[str]:
     return files.ls(paths.source, recent=recent)
 
 
-def decompose_path_into_folders(abs_path : str) -> list[str]:
-    path : pathlib.Path = pathlib.Path(abs_path)
+def decompose_path_into_folders(abs_path: str) -> list[str]:
+    path: pathlib.Path = pathlib.Path(abs_path)
     return list(path.parts)
 
 
-def handle_errors(errors : dict[str, Any]):
+def handle_errors(errors: dict[str, Any]):
     if errors:
         util.print_error(
             dumps(errors, indent=jsn.INDENT_SPACES)

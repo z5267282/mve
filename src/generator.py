@@ -20,7 +20,8 @@ def main():
     json_handlers.write_to_json(new_files, fst.REMAINING)
 
     joined_path = files.get_joined_path(cfg.SOURCE, '')
-    util.exit_success(f"placed file names from the folder '{colours.highlight(joined_path)}' in {fst.REMAINING}")
+    util.exit_success(
+        f"placed file names from the folder '{colours.highlight(joined_path)}' in {fst.REMAINING}")
 
 
 def run_checks():

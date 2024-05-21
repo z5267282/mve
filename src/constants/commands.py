@@ -1,33 +1,33 @@
 # command key mappings
-END      = 'e'
-START    = 's'
-MIDDLE   = 'm'
-WHOLE    = 'w'
-RENAME   = 'r'
-DELETE   = 'd'
+END = 'e'
+START = 's'
+MIDDLE = 'm'
+WHOLE = 'w'
+RENAME = 'r'
+DELETE = 'd'
 CONTINUE = 'c'
-QUIT     = 'q'
-HELP     = 'h'
+QUIT = 'q'
+HELP = 'h'
 
 USAGE_MSGS = {
-    END      : '[e]nd      | [ start ] [ name ]',
-    START    : '[s]tart    | [ end ] [ name ]',
-    MIDDLE   : '[m]iddle   | [ start ] [ end ] [ name ]',
-    WHOLE    : '[w]hole    | [ name ]',
-    RENAME   : '[r]ename   | [ name ]',
-    DELETE   : '[d]elete   |',
-    CONTINUE : '[c]ontinue |',
-    QUIT     : '[q]uit     |',
-    HELP     : '[h]elp     |',
+    END: '[e]nd      | [ start ] [ name ]',
+    START: '[s]tart    | [ end ] [ name ]',
+    MIDDLE: '[m]iddle   | [ start ] [ end ] [ name ]',
+    WHOLE: '[w]hole    | [ name ]',
+    RENAME: '[r]ename   | [ name ]',
+    DELETE: '[d]elete   |',
+    CONTINUE: '[c]ontinue |',
+    QUIT: '[q]uit     |',
+    HELP: '[h]elp     |',
 }
 
 # number of tokens expected by commands that need extra arguments
 NUM_TOKENS = {
-    END    : 2,
-    START  : 2,
-    MIDDLE : 3,
-    WHOLE  : 1,
-    RENAME : 1
+    END: 2,
+    START: 2,
+    MIDDLE: 3,
+    WHOLE: 1,
+    RENAME: 1
 }
 
 # help message

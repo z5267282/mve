@@ -2,7 +2,7 @@ import os
 import pathlib
 
 # files
-CONFIG    = 'config.py'
+CONFIG = 'config.py'
 REMAINING = 'remaining.json'
 
 PARENT = list(
@@ -12,9 +12,9 @@ PARENT = list(
 )
 
 # folders
-QUEUE   = PARENT + ['queue']
+QUEUE = PARENT + ['queue']
 HISTORY = PARENT + ['history']
-ERRORS  = PARENT + ['errors']
+ERRORS = PARENT + ['errors']
 
 # configs
 CONFIGS = ['configs']

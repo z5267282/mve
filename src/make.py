@@ -19,10 +19,11 @@ import constants.json_settings as jsn
 import helpers.files as files
 import helpers.util as util
 
+
 def main():
     args: list[str] = sys.argv[1:]
     if len(args) != 1:
-        util.print_error("usage: python3 make.py <name of config>" )
+        util.print_error("usage: python3 make.py <name of config>")
         sys.exit(1)
 
     config, = args
@@ -31,12 +32,13 @@ def main():
         sys.exit(2)
 
     is_current: bool = False
-    current_config: str = files.get_joined_path(fst.CONFIGS, fst.CURRENT_CONFIG)
+    current_config: str = files.get_joined_path(
+        fst.CONFIGS, fst.CURRENT_CONFIG)
     with open(current_config, "r") as f:
         current: str = json.load(f)
         if current == config:
             is_current = True
-    
+
     contents = make_config_contents()
     config_path: str = fst.CONFIG if is_current \
         else files.get_joined_path(fst.CONFIGS, f"{config}.json")

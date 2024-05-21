@@ -46,10 +46,12 @@ def run_checks():
     check_and_exit_if.one_of_config_folders_missing()
     no_history()
 
+
 def check_empty_queue():
     if not files.ls(fst.QUEUE):
         print(f"there are no files queued in folder '{fst.QUEUE}'")
         sys.exit(err.EMPTY_QUEUE)
+
 
 def no_history():
     check_and_exit_if.no_folder(fst.HISTORY, 'history', err.NO_HISTORY_FOLDER)
@@ -60,7 +62,7 @@ def dequeue():
     return queue_files[0]
 
 
-def treat_all(data, remaining, errors, paths : paths.Paths):
+def treat_all(data, remaining, errors, paths: paths.Paths):
     edits = data[trf.EDITS]
     edit_all(edits, remaining, errors, paths)
 
@@ -70,16 +72,19 @@ def treat_all(data, remaining, errors, paths : paths.Paths):
     deletions = data[trf.DELETIONS]
     delete_all(deletions, remaining, errors, paths)
 
-def edit_all(edits, remaining, errors, paths : paths.Paths):
+
+def edit_all(edits, remaining, errors, paths: paths.Paths):
     with concurrent.futures.ProcessPoolExecutor(max_workers=cfg.NUM_PROCESSES) as executor:
         results = [executor.submit(edit_one, edit, paths) for edit in edits]
         for future, edit in zip(concurrent.futures.as_completed(results), edits):
             try:
                 future.result()
             except Exception as e:
-                handle_error(errors, remaining, edit[trf.EDIT_ORIGINAL], str(e), trf.EDITS, edit)
+                handle_error(errors, remaining,
+                             edit[trf.EDIT_ORIGINAL], str(e), trf.EDITS, edit)
 
-def edit_one(edit, paths : paths.Paths):
+
+def edit_one(edit, paths: paths.Paths):
     name = edit[trf.EDIT_ORIGINAL]
     joined_src_path = files.get_joined_path(paths.source, name)
     joined_dst_path = files.get_joined_path(paths.edits, edit[trf.EDIT_NAME])
@@ -88,11 +93,13 @@ def edit_one(edit, paths : paths.Paths):
     start, end = times[trf.EDIT_TIMES_START], times[trf.EDIT_TIMES_END]
     edit_video(joined_src_path, joined_dst_path, start, end)
 
+
 def edit_video(joined_src_path, joined_dst_path, start, end):
     if cfg.USE_MOVIEPY:
         edit_moviepy(joined_src_path, joined_dst_path, start, end)
     else:
         edit_ffmpeg(joined_src_path, joined_dst_path, start, end)
+
 
 def edit_moviepy(joined_src_path, joined_dst_path, start, end):
     with mvp.VideoFileClip(joined_src_path) as file:
@@ -106,10 +113,13 @@ def edit_moviepy(joined_src_path, joined_dst_path, start, end):
             audio_codec=vde.ACODEC
         )
 
+
 def edit_ffmpeg(joined_src_path, joined_dst_path, start, end):
     source = ['-accurate_seek', '-i', joined_src_path]
-    args = ['ffmpeg', '-y', *generate_ffmpeg_args(source, start, end), '-c', 'copy', joined_dst_path]
+    args = ['ffmpeg', '-y', *
+            generate_ffmpeg_args(source, start, end), '-c', 'copy', joined_dst_path]
     subprocess.run(args, check=True)
+
 
 def generate_ffmpeg_args(source, start, end):
     if start is None and end is None:
@@ -126,47 +136,57 @@ def generate_ffmpeg_args(source, start, end):
     )
     return ['-ss', start, *source, '-to', relative_time]
 
+
 def handle_error(errors, remaining, name, message, command, data):
     add_error(errors, name, message, command, data)
     add_to_remaining(remaining, name)
+
 
 def add_error(errors, name, message, command, data):
     errors.append(
         create_error_dict(name, message, command, data)
     )
 
+
 def create_error_dict(name, message, command, data):
     return {
-        erf.ERROR_FILE_NAME : name,
-        erf.ERROR_MESSAGE   : message,
-        erf.ERROR_COMMAND   : command,
-        erf.ERROR_DATA      : data
+        erf.ERROR_FILE_NAME: name,
+        erf.ERROR_MESSAGE: message,
+        erf.ERROR_COMMAND: command,
+        erf.ERROR_DATA: data
     }
+
 
 def add_to_remaining(remaining, name):
     remaining.append(name)
 
-def rename_all(renames, remaining, errors, paths : paths.Paths):
+
+def rename_all(renames, remaining, errors, paths: paths.Paths):
     for rename_source in renames:
         new_name = renames[rename_source]
         try:
             do_rename(rename_source, new_name, paths)
         except Exception as e:
-            handle_error(errors, remaining, rename_source, str(e), trf.RENAMES, new_name)
+            handle_error(errors, remaining, rename_source,
+                         str(e), trf.RENAMES, new_name)
 
-def do_rename(src_name, dst_name, paths : paths.Paths):
+
+def do_rename(src_name, dst_name, paths: paths.Paths):
     joined_src_name = files.get_joined_path(paths.source, src_name)
     joined_dst_name = files.get_joined_path(paths.renames, dst_name)
     os.rename(joined_src_name, joined_dst_name)
 
-def delete_all(deletions, remaining, errors, paths : paths.Paths):
+
+def delete_all(deletions, remaining, errors, paths: paths.Paths):
     for deletion_name in deletions:
         try:
             do_delete(deletion_name, paths)
         except Exception as e:
-            handle_error(errors, remaining, deletion_name, str(e), trf.DELETIONS, None)
+            handle_error(errors, remaining, deletion_name,
+                         str(e), trf.DELETIONS, None)
 
-def do_delete(src_name, paths : paths.Paths):
+
+def do_delete(src_name, paths: paths.Paths):
     joined_src_name = files.get_joined_path(paths.source, src_name)
     os.remove(joined_src_name)
 
@@ -182,16 +202,19 @@ def handle_errors(remaining, errors):
     json_handlers.write_remaining(remaining)
     exit_treatment_error(error_file_name)
 
+
 def write_errors(error_file_name, errors):
     joined_error_file_name = files.get_joined_path(fst.ERRORS, error_file_name)
     data = {
         erf.ERRORS_VIDEOS: errors,
-        erf.ERRORS_PATHS : util.generate_paths_dict()
+        erf.ERRORS_PATHS: util.generate_paths_dict()
     }
     json_handlers.write_to_json(data, joined_error_file_name)
 
+
 def exit_treatment_error(error_file_name):
-    util.print_error(f"one or more errors occurred during treatment logged in '{colours.highlight(error_file_name)}'")
+    util.print_error(
+        f"one or more errors occurred during treatment logged in '{colours.highlight(error_file_name)}'")
     sys.exit(err.TREATMENT_ERROR)
 
 

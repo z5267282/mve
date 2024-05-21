@@ -17,7 +17,8 @@ def main():
 
 def handle_current_path():
     current_path = files.get_joined_path(fst.CONFIGS, fst.CURRENT_CONFIG)
-    check_and_exit_if.no_file(current_path, 'current config', err.NO_CURRENT_CONFIG)
+    check_and_exit_if.no_file(
+        current_path, 'current config', err.NO_CURRENT_CONFIG)
     return current_path
 
 

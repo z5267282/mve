@@ -34,8 +34,10 @@ def run_backgound_checks():
 
 def handle_new_config_paths(new):
     new_paths = get_cfg_paths(new)
-    check_and_exit_if.no_folder(new_paths, f"the '{new}' config", err.NO_CONFIG)
+    check_and_exit_if.no_folder(
+        new_paths, f"the '{new}' config", err.NO_CONFIG)
     return new_paths
+
 
 def get_cfg_paths(title):
     return fst.CONFIGS + [title]
@@ -43,8 +45,9 @@ def get_cfg_paths(title):
 
 def handle_current_config():
     old_cfg_file = files.get_joined_path(fst.CONFIGS, fst.CURRENT_CONFIG)
-    check_and_exit_if.no_file(old_cfg_file, 'current config', err.NO_CURRENT_CONFIG)
-    
+    check_and_exit_if.no_file(
+        old_cfg_file, 'current config', err.NO_CURRENT_CONFIG)
+
     with open(old_cfg_file, 'r') as f:
         old = json.load(f)
     return old, old_cfg_file
@@ -56,6 +59,7 @@ def check_config_files(new_paths):
     ]:
         check_config_pair(paths_list)
 
+
 def check_config_pair(paths_list):
     for item, desc, code in zip(
         [fst.CONFIG, fst.REMAINING],
@@ -64,7 +68,7 @@ def check_config_pair(paths_list):
     ):
         joined_path = files.get_joined_path(paths_list, item)
         check_and_exit_if.no_file(joined_path, desc, code)
-    
+
 
 def swap_files(new_paths, old_paths):
     """
@@ -75,14 +79,15 @@ def swap_files(new_paths, old_paths):
 
     new_dir, old_dir = [
         os.path.join(*paths_list) for paths_list in
-            [new_paths, old_paths]
+        [new_paths, old_paths]
     ]
 
     with tempfile.TemporaryDirectory() as t:
         move_pair('.', t)
         move_pair(new_dir, '.')
         move_pair(t, old_dir)
-    
+
+
 def move_pair(src, dst):
     for item in [fst.CONFIG, fst.REMAINING]:
         os.rename(

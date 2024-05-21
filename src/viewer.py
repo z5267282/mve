@@ -44,11 +44,13 @@ def run_checks():
     check_and_exit_if.no_queue()
     check_and_exit_if.one_of_config_folders_missing()
 
+
 def check_no_remaining():
-    check_and_exit_if.no_file(fst.REMAINING, 'remaining', err.MISSING_REMAINING)
+    check_and_exit_if.no_file(
+        fst.REMAINING, 'remaining', err.MISSING_REMAINING)
 
 
-def run_loop(remaining, edits, renames, deletions, paths : paths.Paths):
+def run_loop(remaining, edits, renames, deletions, paths: paths.Paths):
     padding = len(
         str(
             len(remaining)
@@ -75,15 +77,18 @@ def run_loop(remaining, edits, renames, deletions, paths : paths.Paths):
             case cmd.START:
                 go_to_next_file = do_start(base_name, raw_tokens, edits, paths)
             case cmd.MIDDLE:
-                go_to_next_file = do_middle(base_name, raw_tokens, edits, paths)
+                go_to_next_file = do_middle(
+                    base_name, raw_tokens, edits, paths)
             case cmd.WHOLE:
                 go_to_next_file = do_whole(base_name, raw_tokens, edits, paths)
             case cmd.RENAME:
-                go_to_next_file = do_rename(base_name, raw_tokens, renames, paths)
+                go_to_next_file = do_rename(
+                    base_name, raw_tokens, renames, paths)
             case cmd.DELETE:
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
-                util.print_error(f"invalid command '{colours.highlight(command)}' - press {cmd.HELP} for a list of commands")
+                util.print_error(
+                    f"invalid command '{colours.highlight(command)}' - press {cmd.HELP} for a list of commands")
 
         if go_to_next_file:
             remaining.pop(0)
@@ -91,7 +96,8 @@ def run_loop(remaining, edits, renames, deletions, paths : paths.Paths):
     json_handlers.write_remaining(remaining)
     return len(remaining)
 
-def view_video(base_name, paths : paths.Paths):
+
+def view_video(base_name, paths: paths.Paths):
     if cfg.TESTING:
         return
 
@@ -102,40 +108,48 @@ def view_video(base_name, paths : paths.Paths):
     elif system.startswith('darwin'):
         subprocess.run(['open', joined_path])
 
+
 def prompt(base_name, padding, number_remaining):
-    coloured_remaining = colours.colour_box(clr.CYAN, f'{number_remaining:^{padding}}')
+    coloured_remaining = colours.colour_box(
+        clr.CYAN, f'{number_remaining:^{padding}}')
     args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
     command = args.pop(0)
     raw_tokens = args.pop() if args else str()
     return command, raw_tokens
 
+
 def do_continue(remaining, base_name):
     remaining.insert(0, base_name)
+
 
 def do_help():
     print(
         highlight_all_commands(cmd.HELP_MESSAGE)
     )
 
+
 def highlight_all_commands(string):
-    repl = lambda match: '[{}]'.format(
+    def repl(match): return '[{}]'.format(
         highlight_command(
             match.group(1)
         )
     )
     return re.sub(r'\[(.)\]', repl, string)
 
+
 def highlight_command(command):
     return colours.colour_format(clr.PURPLE, command)
 
-def do_end(base_name, raw_tokens, edits, paths : paths.Paths):
+
+def do_end(base_name, raw_tokens, edits, paths: paths.Paths):
     return do_edit(
         cmd.END, base_name, raw_tokens, edits,
         lambda tokens: (tokens[0], None, tokens[1]), paths,
         integer=True
     )
 
-def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, paths : paths.Paths, integer=False):
+
+def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, paths: paths.Paths, integer=False):
     tokens = parse_tokens(raw_tokens, command)
     if tokens is None:
         return False
@@ -165,6 +179,7 @@ def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, path
     log_edit(base_name, edit_name, edits, start, end)
     return True
 
+
 def parse_tokens(raw_tokens, command):
     tokens = split_tokens(raw_tokens, command)
     if not tokens:
@@ -176,6 +191,7 @@ def parse_tokens(raw_tokens, command):
 
     return tokens
 
+
 def split_tokens(raw_tokens, command):
     if not raw_tokens:
         return []
@@ -184,11 +200,14 @@ def split_tokens(raw_tokens, command):
     tokens = tokenise(raw_tokens, n_tokens - 1)
     return tokens if len(tokens) == n_tokens else []
 
+
 def tokenise(raw_tokens, splits):
     return raw_tokens.split(' ', splits)
 
+
 def print_usage_error(format):
     util.print_error(f'usage: {format}')
+
 
 def parse_time(raw_time, regex, is_start, format):
     time = raw_time
@@ -202,13 +221,17 @@ def parse_time(raw_time, regex, is_start, format):
 
     return time
 
+
 def parse_timestamp(timestamp):
     return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
 
-def print_time_format(is_start, format):
-    util.print_error(f'the {get_start_end_description(is_start)} time must be in the format {format}')
 
-def check_times(base_name, start, end, paths : paths.Paths):
+def print_time_format(is_start, format):
+    util.print_error(
+        f'the {get_start_end_description(is_start)} time must be in the format {format}')
+
+
+def check_times(base_name, start, end, paths: paths.Paths):
     if start is None and end is None:
         return True
 
@@ -226,16 +249,19 @@ def check_times(base_name, start, end, paths : paths.Paths):
 
         return True
 
-    start_seconds, end_seconds = time_handlers.get_seconds(start), time_handlers.get_seconds(end)
+    start_seconds, end_seconds = time_handlers.get_seconds(
+        start), time_handlers.get_seconds(end)
     for time, seconds, is_start in zip([start, end], [start_seconds, end_seconds], [True, False]):
         if not check_in_bounds(time, seconds, duration, base_name, is_start=is_start):
             return False
 
     if not end_seconds > start_seconds:
-        util.print_error(f"the end time '{colours.highlight(end)}' must be bigger than the start time '{colours.highlight(start)}'")
+        util.print_error(
+            f"the end time '{colours.highlight(end)}' must be bigger than the start time '{colours.highlight(start)}'")
         return False
 
     return True
+
 
 def get_duration(joined_src_path):
     args = [
@@ -253,10 +279,12 @@ def get_duration(joined_src_path):
     result = subprocess.run(args, capture_output=True, text=True)
     return round_float(result.stdout)
 
+
 def round_float(float_string):
     match = re.match(r'([(0-9)]+)\.([0-9])', float_string)
     whole_number, tenths = int(match.group(1)), int(match.group(2))
     return whole_number + (tenths >= 5)
+
 
 def check_in_bounds(time, seconds, duration, base_name, is_start=True):
     if not in_duration_bounds(seconds, duration):
@@ -265,14 +293,19 @@ def check_in_bounds(time, seconds, duration, base_name, is_start=True):
 
     return True
 
+
 def in_duration_bounds(seconds, duration):
     return seconds >= 0 and seconds <= duration
 
+
 def print_duration_error(time, name, is_start):
-    util.print_error(f"the {get_start_end_description(is_start)} time '{colours.highlight(time)}' is not in the bounds of video {name}")
+    util.print_error(
+        f"the {get_start_end_description(is_start)} time '{colours.highlight(time)}' is not in the bounds of video {name}")
+
 
 def get_start_end_description(is_start):
     return 'start' if is_start else 'end'
+
 
 def handle_new_name(new_name, dst_folder):
     if not correct_name_format(new_name):
@@ -287,67 +320,82 @@ def handle_new_name(new_name, dst_folder):
 
     return new_name
 
+
 def correct_name_format(name):
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
 
+
 def print_name_format():
-    util.print_error('the name can only contain upper and lowercase letters, digits and spacebars')
+    util.print_error(
+        'the name can only contain upper and lowercase letters, digits and spacebars')
+
 
 def handle_leading_number(name):
     return reprompt_name(name) if re.match(r'[0-9]+', name) else name
+
 
 def reprompt_name(current_name):
     warn = colours.warning()
     print(
         "{} the name '{}' starts with a number are you sure you haven't misentered the [{}]iddle command?".format(
-            warn, colours.highlight(current_name), highlight_command(cmd.MIDDLE)
+            warn, colours.highlight(
+                current_name), highlight_command(cmd.MIDDLE)
         )
     )
-    change_name = input(f"{warn} type 'y' if you want to re-enter this command : ")
+    change_name = input(
+        f"{warn} type 'y' if you want to re-enter this command : ")
     return None if change_name == 'y' else current_name
+
 
 def add_suffix(name):
     return f'{name}.{vde.SUFFIX}'
+
 
 def check_file_exists(name, folder):
     if os.path.exists(
         files.get_joined_path(folder, name)
     ):
-        util.print_error(f"the file '{colours.highlight(name)}' exists in the folder {folder}")
+        util.print_error(
+            f"the file '{colours.highlight(name)}' exists in the folder {folder}")
         return True
 
     return False
 
+
 def log_edit(base_name, edit_name, edits, start, end):
     new_edit = {
-        trf.EDIT_ORIGINAL : base_name,
-        trf.EDIT_NAME     : edit_name,
-        trf.EDIT_TIMES    : {
-            trf.EDIT_TIMES_START : start,
-            trf.EDIT_TIMES_END   : end
+        trf.EDIT_ORIGINAL: base_name,
+        trf.EDIT_NAME: edit_name,
+        trf.EDIT_TIMES: {
+            trf.EDIT_TIMES_START: start,
+            trf.EDIT_TIMES_END: end
         }
     }
     edits.append(new_edit)
 
-def do_start(base_name, raw_tokens, edits, paths : paths.Paths):
+
+def do_start(base_name, raw_tokens, edits, paths: paths.Paths):
     return do_edit(
         cmd.START, base_name, raw_tokens, edits,
         lambda tokens: (None, tokens[0], tokens[1]), paths
     )
 
-def do_middle(base_name, raw_tokens, edits, paths : paths.Paths):
+
+def do_middle(base_name, raw_tokens, edits, paths: paths.Paths):
     return do_edit(
         cmd.MIDDLE, base_name, raw_tokens, edits,
         lambda tokens: tokens, paths
     )
 
-def do_whole(base_name, raw_tokens, edits, paths : paths.Paths):
+
+def do_whole(base_name, raw_tokens, edits, paths: paths.Paths):
     return do_edit(
         cmd.WHOLE, base_name, raw_tokens, edits,
         lambda tokens: (None, None, tokens[0]), paths
     )
 
-def do_rename(base_name, raw_tokens, renames, paths : paths.Paths):
+
+def do_rename(base_name, raw_tokens, renames, paths: paths.Paths):
     tokens = parse_tokens(raw_tokens, cmd.RENAME)
     if not tokens:
         return False
@@ -360,12 +408,15 @@ def do_rename(base_name, raw_tokens, renames, paths : paths.Paths):
     log_rename(base_name, new_name, renames)
     return True
 
+
 def log_rename(old_name, new_name, renames):
     renames[old_name] = new_name
+
 
 def do_delete(base_name, deletions):
     log_delete(base_name, deletions)
     return True
+
 
 def log_delete(base_name, deletions):
     deletions.append(base_name)
@@ -378,11 +429,12 @@ def log_to_file(edits, renames, deletions):
     data[trf.PATHS] = util.generate_paths_dict()
     json_handlers.write_to_json(data, joined_treatment_name)
 
+
 def wrap_session(edits, renames, deletions):
     return {
-        trf.EDITS     : edits,
-        trf.RENAMES   : renames,
-        trf.DELETIONS : deletions,
+        trf.EDITS: edits,
+        trf.RENAMES: renames,
+        trf.DELETIONS: deletions,
     }
 
 
