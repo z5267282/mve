@@ -1,21 +1,15 @@
 import os
 import pathlib
 
-# files
-CONFIG = 'config.py'
-REMAINING = 'remaining.json'
 
-PARENT = list(
-    pathlib.Path(
+def make_history_paths(base_paths: list[str]) -> list[str]:
+    parent = pathlib.Path(
         os.getenv('MVE_HISTORY', '..')
-    ).parts
-)
+    )
+    return parent + base_paths
 
-# folders
-QUEUE = PARENT + ['queue']
-HISTORY = PARENT + ['history']
-ERRORS = PARENT + ['errors']
 
-# configs
-CONFIGS = ['configs']
-CURRENT_CONFIG = 'current.json'
+QUEUE = make_history_paths(['queue'])
+HISTORY = make_history_paths(['history'])
+ERRORS = make_history_paths(['errors'])
+CONFIGS = make_history_paths(['configs'])

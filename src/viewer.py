@@ -3,23 +3,23 @@ import re
 import subprocess
 import sys
 
-import config as cfg
-
-import constants.colour as clr
-import constants.commands as cmd
-import constants.error as err
-import constants.file_structure as fst
-import constants.treatment_format as trf
 import constants.video_editing as vde
+import constants.treatment_format as trf
+import constants.file_structure as fst
+import constants.error as err
+import constants.commands as cmd
+import constants.colour as clr
 
-import helpers.check_and_exit_if as check_and_exit_if
-import helpers.colours as colours
-import helpers.files as files
-import helpers.json_handlers as json_handlers
-import helpers.paths as paths
-import helpers.time_handlers as time_handlers
-import helpers.timestamps as timestamps
 import helpers.util as util
+import helpers.timestamps as timestamps
+import helpers.time_handlers as time_handlers
+import helpers.paths as paths
+import helpers.json_handlers as json_handlers
+import helpers.files as files
+import helpers.colours as colours
+import helpers.check_and_exit_if as check_and_exit_if
+
+from config import cfg
 
 
 def main():
