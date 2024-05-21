@@ -21,7 +21,8 @@ def create_config():
         def __init__(self, contents: dict[str, Any]) -> "Configuration":
             # folders
             self.SOURCE: list[str] = expect_paths_list(
-                contents, "SOURCE", error.CONFIG_MISSING_SOURCE)
+                contents, "SOURCE", error.CONFIG_MISSING_SOURCE
+            )
             self.RENAMES: list[str] = expect_paths_list(
                 contents, "RENAMES", error.CONFIG_MISSING_RENAMES
             )
@@ -31,13 +32,16 @@ def create_config():
 
             # multi threading and processing
             self.NUM_THREADS: int = contents.get(
-                "NUM_THREADS", defaults.NUM_THREADS)
+                "NUM_THREADS", defaults.NUM_THREADS
+            )
             self.NUM_PROCESSES: int = contents.get(
-                "NUM_PROCESSES", defaults.NUM_PROCESSES)
+                "NUM_PROCESSES", defaults.NUM_PROCESSES
+            )
 
             # moviepy
             self.USE_MOVIEPY: bool = contents.get(
-                "USE_MOVIEPY", defaults.USE_MOVIEPY)
+                "USE_MOVIEPY", defaults.USE_MOVIEPY
+            )
 
             # testing
             self.TESTING: bool = contents.get("TESTING", defaults.TESTING)
@@ -45,14 +49,15 @@ def create_config():
             # colours
             self.BOLD: bool = contents.get("BOLD", defaults.BOLD)
 
-    current_path: str = files.get_joined_path(
+    current_path = files.get_joined_path(
         file_structure.CONFIGS, "current.json")
     try:
         with open(current_path, "r") as f:
             current = load(f)
     except FileNotFoundError:
-        print(
-            f"could not load the current config - {current_path} does not exist")
+        util.print_error(
+            f"could not load the current config - {current_path} does not exist"
+        )
 
     config_path = files.get_joined_path(
         file_structure.CONFIGS, f"{current}.json")
@@ -60,8 +65,9 @@ def create_config():
         with open(config_path, "r") as f:
             config = load(f)
     except FileNotFoundError:
-        print(
-            f"the current config does not have a corresponding file {config_path}")
+        util.print_error(
+            f"the current config does not have a corresponding file {config_path}"
+        )
 
     return Configuration(config)
 
