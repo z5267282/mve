@@ -26,6 +26,10 @@ class Config:
         self.DESTINATION: list[str] = Config.expect_paths_list(
             contents, "DESTINATION", error.CONFIG_MISSING_DESTINATION)
 
+        # file-order generation
+        self.RECENT = contents.get(
+            "RECENT", defaults.RECENT)
+
         # multiprocessing
         self.NUM_PROCESSES: int = contents.get(
             "NUM_PROCESSES", defaults.NUM_PROCESSES)

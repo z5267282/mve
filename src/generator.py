@@ -4,7 +4,6 @@ import sys
 import config as cfg
 
 import constants.file_structure as fst
-import constants.generation as gen
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.colours as colours
@@ -16,7 +15,9 @@ import helpers.util as util
 def main():
     run_checks()
 
-    new_files = files.ls(cfg.SOURCE, gen.RECENT)
+    TODO_FIX = True
+
+    new_files = files.ls(cfg.SOURCE, TODO_FIX)
     json_handlers.write_to_json(new_files, fst.REMAINING)
 
     joined_path = files.get_joined_path(cfg.SOURCE, '')
