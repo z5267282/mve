@@ -19,11 +19,15 @@ import helpers.files as files
 import helpers.colours as colours
 import helpers.check_and_exit_if as check_and_exit_if
 
-from config import cfg
+import config
 
 
 def main():
     run_checks()
+
+    TODO_FIX = "mac"
+
+    cfg = config.Config(TODO_FIX)
 
     remaining = json_handlers.load_remaining()
     edits, renames, deletions = list(), dict(), list()
@@ -50,7 +54,9 @@ def check_no_remaining():
         fst.REMAINING, 'remaining', err.MISSING_REMAINING)
 
 
-def run_loop(remaining, edits, renames, deletions, paths: paths.Paths):
+def run_loop(
+    remaining, edits, renames, deletions, paths: paths.Paths, testing: bool
+):
     padding = len(
         str(
             len(remaining)
@@ -59,7 +65,7 @@ def run_loop(remaining, edits, renames, deletions, paths: paths.Paths):
 
     while remaining:
         base_name = remaining[0]
-        view_video(base_name, paths)
+        view_video(base_name, testing, paths)
 
         go_to_next_file = False
         command, raw_tokens = prompt(
@@ -97,8 +103,8 @@ def run_loop(remaining, edits, renames, deletions, paths: paths.Paths):
     return len(remaining)
 
 
-def view_video(base_name, paths: paths.Paths):
-    if cfg.TESTING:
+def view_video(base_name, testing: bool, paths: paths.Paths):
+    if testing:
         return
 
     joined_path = files.get_joined_path(paths.source, base_name)
