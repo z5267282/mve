@@ -7,19 +7,26 @@ import constants.file_structure as file_structure
 import constants.defaults as defaults
 
 import helpers.files as files
+import helpers.json_handlers as json_handlers
 import helpers.util as util
 
 
 class Config:
-    def __init__(self, contents: dict[str, Any]) -> "Config":
+    """The Config class stores settings that change how mve runs.
+    We can maintain file system invariants by fatally terminating the
+    constructor."""
+
+    def __init__(self, name: str) -> "Config":
+        contents = Config.read_config(name)
+
         # folders
-        self.SOURCE: list[str] = expect_paths_list(
+        self.SOURCE: list[str] = Config.expect_paths_list(
             contents, "SOURCE", error.CONFIG_MISSING_SOURCE
         )
-        self.RENAMES: list[str] = expect_paths_list(
+        self.RENAMES: list[str] = Config.expect_paths_list(
             contents, "RENAMES", error.CONFIG_MISSING_RENAMES
         )
-        self.DESTINATION: list[str] = expect_paths_list(
+        self.DESTINATION: list[str] = Config.expect_paths_list(
             contents, "DESTINATION", error.CONFIG_MISSING_DESTINATION
         )
 
@@ -42,36 +49,28 @@ class Config:
         # colours
         self.BOLD: bool = contents.get("BOLD", defaults.BOLD)
 
+    @classmethod
+    def read_config(name: str) -> dict[str, Any]:
+        config_paths = file_structure.CONFIGS + [name]
+        if not files.folder_exists(config_paths):
+            print(
+                f"config '{name}' does not exist in {file_structure.CONFIGS}"
+            )
+            sys.exit(87)
 
-def expect_paths_list(contents: dict[str, Any], key: str, code: int) -> str:
-    if key not in contents:
-        util.print_error(f"{contents} not in configuration file")
-        sys.exit(code)
-    return contents[key]
+        try:
+            contents = json_handlers.read_from_json(
+                files.get_joined_path(config_paths, file_structure.CONFIG)
+            )
+        except FileNotFoundError:
+            util.print_error(
+                f"could not load config '{name}' since {file_structure.CONFIG} could not be opened in {config_paths}"
+            )
+        return contents
 
-
-def create_config() -> Config:
-    current_path = files.get_joined_path(
-        file_structure.CONFIGS, "current.json")
-    try:
-        with open(current_path, "r") as f:
-            current = load(f)
-    except FileNotFoundError:
-        util.print_error(
-            f"could not load the current config - {current_path} does not exist"
-        )
-
-    config_path = files.get_joined_path(
-        file_structure.CONFIGS, f"{current}.json")
-    try:
-        with open(config_path, "r") as f:
-            config = load(f)
-    except FileNotFoundError:
-        util.print_error(
-            f"the current config does not have a corresponding file {config_path}"
-        )
-
-    return Config(config)
-
-
-cfg = create_config()
+    @classmethod
+    def expect_paths_list(contents: dict[str, Any], key: str, code: int) -> str:
+        if key not in contents:
+            util.print_error(f"{contents} not in configuration file")
+            sys.exit(code)
+        return contents[key]

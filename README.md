@@ -11,10 +11,9 @@ A folder with the following structure will store all editing history:
 ```
 errors/
 configs/
-    + current.json
     [ config name ]/
         + remaining.json
-        + config.py
+        + config.json
     [ configs ... ]
 history/
 queue/
