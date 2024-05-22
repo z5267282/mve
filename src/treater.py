@@ -32,8 +32,10 @@ def main():
     folders = util.create_paths_from_config()
 
     TODO_FIX = False
+    TODO_FIX_1, TODO_FIX_2 = 2, 4
 
-    treat_all(data, TODO_FIX, remaining, errors, folders)
+    treat_all(data, TODO_FIX, TODO_FIX_1,
+              TODO_FIX_2, remaining, errors, folders)
     update_history(current_file, joined_current_file)
 
     if errors:
@@ -65,9 +67,10 @@ def dequeue():
     return queue_files[0]
 
 
-def treat_all(data, use_moviepy: bool, remaining, errors, paths: paths.Paths):
+def treat_all(data, use_moviepy: bool, moviepy_threads: int, num_processes: int, remaining, errors, paths: paths.Paths):
     edits = data[trf.EDITS]
-    edit_all(edits, use_moviepy, remaining, errors, paths)
+    edit_all(edits, use_moviepy, moviepy_threads,
+             num_processes, remaining, errors, paths)
 
     renames = data[trf.RENAMES]
     rename_all(renames, remaining, errors, paths)
@@ -76,9 +79,10 @@ def treat_all(data, use_moviepy: bool, remaining, errors, paths: paths.Paths):
     delete_all(deletions, remaining, errors, paths)
 
 
-def edit_all(edits, use_moviepy: bool, remaining, errors, paths: paths.Paths):
-    with concurrent.futures.ProcessPoolExecutor(max_workers=cfg.NUM_PROCESSES) as executor:
-        results = [executor.submit(edit_one, edit, paths) for edit in edits]
+def edit_all(edits, use_moviepy: bool, moviepy_threads: int, num_processes: int, remaining, errors, paths: paths.Paths):
+    with concurrent.futures.ProcessPoolExecutor(max_workers=num_processes) as executor:
+        results = [executor.submit(
+            edit_one, edit, use_moviepy, moviepy_threads, paths) for edit in edits]
         for future, edit in zip(concurrent.futures.as_completed(results), edits):
             try:
                 future.result()
@@ -87,29 +91,31 @@ def edit_all(edits, use_moviepy: bool, remaining, errors, paths: paths.Paths):
                              edit[trf.EDIT_ORIGINAL], str(e), trf.EDITS, edit)
 
 
-def edit_one(edit, use_moviepy: bool, paths: paths.Paths):
+def edit_one(edit, use_moviepy: bool, moviepy_threads: int, paths: paths.Paths):
     name = edit[trf.EDIT_ORIGINAL]
     joined_src_path = files.get_joined_path(paths.source, name)
     joined_dst_path = files.get_joined_path(paths.edits, edit[trf.EDIT_NAME])
 
     times = edit[trf.EDIT_TIMES]
     start, end = times[trf.EDIT_TIMES_START], times[trf.EDIT_TIMES_END]
-    edit_video(use_moviepy, joined_src_path, joined_dst_path, start, end)
+    edit_video(use_moviepy, moviepy_threads,
+               joined_src_path, joined_dst_path, start, end)
 
 
-def edit_video(use_moviepy: bool, joined_src_path, joined_dst_path, start, end):
+def edit_video(use_moviepy: bool, moviepy_threads: int, joined_src_path, joined_dst_path, start, end):
     if use_moviepy:
-        edit_moviepy(joined_src_path, joined_dst_path, start, end)
+        edit_moviepy(moviepy_threads, joined_src_path,
+                     joined_dst_path, start, end)
     else:
         edit_ffmpeg(joined_src_path, joined_dst_path, start, end)
 
 
-def edit_moviepy(joined_src_path, joined_dst_path, start, end):
+def edit_moviepy(joined_src_path, joined_dst_path, start, end, moviepy_threads: int):
     with mvp.VideoFileClip(joined_src_path) as file:
         clip = file.subclip(t_start=start, t_end=end)
         clip.write_videofile(
             joined_dst_path,
-            threads=cfg.NUM_THREADS,
+            threads=moviepy_threads,
             fps=vde.FRAMES,
             codec=vde.VCODEC,
             preset=vde.COMPRESSION,

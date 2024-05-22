@@ -26,15 +26,14 @@ class Config:
         self.DESTINATION: list[str] = Config.expect_paths_list(
             contents, "DESTINATION", error.CONFIG_MISSING_DESTINATION)
 
-        # multi threading and processing
-        self.NUM_THREADS: int = contents.get(
-            "NUM_THREADS", defaults.NUM_THREADS)
+        # multiprocessing
         self.NUM_PROCESSES: int = contents.get(
             "NUM_PROCESSES", defaults.NUM_PROCESSES)
-
         # moviepy
         self.USE_MOVIEPY: bool = contents.get(
             "USE_MOVIEPY", defaults.USE_MOVIEPY)
+        self.MOVIEPY_THREADS: int = contents.get(
+            "MOVIEPY_THREADS", defaults.MOVIEPY_THREADS)
 
         # testing
         self.TESTING: bool = contents.get("TESTING", defaults.TESTING)

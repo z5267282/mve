@@ -1,9 +1,9 @@
-# multi threading and processing
-NUM_THREADS: int = 4
+# multiprocessing
 NUM_PROCESSES: int = 4
 
 # moviepy
 USE_MOVIEPY: bool = False
+MOVIEPY_THREADS: int = 4
 
 # testing
 TESTING: bool = False
