@@ -1,5 +1,4 @@
-from json import load
-from typing import Any
+import typing
 import sys
 
 import constants.error as error
@@ -50,10 +49,10 @@ class Config:
         self.BOLD: bool = contents.get("BOLD", defaults.BOLD)
 
     @classmethod
-    def read_config(name: str) -> dict[str, Any]:
+    def read_config(name: str) -> dict[str, typing.Any]:
         config_paths = file_structure.CONFIGS + [name]
         if not files.folder_exists(config_paths):
-            print(
+            util.print_error(
                 f"config '{name}' does not exist in {file_structure.CONFIGS}"
             )
             sys.exit(87)
@@ -66,10 +65,11 @@ class Config:
             util.print_error(
                 f"could not load config '{name}' since {file_structure.CONFIG} could not be opened in {config_paths}"
             )
+            sys.exit(87)
         return contents
 
     @classmethod
-    def expect_paths_list(contents: dict[str, Any], key: str, code: int) -> str:
+    def expect_paths_list(contents: dict[str, typing.Any], key: str, code: int) -> str:
         if key not in contents:
             util.print_error(f"{contents} not in configuration file")
             sys.exit(code)
