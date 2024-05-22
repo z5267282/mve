@@ -1,17 +1,23 @@
 import constants.colour as clr
 
-
-def colour_format(colour, string):
-    return f'{colour}{string}{clr.RESET}'
+TODO_FIX = False
 
 
-def highlight(string):
-    return colour_format(clr.BLUE, string)
+def generate_colour_code(colour: int, bold: bool) -> str:
+    return f'\033[{1 if bold else 0};{colour}m'
 
 
-def colour_box(colour, message):
+def colour_format(colour: int, message: str) -> str:
+    return f'{generate_colour_code(colour, TODO_FIX)}{message}{generate_colour_code(clr.RESET, TODO_FIX)}'
+
+
+def highlight(message: str) -> str:
+    return colour_format(clr.BLUE, message)
+
+
+def colour_box(colour: int, message: str):
     return f'[ {colour_format(colour, message)} ]'
 
 
-def warning():
+def warning() -> str:
     return colour_box(clr.YELLOW, 'warning')
