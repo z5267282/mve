@@ -20,27 +20,21 @@ class Config:
 
         # folders
         self.SOURCE: list[str] = Config.expect_paths_list(
-            contents, "SOURCE", error.CONFIG_MISSING_SOURCE
-        )
+            contents, "SOURCE", error.CONFIG_MISSING_SOURCE)
         self.RENAMES: list[str] = Config.expect_paths_list(
-            contents, "RENAMES", error.CONFIG_MISSING_RENAMES
-        )
+            contents, "RENAMES", error.CONFIG_MISSING_RENAMES)
         self.DESTINATION: list[str] = Config.expect_paths_list(
-            contents, "DESTINATION", error.CONFIG_MISSING_DESTINATION
-        )
+            contents, "DESTINATION", error.CONFIG_MISSING_DESTINATION)
 
         # multi threading and processing
         self.NUM_THREADS: int = contents.get(
-            "NUM_THREADS", defaults.NUM_THREADS
-        )
+            "NUM_THREADS", defaults.NUM_THREADS)
         self.NUM_PROCESSES: int = contents.get(
-            "NUM_PROCESSES", defaults.NUM_PROCESSES
-        )
+            "NUM_PROCESSES", defaults.NUM_PROCESSES)
 
         # moviepy
         self.USE_MOVIEPY: bool = contents.get(
-            "USE_MOVIEPY", defaults.USE_MOVIEPY
-        )
+            "USE_MOVIEPY", defaults.USE_MOVIEPY)
 
         # testing
         self.TESTING: bool = contents.get("TESTING", defaults.TESTING)
