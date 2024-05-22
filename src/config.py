@@ -74,4 +74,4 @@ def create_config() -> Config:
     return Config(config)
 
 
-cfg: Config = create_config()
+cfg = create_config()
