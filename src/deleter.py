@@ -13,7 +13,7 @@ def main():
     run_checks()
 
     TODO_FIX = "mac"
-    cfg = config.Config(TODO_FIX)
+    cfg = config.Stateful(TODO_FIX)
 
     files.do_folder_operation(cfg.source, shutil.rmtree)
 

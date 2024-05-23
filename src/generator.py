@@ -1,7 +1,7 @@
 import os
 import sys
 
-import config as cfg
+import config
 
 import constants.file_structure as fst
 
@@ -15,12 +15,15 @@ import helpers.util as util
 def main():
     run_checks()
 
+    TODO_FIX_0 = "mac"
+    cfg = config.Stateful(TODO_FIX_0)
+
     TODO_FIX = True
 
-    new_files = files.ls(cfg.SOURCE, TODO_FIX)
+    new_files = files.ls(cfg.source, TODO_FIX)
     json_handlers.write_to_json(new_files, fst.REMAINING)
 
-    joined_path = files.get_joined_path(cfg.SOURCE, '')
+    joined_path = files.join_folder(cfg.source)
     util.exit_success(
         f"placed file names from the folder '{colours.highlight(joined_path)}' in {fst.REMAINING}")
 
