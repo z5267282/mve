@@ -52,8 +52,7 @@ class Config(abc.ABC):
         # colours
         self.bold: bool = bold
 
-    # TODO: fix the uses of this
-    def create_paths_from_config(self) -> paths.Paths:
+    def create_source_folders(self) -> paths.Paths:
         return paths.paths(self.source, self.destination, self.renames)
 
     def generate_paths_dict(self) -> dict[str, list[str]]:
@@ -104,6 +103,7 @@ class Stateful(Config):
             testing,
             bold
         )
+        self.name = name
 
     @classmethod
     def read_config(name: str) -> dict[str, typing.Any]:
