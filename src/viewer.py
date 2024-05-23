@@ -200,11 +200,11 @@ def parse_tokens(raw_tokens, command):
 
 def split_tokens(raw_tokens, command):
     if not raw_tokens:
-        return []
+        return list()
 
     n_tokens = cmd.NUM_TOKENS[command]
     tokens = tokenise(raw_tokens, n_tokens - 1)
-    return tokens if len(tokens) == n_tokens else []
+    return tokens if len(tokens) == n_tokens else list()
 
 
 def tokenise(raw_tokens, splits):
