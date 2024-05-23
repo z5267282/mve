@@ -53,6 +53,23 @@ class Config(abc.ABC):
         # colours
         self.bold: bool = bold
 
+    # folder existence checking
+    def no_source_folder(self):
+        check_and_exit_if.no_folder(
+            self.source, 'source', error.NO_SOURCE_FOLDER)
+
+    # def no_queue(self):
+    #     no_folder(self.QUEUE, 'queue', err.NO_QUEUE)
+
+    def one_of_config_folders_missing(self):
+        for folder, desc, code in zip(
+            [self.source, self.renames, self.destination],
+            ['source', 'renames', 'destination'],
+            [error.NO_SOURCE_FOLDER, error.NO_RENAMES_FOLDER,
+                error.NO_DESTINATION_FOLDER]
+        ):
+            check_and_exit_if.no_folder(folder, desc, code)
+
     def create_source_folders(self) -> paths.Paths:
         return paths.paths(self.source, self.destination, self.renames)
 

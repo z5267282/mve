@@ -44,25 +44,8 @@ def no_file(joined_path, desc, code):
 
 # Folder checking
 
-def no_folder(folder_paths, folder_desc, exit_code):
+def no_folder(folder_paths: list[str], folder_desc: str, exit_code: int):
     if not files.folder_exists(folder_paths):
         util.stderr_print(
             f"{folder_desc} folder '{folder_paths}' does not exist")
         sys.exit(exit_code)
-
-
-def no_source_folder():
-    no_folder(cfg.SOURCE, 'source', err.NO_SOURCE_FOLDER)
-
-
-def no_queue():
-    no_folder(fst.QUEUE, 'queue', err.NO_QUEUE)
-
-
-def one_of_config_folders_missing():
-    for folder, desc, code in zip(
-        [cfg.SOURCE, cfg.RENAMES, cfg.DESTINATION],
-        ['source', 'renames', 'destination'],
-        [err.NO_SOURCE_FOLDER, err.NO_RENAMES_FOLDER, err.NO_DESTINATION_FOLDER]
-    ):
-        no_folder(folder, desc, code)

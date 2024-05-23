@@ -29,7 +29,7 @@ def main():
 
 def run_checks(cfg: config.Stateful):
     check_and_exit_if.no_args(sys.argv)
-    check_and_exit_if.no_source_folder()
+    cfg.no_source_folder()
     cfg.check_files_remaining()
 
 
