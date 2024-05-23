@@ -57,6 +57,10 @@ configs/
 The environment variable `MVE_HISTORY` should store the full path to the history folder.  
 If it is not set, it will default to the parent folder of the `mve` repository (ie. `..`).
 
+## Integrity
+
+Run `integrity.py` to verify that the history folder follows the correct structure.
+
 # `src/remaining.json`
 
 A `JSON` list that stores the remaining files to be edited.  
