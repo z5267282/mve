@@ -4,19 +4,50 @@ A command-line video-editing program.
 First view videos to determine suitable timestamps to create cuts.  
 Then, the program will edit the videos accordingly.
 
+# Instructions
+
+The project can be run in a stateful or stateless mode, depending on whether records should be kept.
+
+## 1. Stateful Mode
+
+To edit and record a history of treatments, run these `src/.py` scripts in this order:
+
+| no. | script         | description                                                                |
+| --- | -------------- | -------------------------------------------------------------------------- |
+| 1.  | `make.py`      | generate a new config pair                                                 |
+| 2.  | `generator.py` | populate the config's remaining video list                                 |
+| 3.  | `viewer.py`    | view each remaining video in the config, record treatments and enqueue     |
+| 4.  | `treater.py`   | perform all treatments on the first enqueued treatment file for the config |
+| 5.  | `deleter.py`   | mark the config as complete and delete its source folder                   |
+
+Each script should be run with these this argument:
+
+```sh
+python3 script.py config
+```
+
+## 2. Stateless Mode
+
+Run `moment.py` to run treatments without recording history.  
+You will be prompted to enter a source folder and then view videos.  
+Once all videos have been viewed and recorded with a treatment, editing occurs immediately thereafter.
+
 # History Structure
 
 A folder with the following structure will store all editing history:
 
 ```
-errors/
+treatments/
+    [config name]/
+        errors/
+        history/
+        queue/
+    [ configs ... ]
 configs/
     [ config name ]/
         + remaining.json
         + config.json
     [ configs ... ]
-history/
-queue/
 ```
 
 ## `MVE_HISTORY` Environment Variable
