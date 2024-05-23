@@ -11,20 +11,8 @@ import helpers.colours as colours
 import helpers.paths as paths
 
 
-def create_paths_from_config():
-    return paths.Paths(cfg.SOURCE, cfg.DESTINATION, cfg.RENAMES)
-
-
 def stderr_print(message):
     print(message, file=sys.stderr)
-
-
-def generate_paths_dict():
-    return {
-        trf.SOURCE_PATH: cfg.SOURCE,
-        trf.RENAME_PATH: cfg.RENAMES,
-        trf.DESTINATION_PATH: cfg.DESTINATION
-    }
 
 
 def print_error(message):

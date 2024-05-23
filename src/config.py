@@ -2,12 +2,14 @@ import abc
 import typing
 import sys
 
+import constants.defaults as defaults
 import constants.error as error
 import constants.file_structure as file_structure
-import constants.defaults as defaults
+import constants.treatment_format as treatment_format
 
 import helpers.files as files
 import helpers.json_handlers as json_handlers
+import helpers.paths as paths
 import helpers.util as util
 
 
@@ -49,6 +51,18 @@ class Config(abc.ABC):
         # colours
         self.bold: bool = bold
 
+    # TODO: fix the uses of this
+    def create_paths_from_config(self) -> paths.Paths:
+        return paths.paths(self.source, self.destination, self.renames)
+
+    # TODO: fix the uses of this
+    def generate_paths_dict(self):
+        return {
+            treatment_format.source_path: self.source,
+            treatment_format.rename_path: self.renames,
+            treatment_format.destination_path: self.destination
+        }
+
 
 class Stateful(Config):
     def __init__(self, name: str) -> "Stateful":
@@ -81,8 +95,14 @@ class Stateful(Config):
         bold: bool = contents.get("bold", defaults.bold)
 
         super().__init__(
+            # folders
             source, renames, destination,
-            recent, num_processes, recent, moviepy_threads, testing, bold
+            # options
+            recent,
+            num_processes,
+            use_moviepy, moviepy_threads,
+            testing,
+            bold
         )
 
     @classmethod
@@ -120,7 +140,6 @@ class Stateless(Config):
         source: list[str], renames: list[str], destination: list[str]
     ):
         super().__init__(
-            self,
             # folders
             source, renames, destination,
             # options
