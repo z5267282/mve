@@ -106,6 +106,8 @@ class Stateful(Config):
         self.name = name
 
     @classmethod
+    # TODO: clean this up
+    # print out full path not folder path list
     def read_config(name: str) -> dict[str, typing.Any]:
         config_paths = file_structure.CONFIGS + [name]
         if not files.folder_exists(config_paths):
