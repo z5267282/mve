@@ -26,7 +26,7 @@ def main():
     run_checks()
 
     TODO_FIX = "mac"
-    cfg = config.Config(TODO_FIX)
+    cfg = config.Stateful(TODO_FIX)
 
     remaining, errors = json_handlers.load_remaining(), list()
     current_file = dequeue()
