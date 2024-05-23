@@ -56,7 +56,6 @@ class Config(abc.ABC):
     def create_paths_from_config(self) -> paths.Paths:
         return paths.paths(self.source, self.destination, self.renames)
 
-    # TODO: fix the uses of this
     def generate_paths_dict(self) -> dict[str, list[str]]:
         return {
             treatment_format.source_path: self.source,
