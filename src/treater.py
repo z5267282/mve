@@ -43,7 +43,7 @@ def main():
 
     if errors:
         paths_dict = cfg.generate_paths_dict()
-        handle_errors(remaining, errors, paths_dict)
+        handle_errors(cfg, remaining, errors, paths_dict)
 
     util.exit_treat_all_good()
 
@@ -199,7 +199,7 @@ def delete_all(deletions, remaining, errors, paths: paths.Paths):
                          str(e), trf.DELETIONS, None)
 
 
-def do_delete(src_name, paths: paths.Paths):
+def do_delete(src_name: list[str], paths: paths.Paths):
     joined_src_name = files.get_joined_path(paths.source, src_name)
     os.remove(joined_src_name)
 
@@ -209,14 +209,14 @@ def update_history(current_file, joined_current_file):
     os.rename(joined_current_file, joined_history_file)
 
 
-def handle_errors(remaining, errors, paths_dict: dict[str, list[str]]):
+def handle_errors(cfg: config.Stateful, remaining: list[str], errors: list[dict], paths_dict: dict[str, list[str]]):
     error_file_name = timestamps.generate_timestamped_file_name()
     write_errors(error_file_name, errors, paths_dict)
-    json_handlers.write_remaining(remaining)
+    cfg.write_remaining(remaining)
     exit_treatment_error(error_file_name)
 
 
-def write_errors(error_file_name, errors, paths_dict: dict[str, list[str]]):
+def write_errors(error_file_name: str, errors: list[dict], paths_dict: dict[str, list[str]]):
     joined_error_file_name = files.get_joined_path(fst.ERRORS, error_file_name)
     data = {
         erf.ERRORS_VIDEOS: errors,

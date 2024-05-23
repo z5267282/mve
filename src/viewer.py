@@ -31,14 +31,17 @@ def main():
     remaining = cfg.load_remaining()
     edits, renames, deletions = list(), dict(), list()
     folders = cfg.create_source_folders()
-    num_remaining = run_loop(remaining, edits, renames, deletions, folders)
+    run_loop(remaining, edits, renames, deletions, folders)
+    cfg.write_remaining(remaining)
 
     if edits or renames or deletions:
         paths_dict = cfg.generate_paths_dict()
         log_to_file(edits, renames, deletions, paths_dict)
 
     util.exit_success(
-        util.format_remaining(num_remaining)
+        util.format_remaining(
+            len(remaining)
+        )
     )
 
 
@@ -50,7 +53,8 @@ def run_checks(cfg: config.Stateful):
 
 
 def run_loop(
-    remaining, edits, renames, deletions, paths: paths.Paths, testing: bool
+    # TODO: add type hints for this
+    remaining: list[str], edits, renames, deletions, paths: paths.Paths, testing: bool
 ):
     padding = len(
         str(
@@ -94,7 +98,6 @@ def run_loop(
         if go_to_next_file:
             remaining.pop(0)
 
-    json_handlers.write_remaining(remaining)
     return len(remaining)
 
 
