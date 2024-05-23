@@ -14,7 +14,7 @@ To edit and record a history of treatments, run these `src/.py` scripts in this 
 
 | no. | script         | description                                                                |
 | --- | -------------- | -------------------------------------------------------------------------- |
-| 1.  | `make.py`      | generate a new config pair                                                 |
+| 1.  | `make.py`      | generate a new configuration in the project history                        |
 | 2.  | `generator.py` | populate the config's remaining video list                                 |
 | 3.  | `viewer.py`    | view each remaining video in the config, record treatments and enqueue     |
 | 4.  | `treater.py`   | perform all treatments on the first enqueued treatment file for the config |
