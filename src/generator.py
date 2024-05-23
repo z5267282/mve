@@ -7,7 +7,6 @@ import constants.file_structure as fst
 
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.colours as colours
-import helpers.json_handlers as json_handlers
 import helpers.files as files
 import helpers.util as util
 
@@ -28,11 +27,10 @@ def main():
         f"placed file names from the folder '{colours.highlight(joined_path)}' in {fst.REMAINING}")
 
 
-def run_checks():
+def run_checks(cfg: config.Stateful):
     check_and_exit_if.no_args(sys.argv)
     check_and_exit_if.no_source_folder()
-    if os.path.exists(fst.REMAINING):
-        check_and_exit_if.files_remaining()
+    cfg.check_files_remaining()
 
 
 if __name__ == '__main__':
