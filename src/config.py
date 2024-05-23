@@ -161,6 +161,12 @@ class Stateful(Config):
             self.join_remaining_path()
         )
 
+    def check_files_remaining(self):
+        if self.load_remaining():
+            util.stderr_print(
+                f"there are files yet to be treated in '{self.join_remaining_path()}'")
+            sys.exit(error.FILES_REMAINING)
+
     def write_remaining(self, remaining: list[str]):
         json_handlers.write_to_json(remaining, self.join_remaining_path())
 

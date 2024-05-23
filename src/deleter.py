@@ -21,9 +21,9 @@ def main():
     util.exit_success(f"removed the folder '{colours.highlight(joined_path)}'")
 
 
-def run_checks():
+def run_checks(cfg: config.Stateful):
     check_and_exit_if.no_args(sys.argv)
-    check_and_exit_if.files_remaining()
+    cfg.check_files_remaining()
     check_and_exit_if.no_source_folder()
 
 

@@ -28,7 +28,7 @@ def main():
     TODO_FIX = "mac"
     cfg = config.Stateful(TODO_FIX)
 
-    remaining = json_handlers.load_remaining()
+    remaining = cfg.load_remaining()
     edits, renames, deletions = list(), dict(), list()
     folders = cfg.create_source_folders()
     num_remaining = run_loop(remaining, edits, renames, deletions, folders)

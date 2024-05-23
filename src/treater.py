@@ -28,7 +28,7 @@ def main():
     TODO_FIX = "mac"
     cfg = config.Stateful(TODO_FIX)
 
-    remaining, errors = json_handlers.load_remaining(), list()
+    remaining, errors = cfg.load_remaining(), list()
     current_file = dequeue()
     joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
     data = json_handlers.read_from_json(joined_current_file)
