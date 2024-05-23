@@ -1,3 +1,4 @@
+import abc
 import typing
 import sys
 
@@ -10,40 +11,79 @@ import helpers.json_handlers as json_handlers
 import helpers.util as util
 
 
-class Config:
+class Config(abc.ABC):
     """The Config class stores settings that change how mve runs.
     We can maintain file system invariants by fatally terminating the
     constructor."""
 
-    def __init__(self, name: str) -> "Config":
+    @abc.abstractmethod
+    def __init__(
+        self,
+        # folders
+        source: list[str], renames: list[str], destination: list[str],
+        # options
+        recent: bool,
+        num_processes: int,
+        use_moviepy: bool, moviepy_threads: int,
+        testing: bool,
+        bold: bool
+    ) -> "Config":
+        # folders
+        self.renames: list[str] = renames
+        self.destination: list[str] = destination
+
+        # file-order generation
+        self.recent = recent
+
+        # multiprocessing
+        self.num_processes: int = num_processes
+
+        # moviepy
+        self.use_moviepy: bool = use_moviepy
+
+        self.moviepy_threads: int = use_moviepy
+
+        # testing
+        self.testing: bool = testing
+
+        # colours
+        self.bold: bool = bold
+
+
+class Stateful(Config):
+    def __init__(self, name: str) -> "Stateful":
         contents = Config.read_config(name)
 
         # folders
-        self.SOURCE: list[str] = Config.expect_paths_list(
-            contents, "SOURCE", error.CONFIG_MISSING_SOURCE)
-        self.RENAMES: list[str] = Config.expect_paths_list(
-            contents, "RENAMES", error.CONFIG_MISSING_RENAMES)
-        self.DESTINATION: list[str] = Config.expect_paths_list(
-            contents, "DESTINATION", error.CONFIG_MISSING_DESTINATION)
+        source: list[str] = Stateful.expect_paths_list(
+            contents, "source", error.Stateful_missing_source)
+        renames: list[str] = Stateful.expect_paths_list(
+            contents, "renames", error.Stateful_missing_renames)
+        destination: list[str] = Stateful.expect_paths_list(
+            contents, "destination", error.config_missing_destination)
 
         # file-order generation
-        self.RECENT = contents.get(
-            "RECENT", defaults.RECENT)
+        recent = contents.get("recent", defaults.recent)
 
         # multiprocessing
-        self.NUM_PROCESSES: int = contents.get(
-            "NUM_PROCESSES", defaults.NUM_PROCESSES)
+        num_processes: int = contents.get(
+            "num_processes", defaults.num_processes)
         # moviepy
-        self.USE_MOVIEPY: bool = contents.get(
-            "USE_MOVIEPY", defaults.USE_MOVIEPY)
-        self.MOVIEPY_THREADS: int = contents.get(
-            "MOVIEPY_THREADS", defaults.MOVIEPY_THREADS)
+        use_moviepy: bool = contents.get("use_moviepy", defaults.use_moviepy)
+        moviepy_threads: int = contents.get(
+            "moviepy_threads", defaults.moviepy_threads)
 
         # testing
-        self.TESTING: bool = contents.get("TESTING", defaults.TESTING)
+        testing: bool = contents.get("testing", defaults.testing)
 
         # colours
-        self.BOLD: bool = contents.get("BOLD", defaults.BOLD)
+
+        bold: bool = contents.get("bold", defaults.bold)
+
+        super().__init__(
+            source, renames, destination,
+            recent, num_processes, recent, moviepy_threads, testing, bold
+        )
 
     @classmethod
     def read_config(name: str) -> dict[str, typing.Any]:
@@ -71,3 +111,22 @@ class Config:
             util.print_error(f"{contents} not in configuration file")
             sys.exit(code)
         return contents[key]
+
+
+class Stateless(Config):
+    def __init__(
+        self,
+        # folders
+        source: list[str], renames: list[str], destination: list[str]
+    ):
+        super().__init__(
+            self,
+            # folders
+            source, renames, destination,
+            # options
+            recent=defaults.RECENT,
+            num_processes=defaults.num_processes,
+            use_moviepy=defaults.USE_MOVIEPY, moviepy_threads=defaults.MOVIEPY_THREADS,
+            testing=defaults.TESTING,
+            bold=defaults.BOLD
+        )

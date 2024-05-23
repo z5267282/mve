@@ -32,6 +32,8 @@ Run `moment.py` to run treatments without recording history.
 You will be prompted to enter a source folder and then view videos.  
 Once all videos have been viewed and recorded with a treatment, editing occurs immediately thereafter.
 
+In stateless mode, the config is based on `constants.defaults`.
+
 # History Structure
 
 A folder with the following structure will store all editing history:
