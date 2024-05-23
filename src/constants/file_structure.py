@@ -11,6 +11,7 @@ def make_history_paths(base_paths: list[str]) -> list[str]:
     return parent + base_paths
 
 
+# folders
 QUEUE = make_history_paths(['queue'])
 HISTORY = make_history_paths(['history'])
 ERRORS = make_history_paths(['errors'])
