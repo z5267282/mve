@@ -30,7 +30,7 @@ def main():
 
     remaining = json_handlers.load_remaining()
     edits, renames, deletions = list(), dict(), list()
-    folders = util.create_paths_from_config()
+    folders = cfg.create_source_folders()
     num_remaining = run_loop(remaining, edits, renames, deletions, folders)
 
     if edits or renames or deletions:

@@ -32,7 +32,7 @@ def main():
     current_file = dequeue()
     joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
     data = json_handlers.read_from_json(joined_current_file)
-    folders = util.create_paths_from_config()
+    folders = cfg.create_source_folders()
 
     TODO_FIX = False
     TODO_FIX_1, TODO_FIX_2 = 2, 4
