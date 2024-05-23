@@ -3,7 +3,6 @@ import pathlib
 
 
 # folders
-
 def make_history_paths(base_paths: list[str]) -> list[str]:
     parent = pathlib.Path(
         os.getenv('MVE_HISTORY', '..')
