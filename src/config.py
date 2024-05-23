@@ -7,6 +7,7 @@ import constants.error as error
 import constants.file_structure as file_structure
 import constants.treatment_format as treatment_format
 
+import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 import helpers.json_handlers as json_handlers
 import helpers.paths as paths
@@ -109,7 +110,7 @@ class Stateful(Config):
     # TODO: clean this up
     # print out full path not folder path list
     def read_config(name: str) -> dict[str, typing.Any]:
-        config_paths = file_structure.CONFIGS + [name]
+        config_paths = Stateful.get_config_paths(name)
         if not files.folder_exists(config_paths):
             util.print_error(
                 f"config '{name}' does not exist in {file_structure.CONFIGS}"
@@ -128,11 +129,40 @@ class Stateful(Config):
         return contents
 
     @classmethod
+    def get_config_paths(name: str) -> list[str]:
+        return file_structure.CONFIGS + [name]
+
+    @classmethod
     def expect_paths_list(contents: dict[str, typing.Any], key: str, code: int) -> str:
         if key not in contents:
             util.print_error(f"{contents} not in configuration file")
             sys.exit(code)
         return contents[key]
+
+    # handlers for remaining videos
+    # only the Stateful config needs to track the remaining videos as a file
+
+    def join_remaining_path(self) -> str:
+        remaining_paths = file_structure.make_history_paths(
+            [self.name] + file_structure.REMAINING
+        )
+        return files.join_folder(remaining_paths)
+
+    def check_no_remaining(self):
+        '''This function should be called before any file changes relating to
+        remaining are processed. We don't want to run the entire program, crash
+        and then lose all work. Making this a self method maintains the
+        invariant that the config folder existed.'''
+        check_and_exit_if.no_file(
+            self.join_remaining_path(), 'remaining', error.MISSING_REMAINING)
+
+    def load_remaining(self) -> list[str]:
+        return json_handlers.read_from_json(
+            self.join_remaining_path()
+        )
+
+    def write_remaining(self, remaining: list[str]):
+        json_handlers.write_to_json(remaining, self.join_remaining_path())
 
 
 class Stateless(Config):

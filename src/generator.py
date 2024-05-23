@@ -21,7 +21,7 @@ def main():
     TODO_FIX = True
 
     new_files = files.ls(cfg.source, TODO_FIX)
-    json_handlers.write_to_json(new_files, fst.REMAINING)
+    cfg.write_remaining(new_files)
 
     joined_path = files.join_folder(cfg.source)
     util.exit_success(

@@ -42,16 +42,11 @@ def main():
     )
 
 
-def run_checks():
+def run_checks(cfg: config.Stateful):
     check_and_exit_if.no_args(sys.argv)
-    check_no_remaining()
+    cfg.check_no_remaining()
     check_and_exit_if.no_queue()
     check_and_exit_if.one_of_config_folders_missing()
-
-
-def check_no_remaining():
-    check_and_exit_if.no_file(
-        fst.REMAINING, 'remaining', err.MISSING_REMAINING)
 
 
 def run_loop(
