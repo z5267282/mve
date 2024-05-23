@@ -31,6 +31,7 @@ class Config(abc.ABC):
         bold: bool
     ) -> "Config":
         # folders
+        self.source: list[str] = source
         self.renames: list[str] = renames
         self.destination: list[str] = destination
 
@@ -56,7 +57,7 @@ class Config(abc.ABC):
         return paths.paths(self.source, self.destination, self.renames)
 
     # TODO: fix the uses of this
-    def generate_paths_dict(self):
+    def generate_paths_dict(self) -> dict[str, list[str]]:
         return {
             treatment_format.source_path: self.source,
             treatment_format.rename_path: self.renames,

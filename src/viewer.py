@@ -26,7 +26,6 @@ def main():
     run_checks()
 
     TODO_FIX = "mac"
-
     cfg = config.Config(TODO_FIX)
 
     remaining = json_handlers.load_remaining()
@@ -35,7 +34,8 @@ def main():
     num_remaining = run_loop(remaining, edits, renames, deletions, folders)
 
     if edits or renames or deletions:
-        log_to_file(edits, renames, deletions)
+        paths_dict = cfg.generate_paths_dict()
+        log_to_file(edits, renames, deletions, paths_dict)
 
     util.exit_success(
         util.format_remaining(num_remaining)
@@ -428,11 +428,11 @@ def log_delete(base_name, deletions):
     deletions.append(base_name)
 
 
-def log_to_file(edits, renames, deletions):
+def log_to_file(edits, renames, deletions, paths_dict: dict[str, list[str]]):
     treatment_name = timestamps.generate_timestamped_file_name()
     joined_treatment_name = files.get_joined_path(fst.QUEUE, treatment_name)
     data = wrap_session(edits, renames, deletions)
-    data[trf.PATHS] = util.generate_paths_dict()
+    data[trf.PATHS] = paths_dict
     json_handlers.write_to_json(data, joined_treatment_name)
 
 

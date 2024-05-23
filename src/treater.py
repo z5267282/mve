@@ -4,7 +4,7 @@ import moviepy.editor as mvp
 import subprocess
 import sys
 
-import config as cfg
+import config
 
 import constants.error as err
 import constants.errors_format as erf
@@ -25,6 +25,9 @@ import helpers.util as util
 def main():
     run_checks()
 
+    TODO_FIX = "mac"
+    cfg = config.Config(TODO_FIX)
+
     remaining, errors = json_handlers.load_remaining(), list()
     current_file = dequeue()
     joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
@@ -39,7 +42,8 @@ def main():
     update_history(current_file, joined_current_file)
 
     if errors:
-        handle_errors(remaining, errors)
+        paths_dict = cfg.generate_paths_dict()
+        handle_errors(remaining, errors, paths_dict)
 
     util.exit_treat_all_good()
 
@@ -205,18 +209,18 @@ def update_history(current_file, joined_current_file):
     os.rename(joined_current_file, joined_history_file)
 
 
-def handle_errors(remaining, errors):
+def handle_errors(remaining, errors, paths_dict: dict[str, list[str]]):
     error_file_name = timestamps.generate_timestamped_file_name()
-    write_errors(error_file_name, errors)
+    write_errors(error_file_name, errors, paths_dict)
     json_handlers.write_remaining(remaining)
     exit_treatment_error(error_file_name)
 
 
-def write_errors(error_file_name, errors):
+def write_errors(error_file_name, errors, paths_dict: dict[str, list[str]]):
     joined_error_file_name = files.get_joined_path(fst.ERRORS, error_file_name)
     data = {
         erf.ERRORS_VIDEOS: errors,
-        erf.ERRORS_PATHS: util.generate_paths_dict()
+        erf.ERRORS_PATHS: paths_dict
     }
     json_handlers.write_to_json(data, joined_error_file_name)
 
