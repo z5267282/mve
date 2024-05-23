@@ -8,7 +8,6 @@ import constants.file_structure as fst
 
 import helpers.colours as colours
 import helpers.files as files
-import helpers.json_handlers as json_handlers
 import helpers.util as util
 
 
@@ -67,12 +66,3 @@ def one_of_config_folders_missing():
         [err.NO_SOURCE_FOLDER, err.NO_RENAMES_FOLDER, err.NO_DESTINATION_FOLDER]
     ):
         no_folder(folder, desc, code)
-
-
-# Remaining related
-
-def files_remaining():
-    if json_handlers.load_remaining():
-        util.stderr_print(
-            f"there are files yet to be treated in '{fst.REMAINING}'")
-        sys.exit(err.FILES_REMAINING)
