@@ -16,7 +16,7 @@ from viewer import run_loop, wrap_session
 
 def main():
     paths = gen_paths()
-    remaining, errors = gen_remaining(paths, False), []
+    remaining, errors = gen_remaining(paths, False), list()
 
     edits, renames, deletions = list(), dict(), list()
     num_remaining = run_loop(remaining, edits, renames, deletions, paths)
