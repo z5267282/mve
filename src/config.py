@@ -24,11 +24,11 @@ class Config():
         # folders
         source: list[str], renames: list[str], destination: list[str],
         # options
-        recent: bool,
-        num_processes: int,
-        use_moviepy: bool, moviepy_threads: int,
-        testing: bool,
-        bold: bool
+        recent: bool = defaults.RECENT,
+        num_processes: int = defaults.NUM_PROCESSES,
+        use_moviepy: bool = defaults.USE_MOVIEPY, moviepy_threads: int = defaults.MOVIEPY_THREADS,
+        testing: bool = defaults.TESTING,
+        bold: bool = defaults.BOLD
     ):
         # folders
         self.source: list[str] = source
