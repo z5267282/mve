@@ -1,14 +1,17 @@
 import constants.colour as clr
 
-TODO_FIX = False
+import constants.defaults as defaults
 
 
 def generate_colour_code(colour: int, bold: bool) -> str:
     return f'\033[{1 if bold else 0};{colour}m'
 
 
-def colour_format(colour: int, message: str) -> str:
-    return f'{generate_colour_code(colour, TODO_FIX)}{message}{generate_colour_code(clr.RESET, TODO_FIX)}'
+def colour_format(colour: int, message: str, bold: bool = defaults.BOLD) -> str:
+    return '{}{}{}'.format(
+        generate_colour_code(colour, bold),
+        message, generate_colour_code(clr.RESET, bold)
+    )
 
 
 def highlight(message: str) -> str:
