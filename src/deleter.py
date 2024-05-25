@@ -4,7 +4,7 @@ import sys
 import config
 
 import helpers.args as args
-import helpers.colours as colours
+import helpers.colouring as colouring
 import helpers.files as files
 import helpers.util as util
 
@@ -19,7 +19,8 @@ def main():
     files.do_folder_operation(cfg.source, shutil.rmtree)
 
     joined_path = files.join_folder(cfg.source)
-    util.exit_success(f"removed the folder '{colours.highlight(joined_path)}'")
+    util.exit_success(
+        f"removed the folder '{colouring.highlight(joined_path)}'")
 
 
 def run_checks(state: config.Stateful):

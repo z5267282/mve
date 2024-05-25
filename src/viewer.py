@@ -15,7 +15,7 @@ import helpers.time_handlers as time_handlers
 import helpers.paths as paths
 import helpers.json_handlers as json_handlers
 import helpers.files as files
-import helpers.colours as colours
+import helpers.colouring as colouring
 
 import config
 
@@ -90,7 +90,7 @@ def run_loop(
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
                 util.print_error(
-                    f"invalid command '{colours.highlight(command)}' - press {command.HELP} for a list of commands")
+                    f"invalid command '{colouring.highlight(command)}' - press {command.HELP} for a list of commands")
 
         if go_to_next_file:
             remaining.pop(0)
@@ -111,7 +111,7 @@ def view_video(base_name, testing: bool, paths: paths.Paths):
 
 
 def prompt(base_name, padding, number_remaining):
-    coloured_remaining = colours.colour_box(
+    coloured_remaining = colouring.colour_box(
         clr.CYAN, f'{number_remaining:^{padding}}')
     args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
     command = args.pop(0)
@@ -139,7 +139,7 @@ def highlight_all_commands(string):
 
 
 def highlight_command(command):
-    return colours.colour_format(clr.PURPLE, command)
+    return colouring.colour_format(clr.PURPLE, command)
 
 
 def do_end(base_name, raw_tokens, edits, paths: paths.Paths):
@@ -258,7 +258,7 @@ def check_times(base_name, start, end, paths: paths.Paths):
 
     if not end_seconds > start_seconds:
         util.print_error(
-            f"the end time '{colours.highlight(end)}' must be bigger than the start time '{colours.highlight(start)}'")
+            f"the end time '{colouring.highlight(end)}' must be bigger than the start time '{colouring.highlight(start)}'")
         return False
 
     return True
@@ -301,7 +301,7 @@ def in_duration_bounds(seconds, duration):
 
 def print_duration_error(time, name, is_start):
     util.print_error(
-        f"the {get_start_end_description(is_start)} time '{colours.highlight(time)}' is not in the bounds of video {name}")
+        f"the {get_start_end_description(is_start)} time '{colouring.highlight(time)}' is not in the bounds of video {name}")
 
 
 def get_start_end_description(is_start):
@@ -336,10 +336,10 @@ def handle_leading_number(name):
 
 
 def reprompt_name(current_name):
-    warn = colours.warning()
+    warn = colouring.warning()
     print(
         "{} the name '{}' starts with a number are you sure you haven't misentered the [{}]iddle command?".format(
-            warn, colours.highlight(
+            warn, colouring.highlight(
                 current_name), highlight_command(command.MIDDLE)
         )
     )
@@ -357,7 +357,7 @@ def check_file_exists(name, folder):
         files.get_joined_path(folder, name)
     ):
         util.print_error(
-            f"the file '{colours.highlight(name)}' exists in the folder {folder}")
+            f"the file '{colouring.highlight(name)}' exists in the folder {folder}")
         return True
 
     return False

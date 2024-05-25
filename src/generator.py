@@ -3,7 +3,7 @@ import sys
 import config
 
 import helpers.args as args
-import helpers.colours as colours
+import helpers.colouring as colouring
 import helpers.files as files
 import helpers.util as util
 
@@ -21,7 +21,7 @@ def main():
     joined_path = files.join_folder(cfg.source)
     util.exit_success(
         "placed file names from the folder '{}' in {}".format(
-            colours.highlight(joined_path),
+            colouring.highlight(joined_path),
             files.get_joined_path(state.remaining)
         )
     )

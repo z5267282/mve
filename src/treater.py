@@ -12,7 +12,7 @@ import constants.treatment_format as treatment_format
 import constants.video_editing as video_editing
 
 import helpers.args as args
-import helpers.colours as colours
+import helpers.colouring as colouring
 import helpers.files as files
 import helpers.json_handlers as json_handlers
 import helpers.paths as paths
@@ -236,7 +236,7 @@ def write_errors(
 def exit_treatment_error(error_file_name):
     util.print_error(
         "one or more errors occurred during treatment logged in '{}'".format(
-            colours.highlight(error_file_name)
+            colouring.highlight(error_file_name)
         )
     )
     sys.exit(error.TREATMENT_ERROR)

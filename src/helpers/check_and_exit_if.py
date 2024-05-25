@@ -3,7 +3,7 @@ import sys
 
 import constants.error as error
 
-import helpers.colours as colours
+import helpers.colouring as colouring
 import helpers.files as files
 import helpers.util as util
 
@@ -27,7 +27,7 @@ def bad_args(argv: list[str], length: int, usage_message: str = ''):
 def no_file(joined_path, desc, code):
     if not os.path.exists(joined_path):
         util.stderr_print(
-            f"the {desc} file '{colours.highlight(joined_path)}' does not exist")
+            f"the {desc} file '{colouring.highlight(joined_path)}' does not exist")
         sys.exit(code)
 
 
