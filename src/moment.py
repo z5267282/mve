@@ -38,9 +38,9 @@ def main():
 
 
 def gen_paths() -> paths.Paths:
-    print("enter absolute paths for the following folders")
-    source = input("source : ")
-    edits = input("edits : ")
+    print('enter absolute paths for the following folders')
+    source = input('source : ')
+    edits = input('edits : ')
     return paths.Paths(
         decompose_path_into_folders(source),
         decompose_path_into_folders(edits),
@@ -65,5 +65,5 @@ def handle_errors(errors: dict[str, typing.Any]):
         sys.exit(error.TREATMENT_ERROR)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

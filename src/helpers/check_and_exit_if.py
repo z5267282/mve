@@ -27,7 +27,10 @@ def bad_args(argv: list[str], length: int, usage_message: str = ''):
 def no_file(joined_path, desc, code):
     if not os.path.exists(joined_path):
         util.stderr_print(
-            f"the {desc} file '{colouring.highlight(joined_path)}' does not exist")
+            "the {} file '{}' does not exist".format(
+                desc, colouring.highlight(joined_path)
+            )
+        )
         sys.exit(code)
 
 

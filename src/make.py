@@ -22,7 +22,7 @@ def main():
     name = args.expect_config_name(sys.argv)
 
     # verify name
-    if not re.fullmatch(r"[a-z-]+", name):
+    if not re.fullmatch(r'[a-z-]+', name):
         util.print_error('config must contain only a-z or - characters')
         sys.exit(error.BAD_CONFIG_NAME)
 
@@ -56,7 +56,7 @@ def make_config_contents() -> tuple[list[str], list[str], list[str]]:
 
 
 def stringify_path(display: str) -> str:
-    folder = input(f"{display}: ")
+    folder = input(f'{display}: ')
     return list(
         pathlib.Path(folder).parts
     )

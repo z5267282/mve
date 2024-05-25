@@ -16,9 +16,9 @@ import helpers.util as util
 
 
 class Config():
-    """The Config class stores settings that change how mve runs.
+    '''The Config class stores settings that change how mve runs.
     We can maintain file system invariants by fatally terminating the
-    constructor."""
+    constructor.'''
 
     def __init__(
         self,
@@ -253,7 +253,7 @@ class Stateful():
         contents: dict[str, typing.Any], key: str, code: int
     ) -> str:
         if key not in contents:
-            util.print_error(f"{contents} not in configuration file")
+            util.print_error(f'{contents} not in configuration file')
             sys.exit(code)
         return contents[key]
 

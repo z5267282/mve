@@ -12,7 +12,7 @@ def stderr_print(message):
 
 
 def print_error(message):
-    stderr_print(f'{colouring.colour_box(colours.RED, "error")} {message}')
+    stderr_print(f'{colouring.colour_box(colours.RED, 'error')} {message}')
 
 
 def print_success(message: str) -> None:
@@ -20,11 +20,14 @@ def print_success(message: str) -> None:
         r'\.py$', r'',
         os.path.basename(sys.argv[0])
     )
-    print(f'{colouring.colour_box(colours.GREEN, "success")} {base_name} {message}')
+    print(f'{colouring.colour_box(colours.GREEN, 'success')} {base_name} {message}')
 
 
 def format_remaining(num_remaining: int) -> str:
-    return f'exited with {colouring.colour_format(colours.CYAN, num_remaining)} file{str() if num_remaining == 1 else "s"} remaining'
+    return 'exited with {} files{} remaining'.format(
+        colouring.colour_format(colours.CYAN, num_remaining),
+        str() if num_remaining == 1 else 's'
+    )
 
 
 def exit_success(message):
