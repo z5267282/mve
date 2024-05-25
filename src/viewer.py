@@ -5,7 +5,6 @@ import sys
 
 import constants.video_editing as vde
 import constants.treatment_format as trf
-import constants.file_structure as fst
 import constants.commands as cmd
 import constants.colour as clr
 
