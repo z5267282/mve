@@ -49,7 +49,6 @@ def main():
 
 def make_config_contents() -> tuple[list[str], list[str], list[str]]:
     print('enter these folders')
-
     source = stringify_path('source')
     renames = stringify_path('renames')
     edits = stringify_path('destination')

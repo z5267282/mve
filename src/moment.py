@@ -1,13 +1,15 @@
-from json import dumps
+import json
 import pathlib
 import sys
-from typing import Any
+import typing
 
-import constants.error as err
-import constants.json_settings as jsn
+import config
+
+import constants.error as error
+import constants.json_settings as json_settings
 
 import helpers.files as files
-from helpers.paths import Paths
+import helpers.paths as paths
 import helpers.util as util
 
 from treater import treat_all
@@ -16,32 +18,37 @@ from viewer import run_loop, wrap_session
 
 def main():
     paths = gen_paths()
-    remaining, errors = gen_remaining(paths, False), list()
+    cfg = config.Config(paths.source, paths.renames, paths.edits)
+    cfg.recent = False
+    cfg.testing = False
 
+    remaining, errors = gen_remaining(paths, cfg.recent), list()
     edits, renames, deletions = list(), dict(), list()
-    num_remaining = run_loop(remaining, edits, renames, deletions, paths)
+    num_remaining = run_loop(remaining, edits, renames,
+                             deletions, paths, cfg.testing)
     data = wrap_session(edits, renames, deletions)
     print(
         util.format_remaining(num_remaining)
     )
 
-    treat_all(data, remaining, errors, paths)
+    treat_all(data, cfg.use_moviepy, cfg.moviepy_threads,
+              cfg.num_processes, remaining, errors, paths)
     handle_errors(errors)
     util.exit_treat_all_good()
 
 
-def gen_paths() -> Paths:
+def gen_paths() -> paths.Paths:
     print("enter absolute paths for the following folders")
     source = input("source : ")
     edits = input("edits : ")
-    return Paths(
+    return paths.Paths(
         decompose_path_into_folders(source),
         decompose_path_into_folders(edits),
         decompose_path_into_folders(edits)
     )
 
 
-def gen_remaining(paths: Paths, recent: bool) -> list[str]:
+def gen_remaining(paths: paths.Paths, recent: bool) -> list[str]:
     return files.ls(paths.source, recent=recent)
 
 
@@ -50,12 +57,12 @@ def decompose_path_into_folders(abs_path: str) -> list[str]:
     return list(path.parts)
 
 
-def handle_errors(errors: dict[str, Any]):
+def handle_errors(errors: dict[str, typing.Any]):
     if errors:
         util.print_error(
-            dumps(errors, indent=jsn.INDENT_SPACES)
+            json.dumps(errors, indent=json_settings.INDENT_SPACES)
         )
-        sys.exit(err.TREATMENT_ERROR)
+        sys.exit(error.TREATMENT_ERROR)
 
 
 if __name__ == "__main__":
