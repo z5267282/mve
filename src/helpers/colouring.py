@@ -1,4 +1,4 @@
-import constants.colour as clr
+import constants.colours as colours
 
 import constants.defaults as defaults
 
@@ -10,12 +10,12 @@ def generate_colour_code(colour: int, bold: bool) -> str:
 def colour_format(colour: int, message: str, bold: bool = defaults.BOLD) -> str:
     return '{}{}{}'.format(
         generate_colour_code(colour, bold),
-        message, generate_colour_code(clr.RESET, bold)
+        message, generate_colour_code(colours.RESET, bold)
     )
 
 
 def highlight(message: str) -> str:
-    return colour_format(clr.BLUE, message)
+    return colour_format(colours.BLUE, message)
 
 
 def colour_box(colour: int, message: str):
@@ -23,4 +23,4 @@ def colour_box(colour: int, message: str):
 
 
 def warning() -> str:
-    return colour_box(clr.YELLOW, 'warning')
+    return colour_box(colours.YELLOW, 'warning')

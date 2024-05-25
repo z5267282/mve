@@ -6,7 +6,7 @@ import sys
 import constants.video_editing as video_editing
 import constants.treatment_format as treatment_format
 import constants.commands as command
-import constants.colour as clr
+import constants.colours as colours
 
 import helpers.args as args
 import helpers.util as util
@@ -112,7 +112,7 @@ def view_video(base_name, testing: bool, paths: paths.Paths):
 
 def prompt(base_name, padding, number_remaining):
     coloured_remaining = colouring.colour_box(
-        clr.CYAN, f'{number_remaining:^{padding}}')
+        colours.CYAN, f'{number_remaining:^{padding}}')
     args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
     command = args.pop(0)
     raw_tokens = args.pop() if args else str()
@@ -139,7 +139,7 @@ def highlight_all_commands(string):
 
 
 def highlight_command(command):
-    return colouring.colour_format(clr.PURPLE, command)
+    return colouring.colour_format(colours.PURPLE, command)
 
 
 def do_end(base_name, raw_tokens, edits, paths: paths.Paths):
