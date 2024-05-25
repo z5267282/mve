@@ -44,7 +44,7 @@ def main():
 
     if errors:
         paths_dict = state.generate_paths_dict()
-        handle_errors(state. remaining, errors, paths_dict)
+        handle_errors(state, remaining, errors, paths_dict)
 
     util.exit_treat_all_good()
 
@@ -210,12 +210,12 @@ def update_history(
 
 
 def handle_errors(
-    cfg: config.Stateful,
+    state: config.Stateful,
     remaining: list[str], errors: list[dict], paths_dict: dict[str, list[str]]
 ):
     error_file_name = timestamps.generate_timestamped_file_name()
     write_errors(error_file_name, errors, paths_dict)
-    cfg.write_remaining(remaining)
+    state.write_remaining(remaining)
     exit_treatment_error(error_file_name)
 
 

@@ -265,7 +265,8 @@ class Stateful():
     def check_files_remaining(self):
         if self.load_remaining():
             util.stderr_print(
-                f"there are files yet to be treated in '{self.join_remaining_path()}'")
+                f"there are files yet to be treated in '{self.remaining}'"
+            )
             sys.exit(error.FILES_REMAINING)
 
     def write_remaining(self, remaining: list[str]):
