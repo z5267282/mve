@@ -12,8 +12,8 @@ import helpers.files as files
 import helpers.paths as paths
 import helpers.util as util
 
-from treater import treat_all
-from viewer import run_loop, wrap_session
+import lib.view as view
+import lib.edit as edit
 
 
 def main():
@@ -24,15 +24,15 @@ def main():
 
     remaining, errors = gen_remaining(paths, cfg.recent), list()
     edits, renames, deletions = list(), dict(), list()
-    num_remaining = run_loop(remaining, edits, renames,
-                             deletions, paths, cfg.testing)
-    data = wrap_session(edits, renames, deletions)
+    num_remaining = view.run_loop(remaining, edits, renames,
+                                  deletions, paths, cfg.testing)
+    data = view.wrap_session(edits, renames, deletions)
     print(
         util.format_remaining(num_remaining)
     )
 
-    treat_all(data, cfg.use_moviepy, cfg.moviepy_threads,
-              cfg.num_processes, remaining, errors, paths)
+    edit.treat_all(data, cfg.use_moviepy, cfg.moviepy_threads,
+                   cfg.num_processes, remaining, errors, paths)
     handle_errors(errors)
     util.exit_treat_all_good()
 
