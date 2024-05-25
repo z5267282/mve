@@ -1,10 +1,7 @@
 import os
 import sys
 
-import config as cfg
-
 import constants.error as err
-import constants.file_structure as fst
 
 import helpers.colours as colours
 import helpers.files as files
