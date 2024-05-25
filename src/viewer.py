@@ -23,19 +23,18 @@ import config
 
 
 def main():
-    run_checks()
-
     TODO_FIX = "mac"
-    cfg = config.Stateful(TODO_FIX)
+    state = config.Stateful(TODO_FIX)
+    run_checks(state.state)
 
-    remaining = cfg.load_remaining()
+    remaining = state.load_remaining()
     edits, renames, deletions = list(), dict(), list()
-    folders = cfg.create_source_folders()
+    folders = state.create_source_folders()
     run_loop(remaining, edits, renames, deletions, folders)
-    cfg.write_remaining(remaining)
+    state.write_remaining(remaining)
 
     if edits or renames or deletions:
-        paths_dict = cfg.generate_paths_dict()
+        paths_dict = state.generate_paths_dict()
         log_to_file(edits, renames, deletions, paths_dict)
 
     util.exit_success(
@@ -45,11 +44,9 @@ def main():
     )
 
 
-def run_checks(cfg: config.Stateful):
+def run_checks(cfg: config.Config):
     check_and_exit_if.no_args(sys.argv)
-    cfg.check_no_remaining()
-    check_and_exit_if.no_queue()
-    check_and_exit_if.one_of_config_folders_missing()
+    cfg.one_of_config_folders_missing()
 
 
 def run_loop(

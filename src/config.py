@@ -29,14 +29,14 @@ class Config():
         use_moviepy: bool, moviepy_threads: int,
         testing: bool,
         bold: bool
-    ) -> "Config":
+    ):
         # folders
         self.source: list[str] = source
         self.renames: list[str] = renames
         self.destination: list[str] = destination
 
         # file-order generation
-        self.recent = recent
+        self.recent: bool = recent
 
         # multiprocessing
         self.num_processes: int = num_processes
@@ -56,9 +56,6 @@ class Config():
     def no_source_folder(self):
         check_and_exit_if.no_folder(
             self.source, 'source', error.NO_SOURCE_FOLDER)
-
-    # def no_queue(self):
-    #     no_folder(self.QUEUE, 'queue', err.NO_QUEUE)
 
     def one_of_config_folders_missing(self):
         for folder, desc, code in zip(
@@ -81,56 +78,47 @@ class Config():
 
 
 class Stateful():
-    # folder constants
+    '''This class maintains file-structure invariants about the configs
+    folder. If it can be successfully created, then all necessary files were
+    present.'''
+
+    # configs folder location
     DEFAULT_FOLDER: list[str] = ['..', 'configs']
     ENV_KEY: str = 'MVE_CONFIGS'
 
-    # config files
+    # base paths
+
+    # folders
+    QUEUE = ['queue']
+    HISTORY = ['history']
+    ERRORS = ['errors']
+
+    # files
     CONFIG: str = 'config.json'
     REMAINING: str = 'remaining.json'
 
-    def __init__(self, name: str) -> "Stateful":
-        # read config from file
-        contents = Stateful.read_config(name)
+    def __init__(self, name: str):
+        queue, history, errors = Stateful.locate_folders()
+        config_file, remaining = Stateful.locate_files()
 
-        # folders
-        source: list[str] = Stateful.expect_paths_list(
-            contents, "source", error.Stateful_missing_source)
-        renames: list[str] = Stateful.expect_paths_list(
-            contents, "renames", error.Stateful_missing_renames)
-        destination: list[str] = Stateful.expect_paths_list(
-            contents, "destination", error.config_missing_destination)
-
-        # file-order generation
-        recent = contents.get("recent", defaults.recent)
-
-        # multiprocessing
-        num_processes: int = contents.get(
-            "num_processes", defaults.num_processes)
-        # moviepy
-        use_moviepy: bool = contents.get("use_moviepy", defaults.use_moviepy)
-        moviepy_threads: int = contents.get(
-            "moviepy_threads", defaults.moviepy_threads)
-
-        # testing
-        testing: bool = contents.get("testing", defaults.testing)
-
-        # colours
-
-        bold: bool = contents.get("bold", defaults.bold)
-
-        super().__init__(
-            # folders
-            source, renames, destination,
-            # options
-            recent,
-            num_processes,
-            use_moviepy, moviepy_threads,
-            testing,
-            bold
+        Stateful.verify_config_integrity(
+            name,
+            queue, history, errors,
+            config_file, remaining
         )
 
-        self.name = name
+        contents = json_handlers.read_from_json(config_file)
+        cfg = Stateful.make_config_from_file(contents)
+
+        self.queue: list[str] = queue
+        self.history: list[str] = history
+        self.errors: list[str] = errors
+
+        self.config_file: str = config_file
+        self.remaining: str = remaining
+
+        self.cfg: Config = cfg
+        self.name: str = name
 
     @classmethod
     def locate_configs_folder() -> list[str]:
@@ -157,10 +145,81 @@ class Stateful():
         return config_folder
 
     @classmethod
-    def read_config(name: str) -> dict[str, typing.Any]:
-        config_paths = Stateful.locate_given_config(name)
-        return json_handlers.read_from_json(
-            files.get_joined_path(config_paths, Stateful.CONFIG)
+    def locate_folders(name: str) -> tuple[list[str], list[str], list[str]]:
+        config_folder = Stateful.locate_given_config(name)
+
+        queue = config_folder + Stateful.QUEUE
+        history = config_folder + Stateful.HISTORY
+        errors = config_folder + Stateful.ERRORS
+
+        return queue, history, errors
+
+    @classmethod
+    def locate_files(name: str) -> tuple[str, str]:
+        config_folder = Stateful.locate_given_config(name)
+
+        config_file = files.get_joined_path(config_folder, Stateful.CONFIG)
+        remaining = files.get_joined_path(config_folder, Stateful.REMAINING)
+
+        return config_file, remaining
+
+    @classmethod
+    def verify_config_integrity(
+        name: str,
+        queue: list[str], history: list[str], errors: list[str],
+        config_file: str, remaining: str
+    ):
+        '''Verify the given config has all the correct files.'''
+        # folders
+        check_and_exit_if.no_folder(queue, 'queue', error.NO_QUEUE)
+        check_and_exit_if.no_folder(
+            history, 'history', error.NO_HISTORY_FOLDER)
+        check_and_exit_if.no_folder(errors, 'errors', error.NO_ERRORS_FOLDER)
+
+        # files
+        check_and_exit_if.no_file(
+            config_file, 'config file', error.NO_CONFIG_FILE)
+        check_and_exit_if.no_file(
+            remaining, 'remaining videos file', error.NO_CONFIG_REMAINING
+        )
+
+    @classmethod
+    def make_config_from_file(contents: dict[str, typing.Any]) -> Config:
+        # folders
+        source: list[str] = Stateful.expect_paths_list(
+            contents, "source", error.Stateful_missing_source)
+        renames: list[str] = Stateful.expect_paths_list(
+            contents, "renames", error.Stateful_missing_renames)
+        destination: list[str] = Stateful.expect_paths_list(
+            contents, "destination", error.config_missing_destination)
+
+        # file-order generation
+        recent = contents.get("recent", defaults.recent)
+
+        # multiprocessing
+        num_processes: int = contents.get(
+            "num_processes", defaults.num_processes)
+        # moviepy
+        use_moviepy: bool = contents.get("use_moviepy", defaults.use_moviepy)
+        moviepy_threads: int = contents.get(
+            "moviepy_threads", defaults.moviepy_threads)
+
+        # testing
+        testing: bool = contents.get("testing", defaults.testing)
+
+        # colours
+
+        bold: bool = contents.get("bold", defaults.bold)
+
+        return Config(
+            # folders
+            source, renames, destination,
+            # options
+            recent,
+            num_processes,
+            use_moviepy, moviepy_threads,
+            testing,
+            bold
         )
 
     @classmethod
@@ -188,10 +247,10 @@ class Stateful():
         check_and_exit_if.no_file(
             self.join_remaining_path(), 'remaining', error.MISSING_REMAINING)
 
-    def load_remaining(self) -> list[str]:
-        return json_handlers.read_from_json(
-            self.join_remaining_path()
-        )
+    # def load_remaining(self) -> list[str]:
+    #     return json_handlers.read_from_json(
+    #         self.join_remaining_path()
+    #     )
 
     def check_files_remaining(self):
         if self.load_remaining():

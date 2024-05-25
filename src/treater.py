@@ -23,16 +23,15 @@ import helpers.util as util
 
 
 def main():
-    run_checks()
-
     TODO_FIX = "mac"
-    cfg = config.Stateful(TODO_FIX)
+    state = config.Stateful(TODO_FIX)
+    run_checks(state.cfg)
 
-    remaining, errors = cfg.load_remaining(), list()
+    remaining, errors = state.load_remaining(), list()
     current_file = dequeue()
     joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
     data = json_handlers.read_from_json(joined_current_file)
-    folders = cfg.create_source_folders()
+    folders = state.create_source_folders()
 
     TODO_FIX = False
     TODO_FIX_1, TODO_FIX_2 = 2, 4
@@ -42,17 +41,16 @@ def main():
     update_history(current_file, joined_current_file)
 
     if errors:
-        paths_dict = cfg.generate_paths_dict()
-        handle_errors(cfg, remaining, errors, paths_dict)
+        paths_dict = state.generate_paths_dict()
+        handle_errors(state. remaining, errors, paths_dict)
 
     util.exit_treat_all_good()
 
 
-def run_checks():
+def run_checks(cfg: config.Config):
     check_and_exit_if.no_args(sys.argv)
-    check_and_exit_if.no_queue()
     check_empty_queue()
-    check_and_exit_if.one_of_config_folders_missing()
+    cfg.one_of_config_folders_missing()
     no_history()
 
 
