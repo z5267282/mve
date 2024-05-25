@@ -5,6 +5,7 @@ import sys
 
 import constants.defaults as defaults
 import constants.error as error
+import constants.options as options
 import constants.treatment_format as treatment_format
 
 import helpers.check_and_exit_if as check_and_exit_if
@@ -53,6 +54,7 @@ class Config():
         self.bold: bool = bold
 
     # folder existence checking
+
     def no_source_folder(self):
         check_and_exit_if.no_folder(
             self.source, 'source', error.NO_SOURCE_FOLDER)
@@ -75,6 +77,30 @@ class Config():
             treatment_format.rename_path: self.renames,
             treatment_format.destination_path: self.destination
         }
+
+    def write_config_to_file(self, joined_destination_path: str):
+        data = {
+            # folders
+            options.SOURCE: self.souce,
+            options.RENAMES: self.renames,
+            options.DESTINATION: self.destination,
+
+            # file-order generation
+            options.RECENT: self.recent,
+
+            # multiprocessing
+            options.NUM_PROCESSES: self.num_processes,
+
+            # moviepy
+            options.USE_MOVIEPY: self.use_moviepy, options.MOVIEPY_THREADS: self.moviepy_threads,
+
+            # testing
+            options.TESTING: self.testing,
+
+            # colours
+            options.BOLD: self.bold
+        }
+        json_handlers.write_to_json(data, joined_destination_path)
 
 
 class Stateful():
@@ -187,29 +213,29 @@ class Stateful():
     def make_config_from_file(contents: dict[str, typing.Any]) -> Config:
         # folders
         source: list[str] = Stateful.expect_paths_list(
-            contents, "source", error.Stateful_missing_source)
+            contents, options.SOURCE, error.Stateful_missing_source)
         renames: list[str] = Stateful.expect_paths_list(
-            contents, "renames", error.Stateful_missing_renames)
+            contents, options.RENAMES, error.Stateful_missing_renames)
         destination: list[str] = Stateful.expect_paths_list(
-            contents, "destination", error.config_missing_destination)
+            contents, options.DESTINATION, error.config_missing_destination)
 
         # file-order generation
-        recent = contents.get("recent", defaults.recent)
+        recent = contents.get(options.RECENT, defaults.recent)
 
         # multiprocessing
         num_processes: int = contents.get(
-            "num_processes", defaults.num_processes)
+            options.NUM_PROCESSES, defaults.num_processes)
         # moviepy
-        use_moviepy: bool = contents.get("use_moviepy", defaults.use_moviepy)
+        use_moviepy: bool = contents.get(
+            options.USE_MOVIEPY, defaults.use_moviepy)
         moviepy_threads: int = contents.get(
-            "moviepy_threads", defaults.moviepy_threads)
+            options.MOVIEPY_THREADS, defaults.moviepy_threads)
 
         # testing
-        testing: bool = contents.get("testing", defaults.testing)
+        testing: bool = contents.get(options.TESTING, defaults.testing)
 
         # colours
-
-        bold: bool = contents.get("bold", defaults.bold)
+        bold: bool = contents.get(options.BOLD, defaults.bold)
 
         return Config(
             # folders
