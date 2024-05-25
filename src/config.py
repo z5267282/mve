@@ -44,7 +44,7 @@ class Config():
         # moviepy
         self.use_moviepy: bool = use_moviepy
 
-        self.moviepy_threads: int = use_moviepy
+        self.moviepy_threads: int = moviepy_threads
 
         # testing
         self.testing: bool = testing
