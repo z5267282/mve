@@ -232,25 +232,9 @@ class Stateful():
         return contents[key]
 
     # handlers for remaining videos
-    # only the Stateful config needs to track the remaining videos as a file
 
-    def join_remaining_path(self) -> str:
-        # TODO
-        remaining_paths = []
-        return files.join_folder(remaining_paths)
-
-    def check_no_remaining(self):
-        '''This function should be called before any file changes relating to
-        remaining are processed. We don't want to run the entire program, crash
-        and then lose all work. Making this a self method maintains the
-        invariant that the config folder existed.'''
-        check_and_exit_if.no_file(
-            self.join_remaining_path(), 'remaining', error.MISSING_REMAINING)
-
-    # def load_remaining(self) -> list[str]:
-    #     return json_handlers.read_from_json(
-    #         self.join_remaining_path()
-    #     )
+    def load_remaining(self) -> list[str]:
+        return json_handlers.read_from_json(self.remaining)
 
     def check_files_remaining(self):
         if self.load_remaining():
@@ -259,4 +243,4 @@ class Stateful():
             sys.exit(error.FILES_REMAINING)
 
     def write_remaining(self, remaining: list[str]):
-        json_handlers.write_to_json(remaining, self.join_remaining_path())
+        json_handlers.write_to_json(remaining, self.remaining)
