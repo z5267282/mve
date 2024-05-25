@@ -50,8 +50,9 @@ def run_checks(cfg: config.Config):
 
 
 def run_loop(
-    # TODO: add type hints for this
-    remaining: list[str], edits, renames, deletions, paths: paths.Paths, testing: bool
+    remaining: list[str],
+    edits: list[dict], renames: dict[str, str], deletions: list[str],
+    paths: paths.Paths, testing: bool
 ):
     padding = len(
         str(
