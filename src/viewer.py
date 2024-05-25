@@ -5,7 +5,7 @@ import sys
 
 import constants.video_editing as vde
 import constants.treatment_format as trf
-import constants.commands as cmd
+import constants.commands as command
 import constants.colour as clr
 
 import helpers.args as args
@@ -68,29 +68,29 @@ def run_loop(
             base_name, padding, len(remaining)
         )
         match command:
-            case cmd.QUIT:
+            case command.QUIT:
                 break
-            case cmd.CONTINUE:
+            case command.CONTINUE:
                 do_continue(remaining, base_name)
-            case cmd.HELP:
+            case command.HELP:
                 do_help()
-            case cmd.END:
+            case command.END:
                 go_to_next_file = do_end(base_name, raw_tokens, edits, paths)
-            case cmd.START:
+            case command.START:
                 go_to_next_file = do_start(base_name, raw_tokens, edits, paths)
-            case cmd.MIDDLE:
+            case command.MIDDLE:
                 go_to_next_file = do_middle(
                     base_name, raw_tokens, edits, paths)
-            case cmd.WHOLE:
+            case command.WHOLE:
                 go_to_next_file = do_whole(base_name, raw_tokens, edits, paths)
-            case cmd.RENAME:
+            case command.RENAME:
                 go_to_next_file = do_rename(
                     base_name, raw_tokens, renames, paths)
-            case cmd.DELETE:
+            case command.DELETE:
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
                 util.print_error(
-                    f"invalid command '{colours.highlight(command)}' - press {cmd.HELP} for a list of commands")
+                    f"invalid command '{colours.highlight(command)}' - press {command.HELP} for a list of commands")
 
         if go_to_next_file:
             remaining.pop(0)
@@ -125,7 +125,7 @@ def do_continue(remaining, base_name):
 
 def do_help():
     print(
-        highlight_all_commands(cmd.HELP_MESSAGE)
+        highlight_all_commands(command.HELP_MESSAGE)
     )
 
 
@@ -144,7 +144,7 @@ def highlight_command(command):
 
 def do_end(base_name, raw_tokens, edits, paths: paths.Paths):
     return do_edit(
-        cmd.END, base_name, raw_tokens, edits,
+        command.END, base_name, raw_tokens, edits,
         lambda tokens: (tokens[0], None, tokens[1]), paths,
         integer=True
     )
@@ -184,7 +184,7 @@ def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, path
 def parse_tokens(raw_tokens, command):
     tokens = split_tokens(raw_tokens, command)
     if not tokens:
-        no_double_spaces = re.sub(r' {2,}', r' ', cmd.USAGE_MSGS[command])
+        no_double_spaces = re.sub(r' {2,}', r' ', command.USAGE_MSGS[command])
         print_usage_error(
             highlight_all_commands(no_double_spaces)
         )
@@ -197,7 +197,7 @@ def split_tokens(raw_tokens, command):
     if not raw_tokens:
         return list()
 
-    n_tokens = cmd.NUM_TOKENS[command]
+    n_tokens = command.NUM_TOKENS[command]
     tokens = tokenise(raw_tokens, n_tokens - 1)
     return tokens if len(tokens) == n_tokens else list()
 
@@ -340,7 +340,7 @@ def reprompt_name(current_name):
     print(
         "{} the name '{}' starts with a number are you sure you haven't misentered the [{}]iddle command?".format(
             warn, colours.highlight(
-                current_name), highlight_command(cmd.MIDDLE)
+                current_name), highlight_command(command.MIDDLE)
         )
     )
     change_name = input(
@@ -377,27 +377,27 @@ def log_edit(base_name, edit_name, edits, start, end):
 
 def do_start(base_name, raw_tokens, edits, paths: paths.Paths):
     return do_edit(
-        cmd.START, base_name, raw_tokens, edits,
+        command.START, base_name, raw_tokens, edits,
         lambda tokens: (None, tokens[0], tokens[1]), paths
     )
 
 
 def do_middle(base_name, raw_tokens, edits, paths: paths.Paths):
     return do_edit(
-        cmd.MIDDLE, base_name, raw_tokens, edits,
+        command.MIDDLE, base_name, raw_tokens, edits,
         lambda tokens: tokens, paths
     )
 
 
 def do_whole(base_name, raw_tokens, edits, paths: paths.Paths):
     return do_edit(
-        cmd.WHOLE, base_name, raw_tokens, edits,
+        command.WHOLE, base_name, raw_tokens, edits,
         lambda tokens: (None, None, tokens[0]), paths
     )
 
 
 def do_rename(base_name, raw_tokens, renames, paths: paths.Paths):
-    tokens = parse_tokens(raw_tokens, cmd.RENAME)
+    tokens = parse_tokens(raw_tokens, command.RENAME)
     if not tokens:
         return False
 
