@@ -39,17 +39,13 @@ In stateless mode, the config is based on `constants.defaults`.
 A folder with the following structure will store all editing history:
 
 ```
-treatments/
-    [config name]/
-        errors/
-        history/
-        queue/
-    [ configs ... ]
-configs/
-    [ config name ]/
-        + remaining.json
-        + config.json
-    [ configs ... ]
+config/
+    errors/
+    history/
+    queue/
+
+    + remaining.json
+    + config.json
 ```
 
 ## `MVE_HISTORY` Environment Variable
