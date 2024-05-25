@@ -11,7 +11,7 @@ import constants.treatment_format as treatment_format
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 import helpers.json_handlers as json_handlers
-import helpers.paths as paths
+import helpers.video_paths as video_paths
 import helpers.util as util
 
 
@@ -68,8 +68,8 @@ class Config():
         ):
             check_and_exit_if.no_folder(folder, desc, code)
 
-    def create_source_folders(self) -> paths.Paths:
-        return paths.paths(self.source, self.destination, self.renames)
+    def create_source_folders(self) -> video_paths.VideoPaths:
+        return video_paths.VideoPaths(self.source, self.destination, self.renames)
 
     def generate_paths_dict(self) -> dict[str, list[str]]:
         return {

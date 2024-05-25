@@ -1,4 +1,4 @@
-class Paths:
+class VideoPaths:
     '''A helper class to store the video path folders'''
 
     def __init__(

@@ -10,7 +10,7 @@ import constants.colours as colours
 
 import helpers.util as util
 import helpers.time_handlers as time_handlers
-import helpers.paths as paths
+import helpers.video_paths as video_paths
 import helpers.files as files
 import helpers.colouring as colouring
 
@@ -18,7 +18,7 @@ import helpers.colouring as colouring
 def run_loop(
     remaining: list[str],
     edits: list[dict], renames: dict[str, str], deletions: list[str],
-    paths: paths.Paths, testing: bool
+    paths: video_paths.VideoPaths, testing: bool
 ):
     padding = len(
         str(
@@ -68,7 +68,7 @@ def run_loop(
     return len(remaining)
 
 
-def view_video(base_name, testing: bool, paths: paths.Paths):
+def view_video(base_name, testing: bool, paths: video_paths.VideoPaths):
     if testing:
         return
 
@@ -112,7 +112,7 @@ def highlight_command(command):
     return colouring.colour_format(colours.PURPLE, command)
 
 
-def do_end(base_name, raw_tokens, edits, paths: paths.Paths):
+def do_end(base_name, raw_tokens, edits, paths: video_paths.VideoPaths):
     return do_edit(
         command.END, base_name, raw_tokens, edits,
         lambda tokens: (tokens[0], None, tokens[1]), paths,
@@ -120,7 +120,7 @@ def do_end(base_name, raw_tokens, edits, paths: paths.Paths):
     )
 
 
-def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, paths: paths.Paths, integer=False):
+def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, paths: video_paths.VideoPaths, integer=False):
     tokens = parse_tokens(raw_tokens, command)
     if tokens is None:
         return False
@@ -202,7 +202,7 @@ def print_time_format(is_start, format):
         f'the {get_start_end_description(is_start)} time must be in the format {format}')
 
 
-def check_times(base_name, start, end, paths: paths.Paths):
+def check_times(base_name, start, end, paths: video_paths.VideoPaths):
     if start is None and end is None:
         return True
 
@@ -355,28 +355,28 @@ def log_edit(base_name, edit_name, edits, start, end):
     edits.append(new_edit)
 
 
-def do_start(base_name, raw_tokens, edits, paths: paths.Paths):
+def do_start(base_name, raw_tokens, edits, paths: video_paths.VideoPaths):
     return do_edit(
         command.START, base_name, raw_tokens, edits,
         lambda tokens: (None, tokens[0], tokens[1]), paths
     )
 
 
-def do_middle(base_name, raw_tokens, edits, paths: paths.Paths):
+def do_middle(base_name, raw_tokens, edits, paths: video_paths.VideoPaths):
     return do_edit(
         command.MIDDLE, base_name, raw_tokens, edits,
         lambda tokens: tokens, paths
     )
 
 
-def do_whole(base_name, raw_tokens, edits, paths: paths.Paths):
+def do_whole(base_name, raw_tokens, edits, paths: video_paths.VideoPaths):
     return do_edit(
         command.WHOLE, base_name, raw_tokens, edits,
         lambda tokens: (None, None, tokens[0]), paths
     )
 
 
-def do_rename(base_name, raw_tokens, renames, paths: paths.Paths):
+def do_rename(base_name, raw_tokens, renames, paths: video_paths.VideoPaths):
     tokens = parse_tokens(raw_tokens, command.RENAME)
     if not tokens:
         return False

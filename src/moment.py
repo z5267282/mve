@@ -9,7 +9,7 @@ import constants.error as error
 import constants.json_settings as json_settings
 
 import helpers.files as files
-import helpers.paths as paths
+import helpers.video_paths as video_paths
 import helpers.util as util
 
 import lib.view as view
@@ -37,18 +37,18 @@ def main():
     util.exit_treat_all_good()
 
 
-def gen_paths() -> paths.Paths:
+def gen_paths() -> video_paths.VideoPaths:
     print('enter absolute paths for the following folders')
     source = input('source : ')
     edits = input('edits : ')
-    return paths.Paths(
+    return video_paths.VideoPaths(
         decompose_path_into_folders(source),
         decompose_path_into_folders(edits),
         decompose_path_into_folders(edits)
     )
 
 
-def gen_remaining(paths: paths.Paths, recent: bool) -> list[str]:
+def gen_remaining(paths: video_paths.VideoPaths, recent: bool) -> list[str]:
     return files.ls(paths.source, recent=recent)
 
 

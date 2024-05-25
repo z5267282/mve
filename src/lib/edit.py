@@ -8,14 +8,14 @@ import constants.treatment_format as treatment_format
 import constants.video_editing as video_editing
 
 import helpers.files as files
-import helpers.paths as paths
+import helpers.video_paths as video_paths
 import helpers.time_handlers as time_handlers
 
 
 def treat_all(
     data: list[dict],
     use_moviepy: bool, moviepy_threads: int, num_processes: int,
-    remaining: list[str], errors: list[dict], paths: paths.Paths
+    remaining: list[str], errors: list[dict], paths: video_paths.VideoPaths
 ):
     edits = data[treatment_format.EDITS]
     edit_all(edits, use_moviepy, moviepy_threads,
@@ -28,7 +28,7 @@ def treat_all(
     delete_all(deletions, remaining, errors, paths)
 
 
-def edit_all(edits, use_moviepy: bool, moviepy_threads: int, num_processes: int, remaining, errors, paths: paths.Paths):
+def edit_all(edits, use_moviepy: bool, moviepy_threads: int, num_processes: int, remaining, errors, paths: video_paths.VideoPaths):
     with concurrent.futures.ProcessPoolExecutor(max_workers=num_processes) as executor:
         results = [executor.submit(
             edit_one, edit, use_moviepy, moviepy_threads, paths) for edit in edits]
@@ -40,7 +40,7 @@ def edit_all(edits, use_moviepy: bool, moviepy_threads: int, num_processes: int,
                              edit[treatment_format.EDIT_ORIGINAL], str(e), treatment_format.EDITS, edit)
 
 
-def edit_one(edit, use_moviepy: bool, moviepy_threads: int, paths: paths.Paths):
+def edit_one(edit, use_moviepy: bool, moviepy_threads: int, paths: video_paths.VideoPaths):
     name = edit[treatment_format.EDIT_ORIGINAL]
     joined_src_path = files.get_joined_path(paths.source, name)
     joined_dst_path = files.get_joined_path(
@@ -120,7 +120,7 @@ def add_to_remaining(remaining, name):
     remaining.append(name)
 
 
-def rename_all(renames, remaining, errors, paths: paths.Paths):
+def rename_all(renames, remaining, errors, paths: video_paths.VideoPaths):
     for rename_source in renames:
         new_name = renames[rename_source]
         try:
@@ -130,13 +130,13 @@ def rename_all(renames, remaining, errors, paths: paths.Paths):
                          str(e), treatment_format.RENAMES, new_name)
 
 
-def do_rename(src_name, dst_name, paths: paths.Paths):
+def do_rename(src_name, dst_name, paths: video_paths.VideoPaths):
     joined_src_name = files.get_joined_path(paths.source, src_name)
     joined_dst_name = files.get_joined_path(paths.renames, dst_name)
     os.rename(joined_src_name, joined_dst_name)
 
 
-def delete_all(deletions, remaining, errors, paths: paths.Paths):
+def delete_all(deletions, remaining, errors, paths: video_paths.VideoPaths):
     for deletion_name in deletions:
         try:
             do_delete(deletion_name, paths)
@@ -145,6 +145,6 @@ def delete_all(deletions, remaining, errors, paths: paths.Paths):
                          str(e), treatment_format.DELETIONS, None)
 
 
-def do_delete(src_name: list[str], paths: paths.Paths):
+def do_delete(src_name: list[str], paths: video_paths.VideoPaths):
     joined_src_name = files.get_joined_path(paths.source, src_name)
     os.remove(joined_src_name)
