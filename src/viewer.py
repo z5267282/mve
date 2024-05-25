@@ -3,7 +3,7 @@ import re
 import subprocess
 import sys
 
-import constants.video_editing as vde
+import constants.video_editing as video_editing
 import constants.treatment_format as treatment_format
 import constants.commands as command
 import constants.colour as clr
@@ -349,7 +349,7 @@ def reprompt_name(current_name):
 
 
 def add_suffix(name):
-    return f'{name}.{vde.SUFFIX}'
+    return f'{name}.{video_editing.SUFFIX}'
 
 
 def check_file_exists(name, folder):

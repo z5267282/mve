@@ -9,7 +9,7 @@ import config
 import constants.error as error
 import constants.errors_format as erf
 import constants.treatment_format as treatment_format
-import constants.video_editing as vde
+import constants.video_editing as video_editing
 
 import helpers.args as args
 import helpers.colours as colours
@@ -119,10 +119,10 @@ def edit_moviepy(joined_src_path, joined_dst_path, start, end, moviepy_threads: 
         clip.write_videofile(
             joined_dst_path,
             threads=moviepy_threads,
-            fps=vde.FRAMES,
-            codec=vde.VCODEC,
-            preset=vde.COMPRESSION,
-            audio_codec=vde.ACODEC
+            fps=video_editing.FRAMES,
+            codec=video_editing.VCODEC,
+            preset=video_editing.COMPRESSION,
+            audio_codec=video_editing.ACODEC
         )
 
 
