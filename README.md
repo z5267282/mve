@@ -23,7 +23,7 @@ To edit and record a history of treatments, run these `src/.py` scripts in this 
 Each script should be run with these this argument:
 
 ```sh
-python3 script.py config
+python3 script.py <config>
 ```
 
 ## 2. Stateless Mode
