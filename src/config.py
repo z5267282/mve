@@ -195,7 +195,7 @@ class Stateful():
         queue: list[str], history: list[str], errors: list[str],
         config_file: str, remaining: str
     ):
-        '''Verify the given config has all the correct files.'''
+        '''Verify the given config has all the correct files'''
         # folders
         check_and_exit_if.no_folder(queue, 'queue', error.NO_QUEUE)
         check_and_exit_if.no_folder(
