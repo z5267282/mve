@@ -10,7 +10,7 @@ The project can be run in a stateful or stateless mode, depending on whether rec
 
 ## 1. Stateful Mode
 
-To edit and record a history of treatments, run these `src/.py` scripts in this order:
+To edit and record a history of treatments, run these `src/*.py` scripts in this order:
 
 | no. | script         | description                                                                |
 | --- | -------------- | -------------------------------------------------------------------------- |
