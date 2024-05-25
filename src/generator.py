@@ -1,36 +1,35 @@
-import os
 import sys
 
 import config
 
-import constants.file_structure as fst
-
-import helpers.check_and_exit_if as check_and_exit_if
+import helpers.args as args
 import helpers.colours as colours
 import helpers.files as files
 import helpers.util as util
 
 
 def main():
-    run_checks()
+    name = args.expect_config_name(sys.argv)
+    state = config.Stateful(name)
+    run_checks(state.cfg)
 
-    TODO_FIX_0 = "mac"
-    cfg = config.Stateful(TODO_FIX_0)
+    cfg = state.cfg
 
-    TODO_FIX = True
-
-    new_files = files.ls(cfg.source, TODO_FIX)
-    cfg.write_remaining(new_files)
+    new_files = files.ls(cfg.source, recent=cfg.recent)
+    state.write_remaining(new_files)
 
     joined_path = files.join_folder(cfg.source)
     util.exit_success(
-        f"placed file names from the folder '{colours.highlight(joined_path)}' in {fst.REMAINING}")
+        "placed file names from the folder '{}' in {}".format(
+            colours.highlight(joined_path),
+            files.get_joined_path(state.remaining)
+        )
+    )
 
 
-def run_checks(cfg: config.Stateful):
-    check_and_exit_if.no_args(sys.argv)
-    cfg.no_source_folder()
-    cfg.check_files_remaining()
+def run_checks(state: config.Stateful):
+    state.check_files_remaining()
+    state.cfg.no_source_folder()
 
 
 if __name__ == '__main__':

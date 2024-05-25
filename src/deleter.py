@@ -3,17 +3,18 @@ import sys
 
 import config
 
-import helpers.check_and_exit_if as check_and_exit_if
+import helpers.args as args
 import helpers.colours as colours
 import helpers.files as files
 import helpers.util as util
 
 
 def main():
-    run_checks()
+    name = args.expect_config_name(sys.argv)
+    state = config.Stateful(name)
+    run_checks(state.cfg)
 
-    TODO_FIX = "mac"
-    cfg = config.Stateful(TODO_FIX)
+    cfg = state.cfg
 
     files.do_folder_operation(cfg.source, shutil.rmtree)
 
@@ -21,10 +22,9 @@ def main():
     util.exit_success(f"removed the folder '{colours.highlight(joined_path)}'")
 
 
-def run_checks(cfg: config.Stateful):
-    check_and_exit_if.no_args(sys.argv)
-    cfg.check_files_remaining()
-    cfg.no_source_folder()
+def run_checks(state: config.Stateful):
+    state.check_files_remaining()
+    state.cfg.no_source_folder()
 
 
 if __name__ == '__main__':

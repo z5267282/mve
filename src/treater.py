@@ -8,11 +8,10 @@ import config
 
 import constants.error as err
 import constants.errors_format as erf
-import constants.file_structure as fst
 import constants.treatment_format as trf
 import constants.video_editing as vde
 
-import helpers.check_and_exit_if as check_and_exit_if
+import helpers.args as args
 import helpers.colours as colours
 import helpers.files as files
 import helpers.json_handlers as json_handlers
@@ -23,22 +22,25 @@ import helpers.util as util
 
 
 def main():
-    TODO_FIX = "mac"
-    state = config.Stateful(TODO_FIX)
-    run_checks(state.cfg)
+    name = args.expect_config_name(sys.argv)
+    state = config.Stateful(name)
+    run_checks(state)
+
+    cfg = state.cfg
 
     remaining, errors = state.load_remaining(), list()
-    current_file = dequeue()
-    joined_current_file = files.get_joined_path(fst.QUEUE, current_file)
+    current_file = dequeue(state)
+    joined_current_file = files.get_joined_path(state.queue, current_file)
     data = json_handlers.read_from_json(joined_current_file)
-    folders = state.create_source_folders()
+    folders = cfg.create_source_folders()
 
-    TODO_FIX = False
-    TODO_FIX_1, TODO_FIX_2 = 2, 4
-
-    treat_all(data, TODO_FIX, TODO_FIX_1,
-              TODO_FIX_2, remaining, errors, folders)
-    update_history(current_file, joined_current_file)
+    treat_all(
+        data,
+        cfg.use_moviepy, cfg.moviepy_threads,
+        cfg.num_processes,
+        remaining, errors, folders
+    )
+    update_history(state, current_file, joined_current_file)
 
     if errors:
         paths_dict = state.generate_paths_dict()
@@ -47,29 +49,27 @@ def main():
     util.exit_treat_all_good()
 
 
-def run_checks(cfg: config.Config):
-    check_and_exit_if.no_args(sys.argv)
-    check_empty_queue()
-    cfg.one_of_config_folders_missing()
-    no_history()
+def run_checks(state: config.Stateful):
+    check_empty_queue(state)
+    state.cfg.one_of_config_folders_missing()
 
 
-def check_empty_queue():
-    if not files.ls(fst.QUEUE):
-        print(f"there are no files queued in folder '{fst.QUEUE}'")
+def check_empty_queue(state: config.Stateful):
+    if not files.ls(state.queue):
+        print(f"there are no files queued in folder '{state.queue}'")
         sys.exit(err.EMPTY_QUEUE)
 
 
-def no_history():
-    check_and_exit_if.no_folder(fst.HISTORY, 'history', err.NO_HISTORY_FOLDER)
-
-
-def dequeue():
-    queue_files = files.ls(fst.QUEUE)
+def dequeue(state: config.Stateful):
+    queue_files = files.ls(state.queue, recent=True)
     return queue_files[0]
 
 
-def treat_all(data, use_moviepy: bool, moviepy_threads: int, num_processes: int, remaining, errors, paths: paths.Paths):
+def treat_all(
+    data: list[dict],
+    use_moviepy: bool, moviepy_threads: int, num_processes: int,
+    remaining: list[str], errors: list[dict], paths: paths.Paths
+):
     edits = data[trf.EDITS]
     edit_all(edits, use_moviepy, moviepy_threads,
              num_processes, remaining, errors, paths)
@@ -202,20 +202,29 @@ def do_delete(src_name: list[str], paths: paths.Paths):
     os.remove(joined_src_name)
 
 
-def update_history(current_file, joined_current_file):
-    joined_history_file = files.get_joined_path(fst.HISTORY, current_file)
+def update_history(
+    state: config.Stateful, current_file: str, joined_current_file: str
+):
+    joined_history_file = files.get_joined_path(state.history, current_file)
     os.rename(joined_current_file, joined_history_file)
 
 
-def handle_errors(cfg: config.Stateful, remaining: list[str], errors: list[dict], paths_dict: dict[str, list[str]]):
+def handle_errors(
+    cfg: config.Stateful,
+    remaining: list[str], errors: list[dict], paths_dict: dict[str, list[str]]
+):
     error_file_name = timestamps.generate_timestamped_file_name()
     write_errors(error_file_name, errors, paths_dict)
     cfg.write_remaining(remaining)
     exit_treatment_error(error_file_name)
 
 
-def write_errors(error_file_name: str, errors: list[dict], paths_dict: dict[str, list[str]]):
-    joined_error_file_name = files.get_joined_path(fst.ERRORS, error_file_name)
+def write_errors(
+    state: config.Stateful,
+    error_file_name: str, errors: list[dict], paths_dict: dict[str, list[str]]
+):
+    joined_error_file_name = files.get_joined_path(
+        state.errors, error_file_name)
     data = {
         erf.ERRORS_VIDEOS: errors,
         erf.ERRORS_PATHS: paths_dict
@@ -225,7 +234,10 @@ def write_errors(error_file_name: str, errors: list[dict], paths_dict: dict[str,
 
 def exit_treatment_error(error_file_name):
     util.print_error(
-        f"one or more errors occurred during treatment logged in '{colours.highlight(error_file_name)}'")
+        "one or more errors occurred during treatment logged in '{}'".format(
+            colours.highlight(error_file_name)
+        )
+    )
     sys.exit(err.TREATMENT_ERROR)
 
 

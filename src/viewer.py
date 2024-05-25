@@ -6,10 +6,10 @@ import sys
 import constants.video_editing as vde
 import constants.treatment_format as trf
 import constants.file_structure as fst
-import constants.error as err
 import constants.commands as cmd
 import constants.colour as clr
 
+import helpers.args as args
 import helpers.util as util
 import helpers.timestamps as timestamps
 import helpers.time_handlers as time_handlers
@@ -17,25 +17,26 @@ import helpers.paths as paths
 import helpers.json_handlers as json_handlers
 import helpers.files as files
 import helpers.colours as colours
-import helpers.check_and_exit_if as check_and_exit_if
 
 import config
 
 
 def main():
-    TODO_FIX = "mac"
-    state = config.Stateful(TODO_FIX)
-    run_checks(state.state)
+    name = args.expect_config_name(sys.argv)
+    state = config.Stateful(name)
+    run_checks(state)
+
+    cfg = state.cfg
 
     remaining = state.load_remaining()
     edits, renames, deletions = list(), dict(), list()
-    folders = state.create_source_folders()
+    folders = cfg.create_source_folders()
     run_loop(remaining, edits, renames, deletions, folders)
     state.write_remaining(remaining)
 
     if edits or renames or deletions:
-        paths_dict = state.generate_paths_dict()
-        log_to_file(edits, renames, deletions, paths_dict)
+        paths_dict = cfg.generate_paths_dict()
+        log_to_file(state, edits, renames, deletions, paths_dict)
 
     util.exit_success(
         util.format_remaining(
@@ -45,7 +46,6 @@ def main():
 
 
 def run_checks(cfg: config.Config):
-    check_and_exit_if.no_args(sys.argv)
     cfg.one_of_config_folders_missing()
 
 
@@ -424,9 +424,9 @@ def log_delete(base_name, deletions):
     deletions.append(base_name)
 
 
-def log_to_file(edits, renames, deletions, paths_dict: dict[str, list[str]]):
+def log_to_file(state: config.Stateful, edits, renames, deletions, paths_dict: dict[str, list[str]]):
     treatment_name = timestamps.generate_timestamped_file_name()
-    joined_treatment_name = files.get_joined_path(fst.QUEUE, treatment_name)
+    joined_treatment_name = files.get_joined_path(state.queue, treatment_name)
     data = wrap_session(edits, renames, deletions)
     data[trf.PATHS] = paths_dict
     json_handlers.write_to_json(data, joined_treatment_name)
