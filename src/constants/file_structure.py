@@ -15,7 +15,3 @@ QUEUE = make_history_paths(['queue'])
 HISTORY = make_history_paths(['history'])
 ERRORS = make_history_paths(['errors'])
 CONFIGS = make_history_paths(['configs'])
-
-# files
-REMAINING = "remaining.json"
-CONFIG = "config.json"

@@ -1,4 +1,3 @@
-import abc
 import os
 import pathlib
 import typing
@@ -6,7 +5,6 @@ import sys
 
 import constants.defaults as defaults
 import constants.error as error
-import constants.file_structure as file_structure
 import constants.treatment_format as treatment_format
 
 import helpers.check_and_exit_if as check_and_exit_if
@@ -16,12 +14,11 @@ import helpers.paths as paths
 import helpers.util as util
 
 
-class Config(abc.ABC):
+class Config():
     """The Config class stores settings that change how mve runs.
     We can maintain file system invariants by fatally terminating the
     constructor."""
 
-    @abc.abstractmethod
     def __init__(
         self,
         # folders
@@ -83,18 +80,18 @@ class Config(abc.ABC):
         }
 
 
-class Stateful(Config):
-
+class Stateful():
     # folder constants
     DEFAULT_FOLDER: list[str] = ['..', 'configs']
     ENV_KEY: str = 'MVE_CONFIGS'
 
-    def __init__(self, name: str) -> "Stateful":
-        # establish configs folder structure
-        configs_path: list[str] = Stateful.locate_configs_folder()
+    # config files
+    CONFIG: str = 'config.json'
+    REMAINING: str = 'remaining.json'
 
+    def __init__(self, name: str) -> "Stateful":
         # read config from file
-        contents = Config.read_config(name)
+        contents = Stateful.read_config(name)
 
         # folders
         source: list[str] = Stateful.expect_paths_list(
@@ -134,7 +131,6 @@ class Stateful(Config):
         )
 
         self.name = name
-        self.configs_path = configs_path
 
     @classmethod
     def locate_configs_folder() -> list[str]:
@@ -151,33 +147,26 @@ class Stateful(Config):
         return configs_folder
 
     @classmethod
-    # TODO: clean this up
-    # print out full path not folder path list
+    def locate_given_config(name: str) -> list[str]:
+        config_folder = Stateful.locate_configs_folder() + [name]
+
+        check_and_exit_if.no_folder(
+            config_folder, f'{name} config', error.NO_SUCH_CONFIG
+        )
+
+        return config_folder
+
+    @classmethod
     def read_config(name: str) -> dict[str, typing.Any]:
-        config_paths = Stateful.get_config_paths(name)
-        if not files.folder_exists(config_paths):
-            util.print_error(
-                f"config '{name}' does not exist in {file_structure.CONFIGS}"
-            )
-            sys.exit(87)
-
-        try:
-            contents = json_handlers.read_from_json(
-                files.get_joined_path(config_paths, file_structure.CONFIG)
-            )
-        except FileNotFoundError:
-            util.print_error(
-                f"could not load config '{name}' since {file_structure.CONFIG} could not be opened in {config_paths}"
-            )
-            sys.exit(87)
-        return contents
+        config_paths = Stateful.locate_given_config(name)
+        return json_handlers.read_from_json(
+            files.get_joined_path(config_paths, Stateful.CONFIG)
+        )
 
     @classmethod
-    def get_config_paths(name: str) -> list[str]:
-        return file_structure.CONFIGS + [name]
-
-    @classmethod
-    def expect_paths_list(contents: dict[str, typing.Any], key: str, code: int) -> str:
+    def expect_paths_list(
+        contents: dict[str, typing.Any], key: str, code: int
+    ) -> str:
         if key not in contents:
             util.print_error(f"{contents} not in configuration file")
             sys.exit(code)
@@ -187,9 +176,8 @@ class Stateful(Config):
     # only the Stateful config needs to track the remaining videos as a file
 
     def join_remaining_path(self) -> str:
-        remaining_paths = file_structure.make_history_paths(
-            [self.name] + file_structure.REMAINING
-        )
+        # TODO
+        remaining_paths = []
         return files.join_folder(remaining_paths)
 
     def check_no_remaining(self):
@@ -213,21 +201,3 @@ class Stateful(Config):
 
     def write_remaining(self, remaining: list[str]):
         json_handlers.write_to_json(remaining, self.join_remaining_path())
-
-
-class Stateless(Config):
-    def __init__(
-        self,
-        # folders
-        source: list[str], renames: list[str], destination: list[str]
-    ):
-        super().__init__(
-            # folders
-            source, renames, destination,
-            # options
-            recent=defaults.RECENT,
-            num_processes=defaults.num_processes,
-            use_moviepy=defaults.USE_MOVIEPY, moviepy_threads=defaults.MOVIEPY_THREADS,
-            testing=defaults.TESTING,
-            bold=defaults.BOLD
-        )
