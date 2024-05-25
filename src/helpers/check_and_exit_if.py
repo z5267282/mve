@@ -1,7 +1,7 @@
 import os
 import sys
 
-import constants.error as err
+import constants.error as error
 
 import helpers.colours as colours
 import helpers.files as files
@@ -21,7 +21,7 @@ def bad_args(argv: list[str], length: int, usage_message: str = ''):
             usage_message
         )
     )
-    sys.exit(err.BAD_COMMAND_LINE_ARGS)
+    sys.exit(error.BAD_COMMAND_LINE_ARGS)
 
 
 def no_file(joined_path, desc, code):

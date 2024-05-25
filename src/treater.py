@@ -6,7 +6,7 @@ import sys
 
 import config
 
-import constants.error as err
+import constants.error as error
 import constants.errors_format as erf
 import constants.treatment_format as trf
 import constants.video_editing as vde
@@ -57,7 +57,7 @@ def run_checks(state: config.Stateful):
 def check_empty_queue(state: config.Stateful):
     if not files.ls(state.queue):
         print(f"there are no files queued in folder '{state.queue}'")
-        sys.exit(err.EMPTY_QUEUE)
+        sys.exit(error.EMPTY_QUEUE)
 
 
 def dequeue(state: config.Stateful):
@@ -238,7 +238,7 @@ def exit_treatment_error(error_file_name):
             colours.highlight(error_file_name)
         )
     )
-    sys.exit(err.TREATMENT_ERROR)
+    sys.exit(error.TREATMENT_ERROR)
 
 
 if __name__ == '__main__':
