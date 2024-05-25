@@ -1,5 +1,4 @@
-import config as cfg
-
+'''Unicode colour values'''
 
 BLACK = 30
 RED = 31
