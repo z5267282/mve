@@ -2,13 +2,9 @@ import os
 import re
 import sys
 
-import config as cfg
-
 import constants.colour as clr
-import constants.treatment_format as trf
 
 import helpers.colours as colours
-import helpers.paths as paths
 
 
 def stderr_print(message):

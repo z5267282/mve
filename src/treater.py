@@ -8,7 +8,7 @@ import config
 
 import constants.error as error
 import constants.errors_format as erf
-import constants.treatment_format as trf
+import constants.treatment_format as treatment_format
 import constants.video_editing as vde
 
 import helpers.args as args
@@ -70,14 +70,14 @@ def treat_all(
     use_moviepy: bool, moviepy_threads: int, num_processes: int,
     remaining: list[str], errors: list[dict], paths: paths.Paths
 ):
-    edits = data[trf.EDITS]
+    edits = data[treatment_format.EDITS]
     edit_all(edits, use_moviepy, moviepy_threads,
              num_processes, remaining, errors, paths)
 
-    renames = data[trf.RENAMES]
+    renames = data[treatment_format.RENAMES]
     rename_all(renames, remaining, errors, paths)
 
-    deletions = data[trf.DELETIONS]
+    deletions = data[treatment_format.DELETIONS]
     delete_all(deletions, remaining, errors, paths)
 
 
@@ -90,16 +90,17 @@ def edit_all(edits, use_moviepy: bool, moviepy_threads: int, num_processes: int,
                 future.result()
             except Exception as e:
                 handle_error(errors, remaining,
-                             edit[trf.EDIT_ORIGINAL], str(e), trf.EDITS, edit)
+                             edit[treatment_format.EDIT_ORIGINAL], str(e), treatment_format.EDITS, edit)
 
 
 def edit_one(edit, use_moviepy: bool, moviepy_threads: int, paths: paths.Paths):
-    name = edit[trf.EDIT_ORIGINAL]
+    name = edit[treatment_format.EDIT_ORIGINAL]
     joined_src_path = files.get_joined_path(paths.source, name)
-    joined_dst_path = files.get_joined_path(paths.edits, edit[trf.EDIT_NAME])
+    joined_dst_path = files.get_joined_path(
+        paths.edits, edit[treatment_format.EDIT_NAME])
 
-    times = edit[trf.EDIT_TIMES]
-    start, end = times[trf.EDIT_TIMES_START], times[trf.EDIT_TIMES_END]
+    times = edit[treatment_format.EDIT_TIMES]
+    start, end = times[treatment_format.EDIT_TIMES_START], times[treatment_format.EDIT_TIMES_END]
     edit_video(use_moviepy, moviepy_threads,
                joined_src_path, joined_dst_path, start, end)
 
@@ -179,7 +180,7 @@ def rename_all(renames, remaining, errors, paths: paths.Paths):
             do_rename(rename_source, new_name, paths)
         except Exception as e:
             handle_error(errors, remaining, rename_source,
-                         str(e), trf.RENAMES, new_name)
+                         str(e), treatment_format.RENAMES, new_name)
 
 
 def do_rename(src_name, dst_name, paths: paths.Paths):
@@ -194,7 +195,7 @@ def delete_all(deletions, remaining, errors, paths: paths.Paths):
             do_delete(deletion_name, paths)
         except Exception as e:
             handle_error(errors, remaining, deletion_name,
-                         str(e), trf.DELETIONS, None)
+                         str(e), treatment_format.DELETIONS, None)
 
 
 def do_delete(src_name: list[str], paths: paths.Paths):

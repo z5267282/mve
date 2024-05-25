@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 import constants.video_editing as vde
-import constants.treatment_format as trf
+import constants.treatment_format as treatment_format
 import constants.commands as command
 import constants.colour as clr
 
@@ -365,11 +365,11 @@ def check_file_exists(name, folder):
 
 def log_edit(base_name, edit_name, edits, start, end):
     new_edit = {
-        trf.EDIT_ORIGINAL: base_name,
-        trf.EDIT_NAME: edit_name,
-        trf.EDIT_TIMES: {
-            trf.EDIT_TIMES_START: start,
-            trf.EDIT_TIMES_END: end
+        treatment_format.EDIT_ORIGINAL: base_name,
+        treatment_format.EDIT_NAME: edit_name,
+        treatment_format.EDIT_TIMES: {
+            treatment_format.EDIT_TIMES_START: start,
+            treatment_format.EDIT_TIMES_END: end
         }
     }
     edits.append(new_edit)
@@ -427,15 +427,15 @@ def log_to_file(state: config.Stateful, edits, renames, deletions, paths_dict: d
     treatment_name = timestamps.generate_timestamped_file_name()
     joined_treatment_name = files.get_joined_path(state.queue, treatment_name)
     data = wrap_session(edits, renames, deletions)
-    data[trf.PATHS] = paths_dict
+    data[treatment_format.PATHS] = paths_dict
     json_handlers.write_to_json(data, joined_treatment_name)
 
 
 def wrap_session(edits, renames, deletions):
     return {
-        trf.EDITS: edits,
-        trf.RENAMES: renames,
-        trf.DELETIONS: deletions,
+        treatment_format.EDITS: edits,
+        treatment_format.RENAMES: renames,
+        treatment_format.DELETIONS: deletions,
     }
 
 
