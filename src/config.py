@@ -1,4 +1,6 @@
 import abc
+import os
+import pathlib
 import typing
 import sys
 
@@ -82,7 +84,16 @@ class Config(abc.ABC):
 
 
 class Stateful(Config):
+
+    # folder constants
+    DEFAULT_FOLDER: list[str] = ['..', 'configs']
+    ENV_KEY: str = 'MVE_CONFIGS'
+
     def __init__(self, name: str) -> "Stateful":
+        # establish configs folder structure
+        configs_path: list[str] = Stateful.locate_configs_folder()
+
+        # read config from file
         contents = Config.read_config(name)
 
         # folders
@@ -121,7 +132,23 @@ class Stateful(Config):
             testing,
             bold
         )
+
         self.name = name
+        self.configs_path = configs_path
+
+    @classmethod
+    def locate_configs_folder() -> list[str]:
+        configs_folder = list(
+            pathlib.Path(
+                os.environ[Stateful.ENV_KEY]
+            ).parts
+        ) if Stateful.ENV_KEY in os.environ \
+            else Stateful.DEFAULT_FOLDER
+
+        check_and_exit_if.no_folder(
+            configs_folder, 'configs', error.NO_CONFIGS_FOLDER)
+
+        return configs_folder
 
     @classmethod
     # TODO: clean this up
