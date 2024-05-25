@@ -7,7 +7,7 @@ import sys
 import config
 
 import constants.error as error
-import constants.errors_format as erf
+import constants.errors_format as errors_format
 import constants.treatment_format as treatment_format
 import constants.video_editing as video_editing
 
@@ -162,10 +162,10 @@ def add_error(errors, name, message, command, data):
 
 def create_error_dict(name, message, command, data):
     return {
-        erf.ERROR_FILE_NAME: name,
-        erf.ERROR_MESSAGE: message,
-        erf.ERROR_COMMAND: command,
-        erf.ERROR_DATA: data
+        errors_format.ERROR_FILE_NAME: name,
+        errors_format.ERROR_MESSAGE: message,
+        errors_format.ERROR_COMMAND: command,
+        errors_format.ERROR_DATA: data
     }
 
 
@@ -227,8 +227,8 @@ def write_errors(
     joined_error_file_name = files.get_joined_path(
         state.errors, error_file_name)
     data = {
-        erf.ERRORS_VIDEOS: errors,
-        erf.ERRORS_PATHS: paths_dict
+        errors_format.ERRORS_VIDEOS: errors,
+        errors_format.ERRORS_PATHS: paths_dict
     }
     json_handlers.write_to_json(data, joined_error_file_name)
 
