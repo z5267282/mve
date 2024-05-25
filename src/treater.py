@@ -56,7 +56,7 @@ def run_checks(state: config.Stateful):
 
 def check_empty_queue(state: config.Stateful):
     if not files.ls(state.queue):
-        print(f"there are no files queued in folder '{state.queue}'")
+        print(f'there are no files queued in folder \'{state.queue}\'')
         sys.exit(error.EMPTY_QUEUE)
 
 
@@ -235,7 +235,7 @@ def write_errors(
 
 def exit_treatment_error(error_file_name):
     util.print_error(
-        "one or more errors occurred during treatment logged in '{}'".format(
+        'one or more errors occurred during treatment logged in \'{}\''.format(
             colouring.highlight(error_file_name)
         )
     )

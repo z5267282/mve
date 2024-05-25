@@ -20,7 +20,7 @@ def main():
 
     joined_path = files.join_folder(cfg.source)
     util.exit_success(
-        "placed file names from the folder '{}' in {}".format(
+        'placed file names from the folder \'{}\' in {}'.format(
             colouring.highlight(joined_path),
             files.get_joined_path(state.remaining)
         )

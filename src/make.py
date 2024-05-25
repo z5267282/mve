@@ -30,7 +30,7 @@ def main():
     configs_folder = config.Stateful.locate_configs_folder()
     new_config = configs_folder + [name]
     if files.folder_exists(new_config):
-        util.print_error(f"the config '{name}' already exists")
+        util.print_error(f'the config \'{name}\' already exists')
         sys.exit(error.EXISTING_CONFIG)
 
     # create config folder structure

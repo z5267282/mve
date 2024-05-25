@@ -90,7 +90,10 @@ def run_loop(
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
                 util.print_error(
-                    f"invalid command '{colouring.highlight(command)}' - press {command.HELP} for a list of commands")
+                    'invalid command \'{}\' - press {} for a list of commands'.format(
+                        colouring.highlight(command), command.HELP
+                    )
+                )
 
         if go_to_next_file:
             remaining.pop(0)
@@ -258,7 +261,10 @@ def check_times(base_name, start, end, paths: paths.Paths):
 
     if not end_seconds > start_seconds:
         util.print_error(
-            f"the end time '{colouring.highlight(end)}' must be bigger than the start time '{colouring.highlight(start)}'")
+            'the end time \'{}\' must be bigger than the start time \'{}\''.format(
+                colouring.highlight(end), colouring.highlight(start)
+            )
+        )
         return False
 
     return True
@@ -301,7 +307,11 @@ def in_duration_bounds(seconds, duration):
 
 def print_duration_error(time, name, is_start):
     util.print_error(
-        f"the {get_start_end_description(is_start)} time '{colouring.highlight(time)}' is not in the bounds of video {name}")
+        'the {} time \'{}\' is not in the bounds of video {}'.format(
+            get_start_end_description(is_start),
+            colouring.highlight(time), name
+        )
+    )
 
 
 def get_start_end_description(is_start):
@@ -338,13 +348,13 @@ def handle_leading_number(name):
 def reprompt_name(current_name):
     warn = colouring.warning()
     print(
-        "{} the name '{}' starts with a number are you sure you haven't misentered the [{}]iddle command?".format(
+        '{} the name \'{}\' starts with a number are you sure you haven\'t misentered the[{}]iddle command?'.format(
             warn, colouring.highlight(
                 current_name), highlight_command(command.MIDDLE)
         )
     )
     change_name = input(
-        f"{warn} type 'y' if you want to re-enter this command : ")
+        '{warn} type \'y\' if you want to re-enter this command : ')
     return None if change_name == 'y' else current_name
 
 
@@ -357,7 +367,10 @@ def check_file_exists(name, folder):
         files.get_joined_path(folder, name)
     ):
         util.print_error(
-            f"the file '{colouring.highlight(name)}' exists in the folder {folder}")
+            'the file \'{}\' exists in the folder {}'.format(
+                colouring.highlight(name), folder
+            )
+        )
         return True
 
     return False

@@ -27,7 +27,7 @@ def bad_args(argv: list[str], length: int, usage_message: str = ''):
 def no_file(joined_path, desc, code):
     if not os.path.exists(joined_path):
         util.stderr_print(
-            "the {} file '{}' does not exist".format(
+            'the {} file \'{}\' does not exist'.format(
                 desc, colouring.highlight(joined_path)
             )
         )
@@ -37,5 +37,5 @@ def no_file(joined_path, desc, code):
 def no_folder(folder_paths: list[str], folder_desc: str, exit_code: int):
     if not files.folder_exists(folder_paths):
         util.stderr_print(
-            f"{folder_desc} folder '{folder_paths}' does not exist")
+            f'{folder_desc} folder \'{folder_paths}\' does not exist')
         sys.exit(exit_code)
