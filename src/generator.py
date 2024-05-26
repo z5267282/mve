@@ -11,7 +11,7 @@ import helpers.util as util
 def main():
     name = args.expect_config_name(sys.argv)
     state = config.Stateful(name)
-    run_checks(state.cfg)
+    run_checks(state)
 
     cfg = state.cfg
 
@@ -22,7 +22,7 @@ def main():
     util.exit_success(
         'placed file names from the folder \'{}\' in {}'.format(
             colouring.highlight(joined_path),
-            files.get_joined_path(state.remaining)
+            state.remaining
         )
     )
 
