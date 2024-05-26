@@ -16,14 +16,14 @@ import lib.view as view
 def main():
     name = args.expect_config_name(sys.argv)
     state = config.Stateful(name)
-    run_checks(state)
+    run_checks(state.cfg)
 
     cfg = state.cfg
 
     remaining = state.load_remaining()
     edits, renames, deletions = list(), dict(), list()
     folders = cfg.create_source_folders()
-    view.run_loop(remaining, edits, renames, deletions, folders)
+    view.run_loop(remaining, edits, renames, deletions, folders, cfg.testing)
     state.write_remaining(remaining)
 
     if edits or renames or deletions:

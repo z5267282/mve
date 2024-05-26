@@ -27,7 +27,8 @@ class Config():
         # options
         recent: bool = defaults.RECENT,
         num_processes: int = defaults.NUM_PROCESSES,
-        use_moviepy: bool = defaults.USE_MOVIEPY, moviepy_threads: int = defaults.MOVIEPY_THREADS,
+        use_moviepy: bool = defaults.USE_MOVIEPY,
+        moviepy_threads: int = defaults.MOVIEPY_THREADS,
         testing: bool = defaults.TESTING,
         bold: bool = defaults.BOLD
     ):
@@ -69,13 +70,14 @@ class Config():
             check_and_exit_if.no_folder(folder, desc, code)
 
     def create_source_folders(self) -> video_paths.VideoPaths:
-        return video_paths.VideoPaths(self.source, self.destination, self.renames)
+        return video_paths.VideoPaths(
+            self.source, self.destination, self.renames)
 
     def generate_paths_dict(self) -> dict[str, list[str]]:
         return {
-            treatment_format.source_path: self.source,
-            treatment_format.rename_path: self.renames,
-            treatment_format.destination_path: self.destination
+            treatment_format.SOURCE_PATH: self.source,
+            treatment_format.RENAME_PATH: self.renames,
+            treatment_format.DESTINATION_PATH: self.destination
         }
 
     def write_config_to_file(self, joined_destination_path: str):
@@ -92,7 +94,8 @@ class Config():
             options.NUM_PROCESSES: self.num_processes,
 
             # moviepy
-            options.USE_MOVIEPY: self.use_moviepy, options.MOVIEPY_THREADS: self.moviepy_threads,
+            options.USE_MOVIEPY: self.use_moviepy,
+            options.MOVIEPY_THREADS: self.moviepy_threads,
 
             # testing
             options.TESTING: self.testing,
@@ -250,8 +253,7 @@ class Stateful():
 
     @staticmethod
     def expect_paths_list(
-        contents: dict[str, typing.Any], key: str, code: int
-    ) -> str:
+            contents: dict[str, typing.Any], key: str, code: int) -> str:
         if key not in contents:
             util.print_error(f'{contents} not in configuration file')
             sys.exit(code)
