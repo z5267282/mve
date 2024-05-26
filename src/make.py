@@ -34,15 +34,16 @@ def main():
         sys.exit(error.EXISTING_CONFIG)
 
     # create config folder structure
-    files.do_folder_operation(configs_folder, os.mkdir)
+    files.do_folder_operation(new_config, os.mkdir)
 
-    for folder in config.Stateful.locate_folders():
-        files.do_folder_operation(new_config, os.mkdir)
+    for folder in config.Stateful.locate_folders(name):
+        files.do_folder_operation(new_config + folder, os.mkdir)
 
-    config_file, remaining = config.Stateful.locate_files()
+    config_file, remaining = config.Stateful.locate_files(name)
     # write an empty list of remaining videos
     json_handlers.write_to_json(list(), remaining)
     # create a config with default options
+    # TODO: add three folders
     cfg = config.Config()
     cfg.write_config_to_file(config_file)
 
