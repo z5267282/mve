@@ -124,8 +124,8 @@ class Stateful():
     REMAINING: str = 'remaining.json'
 
     def __init__(self, name: str):
-        queue, history, errors = Stateful.locate_folders()
-        config_file, remaining = Stateful.locate_files()
+        queue, history, errors = Stateful.locate_folders(name)
+        config_file, remaining = Stateful.locate_files(name)
 
         Stateful.verify_config_integrity(
             name,
