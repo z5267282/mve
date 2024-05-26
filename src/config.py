@@ -83,7 +83,7 @@ class Config():
     def write_config_to_file(self, joined_destination_path: str):
         data = {
             # folders
-            options.SOURCE: self.souce,
+            options.SOURCE: self.source,
             options.RENAMES: self.renames,
             options.DESTINATION: self.destination,
 

@@ -42,10 +42,11 @@ def main():
     config_file, remaining = config.Stateful.locate_files(name)
     # write an empty list of remaining videos
     json_handlers.write_to_json(list(), remaining)
+    source, renames, edits = make_config_contents()
     # create a config with default options
-    # TODO: add three folders
-    cfg = config.Config()
+    cfg = config.Config(source, renames, edits)
     cfg.write_config_to_file(config_file)
+    # TDOO: success message
 
 
 def make_config_contents() -> tuple[list[str], list[str], list[str]]:
