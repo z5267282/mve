@@ -213,29 +213,29 @@ class Stateful():
     def make_config_from_file(contents: dict[str, typing.Any]) -> Config:
         # folders
         source: list[str] = Stateful.expect_paths_list(
-            contents, options.SOURCE, error.Stateful_missing_source)
+            contents, options.SOURCE, error.CONFIG_MISSING_SOURCE)
         renames: list[str] = Stateful.expect_paths_list(
-            contents, options.RENAMES, error.Stateful_missing_renames)
+            contents, options.RENAMES, error.CONFIG_MISSING_RENAMES)
         destination: list[str] = Stateful.expect_paths_list(
-            contents, options.DESTINATION, error.config_missing_destination)
+            contents, options.DESTINATION, error.CONFIG_MISSING_DESTINATION)
 
         # file-order generation
-        recent = contents.get(options.RECENT, defaults.recent)
+        recent = contents.get(options.RECENT, defaults.RECENT)
 
         # multiprocessing
         num_processes: int = contents.get(
-            options.NUM_PROCESSES, defaults.num_processes)
+            options.NUM_PROCESSES, defaults.NUM_PROCESSES)
         # moviepy
         use_moviepy: bool = contents.get(
-            options.USE_MOVIEPY, defaults.use_moviepy)
+            options.USE_MOVIEPY, defaults.USE_MOVIEPY)
         moviepy_threads: int = contents.get(
-            options.MOVIEPY_THREADS, defaults.moviepy_threads)
+            options.MOVIEPY_THREADS, defaults.MOVIEPY_THREADS)
 
         # testing
-        testing: bool = contents.get(options.TESTING, defaults.testing)
+        testing: bool = contents.get(options.TESTING, defaults.TESTING)
 
         # colours
-        bold: bool = contents.get(options.BOLD, defaults.bold)
+        bold: bool = contents.get(options.BOLD, defaults.BOLD)
 
         return Config(
             # folders
