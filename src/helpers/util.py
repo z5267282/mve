@@ -12,7 +12,9 @@ def stderr_print(message):
 
 
 def print_error(message):
-    stderr_print(f'{colouring.colour_box(colours.RED, 'error')} {message}')
+    stderr_print('{} {}'.format(
+        colouring.colour_box(colours.RED, 'error'), message
+    ))
 
 
 def print_success(message: str) -> None:
@@ -20,7 +22,11 @@ def print_success(message: str) -> None:
         r'\.py$', r'',
         os.path.basename(sys.argv[0])
     )
-    print(f'{colouring.colour_box(colours.GREEN, 'success')} {base_name} {message}')
+    print(
+        '{} {} {}'.format(
+            colouring.colour_box(colours.GREEN, 'success'), base_name, message
+        )
+    )
 
 
 def format_remaining(num_remaining: int) -> str:
