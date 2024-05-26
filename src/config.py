@@ -146,7 +146,7 @@ class Stateful():
         self.cfg: Config = cfg
         self.name: str = name
 
-    @classmethod
+    @staticmethod
     def locate_configs_folder() -> list[str]:
         configs_folder = list(
             pathlib.Path(
@@ -160,7 +160,7 @@ class Stateful():
 
         return configs_folder
 
-    @classmethod
+    @staticmethod
     def locate_given_config(name: str) -> list[str]:
         config_folder = Stateful.locate_configs_folder() + [name]
 
@@ -170,7 +170,7 @@ class Stateful():
 
         return config_folder
 
-    @classmethod
+    @staticmethod
     def locate_folders(name: str) -> tuple[list[str], list[str], list[str]]:
         config_folder = Stateful.locate_given_config(name)
 
@@ -180,7 +180,7 @@ class Stateful():
 
         return queue, history, errors
 
-    @classmethod
+    @staticmethod
     def locate_files(name: str) -> tuple[str, str]:
         config_folder = Stateful.locate_given_config(name)
 
@@ -189,7 +189,7 @@ class Stateful():
 
         return config_file, remaining
 
-    @classmethod
+    @staticmethod
     def verify_config_integrity(
         name: str,
         queue: list[str], history: list[str], errors: list[str],
@@ -209,7 +209,7 @@ class Stateful():
             remaining, 'remaining videos file', error.NO_CONFIG_REMAINING
         )
 
-    @classmethod
+    @staticmethod
     def make_config_from_file(contents: dict[str, typing.Any]) -> Config:
         # folders
         source: list[str] = Stateful.expect_paths_list(
@@ -248,7 +248,7 @@ class Stateful():
             bold
         )
 
-    @classmethod
+    @staticmethod
     def expect_paths_list(
         contents: dict[str, typing.Any], key: str, code: int
     ) -> str:
