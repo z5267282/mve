@@ -12,7 +12,7 @@ import helpers.util as util
 def main():
     name = args.expect_config_name(sys.argv)
     state = config.Stateful(name)
-    run_checks(state.cfg)
+    run_checks(state)
 
     cfg = state.cfg
 
