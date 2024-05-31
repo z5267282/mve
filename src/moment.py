@@ -1,3 +1,4 @@
+import argparse
 import json
 import pathlib
 import sys
@@ -19,8 +20,14 @@ import lib.edit as edit
 def main():
     paths = gen_paths()
     cfg = config.Config(paths.source, paths.renames, paths.edits)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--testing', help='turn on testing mode', action='store_true')
+    args = parser.parse_args()
+
     cfg.recent = False
-    cfg.testing = False
+    cfg.testing = args.testing
 
     remaining, errors = gen_remaining(paths, cfg.recent), list()
     edits, renames, deletions = list(), dict(), list()

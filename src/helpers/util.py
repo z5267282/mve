@@ -30,7 +30,7 @@ def print_success(message: str) -> None:
 
 
 def format_remaining(num_remaining: int) -> str:
-    return 'exited with {} files{} remaining'.format(
+    return 'exited with {} file{} remaining'.format(
         colouring.colour_format(colours.CYAN, num_remaining),
         str() if num_remaining == 1 else 's'
     )
