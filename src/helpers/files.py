@@ -21,7 +21,7 @@ def do_folder_operation(
 def ls(paths_list: list[str], recent=False) -> list[str]:
     return sorted(
         do_folder_operation(paths_list, os.listdir),
-        key=lambda file_name: os.path.getctime(
+        key=lambda file_name: os.path.getmtime(
             get_joined_path(paths_list, file_name)
         ),
         reverse=recent
