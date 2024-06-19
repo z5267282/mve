@@ -1,5 +1,6 @@
 import os
 import re
+import requests
 import subprocess
 import sys
 
@@ -74,8 +75,8 @@ def view_video(base_name, testing: bool, paths: video_paths.VideoPaths):
 
     joined_path = files.get_joined_path(paths.source, base_name)
     system = sys.platform
-    if system.startswith('win'):
-        os.startfile(joined_path)
+    if system.startswith('linux'):
+        requests.get('http://localhost:4400/message', params={'v': base_name})
     elif system.startswith('darwin'):
         subprocess.run(['open', joined_path])
 
