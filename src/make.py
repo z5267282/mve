@@ -22,8 +22,8 @@ def main():
     name = args.expect_config_name(sys.argv)
 
     # verify name
-    if not re.fullmatch(r'[a-z-]+', name):
-        util.print_error('config must contain only a-z or - characters')
+    if not re.fullmatch(r'[a-z0-9-]+', name):
+        util.print_error('config must contain only a-z, 0-9 or - characters')
         sys.exit(error.BAD_CONFIG_NAME)
 
     # ensure non-existent
