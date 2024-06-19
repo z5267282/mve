@@ -26,6 +26,8 @@ Each script should be run with these this argument:
 python3 script.py config
 ```
 
+All scripts can be run on a docker container with the exception of **`make.py`** as it requires OS-specific path information.
+
 ## 2. Stateless Mode
 
 Run `moment.py` to run treatments without recording history.  
