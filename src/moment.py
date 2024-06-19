@@ -1,3 +1,6 @@
+'''Run the mve project as a one-off command-line video editor without history.
+Absolute paths must be entered in place of a loaded configuration file.'''
+
 import argparse
 import json
 import pathlib

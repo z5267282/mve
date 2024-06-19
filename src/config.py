@@ -1,3 +1,5 @@
+'''Configure folder paths and settings for a given category of videos.'''
+
 import os
 import pathlib
 import typing
