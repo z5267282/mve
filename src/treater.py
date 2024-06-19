@@ -7,7 +7,6 @@ When an error occurs, the file name of the offending treatment is appended to th
 After it has been rewatched in the viewer, it can also be re-treated upon the next viewing session.
 The program prematurely terminates if any of the aformentioned folders do not exist.'''
 
-
 import os
 import sys
 
