@@ -1,8 +1,8 @@
 # suffix for edited videos
-SUFFIX = 'mp4'
+SUFFIX: str = 'mp4'
 
 # moviepy clip editing
-FRAMES = 60
-VCODEC = 'libx264'
-COMPRESSION = 'slower'
-ACODEC = 'aac'
+FRAMES: int = 60
+VCODEC: str = 'libx264'
+COMPRESSION: str = 'slower'
+ACODEC: str = 'aac'
