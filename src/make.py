@@ -22,22 +22,42 @@ import helpers.util as util
 
 def main():
     name = args.expect_config_name(sys.argv)
+    verify_name(name)
 
-    # verify name
+    configs_folder = config.Stateful.locate_configs_folder()
+    new_config = configs_folder + [name]
+    check_config_exists(new_config, name)
+    make_config_folder(new_config)
+    write_config_to_file(new_config, name)
+
+    util.print_success(f'created config: {colouring.highlight(name)}')
+
+
+def verify_name(name: str):
     if not re.fullmatch(r'[a-z0-9-]+', name):
         util.print_error('config must contain only a-z, 0-9 or - characters')
         sys.exit(error.BAD_CONFIG_NAME)
 
-    # ensure non-existent
-    configs_folder = config.Stateful.locate_configs_folder()
-    new_config = configs_folder + [name]
+
+def make_config_contents() -> tuple[list[str], list[str], list[str]]:
+    print('enter these folders')
+    source = tokenise_path('source')
+    renames = tokenise_path('renames')
+    edits = tokenise_path('destination')
+    return source, renames, edits
+
+
+def check_config_exists(new_config: str, name: str):
     if files.folder_exists(new_config):
         util.print_error(f'the config \'{name}\' already exists')
         sys.exit(error.EXISTING_CONFIG)
 
-    # create config folder structure
+
+def make_config_folder(new_config: str):
     files.do_folder_operation(new_config, os.mkdir)
 
+
+def write_config_to_file(new_config: str, name: str):
     for folder in config.Stateful.locate_folders(name):
         files.do_folder_operation(new_config + folder, os.mkdir)
 
@@ -45,21 +65,12 @@ def main():
     # write an empty list of remaining videos
     json_handlers.write_to_json(list(), remaining)
     source, renames, edits = make_config_contents()
-    # create a config with default options
+    # the config will be created with default options
     cfg = config.Config(source, renames, edits)
     cfg.write_config_to_file(config_file)
-    util.print_success(f'created config: {colouring.highlight(name)}')
 
 
-def make_config_contents() -> tuple[list[str], list[str], list[str]]:
-    print('enter these folders')
-    source = stringify_path('source')
-    renames = stringify_path('renames')
-    edits = stringify_path('destination')
-    return source, renames, edits
-
-
-def stringify_path(display: str) -> str:
+def tokenise_path(display: str) -> list[str]:
     folder = input(f'{display}: ')
     return list(
         pathlib.Path(folder).parts
