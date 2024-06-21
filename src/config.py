@@ -131,13 +131,12 @@ class Stateful():
     def __init__(self, name: str):
         queue, history, errors = Stateful.locate_folders(name)
         config_file, remaining = Stateful.locate_files(name)
+        contents = json_handlers.read_from_json(config_file)
 
         Stateful.verify_config_integrity(
             queue, history, errors, config_file, remaining,
             contents.get(options.BOLD, defaults.BOLD)
         )
-
-        contents = json_handlers.read_from_json(config_file)
         cfg = Stateful.make_config_from_file(
             contents, contents.get(options.BOLD, defaults.BOLD)
         )
