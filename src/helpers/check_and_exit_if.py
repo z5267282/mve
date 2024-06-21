@@ -24,11 +24,11 @@ def bad_args(argv: list[str], length: int, usage_message: str = ''):
     sys.exit(error.BAD_COMMAND_LINE_ARGS)
 
 
-def no_file(joined_path: str, desc: str, code: int):
+def no_file(joined_path: str, desc: str, code: int, bold: bool):
     if not os.path.exists(joined_path):
         util.stderr_print(
             'the {} file \'{}\' does not exist'.format(
-                desc, colouring.highlight(joined_path)
+                desc, colouring.highlight(joined_path, bold)
             )
         )
         sys.exit(code)

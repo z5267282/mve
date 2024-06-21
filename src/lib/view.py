@@ -62,7 +62,7 @@ def run_loop(
             case _:
                 util.print_error(
                     'invalid command \'{}\' - press {} for a list of commands'.format(
-                        colouring.highlight(command), commands.HELP
+                        colouring.highlight(command, bold), commands.HELP
                     ), bold
                 )
 
@@ -250,7 +250,9 @@ def check_times(
     if not end_seconds > start_seconds:
         util.print_error(
             'the end time \'{}\' must be bigger than the start time \'{}\''.format(
-                colouring.highlight(end), colouring.highlight(start), bold)
+                colouring.highlight(end, bold),
+                colouring.highlight(start, bold), bold
+            )
         )
         return False
 
@@ -298,7 +300,7 @@ def print_duration_error(time: str, name: str, is_start: bool, bold: bool):
     util.print_error(
         'the {} time \'{}\' is not in the bounds of video {}'.format(
             get_start_end_description(is_start),
-            colouring.highlight(time, bool), name
+            colouring.highlight(time, bold), name
         ), bold
     )
 
@@ -338,8 +340,8 @@ def reprompt_name(current_name: str, bold: bool) -> None | str:
     warn = colouring.warning()
     print(
         '{} the name \'{}\' starts with a number are you sure you haven\'t misentered the[{}]iddle command?'.format(
-            warn, colouring.highlight(
-                current_name), highlight_command(commands.MIDDLE, bold)
+            warn, colouring.highlight(current_name, bold),
+            highlight_command(commands.MIDDLE, bold)
         )
     )
     change_name = input(
@@ -357,7 +359,7 @@ def check_file_exists(name: str, folder: list[str], bold: bool) -> bool:
     ):
         util.print_error(
             'the file \'{}\' exists in the folder {}'.format(
-                colouring.highlight(name), folder
+                colouring.highlight(name, bold), folder
             ), bold
         )
         return True

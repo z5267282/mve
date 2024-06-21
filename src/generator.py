@@ -29,9 +29,8 @@ def main():
     joined_path = files.join_folder(cfg.source)
     util.exit_success(
         'placed file names from the folder \'{}\' in {}'.format(
-            colouring.highlight(joined_path),
-            state.remaining
-        ), cfg.bold
+            colouring.highlight(joined_path, cfg.bold), state.remaining),
+        cfg.bold
     )
 
 

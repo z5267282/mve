@@ -133,7 +133,9 @@ class Stateful():
         config_file, remaining = Stateful.locate_files(name)
 
         Stateful.verify_config_integrity(
-            queue, history, errors, config_file, remaining)
+            queue, history, errors, config_file, remaining,
+            contents.get(options.BOLD, defaults.BOLD)
+        )
 
         contents = json_handlers.read_from_json(config_file)
         cfg = Stateful.make_config_from_file(
@@ -196,7 +198,7 @@ class Stateful():
     @staticmethod
     def verify_config_integrity(
         queue: list[str], history: list[str], errors: list[str],
-        config_file: str, remaining: str
+        config_file: str, remaining: str, bold: bool
     ):
         '''Verify the given config has all the correct files'''
         # folders
@@ -207,10 +209,9 @@ class Stateful():
 
         # files
         check_and_exit_if.no_file(
-            config_file, 'config file', error.NO_CONFIG_FILE)
-        check_and_exit_if.no_file(
-            remaining, 'remaining videos file', error.NO_CONFIG_REMAINING
-        )
+            config_file, 'config file', error.NO_CONFIG_FILE, bold)
+        check_and_exit_if.no_file(remaining, 'remaining videos file',
+                                  error.NO_CONFIG_REMAINING, bold)
 
     @staticmethod
     def make_config_from_file(
