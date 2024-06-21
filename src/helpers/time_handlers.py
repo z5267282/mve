@@ -1,4 +1,4 @@
-def get_seconds(time):
+def get_seconds(time: str) -> int:
     if time.startswith('-'):
         return int(time[1:])
 
@@ -8,7 +8,7 @@ def get_seconds(time):
     return int(time)
 
 
-def get_timestamp_seconds(timestamp):
+def get_timestamp_seconds(timestamp: int) -> int:
     return sum(
         int(t) * (60 ** i)
         for i, t in enumerate(
