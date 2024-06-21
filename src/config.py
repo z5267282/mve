@@ -133,10 +133,7 @@ class Stateful():
         config_file, remaining = Stateful.locate_files(name)
 
         Stateful.verify_config_integrity(
-            name,
-            queue, history, errors,
-            config_file, remaining
-        )
+            queue, history, errors, config_file, remaining)
 
         contents = json_handlers.read_from_json(config_file)
         cfg = Stateful.make_config_from_file(contents)
