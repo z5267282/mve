@@ -49,7 +49,7 @@ def run_checks(cfg: config.Config):
     cfg.one_of_config_folders_missing()
 
 
-def log_to_file(state: config.Stateful, edits, renames, deletions, paths_dict: dict[str, list[str]]):
+def log_to_file(state: config.Stateful, edits: list[dict], renames: dict[str, str], deletions: list[str], paths_dict: dict[str, list[str]]):
     treatment_name = timestamps.generate_timestamped_file_name()
     joined_treatment_name = files.get_joined_path(state.queue, treatment_name)
     data = view.wrap_session(edits, renames, deletions)
