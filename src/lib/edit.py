@@ -28,31 +28,43 @@ def treat_all(
     delete_all(deletions, remaining, errors, paths)
 
 
-def edit_all(edits, use_moviepy: bool, moviepy_threads: int, num_processes: int, remaining, errors, paths: video_paths.VideoPaths):
-    with concurrent.futures.ProcessPoolExecutor(max_workers=num_processes) as executor:
+def edit_all(
+        edits: list[dict], use_moviepy: bool, moviepy_threads: int,
+        num_processes: int, remaining: list[str], errors: list[dict],
+        paths: video_paths.VideoPaths):
+    with concurrent.futures.ProcessPoolExecutor(
+            max_workers=num_processes) as executor:
         results = [executor.submit(
-            edit_one, edit, use_moviepy, moviepy_threads, paths) for edit in edits]
-        for future, edit in zip(concurrent.futures.as_completed(results), edits):
+            edit_one, edit, use_moviepy, moviepy_threads, paths)
+            for edit in edits]
+        for future, edit in zip(
+                concurrent.futures.as_completed(results), edits):
             try:
                 future.result()
             except Exception as e:
-                handle_error(errors, remaining,
-                             edit[treatment_format.EDIT_ORIGINAL], str(e), treatment_format.EDITS, edit)
+                handle_error(
+                    errors, remaining, edit[treatment_format.EDIT_ORIGINAL],
+                    str(e), treatment_format.EDITS, edit)
 
 
-def edit_one(edit, use_moviepy: bool, moviepy_threads: int, paths: video_paths.VideoPaths):
+def edit_one(edit: dict, use_moviepy: bool, moviepy_threads: int,
+             paths: video_paths.VideoPaths):
     name = edit[treatment_format.EDIT_ORIGINAL]
     joined_src_path = files.get_joined_path(paths.source, name)
     joined_dst_path = files.get_joined_path(
         paths.edits, edit[treatment_format.EDIT_NAME])
 
     times = edit[treatment_format.EDIT_TIMES]
-    start, end = times[treatment_format.EDIT_TIMES_START], times[treatment_format.EDIT_TIMES_END]
+    start = times[treatment_format.EDIT_TIMES_START]
+    end = times[treatment_format.EDIT_TIMES_END]
     edit_video(use_moviepy, moviepy_threads,
                joined_src_path, joined_dst_path, start, end)
 
 
-def edit_video(use_moviepy: bool, moviepy_threads: int, joined_src_path, joined_dst_path, start, end):
+def edit_video(
+        use_moviepy: bool, moviepy_threads: int,
+        joined_src_path: str, joined_dst_path: str,
+        start: None | str, end: None | str):
     if use_moviepy:
         edit_moviepy(moviepy_threads, joined_src_path,
                      joined_dst_path, start, end)
@@ -60,7 +72,9 @@ def edit_video(use_moviepy: bool, moviepy_threads: int, joined_src_path, joined_
         edit_ffmpeg(joined_src_path, joined_dst_path, start, end)
 
 
-def edit_moviepy(joined_src_path, joined_dst_path, start, end, moviepy_threads: int):
+def edit_moviepy(
+        joined_src_path: str, joined_dst_path: str,
+        start: None | str, end: None | str, moviepy_threads: int):
     with mvp.VideoFileClip(joined_src_path) as file:
         clip = file.subclip(t_start=start, t_end=end)
         clip.write_videofile(
@@ -73,14 +87,17 @@ def edit_moviepy(joined_src_path, joined_dst_path, start, end, moviepy_threads: 
         )
 
 
-def edit_ffmpeg(joined_src_path, joined_dst_path, start, end):
+def edit_ffmpeg(
+        joined_src_path: str, joined_dst_path: str,
+        start: None | str, end: None | str):
     source = ['-accurate_seek', '-i', joined_src_path]
-    args = ['ffmpeg', '-y', *
-            generate_ffmpeg_args(source, start, end), '-c', 'copy', joined_dst_path]
+    args = ['ffmpeg', '-y', *generate_ffmpeg_args(source, start, end),
+            '-c', 'copy', joined_dst_path]
     subprocess.run(args, check=True)
 
 
-def generate_ffmpeg_args(source, start, end):
+def generate_ffmpeg_args(
+        source: list[str], start: None | str, end: None | str) -> list[str]:
     if start is None and end is None:
         return source
 
@@ -96,18 +113,21 @@ def generate_ffmpeg_args(source, start, end):
     return ['-ss', start, *source, '-to', relative_time]
 
 
-def handle_error(errors, remaining, name, message, command, data):
+def handle_error(
+        errors: list[dict], remaining: list[str],
+        name: str, message: str, command: str, data: str):
     add_error(errors, name, message, command, data)
     add_to_remaining(remaining, name)
 
 
-def add_error(errors, name, message, command, data):
+def add_error(
+        errors: list[dict], name: str, message: str, command: str, data: str):
     errors.append(
         create_error_dict(name, message, command, data)
     )
 
 
-def create_error_dict(name, message, command, data):
+def create_error_dict(name: str, message: str, command: str, data: str):
     return {
         errors_format.ERROR_FILE_NAME: name,
         errors_format.ERROR_MESSAGE: message,
@@ -116,11 +136,13 @@ def create_error_dict(name, message, command, data):
     }
 
 
-def add_to_remaining(remaining, name):
+def add_to_remaining(remaining: list[str], name: str):
     remaining.append(name)
 
 
-def rename_all(renames, remaining, errors, paths: video_paths.VideoPaths):
+def rename_all(
+        renames: dict[str, str], remaining: list[str], errors: list[dict],
+        paths: video_paths.VideoPaths):
     for rename_source in renames:
         new_name = renames[rename_source]
         try:
@@ -130,13 +152,15 @@ def rename_all(renames, remaining, errors, paths: video_paths.VideoPaths):
                          str(e), treatment_format.RENAMES, new_name)
 
 
-def do_rename(src_name, dst_name, paths: video_paths.VideoPaths):
+def do_rename(src_name: str, dst_name: str, paths: video_paths.VideoPaths):
     joined_src_name = files.get_joined_path(paths.source, src_name)
     joined_dst_name = files.get_joined_path(paths.renames, dst_name)
     os.rename(joined_src_name, joined_dst_name)
 
 
-def delete_all(deletions, remaining, errors, paths: video_paths.VideoPaths):
+def delete_all(
+        deletions: list[str], remaining: list[str], errors: list[dict],
+        paths: video_paths.VideoPaths):
     for deletion_name in deletions:
         try:
             do_delete(deletion_name, paths)
@@ -145,6 +169,6 @@ def delete_all(deletions, remaining, errors, paths: video_paths.VideoPaths):
                          str(e), treatment_format.DELETIONS, None)
 
 
-def do_delete(src_name: list[str], paths: video_paths.VideoPaths):
+def do_delete(src_name: str, paths: video_paths.VideoPaths):
     joined_src_name = files.get_joined_path(paths.source, src_name)
     os.remove(joined_src_name)
