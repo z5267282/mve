@@ -129,7 +129,7 @@ def do_edit(
         command: str, base_name: str, raw_tokens: str, edits: list[dict],
         start_end_name_unpacker: typing.Callable[[str], str],
         paths: video_paths.VideoPaths, bold: bool, integer=False) -> bool:
-    tokens = parse_tokens(raw_tokens, command)
+    tokens = parse_tokens(raw_tokens, command, bold)
     if tokens is None:
         return False
 
