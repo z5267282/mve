@@ -1,22 +1,22 @@
 '''String names for options that can be configured via a file-based config'''
 
 # folders
-SOURCE = 'SOURCE'
-RENAMES = 'RENAMES'
-DESTINATION = 'DESTINATION'
+SOURCE: str = 'SOURCE'
+RENAMES: str = 'RENAMES'
+DESTINATION: str = 'DESTINATION'
 
 # file-order generation
-RECENT = 'RECENT'
+RECENT: str = 'RECENT'
 
 # multiprocessing
-NUM_PROCESSES = 'NUM_PROCESSES'
+NUM_PROCESSES: str = 'NUM_PROCESSES'
 
 # moviepy
-USE_MOVIEPY = 'USE_MOVIEPY'
-MOVIEPY_THREADS = 'MOVIEPY_THREADS'
+USE_MOVIEPY: str = 'USE_MOVIEPY'
+MOVIEPY_THREADS: str = 'MOVIEPY_THREADS'
 
 # testing
-TESTING = 'TESTING'
+TESTING: str = 'TESTING'
 
 # colours
-BOLD = 'BOLD'
+BOLD: str = 'BOLD'
