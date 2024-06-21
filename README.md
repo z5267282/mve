@@ -88,7 +88,7 @@ File names could be duplicated and hence a list of objects is used.
             erf.ERROR_FILE_NAME : [ file name ],
             erf.ERROR_MESSAGE   : [ error message ],
             erf.ERROR_COMMAND   : [ trf.EDITS | trf.RENAMES | trf.DELETIONS ],
-            erf.ERROR_DATA      : [ original data if any | null ]
+            erf.ERROR_DATA      : [ error message ]
         }
     ],
     erf.ERRORS_PATHS : {
