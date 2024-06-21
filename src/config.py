@@ -196,7 +196,6 @@ class Stateful():
 
     @staticmethod
     def verify_config_integrity(
-        name: str,
         queue: list[str], history: list[str], errors: list[str],
         config_file: str, remaining: str
     ):
