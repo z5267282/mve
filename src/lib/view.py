@@ -39,7 +39,7 @@ def run_loop(
             case commands.CONTINUE:
                 do_continue(remaining, base_name)
             case commands.HELP:
-                do_help()
+                do_help(bold)
             case commands.END:
                 go_to_next_file = do_end(
                     base_name, raw_tokens, edits, paths, bold)
@@ -98,17 +98,15 @@ def do_continue(remaining: list[str], base_name: str):
     remaining.insert(0, base_name)
 
 
-def do_help():
+def do_help(bold: bool):
     print(
-        highlight_all_commands(commands.HELP_MESSAGE)
+        highlight_all_commands(commands.HELP_MESSAGE, bold)
     )
 
 
-def highlight_all_commands(string: str) -> str:
+def highlight_all_commands(string: str, bold: bool) -> str:
     def repl(match): return '[{}]'.format(
-        highlight_command(
-            match.group(1)
-        )
+        highlight_command(match.group(1), bold)
     )
     return re.sub(r'\[(.)\]', repl, string)
 
@@ -164,7 +162,7 @@ def parse_tokens(raw_tokens: str, command: str, bold: bool) -> None | list[str]:
     if not tokens:
         no_double_spaces = re.sub(r' {2,}', r' ', commands.USAGE_MSGS[command])
         print_usage_error(
-            highlight_all_commands(no_double_spaces), bold)
+            highlight_all_commands(no_double_spaces, bold), bold)
         return None
 
     return tokens
