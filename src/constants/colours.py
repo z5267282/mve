@@ -1,11 +1,11 @@
 '''Unicode colour values'''
 
-BLACK = 30
-RED = 31
-GREEN = 32
-YELLOW = 33
-BLUE = 34
-PURPLE = 35
-CYAN = 36
-WHITE = 37
-RESET = 0
+BLACK: int = 30
+RED: int = 31
+GREEN: int = 32
+YELLOW: int = 33
+BLUE: int = 34
+PURPLE: int = 35
+CYAN: int = 36
+WHITE: int = 37
+RESET: int = 0
