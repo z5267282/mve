@@ -30,31 +30,33 @@ NUM_TOKENS: dict[str, int] = {
     RENAME: 1
 }
 
+NAME_FORMAT: str = 'the name can only contain upper and lowercase letters, digits and spacebars'
+
 # help message
 HELP_MESSAGE: str = f'''
 {{{END}}}
     + edit from [ start ] to end of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + {NAME_FORMAT}
 
 {{{START}}}
     + edit from start to [ time ] of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + {NAME_FORMAT}
 
 {{{MIDDLE}}}
     + edit from [ start ] to [ end ]
     + start and end are the form [ natural number | timestamp in form <[hour]-min-sec> ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + {NAME_FORMAT}
 
 {{{WHOLE}}}
     + edit the entire clip from start to end
     + like running [ s 0 ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + {NAME_FORMAT}
 
 {{{RENAME}}}
     + rename the clip to [ name ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + {NAME_FORMAT}
 
 {{{DELETE}}}
     + delete the clip
@@ -68,5 +70,3 @@ HELP_MESSAGE: str = f'''
 {{{HELP}}}
     + print this message
 '''.format_map(USAGE_MSGS)
-
-NAME_FORMAT: str = 'the name can only contain upper and lowercase letters, digits and spacebars'
