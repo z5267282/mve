@@ -1,9 +1,10 @@
-'''Sequentially view all remaining files in the given config.
-Each remaining video is played based on the operating system, with the editing command entered afterwards.
-If the script is run on Mac or Windows, the native OS video player will be used to open videos.
-It is assumed that a Linux environment corresponds to a Docker container.
-In this case, the videos are played on a browser that is hosted by the container.
-The viewer will prematurely terminate if there are no remaining files, or the source folder for the given config does not exist.
+'''Sequentially view all remaining files in the given config. Each remaining 
+video is played based on the operating system, with the editing command entered
+afterwards. If the script is run on Mac or Windows, the native OS video player
+will be used to open videos. It is assumed that a Linux environment corresponds
+to a Docker container. In this case, the videos are played on a browser that is
+hosted by the container. The viewer will prematurely terminate if there are no
+remaining files, or the source folder for the given config does not exist.
 Once complete, the viewer enques a new treatment for the given config.'''
 
 import sys
@@ -49,7 +50,10 @@ def run_checks(cfg: config.Config):
     cfg.one_of_config_folders_missing()
 
 
-def log_to_file(state: config.Stateful, edits: list[dict], renames: dict[str, str], deletions: list[str], paths_dict: dict[str, list[str]]):
+def log_to_file(
+        state: config.Stateful,
+        edits: list[dict], renames: dict[str, str], deletions: list[str],
+        paths_dict: dict[str, list[str]]):
     treatment_name = timestamps.generate_timestamped_file_name()
     joined_treatment_name = files.get_joined_path(state.queue, treatment_name)
     data = view.wrap_session(edits, renames, deletions)
