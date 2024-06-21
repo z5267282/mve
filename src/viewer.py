@@ -32,7 +32,8 @@ def main():
     remaining = state.load_remaining()
     edits, renames, deletions = list(), dict(), list()
     folders = cfg.create_source_folders()
-    view.run_loop(remaining, edits, renames, deletions, folders, cfg.testing)
+    view.run_loop(
+        remaining, edits, renames, deletions, folders, cfg.testing, cfg.bold)
     state.write_remaining(remaining)
 
     if edits or renames or deletions:
@@ -41,7 +42,7 @@ def main():
 
     util.exit_success(
         util.format_remaining(
-            len(remaining)
+            len(remaining), cfg.bold
         )
     )
 

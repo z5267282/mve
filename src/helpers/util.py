@@ -29,9 +29,9 @@ def print_success(message: str):
     )
 
 
-def format_remaining(num_remaining: int) -> str:
+def format_remaining(num_remaining: int, bold: bool) -> str:
     return 'exited with {} file{} remaining'.format(
-        colouring.colour_format(colours.CYAN, num_remaining),
+        colouring.colour_format(colours.CYAN, num_remaining, bold),
         str() if num_remaining == 1 else 's'
     )
 

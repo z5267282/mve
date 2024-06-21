@@ -35,10 +35,10 @@ def main():
     remaining, errors = gen_remaining(paths, cfg.recent), list()
     edits, renames, deletions = list(), dict(), list()
     num_remaining = view.run_loop(remaining, edits, renames,
-                                  deletions, paths, cfg.testing)
+                                  deletions, paths, cfg.testing, cfg.bold)
     data = view.wrap_session(edits, renames, deletions)
     print(
-        util.format_remaining(num_remaining)
+        util.format_remaining(num_remaining), cfg.bold
     )
 
     edit.treat_all(data, cfg.use_moviepy, cfg.moviepy_threads,

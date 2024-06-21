@@ -20,7 +20,7 @@ import helpers.colouring as colouring
 def run_loop(
         remaining: list[str],
         edits: list[dict], renames: dict[str, str], deletions: list[str],
-        paths: video_paths.VideoPaths, testing: bool) -> int:
+        paths: video_paths.VideoPaths, testing: bool, bold: bool) -> int:
     padding = len(
         str(
             len(remaining)
@@ -43,17 +43,20 @@ def run_loop(
             case commands.HELP:
                 do_help()
             case commands.END:
-                go_to_next_file = do_end(base_name, raw_tokens, edits, paths)
+                go_to_next_file = do_end(
+                    base_name, raw_tokens, edits, paths, bold)
             case commands.START:
-                go_to_next_file = do_start(base_name, raw_tokens, edits, paths)
+                go_to_next_file = do_start(
+                    base_name, raw_tokens, edits, paths, bold)
             case commands.MIDDLE:
                 go_to_next_file = do_middle(
-                    base_name, raw_tokens, edits, paths)
+                    base_name, raw_tokens, edits, paths, bold)
             case commands.WHOLE:
-                go_to_next_file = do_whole(base_name, raw_tokens, edits, paths)
+                go_to_next_file = do_whole(
+                    base_name, raw_tokens, edits, paths, bold)
             case commands.RENAME:
                 go_to_next_file = do_rename(
-                    base_name, raw_tokens, renames, paths)
+                    base_name, raw_tokens, renames, paths, bold)
             case commands.DELETE:
                 go_to_next_file = do_delete(base_name, deletions)
             case _:
@@ -112,24 +115,22 @@ def highlight_all_commands(string: str) -> str:
     return re.sub(r'\[(.)\]', repl, string)
 
 
-def highlight_command(command: str) -> str:
-    return colouring.colour_format(colours.PURPLE, command)
+def highlight_command(command: str, bold: bool) -> str:
+    return colouring.colour_format(colours.PURPLE, command, bold)
 
 
 def do_end(
         base_name: str, raw_tokens: str, edits: list[dict],
-        paths: video_paths.VideoPaths) -> bool:
+        paths: video_paths.VideoPaths, bold: bool) -> bool:
     return do_edit(
         commands.END, base_name, raw_tokens, edits,
-        lambda tokens: (tokens[0], None, tokens[1]), paths,
-        integer=True
-    )
+        lambda tokens: (tokens[0], None, tokens[1]), paths, bold, integer=True)
 
 
 def do_edit(
         command: str, base_name: str, raw_tokens: str, edits: list[dict],
         start_end_name_unpacker: typing.Callable[[str], str],
-        paths: video_paths.VideoPaths, integer=False) -> bool:
+        paths: video_paths.VideoPaths, bold: bool, integer=False) -> bool:
     tokens = parse_tokens(raw_tokens, command)
     if tokens is None:
         return False
@@ -152,7 +153,7 @@ def do_edit(
     if not check_times(base_name, start, end, paths):
         return False
 
-    edit_name = handle_new_name(edit_name, paths.edits)
+    edit_name = handle_new_name(edit_name, paths.edits, bold)
     if edit_name is None:
         return False
 
@@ -307,12 +308,13 @@ def get_start_end_description(is_start: bool) -> str:
     return 'start' if is_start else 'end'
 
 
-def handle_new_name(new_name: str, dst_folder: list[str]) -> None | str:
+def handle_new_name(
+        new_name: str, dst_folder: list[str], bold: bool) -> None | str:
     if not correct_name_format(new_name):
         print_name_format()
         return None
 
-    new_name = handle_leading_number(new_name)
+    new_name = handle_leading_number(new_name, bold)
     if not new_name is None:
         new_name = add_suffix(new_name)
         if check_file_exists(new_name, dst_folder):
@@ -329,16 +331,16 @@ def print_name_format():
     util.print_error(commands.NAME_FORMAT)
 
 
-def handle_leading_number(name: str) -> str:
-    return reprompt_name(name) if re.match(r'[0-9]+', name) else name
+def handle_leading_number(name: str, bold: bool) -> str:
+    return reprompt_name(name, bold) if re.match(r'[0-9]+', name) else name
 
 
-def reprompt_name(current_name: str) -> None | str:
+def reprompt_name(current_name: str, bold: bool) -> None | str:
     warn = colouring.warning()
     print(
         '{} the name \'{}\' starts with a number are you sure you haven\'t misentered the[{}]iddle command?'.format(
             warn, colouring.highlight(
-                current_name), highlight_command(commands.MIDDLE)
+                current_name), highlight_command(commands.MIDDLE, bold)
         )
     )
     change_name = input(
@@ -380,40 +382,40 @@ def log_edit(
 
 def do_start(
         base_name: str, raw_tokens: str, edits: list[dict],
-        paths: video_paths.VideoPaths) -> bool:
+        paths: video_paths.VideoPaths, bold: bool) -> bool:
     return do_edit(
         commands.START, base_name, raw_tokens, edits,
-        lambda tokens: (None, tokens[0], tokens[1]), paths
+        lambda tokens: (None, tokens[0], tokens[1]), paths, bold
     )
 
 
 def do_middle(
         base_name: str, raw_tokens: str, edits: list[dict],
-        paths: video_paths.VideoPaths) -> bool:
+        paths: video_paths.VideoPaths, bold: bool) -> bool:
     return do_edit(
         commands.MIDDLE, base_name, raw_tokens, edits,
-        lambda tokens: tokens, paths
+        lambda tokens: tokens, paths, bold
     )
 
 
 def do_whole(
         base_name: str, raw_tokens: str, edits: list[dict],
-        paths: video_paths.VideoPaths) -> bool:
+        paths: video_paths.VideoPaths, bold: bool) -> bool:
     return do_edit(
         commands.WHOLE, base_name, raw_tokens, edits,
-        lambda tokens: (None, None, tokens[0]), paths
+        lambda tokens: (None, None, tokens[0]), paths, bold
     )
 
 
 def do_rename(
         base_name: str, raw_tokens: str, renames: dict[str, str],
-        paths: video_paths.VideoPaths) -> bool:
+        paths: video_paths.VideoPaths, bold: bool) -> bool:
     tokens = parse_tokens(raw_tokens, commands.RENAME)
     if not tokens:
         return False
 
     new_name, = tokens
-    new_name = handle_new_name(new_name, paths.renames)
+    new_name = handle_new_name(new_name, paths.renames, bold)
     if new_name is None:
         return False
 
