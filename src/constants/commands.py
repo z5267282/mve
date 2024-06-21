@@ -68,3 +68,5 @@ HELP_MESSAGE: str = f'''
 {{{HELP}}}
     + print this message
 '''.format_map(USAGE_MSGS)
+
+NAME_FORMAT: str = 'the name can only contain upper and lowercase letters, digits and spacebars'

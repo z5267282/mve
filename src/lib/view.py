@@ -326,8 +326,7 @@ def correct_name_format(name: str) -> re.Match[str] | None:
 
 
 def print_name_format():
-    util.print_error(
-        'the name can only contain upper and lowercase letters, digits and spacebars')
+    util.print_error(commands.NAME_FORMAT)
 
 
 def handle_leading_number(name: str) -> str:
