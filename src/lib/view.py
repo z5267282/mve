@@ -3,6 +3,7 @@ import re
 import requests
 import subprocess
 import sys
+import typing
 
 import constants.video_editing as video_editing
 import constants.treatment_format as treatment_format
@@ -17,10 +18,9 @@ import helpers.colouring as colouring
 
 
 def run_loop(
-    remaining: list[str],
-    edits: list[dict], renames: dict[str, str], deletions: list[str],
-    paths: video_paths.VideoPaths, testing: bool
-):
+        remaining: list[str],
+        edits: list[dict], renames: dict[str, str], deletions: list[str],
+        paths: video_paths.VideoPaths, testing: bool) -> int:
     padding = len(
         str(
             len(remaining)
@@ -69,7 +69,7 @@ def run_loop(
     return len(remaining)
 
 
-def view_video(base_name, testing: bool, paths: video_paths.VideoPaths):
+def view_video(base_name: str, testing: bool, paths: video_paths.VideoPaths):
     if testing:
         return
 
@@ -83,7 +83,8 @@ def view_video(base_name, testing: bool, paths: video_paths.VideoPaths):
         subprocess.run(['open', joined_path])
 
 
-def prompt(base_name, padding, number_remaining):
+def prompt(
+        base_name: str, padding: int, number_remaining: int) -> tuple[str, str]:
     coloured_remaining = colouring.colour_box(
         colours.CYAN, f'{number_remaining:^{padding}}')
     args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
@@ -92,7 +93,7 @@ def prompt(base_name, padding, number_remaining):
     return command, raw_tokens
 
 
-def do_continue(remaining, base_name):
+def do_continue(remaining: list[str], base_name: str):
     remaining.insert(0, base_name)
 
 
@@ -102,7 +103,7 @@ def do_help():
     )
 
 
-def highlight_all_commands(string):
+def highlight_all_commands(string: str) -> str:
     def repl(match): return '[{}]'.format(
         highlight_command(
             match.group(1)
@@ -111,11 +112,13 @@ def highlight_all_commands(string):
     return re.sub(r'\[(.)\]', repl, string)
 
 
-def highlight_command(command):
+def highlight_command(command: str) -> str:
     return colouring.colour_format(colours.PURPLE, command)
 
 
-def do_end(base_name, raw_tokens, edits, paths: video_paths.VideoPaths):
+def do_end(
+        base_name: str, raw_tokens: str, edits: list[dict],
+        paths: video_paths.VideoPaths) -> bool:
     return do_edit(
         commands.END, base_name, raw_tokens, edits,
         lambda tokens: (tokens[0], None, tokens[1]), paths,
@@ -123,7 +126,10 @@ def do_end(base_name, raw_tokens, edits, paths: video_paths.VideoPaths):
     )
 
 
-def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, paths: video_paths.VideoPaths, integer=False):
+def do_edit(
+        command: str, base_name: str, raw_tokens: str, edits: list[dict],
+        start_end_name_unpacker: typing.Callable[[str], str],
+        paths: video_paths.VideoPaths, integer=False) -> bool:
     tokens = parse_tokens(raw_tokens, command)
     if tokens is None:
         return False
@@ -154,7 +160,7 @@ def do_edit(command, base_name, raw_tokens, edits, start_end_name_unpacker, path
     return True
 
 
-def parse_tokens(raw_tokens, command):
+def parse_tokens(raw_tokens: str, command: str) -> None | list[str]:
     tokens = split_tokens(raw_tokens, command)
     if not tokens:
         no_double_spaces = re.sub(r' {2,}', r' ', commands.USAGE_MSGS[command])
@@ -166,7 +172,7 @@ def parse_tokens(raw_tokens, command):
     return tokens
 
 
-def split_tokens(raw_tokens, command):
+def split_tokens(raw_tokens: str, command: str) -> list[str]:
     if not raw_tokens:
         return list()
 
@@ -175,15 +181,16 @@ def split_tokens(raw_tokens, command):
     return tokens if len(tokens) == n_tokens else list()
 
 
-def tokenise(raw_tokens, splits):
+def tokenise(raw_tokens: str, splits: int) -> list[str]:
     return raw_tokens.split(' ', splits)
 
 
-def print_usage_error(format):
+def print_usage_error(format: str):
     util.print_error(f'usage: {format}')
 
 
-def parse_time(raw_time, regex, is_start, format):
+def parse_time(
+        raw_time: str, regex: str, is_start: bool, format: str) -> None | str:
     time = raw_time
     if re.fullmatch(regex, time):
         time = raw_time
@@ -196,37 +203,47 @@ def parse_time(raw_time, regex, is_start, format):
     return time
 
 
-def parse_timestamp(timestamp):
-    return timestamp.replace('-', ':') if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) else None
+def parse_timestamp(timestamp: str) -> None | str:
+    return \
+        timestamp.replace('-', ':') \
+        if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) \
+        else None
 
 
-def print_time_format(is_start, format):
+def print_time_format(is_start: bool, format: str):
     util.print_error(
         f'the {get_start_end_description(is_start)} time must be in the format {format}')
 
 
-def check_times(base_name, start, end, paths: video_paths.VideoPaths):
+def check_times(
+        base_name: str, start: None | str, end: None | str,
+        paths: video_paths.VideoPaths) -> bool:
     if start is None and end is None:
         return True
 
     joined_src_path = files.get_joined_path(paths.source, base_name)
     duration = get_duration(joined_src_path)
     if start is None:
-        if not check_in_bounds(end, time_handlers.get_seconds(end), duration, base_name, is_start=False):
+        if not check_in_bounds(
+                end, time_handlers.get_seconds(end), duration, base_name,
+                is_start=False):
             return False
 
         return True
 
     if end is None:
-        if not check_in_bounds(start, time_handlers.get_seconds(start), duration, base_name):
+        if not check_in_bounds(
+                start, time_handlers.get_seconds(start), duration, base_name):
             return False
 
         return True
 
     start_seconds, end_seconds = time_handlers.get_seconds(
         start), time_handlers.get_seconds(end)
-    for time, seconds, is_start in zip([start, end], [start_seconds, end_seconds], [True, False]):
-        if not check_in_bounds(time, seconds, duration, base_name, is_start=is_start):
+    for time, seconds, is_start in zip(
+            [start, end], [start_seconds, end_seconds], [True, False]):
+        if not check_in_bounds(
+                time, seconds, duration, base_name, is_start=is_start):
             return False
 
     if not end_seconds > start_seconds:
@@ -240,7 +257,7 @@ def check_times(base_name, start, end, paths: video_paths.VideoPaths):
     return True
 
 
-def get_duration(joined_src_path):
+def get_duration(joined_src_path: str) -> int:
     args = [
         'ffprobe',
         '-i',
@@ -257,13 +274,15 @@ def get_duration(joined_src_path):
     return round_float(result.stdout)
 
 
-def round_float(float_string):
+def round_float(float_string: str) -> int:
     match = re.match(r'([(0-9)]+)\.([0-9])', float_string)
     whole_number, tenths = int(match.group(1)), int(match.group(2))
     return whole_number + (tenths >= 5)
 
 
-def check_in_bounds(time, seconds, duration, base_name, is_start=True):
+def check_in_bounds(
+        time: str, seconds: int, duration: int, base_name: str,
+        is_start: bool = True) -> bool:
     if not in_duration_bounds(seconds, duration):
         print_duration_error(time, base_name, is_start)
         return False
@@ -271,11 +290,11 @@ def check_in_bounds(time, seconds, duration, base_name, is_start=True):
     return True
 
 
-def in_duration_bounds(seconds, duration):
+def in_duration_bounds(seconds: int, duration: int) -> bool:
     return seconds >= 0 and seconds <= duration
 
 
-def print_duration_error(time, name, is_start):
+def print_duration_error(time: str, name: str, is_start: bool):
     util.print_error(
         'the {} time \'{}\' is not in the bounds of video {}'.format(
             get_start_end_description(is_start),
@@ -284,11 +303,11 @@ def print_duration_error(time, name, is_start):
     )
 
 
-def get_start_end_description(is_start):
+def get_start_end_description(is_start: bool) -> str:
     return 'start' if is_start else 'end'
 
 
-def handle_new_name(new_name, dst_folder):
+def handle_new_name(new_name: str, dst_folder: list[str]) -> None | str:
     if not correct_name_format(new_name):
         print_name_format()
         return None
@@ -302,7 +321,7 @@ def handle_new_name(new_name, dst_folder):
     return new_name
 
 
-def correct_name_format(name):
+def correct_name_format(name: str) -> re.Match[str] | None:
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
 
 
@@ -311,11 +330,11 @@ def print_name_format():
         'the name can only contain upper and lowercase letters, digits and spacebars')
 
 
-def handle_leading_number(name):
+def handle_leading_number(name: str) -> str:
     return reprompt_name(name) if re.match(r'[0-9]+', name) else name
 
 
-def reprompt_name(current_name):
+def reprompt_name(current_name: str) -> None | str:
     warn = colouring.warning()
     print(
         '{} the name \'{}\' starts with a number are you sure you haven\'t misentered the[{}]iddle command?'.format(
@@ -328,11 +347,11 @@ def reprompt_name(current_name):
     return None if change_name == 'y' else current_name
 
 
-def add_suffix(name):
+def add_suffix(name: str) -> str:
     return f'{name}.{video_editing.SUFFIX}'
 
 
-def check_file_exists(name, folder):
+def check_file_exists(name: str, folder: list[str]) -> bool:
     if os.path.exists(
         files.get_joined_path(folder, name)
     ):
@@ -346,7 +365,9 @@ def check_file_exists(name, folder):
     return False
 
 
-def log_edit(base_name, edit_name, edits, start, end):
+def log_edit(
+        base_name: str, edit_name: str, edits: list[dict],
+        start: None | str, end: None | str):
     new_edit = {
         treatment_format.EDIT_ORIGINAL: base_name,
         treatment_format.EDIT_NAME: edit_name,
@@ -358,28 +379,36 @@ def log_edit(base_name, edit_name, edits, start, end):
     edits.append(new_edit)
 
 
-def do_start(base_name, raw_tokens, edits, paths: video_paths.VideoPaths):
+def do_start(
+        base_name: str, raw_tokens: str, edits: list[dict],
+        paths: video_paths.VideoPaths) -> bool:
     return do_edit(
         commands.START, base_name, raw_tokens, edits,
         lambda tokens: (None, tokens[0], tokens[1]), paths
     )
 
 
-def do_middle(base_name, raw_tokens, edits, paths: video_paths.VideoPaths):
+def do_middle(
+        base_name: str, raw_tokens: str, edits: list[dict],
+        paths: video_paths.VideoPaths) -> bool:
     return do_edit(
         commands.MIDDLE, base_name, raw_tokens, edits,
         lambda tokens: tokens, paths
     )
 
 
-def do_whole(base_name, raw_tokens, edits, paths: video_paths.VideoPaths):
+def do_whole(
+        base_name: str, raw_tokens: str, edits: list[dict],
+        paths: video_paths.VideoPaths) -> bool:
     return do_edit(
         commands.WHOLE, base_name, raw_tokens, edits,
         lambda tokens: (None, None, tokens[0]), paths
     )
 
 
-def do_rename(base_name, raw_tokens, renames, paths: video_paths.VideoPaths):
+def do_rename(
+        base_name: str, raw_tokens: str, renames: dict[str, str],
+        paths: video_paths.VideoPaths) -> bool:
     tokens = parse_tokens(raw_tokens, commands.RENAME)
     if not tokens:
         return False
@@ -393,20 +422,21 @@ def do_rename(base_name, raw_tokens, renames, paths: video_paths.VideoPaths):
     return True
 
 
-def log_rename(old_name, new_name, renames):
+def log_rename(old_name: str, new_name: str, renames: dict[str, str]):
     renames[old_name] = new_name
 
 
-def do_delete(base_name, deletions):
+def do_delete(base_name: str, deletions: list[str]) -> bool:
     log_delete(base_name, deletions)
     return True
 
 
-def log_delete(base_name, deletions):
+def log_delete(base_name: str, deletions: list[str]):
     deletions.append(base_name)
 
 
-def wrap_session(edits, renames, deletions):
+def wrap_session(edits: list[dict], renames: dict[str, str],
+                 deletions: list[str]) -> dict:
     return {
         treatment_format.EDITS: edits,
         treatment_format.RENAMES: renames,
