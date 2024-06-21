@@ -32,9 +32,7 @@ def run_loop(
         view_video(base_name, testing, paths)
 
         go_to_next_file = False
-        command, raw_tokens = prompt(
-            base_name, padding, len(remaining)
-        )
+        command, raw_tokens = prompt(base_name, padding, len(remaining), bool)
         match command:
             case commands.QUIT:
                 break
