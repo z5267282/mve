@@ -4,7 +4,7 @@ If the script is run on Mac or Windows, the native OS video player will be used 
 It is assumed that a Linux environment corresponds to a Docker container.
 In this case, the videos are played on a browser that is hosted by the container.
 The viewer will prematurely terminate if there are no remaining files, or the source folder for the given config does not exist.
-Once complete, the viewer enques a new treatment for the given config'''
+Once complete, the viewer enques a new treatment for the given config.'''
 
 import sys
 
