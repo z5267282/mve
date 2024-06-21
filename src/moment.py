@@ -38,7 +38,7 @@ def main():
                                   deletions, paths, cfg.testing, cfg.bold)
     data = view.wrap_session(edits, renames, deletions)
     print(
-        util.format_remaining(num_remaining), cfg.bold
+        util.format_remaining(num_remaining, cfg.bold)
     )
 
     edit.treat_all(data, cfg.use_moviepy, cfg.moviepy_threads,

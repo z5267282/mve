@@ -41,10 +41,7 @@ def main():
         log_to_file(state, edits, renames, deletions, paths_dict)
 
     util.exit_success(
-        util.format_remaining(
-            len(remaining), cfg.bold
-        ), cfg.bold
-    )
+        util.format_remaining(len(remaining), cfg.bold), cfg.bold)
 
 
 def run_checks(cfg: config.Config):
