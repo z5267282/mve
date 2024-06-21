@@ -31,7 +31,7 @@ def main():
         'placed file names from the folder \'{}\' in {}'.format(
             colouring.highlight(joined_path),
             state.remaining
-        )
+        ), cfg.bold
     )
 
 

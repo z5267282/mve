@@ -12,6 +12,7 @@ import sys
 import config
 
 import constants.error as error
+import constants.options as options
 
 import helpers.args as args
 import helpers.colouring as colouring
@@ -30,12 +31,14 @@ def main():
     make_config_folder(new_config)
     write_config_to_file(new_config, name)
 
-    util.print_success(f'created config: {colouring.highlight(name)}')
+    util.print_success(
+        f'created config: {colouring.highlight(name)}', options.BOLD)
 
 
 def verify_name(name: str):
     if not re.fullmatch(r'[a-z0-9-]+', name):
-        util.print_error('config must contain only a-z, 0-9 or - characters')
+        util.print_error(
+            'config must contain only a-z, 0-9 or - characters', options.BOLD)
         sys.exit(error.BAD_CONFIG_NAME)
 
 
@@ -49,7 +52,7 @@ def make_config_contents() -> tuple[list[str], list[str], list[str]]:
 
 def check_config_exists(new_config: str, name: str):
     if files.folder_exists(new_config):
-        util.print_error(f'the config \'{name}\' already exists')
+        util.print_error(f'the config \'{name}\' already exists', options.BOLD)
         sys.exit(error.EXISTING_CONFIG)
 
 

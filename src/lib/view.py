@@ -63,7 +63,7 @@ def run_loop(
                 util.print_error(
                     'invalid command \'{}\' - press {} for a list of commands'.format(
                         colouring.highlight(command), commands.HELP
-                    )
+                    ), bold
                 )
 
         if go_to_next_file:
@@ -86,10 +86,10 @@ def view_video(base_name: str, testing: bool, paths: video_paths.VideoPaths):
         subprocess.run(['open', joined_path])
 
 
-def prompt(
-        base_name: str, padding: int, number_remaining: int) -> tuple[str, str]:
+def prompt(base_name: str, padding: int, number_remaining: int,
+           bold: bool) -> tuple[str, str]:
     coloured_remaining = colouring.colour_box(
-        colours.CYAN, f'{number_remaining:^{padding}}')
+        colours.CYAN, f'{number_remaining:^{padding}}', bold)
     args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
     command = args.pop(0)
     raw_tokens = args.pop() if args else str()
@@ -141,16 +141,16 @@ def do_edit(
         regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
 
     if not start is None:
-        start = parse_time(start, regex, True, format)
+        start = parse_time(start, regex, True, format, bold)
         if start is None:
             return False
 
     if not end is None:
-        end = parse_time(end, regex, False, format)
+        end = parse_time(end, regex, False, format, bold)
         if end is None:
             return False
 
-    if not check_times(base_name, start, end, paths):
+    if not check_times(base_name, start, end, paths, bold):
         return False
 
     edit_name = handle_new_name(edit_name, paths.edits, bold)
@@ -161,13 +161,12 @@ def do_edit(
     return True
 
 
-def parse_tokens(raw_tokens: str, command: str) -> None | list[str]:
+def parse_tokens(raw_tokens: str, command: str, bold: bool) -> None | list[str]:
     tokens = split_tokens(raw_tokens, command)
     if not tokens:
         no_double_spaces = re.sub(r' {2,}', r' ', commands.USAGE_MSGS[command])
         print_usage_error(
-            highlight_all_commands(no_double_spaces)
-        )
+            highlight_all_commands(no_double_spaces), bold)
         return None
 
     return tokens
@@ -186,12 +185,12 @@ def tokenise(raw_tokens: str, splits: int) -> list[str]:
     return raw_tokens.split(' ', splits)
 
 
-def print_usage_error(format: str):
-    util.print_error(f'usage: {format}')
+def print_usage_error(format: str, bold: bool):
+    util.print_error(f'usage: {format}', bold)
 
 
-def parse_time(
-        raw_time: str, regex: str, is_start: bool, format: str) -> None | str:
+def parse_time(raw_time: str, regex: str, is_start: bool, format: str,
+               bold: bool) -> None | str:
     time = raw_time
     if re.fullmatch(regex, time):
         time = raw_time
@@ -199,7 +198,7 @@ def parse_time(
         time = parse_timestamp(raw_time)
 
     if time is None:
-        print_time_format(is_start, format)
+        print_time_format(is_start, format, bold)
 
     return time
 
@@ -211,14 +210,15 @@ def parse_timestamp(timestamp: str) -> None | str:
         else None
 
 
-def print_time_format(is_start: bool, format: str):
+def print_time_format(is_start: bool, format: str, bold: bool):
     util.print_error(
-        f'the {get_start_end_description(is_start)} time must be in the format {format}')
+        'the {} time must be in the format {}'.format(
+            get_start_end_description(is_start), format), bold)
 
 
 def check_times(
         base_name: str, start: None | str, end: None | str,
-        paths: video_paths.VideoPaths) -> bool:
+        paths: video_paths.VideoPaths, bold: bool) -> bool:
     if start is None and end is None:
         return True
 
@@ -226,15 +226,15 @@ def check_times(
     duration = get_duration(joined_src_path)
     if start is None:
         if not check_in_bounds(
-                end, time_handlers.get_seconds(end), duration, base_name,
+                end, time_handlers.get_seconds(end), duration, base_name, bold,
                 is_start=False):
             return False
 
         return True
 
     if end is None:
-        if not check_in_bounds(
-                start, time_handlers.get_seconds(start), duration, base_name):
+        if not check_in_bounds(start, time_handlers.get_seconds(start),
+                               duration, base_name, bold):
             return False
 
         return True
@@ -244,14 +244,13 @@ def check_times(
     for time, seconds, is_start in zip(
             [start, end], [start_seconds, end_seconds], [True, False]):
         if not check_in_bounds(
-                time, seconds, duration, base_name, is_start=is_start):
+                time, seconds, duration, base_name, bold, is_start=is_start):
             return False
 
     if not end_seconds > start_seconds:
         util.print_error(
             'the end time \'{}\' must be bigger than the start time \'{}\''.format(
-                colouring.highlight(end), colouring.highlight(start)
-            )
+                colouring.highlight(end), colouring.highlight(start), bold)
         )
         return False
 
@@ -282,10 +281,10 @@ def round_float(float_string: str) -> int:
 
 
 def check_in_bounds(
-        time: str, seconds: int, duration: int, base_name: str,
+        time: str, seconds: int, duration: int, base_name: str, bold: bool,
         is_start: bool = True) -> bool:
     if not in_duration_bounds(seconds, duration):
-        print_duration_error(time, base_name, is_start)
+        print_duration_error(time, base_name, is_start, bold)
         return False
 
     return True
@@ -295,12 +294,12 @@ def in_duration_bounds(seconds: int, duration: int) -> bool:
     return seconds >= 0 and seconds <= duration
 
 
-def print_duration_error(time: str, name: str, is_start: bool):
+def print_duration_error(time: str, name: str, is_start: bool, bold: bool):
     util.print_error(
         'the {} time \'{}\' is not in the bounds of video {}'.format(
             get_start_end_description(is_start),
-            colouring.highlight(time), name
-        )
+            colouring.highlight(time, bool), name
+        ), bold
     )
 
 
@@ -311,13 +310,13 @@ def get_start_end_description(is_start: bool) -> str:
 def handle_new_name(
         new_name: str, dst_folder: list[str], bold: bool) -> None | str:
     if not correct_name_format(new_name):
-        print_name_format()
+        print_name_format(bold)
         return None
 
     new_name = handle_leading_number(new_name, bold)
     if not new_name is None:
         new_name = add_suffix(new_name)
-        if check_file_exists(new_name, dst_folder):
+        if check_file_exists(new_name, dst_folder, bold):
             return None
 
     return new_name
@@ -327,8 +326,8 @@ def correct_name_format(name: str) -> re.Match[str] | None:
     return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
 
 
-def print_name_format():
-    util.print_error(commands.NAME_FORMAT)
+def print_name_format(bold: bool):
+    util.print_error(commands.NAME_FORMAT, bold)
 
 
 def handle_leading_number(name: str, bold: bool) -> str:
@@ -352,14 +351,14 @@ def add_suffix(name: str) -> str:
     return f'{name}.{video_editing.SUFFIX}'
 
 
-def check_file_exists(name: str, folder: list[str]) -> bool:
+def check_file_exists(name: str, folder: list[str], bold: bool) -> bool:
     if os.path.exists(
         files.get_joined_path(folder, name)
     ):
         util.print_error(
             'the file \'{}\' exists in the folder {}'.format(
                 colouring.highlight(name), folder
-            )
+            ), bold
         )
         return True
 
@@ -410,7 +409,7 @@ def do_whole(
 def do_rename(
         base_name: str, raw_tokens: str, renames: dict[str, str],
         paths: video_paths.VideoPaths, bold: bool) -> bool:
-    tokens = parse_tokens(raw_tokens, commands.RENAME)
+    tokens = parse_tokens(raw_tokens, commands.RENAME, bold)
     if not tokens:
         return False
 

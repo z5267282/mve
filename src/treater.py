@@ -49,9 +49,9 @@ def main():
 
     if errors:
         paths_dict = state.generate_paths_dict()
-        handle_errors(state, remaining, errors, paths_dict)
+        handle_errors(state, remaining, errors, paths_dict, cfg.bold)
 
-    util.exit_treat_all_good()
+    util.exit_treat_all_good(cfg.bold)
 
 
 def run_checks(state: config.Stateful):
@@ -77,14 +77,13 @@ def update_history(
     os.rename(joined_current_file, joined_history_file)
 
 
-def handle_errors(
-    state: config.Stateful,
-    remaining: list[str], errors: list[dict], paths_dict: dict[str, list[str]]
-):
+def handle_errors(state: config.Stateful, remaining: list[str],
+                  errors: list[dict], paths_dict: dict[str, list[str]],
+                  bold: bool):
     error_file_name = timestamps.generate_timestamped_file_name()
     write_errors(error_file_name, errors, paths_dict)
     state.write_remaining(remaining)
-    exit_treatment_error(error_file_name)
+    exit_treatment_error(error_file_name, bold)
 
 
 def write_errors(
@@ -100,11 +99,11 @@ def write_errors(
     json_handlers.write_to_json(data, joined_error_file_name)
 
 
-def exit_treatment_error(error_file_name: str):
+def exit_treatment_error(error_file_name: str, bold: bool):
     util.print_error(
         'one or more errors occurred during treatment logged in \'{}\''.format(
             colouring.highlight(error_file_name)
-        )
+        ), bold
     )
     sys.exit(error.TREATMENT_ERROR)
 

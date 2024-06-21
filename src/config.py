@@ -136,7 +136,9 @@ class Stateful():
             queue, history, errors, config_file, remaining)
 
         contents = json_handlers.read_from_json(config_file)
-        cfg = Stateful.make_config_from_file(contents)
+        cfg = Stateful.make_config_from_file(
+            contents, contents.get(options.BOLD, defaults.BOLD)
+        )
 
         self.queue: list[str] = queue
         self.history: list[str] = history
@@ -211,14 +213,16 @@ class Stateful():
         )
 
     @staticmethod
-    def make_config_from_file(contents: dict[str, typing.Any]) -> Config:
+    def make_config_from_file(
+            contents: dict[str, typing.Any], bold: bool) -> Config:
         # folders
         source: list[str] = Stateful.expect_paths_list(
-            contents, options.SOURCE, error.CONFIG_MISSING_SOURCE)
+            contents, options.SOURCE, error.CONFIG_MISSING_SOURCE, bold)
         renames: list[str] = Stateful.expect_paths_list(
-            contents, options.RENAMES, error.CONFIG_MISSING_RENAMES)
+            contents, options.RENAMES, error.CONFIG_MISSING_RENAMES, bold)
         destination: list[str] = Stateful.expect_paths_list(
-            contents, options.DESTINATION, error.CONFIG_MISSING_DESTINATION)
+            contents, options.DESTINATION, error.CONFIG_MISSING_DESTINATION,
+            bold)
 
         # file-order generation
         recent = contents.get(options.RECENT, defaults.RECENT)
@@ -250,10 +254,10 @@ class Stateful():
         )
 
     @staticmethod
-    def expect_paths_list(
-            contents: dict[str, typing.Any], key: str, code: int) -> str:
+    def expect_paths_list(contents: dict[str, typing.Any], key: str, code: int,
+                          bold: bool) -> str:
         if key not in contents:
-            util.print_error(f'{contents} not in configuration file')
+            util.print_error(f'{contents} not in configuration file', bold)
             sys.exit(code)
         return contents[key]
 

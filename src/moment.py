@@ -43,8 +43,8 @@ def main():
 
     edit.treat_all(data, cfg.use_moviepy, cfg.moviepy_threads,
                    cfg.num_processes, remaining, errors, paths)
-    handle_errors(errors)
-    util.exit_treat_all_good()
+    handle_errors(errors, cfg.bold)
+    util.exit_treat_all_good(cfg.bold)
 
 
 def gen_paths() -> video_paths.VideoPaths:
@@ -67,10 +67,10 @@ def decompose_path_into_folders(abs_path: str) -> list[str]:
     return list(path.parts)
 
 
-def handle_errors(errors: dict[str, typing.Any]):
+def handle_errors(errors: dict, bold: bool):
     if errors:
         util.print_error(
-            json.dumps(errors, indent=json_settings.INDENT_SPACES)
+            json.dumps(errors, indent=json_settings.INDENT_SPACES), bold
         )
         sys.exit(error.TREATMENT_ERROR)
 

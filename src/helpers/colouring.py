@@ -20,5 +20,5 @@ def colour_box(colour: int, message: str, bold: bool):
     return f'[ {colour_format(colour, message, bold)} ]'
 
 
-def warning() -> str:
-    return colour_box(colours.YELLOW, 'warning')
+def warning(bold: bool) -> str:
+    return colour_box(colours.YELLOW, 'warning', bold)

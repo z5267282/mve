@@ -43,7 +43,7 @@ def main():
     util.exit_success(
         util.format_remaining(
             len(remaining), cfg.bold
-        )
+        ), cfg.bold
     )
 
 
