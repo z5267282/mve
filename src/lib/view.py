@@ -247,8 +247,8 @@ def check_times(
         util.print_error(
             'the end time \'{}\' must be bigger than the start time \'{}\''.format(
                 colouring.highlight(end, bold),
-                colouring.highlight(start, bold), bold
-            )
+                colouring.highlight(start, bold),
+            ), bold
         )
         return False
 
