@@ -1,9 +1,8 @@
-'''Make a new config folder.
-Note that this script must be run on the host machine to ensure the correct file path convention is used.
-When prompted, enter absolute paths for the source, renames and destination paths.
-The config name must only contain [a-z-] letters.
-The config is generated with default settings.
-A config will only be made if one does not exist at present.'''
+'''Make a new config folder. Note that this script must be run on the host
+machine to ensure the correct file path convention is used. When prompted,
+enter absolute paths for the source, renames and destination paths. The config
+name must only contain [a-z-] letters. The config is generated with default
+settings. A config will only be made if one does not exist at present.'''
 
 import os
 import pathlib
@@ -15,6 +14,7 @@ import config
 import constants.error as error
 
 import helpers.args as args
+import helpers.colouring as colouring
 import helpers.files as files
 import helpers.json_handlers as json_handlers
 import helpers.util as util
@@ -48,7 +48,7 @@ def main():
     # create a config with default options
     cfg = config.Config(source, renames, edits)
     cfg.write_config_to_file(config_file)
-    # TDOO: success message
+    util.print_success(f'created config: {colouring.highlight(name)}')
 
 
 def make_config_contents() -> tuple[list[str], list[str], list[str]]:
