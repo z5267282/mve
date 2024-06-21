@@ -1,18 +1,18 @@
 # keys within a treatment
-EDITS = 'edits'
+EDITS: str = 'edits'
 # keys within edits
-EDIT_ORIGINAL = 'original'
-EDIT_NAME = 'new name'
-EDIT_TIMES = 'times'
+EDIT_ORIGINAL: str = 'original'
+EDIT_NAME: str = 'new name'
+EDIT_TIMES: str = 'times'
 # keys within edit times
-EDIT_TIMES_START = 'start'
-EDIT_TIMES_END = 'end'
+EDIT_TIMES_START: str = 'start'
+EDIT_TIMES_END: str = 'end'
 
-RENAMES = 'renames'
-DELETIONS = 'deletions'
+RENAMES: str = 'renames'
+DELETIONS: str = 'deletions'
 
-PATHS = 'paths'
+PATHS: str = 'paths'
 # keys within paths
-SOURCE_PATH = 'source path'
-RENAME_PATH = 'renames path'
-DESTINATION_PATH = 'destination path'
+SOURCE_PATH: str = 'source path'
+RENAME_PATH: str = 'renames path'
+DESTINATION_PATH: str = 'destination path'
