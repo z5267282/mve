@@ -26,9 +26,8 @@ def print_success(message: str, bold: bool):
     )
     print(
         '{} {} {}'.format(
-            colouring.colour_box(colours.GREEN, 'success'),
-            base_name, message, bold
-        )
+            colouring.colour_box(colours.GREEN, 'success', bold), base_name,
+            message, bold)
     )
 
 
