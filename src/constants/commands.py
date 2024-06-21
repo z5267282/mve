@@ -1,15 +1,15 @@
 # command key mappings
-END = 'e'
-START = 's'
-MIDDLE = 'm'
-WHOLE = 'w'
-RENAME = 'r'
-DELETE = 'd'
-CONTINUE = 'c'
-QUIT = 'q'
-HELP = 'h'
+END: str = 'e'
+START: str = 's'
+MIDDLE: str = 'm'
+WHOLE: str = 'w'
+RENAME: str = 'r'
+DELETE: str = 'd'
+CONTINUE: str = 'c'
+QUIT: str = 'q'
+HELP: str = 'h'
 
-USAGE_MSGS = {
+USAGE_MSGS: dict[str, str] = {
     END: '[e]nd      | [ start ] [ name ]',
     START: '[s]tart    | [ end ] [ name ]',
     MIDDLE: '[m]iddle   | [ start ] [ end ] [ name ]',
@@ -22,7 +22,7 @@ USAGE_MSGS = {
 }
 
 # number of tokens expected by commands that need extra arguments
-NUM_TOKENS = {
+NUM_TOKENS: dict[str, int] = {
     END: 2,
     START: 2,
     MIDDLE: 3,
@@ -31,7 +31,7 @@ NUM_TOKENS = {
 }
 
 # help message
-HELP_MESSAGE = f'''
+HELP_MESSAGE: str = f'''
 {{{END}}}
     + edit from [ start ] to end of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
