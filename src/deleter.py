@@ -24,7 +24,8 @@ def main():
 
     joined_path = files.join_folder(cfg.source)
     util.exit_success(
-        f'removed the folder \'{colouring.highlight(joined_path)}\'', cfg.bold)
+        f'removed the folder \'{colouring.highlight(joined_path, cfg.bold)}\'',
+        cfg.bold)
 
 
 def run_checks(state: config.Stateful):
