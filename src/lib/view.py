@@ -153,7 +153,8 @@ def do_edit(
             base_name, start, end, paths, bold):
         return False
 
-    if (new_name := handle_new_name(edit_name, paths.edits, bold)) is None:
+    new_name = handle_new_name(edit_name, paths.edits, bold)
+    if new_name is None:
         return False
 
     log_edit(base_name, new_name, edits, start, end)
@@ -317,10 +318,12 @@ def handle_new_name(
         print_name_format(bold)
         return None
 
-    if (reprompt_name := handle_leading_number(new_name, bold)) is not None:
-        new_name = add_suffix(reprompt_name)
-        if check_file_exists(new_name, dst_folder, bold):
-            return None
+    if name_starts_with_number(new_name, bold):
+        return None
+
+    new_name = add_suffix(new_name)
+    if check_file_exists(new_name, dst_folder, bold):
+        return None
 
     return new_name
 
@@ -333,11 +336,13 @@ def print_name_format(bold: bool):
     util.print_error(commands.NAME_FORMAT, bold)
 
 
-def handle_leading_number(name: str, bold: bool) -> None | str:
-    return reprompt_name(name, bold) if re.match(r'[0-9]+', name) else name
+def name_starts_with_number(name: str, bold: bool) -> bool:
+    return reprompt_name(name, bold) if re.match(r'[0-9]+', name) else False
 
 
-def reprompt_name(current_name: str, bold: bool) -> None | str:
+def reprompt_name(current_name: str, bold: bool) -> bool:
+    '''Given that a name starts with a number, verify whether the user wants
+    to re-enter the command by prompting them'''
     warn = colouring.warning(bold)
     print(
         '{} the name \'{}\' starts with a number are you sure you haven\'t misentered the[{}]iddle command?'.format(
@@ -347,7 +352,7 @@ def reprompt_name(current_name: str, bold: bool) -> None | str:
     )
     change_name = input(
         f'{warn} type \'y\' if you want to re-enter this command : ')
-    return None if change_name == 'y' else current_name
+    return change_name == 'y'
 
 
 def add_suffix(name: str) -> str:
