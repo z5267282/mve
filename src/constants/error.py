@@ -21,6 +21,9 @@ NO_ERRORS_FOLDER: int = 10
 # treatment
 TREATMENT_ERROR: int = 11
 
+# configs
+CONFIGS_ENVIRONMENT_NOT_SET: int = 12
+
 # config swapping
 NO_CONFIGS_FOLDER: int = 12
 NO_SUCH_CONFIG: int = 13
