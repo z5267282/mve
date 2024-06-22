@@ -8,7 +8,7 @@ def get_seconds(time: str) -> int:
     return int(time)
 
 
-def get_timestamp_seconds(timestamp: int) -> int:
+def get_timestamp_seconds(timestamp: str) -> int:
     return sum(
         int(t) * (60 ** i)
         for i, t in enumerate(
