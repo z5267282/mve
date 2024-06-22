@@ -2,7 +2,6 @@
 
 import os
 import pathlib
-import typing
 import sys
 
 import constants.defaults as defaults
@@ -213,8 +212,7 @@ class Stateful():
                                   error.NO_CONFIG_REMAINING, bold)
 
     @staticmethod
-    def make_config_from_file(
-            contents: dict[str, typing.Any], bold: bool) -> Config:
+    def make_config_from_file(contents: dict, bold: bool) -> Config:
         # folders
         source: list[str] = Stateful.expect_paths_list(
             contents, options.SOURCE, error.CONFIG_MISSING_SOURCE, bold)
@@ -239,9 +237,6 @@ class Stateful():
         # testing
         testing: bool = contents.get(options.TESTING, defaults.TESTING)
 
-        # colours
-        bold: bool = contents.get(options.BOLD, defaults.BOLD)
-
         return Config(
             # folders
             source, renames, destination,
@@ -254,8 +249,8 @@ class Stateful():
         )
 
     @staticmethod
-    def expect_paths_list(contents: dict[str, typing.Any], key: str, code: int,
-                          bold: bool) -> str:
+    def expect_paths_list(contents: dict, key: str, code: int,
+                          bold: bool) -> list[str]:
         if key not in contents:
             util.print_error(f'{contents} not in configuration file', bold)
             sys.exit(code)
