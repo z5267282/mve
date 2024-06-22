@@ -2,6 +2,7 @@ import concurrent.futures
 import os
 import moviepy.editor as mvp
 import subprocess
+import typing
 
 import constants.errors_format as errors_format
 import constants.treatment_format as treatment_format
@@ -12,11 +13,10 @@ import helpers.video_paths as video_paths
 import helpers.time_handlers as time_handlers
 
 
-def treat_all(
-    data: list[dict],
-    use_moviepy: bool, moviepy_threads: int, num_processes: int,
-    remaining: list[str], errors: list[dict], paths: video_paths.VideoPaths
-):
+def treat_all(data: dict,
+              use_moviepy: bool, moviepy_threads: int, num_processes: int,
+              remaining: list[str], errors: list[dict],
+              paths: video_paths.VideoPaths):
     edits = data[treatment_format.EDITS]
     edit_all(edits, use_moviepy, moviepy_threads,
              num_processes, remaining, errors, paths)
@@ -66,8 +66,8 @@ def edit_video(
         joined_src_path: str, joined_dst_path: str,
         start: None | str, end: None | str):
     if use_moviepy:
-        edit_moviepy(moviepy_threads, joined_src_path,
-                     joined_dst_path, start, end)
+        edit_moviepy(joined_src_path, joined_dst_path, start, end,
+                     moviepy_threads)
     else:
         edit_ffmpeg(joined_src_path, joined_dst_path, start, end)
 
@@ -98,36 +98,36 @@ def edit_ffmpeg(
 
 def generate_ffmpeg_args(
         source: list[str], start: None | str, end: None | str) -> list[str]:
-    if start is None and end is None:
-        return source
-
-    if start is None:
+    if start is None and end is not None:
         return [*source, '-to', end]
 
-    if end is None:
+    if start is not None and end is None:
         return ['-sseof' if start.startswith('-') else '-ss', start, *source]
 
-    relative_time = str(
-        time_handlers.get_seconds(end) - time_handlers.get_seconds(start)
-    )
-    return ['-ss', start, *source, '-to', relative_time]
+    if start is not None and end is not None:
+        relative_time = str(
+            time_handlers.get_seconds(end) - time_handlers.get_seconds(start)
+        )
+        return ['-ss', start, *source, '-to', relative_time]
+
+    return source
 
 
 def handle_error(
         errors: list[dict], remaining: list[str],
-        name: str, message: str, command: str, data: str):
+        name: str, message: str, command: str, data: typing.Any):
     add_error(errors, name, message, command, data)
     add_to_remaining(remaining, name)
 
 
-def add_error(
-        errors: list[dict], name: str, message: str, command: str, data: str):
+def add_error(errors: list[dict], name: str, message: str, command: str,
+              data: typing.Any):
     errors.append(
         create_error_dict(name, message, command, data)
     )
 
 
-def create_error_dict(name: str, message: str, command: str, data: str):
+def create_error_dict(name: str, message: str, command: str, data: typing.Any):
     return {
         errors_format.ERROR_FILE_NAME: name,
         errors_format.ERROR_MESSAGE: message,

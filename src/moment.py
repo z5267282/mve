@@ -67,7 +67,7 @@ def decompose_path_into_folders(abs_path: str) -> list[str]:
     return list(path.parts)
 
 
-def handle_errors(errors: dict, bold: bool):
+def handle_errors(errors: list[dict], bold: bool):
     if errors:
         util.print_error(
             json.dumps(errors, indent=json_settings.INDENT_SPACES), bold
