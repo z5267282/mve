@@ -51,18 +51,18 @@ def make_config_contents() -> tuple[list[str], list[str], list[str]]:
     return source, renames, edits
 
 
-def check_config_exists(new_config: str, name: str):
+def check_config_exists(new_config: list[str], name: str):
     if files.folder_exists(new_config):
         util.print_error(
             f'the config \'{name}\' already exists', defaults.BOLD)
         sys.exit(error.EXISTING_CONFIG)
 
 
-def make_config_folder(new_config: str):
+def make_config_folder(new_config: list[str]):
     files.do_folder_operation(new_config, os.mkdir)
 
 
-def write_config_to_file(new_config: str, name: str):
+def write_config_to_file(new_config: list[str], name: str):
     for folder in config.Stateful.locate_folders(name):
         files.do_folder_operation(new_config + folder, os.mkdir)
 
