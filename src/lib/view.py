@@ -77,7 +77,8 @@ def view_video(base_name: str, testing: bool, paths: video_paths.VideoPaths):
     joined_path = files.get_joined_path(paths.source, base_name)
     system = sys.platform
     if system.startswith('win'):
-        os.startfile(joined_path)
+        # this function only comes with the Windows os module
+        os.startfile(joined_path)  # type: ignore
     if system.startswith('linux'):
         requests.get('http://localhost:4400/message', params={'v': base_name})
     elif system.startswith('darwin'):
@@ -120,14 +121,14 @@ def do_end(
         paths: video_paths.VideoPaths, bold: bool) -> bool:
     return do_edit(
         commands.END, base_name, raw_tokens, edits,
-        lambda tokens: [tokens[0], None, tokens[1]], paths, bold, integer=True)
+        lambda tokens: (tokens[0], None, tokens[1]), paths, bold, integer=True)
 
 
 def do_edit(
         command: str, base_name: str, raw_tokens: str, edits: list[dict],
         start_end_name_unpacker: typing.Callable[
-            # this can give back a list of fixed or optional strings
-            [list[str]], list[str | None] | list[str]],
+            # start and end optional, end mandatory
+            [list[str]], tuple[None | str, None | str, str]],
         paths: video_paths.VideoPaths, bold: bool, integer=False) -> bool:
     tokens = parse_tokens(raw_tokens, command, bold)
     if tokens is None:
@@ -386,7 +387,7 @@ def do_start(
         paths: video_paths.VideoPaths, bold: bool) -> bool:
     return do_edit(
         commands.START, base_name, raw_tokens, edits,
-        lambda tokens: [None, tokens[0], tokens[1]], paths, bold
+        lambda tokens: (None, tokens[0], tokens[1]), paths, bold
     )
 
 
@@ -395,7 +396,7 @@ def do_middle(
         paths: video_paths.VideoPaths, bold: bool) -> bool:
     return do_edit(
         commands.MIDDLE, base_name, raw_tokens, edits,
-        lambda tokens: tokens, paths, bold
+        lambda tokens: (tokens[0], tokens[1], tokens[2]), paths, bold
     )
 
 
@@ -404,7 +405,7 @@ def do_whole(
         paths: video_paths.VideoPaths, bold: bool) -> bool:
     return do_edit(
         commands.WHOLE, base_name, raw_tokens, edits,
-        lambda tokens: [None, None, tokens[0]], paths, bold
+        lambda tokens: (None, None, tokens[0]), paths, bold
     )
 
 
