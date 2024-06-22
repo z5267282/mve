@@ -346,7 +346,7 @@ def reprompt_name(current_name: str, bold: bool) -> None | str:
         )
     )
     change_name = input(
-        '{warn} type \'y\' if you want to re-enter this command : ')
+        f'{warn} type \'y\' if you want to re-enter this command : ')
     return None if change_name == 'y' else current_name
 
 
