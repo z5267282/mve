@@ -32,10 +32,11 @@ def print_success(message: str, bold: bool):
 
 
 def format_remaining(num_remaining: int, bold: bool) -> str:
+    coloured_remaining = colouring.colour_format(
+        colours.CYAN, str(num_remaining), bold)
+    plural = '' if num_remaining == 1 else 's'
     return 'exited with {} file{} remaining'.format(
-        colouring.colour_format(colours.CYAN, num_remaining, bold),
-        str() if num_remaining == 1 else 's'
-    )
+        coloured_remaining, plural)
 
 
 def exit_success(message: str, bold: bool):
