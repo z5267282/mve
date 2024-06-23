@@ -78,6 +78,7 @@ def visualise(name: str) -> str:
         indicate(fail), display_env_key()
     )
     # TODO: modularise the banner
+    # TODO: expand the environment variable
     config_paths = load_env.get_config_paths_from_environment()
     if config_paths is None or not files.do_folder_operation(config_paths, os.path.exists):
         return display_configs_folder(True)
