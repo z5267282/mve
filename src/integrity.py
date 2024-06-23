@@ -13,17 +13,16 @@ import helpers.util as util
 
 
 def main():
-    # don't use argparse
-    # it doesn't handle the concept of optionals well
-    # just match on the number of command line arguments
     match len(sys.argv[1:]):
         case 0:
             check_all_configs()
         case 1:
             check_one_config(sys.argv[1])
         case _:
-            pass
-    pass
+            util.print_error(
+                'enter either one config to check, or no arguments to check all configs',
+                defaults.BOLD)
+            sys.exit(error.BAD_COMMAND_LINE_ARGS)
 
 
 def check_all_configs():
