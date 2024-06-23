@@ -61,8 +61,10 @@ def check_config_exists(new_config: list[str], name: str):
 
 def make_config_folder(new_config: list[str]):
     files.do_folder_operation(new_config, os.mkdir)
-    for folder in [config.Stateful.QUEUE, config.Stateful.HISTORY, config.Stateful.ERRORS]:
-        files.do_folder_operation(new_config + folder, os.mkdir)
+    for suffix in [config.Stateful.QUEUE, config.Stateful.HISTORY,
+                   config.Stateful.ERRORS]:
+        folder = new_config + suffix
+        files.do_folder_operation(folder, os.mkdir)
         add_folder_to_version_history(folder)
 
 
