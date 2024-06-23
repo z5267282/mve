@@ -93,9 +93,8 @@ def check_one_config(config_paths: list[str], name: str, dirty: bool):
         )
     util.print_success(
         'the integrity of config \'{}\' has been verified'.format(
-            colouring.colour_format(colours.PURPLE, name, defaults.BOLD)
-        ),
-        bold)
+            highlight_config(name)
+        ), bold)
 
 
 def indent(depth: int) -> str:
@@ -108,7 +107,7 @@ def visualise(config_paths: list[str], name: str) -> str:
 
     current_config = config_paths + [name]
 
-    if check_folder(message, current_config, name, 1):
+    if check_folder(message, current_config, highlight_config(name), 1):
         return display_message()
 
     for folder in config.Stateful.locate_folders(current_config):
@@ -141,6 +140,10 @@ def check_file(message: list[str], joined_path: str, base: str,
         '{} {}+ {}'.format(indicate(file_non_existent), indent(depth), base)
     )
     return file_non_existent
+
+
+def highlight_config(name: str):
+    return colouring.colour_format(colours.PURPLE, name, defaults.BOLD)
 
 
 def indicate(fail: bool) -> str:
