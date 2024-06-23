@@ -108,43 +108,39 @@ def visualise(config_paths: list[str], name: str) -> str:
 
     current_config = config_paths + [name]
 
-    # TODO: generalise the formatting based on file existence
-    # TODO: paramaterise the depth
-    def display_current_config(fail: bool) -> str: return '{}   {}/'.format(
-        indicate(fail), name
-    )
-    current_non_existent = not files.do_folder_operation(
-        current_config, os.path.exists)
-    message.append(
-        display_current_config(current_non_existent)
-    )
-    if current_non_existent:
+    if check_folder(message, current_config, name, 1):
         return display_message()
 
-    def display_config_folder(base: str, fail: bool) -> str:
-        return '{}     {}/'.format(indicate(fail), base)
-
     for folder in config.Stateful.locate_folders(current_config):
-        folder_non_existent = not files.do_folder_operation(
-            folder, os.path.exists)
-        message.append(
-            display_config_folder(folder[-1], folder_non_existent)
-        )
-        if folder_non_existent:
+        if check_folder(message, folder, folder[-1], 2):
             return display_message()
 
-    def display_config_file(base: str, fail: bool) -> str:
-        return '{}     + {}'.format(indicate(fail), base)
-
     for file in config.Stateful.locate_files(current_config):
-        file_non_existent = not os.path.exists(file)
-        message.append(
-            display_config_file(os.path.basename(file), file_non_existent)
-        )
-        if file_non_existent:
+        if check_file(message, file, os.path.basename(file), 2):
             return display_message()
 
     return display_message()
+
+
+def check_folder(message: list[str], paths: list[str], base: str,
+                 depth: int) -> bool:
+    '''Verify a given folder exists. Return whether it did not. Log its
+    corresponding existence to the message.'''
+    folder_non_existent = not files.do_folder_operation(
+        paths, os.path.exists)
+    message.append(
+        '{} {}{}/'.format(indicate(folder_non_existent), indent(depth), base)
+    )
+    return folder_non_existent
+
+
+def check_file(message: list[str], joined_path: str, base: str,
+               depth: int) -> bool:
+    file_non_existent = not os.path.exists(joined_path)
+    message.append(
+        '{} {}+ {}'.format(indicate(file_non_existent), indent(depth), base)
+    )
+    return file_non_existent
 
 
 def indicate(fail: bool) -> str:
