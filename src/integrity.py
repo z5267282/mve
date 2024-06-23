@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 
@@ -7,6 +8,7 @@ import constants.colours as colours
 import constants.defaults as defaults
 import constants.environment as environment
 import constants.error as error
+import constants.status as status
 
 import helpers.colouring as colouring
 import helpers.files as files
@@ -15,25 +17,28 @@ import helpers.util as util
 
 
 def main():
-    # TODO: arg parse
-    args = sys.argv[1:]
-    match len(args):
-        case 0:
-            check_all_configs()
-        case 1:
-            name, = args
-            check_one_config(name)
-            print(
-                visualise(name)
-            )
-        case _:
-            util.print_error(
-                'enter either one config to check, or no arguments to check all configs',
-                defaults.BOLD)
-            sys.exit(error.BAD_COMMAND_LINE_ARGS)
+    args = handle_command_line_args()
+    configs = args.configs
+    dirty = args.dirty
+
+    if configs:
+        for name in configs:
+            check_one_config(name, dirty)
+    else:
+        # TODO: this is the only valid function, it is just up to me to verify where configs come from
+        check_all_configs(dirty)
 
 
-def check_all_configs():
+def handle_command_line_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('configs', nargs='*', type=str,
+                        help='name of each config to verify')
+    parser.add_argument('--dirty', action='store_true',
+                        help='do not visualise each config\'s file structure')
+    return parser.parse_args()
+
+
+def check_all_configs(dirty: bool):
     '''Check the integrity of all configs from the MVE_CONFIGS environment
     variable'''
     configs_folder = load_env.get_config_paths_from_environment()
@@ -54,8 +59,8 @@ def check_all_configs():
         )
     )
     for i, config in enumerate(configs):
-        print(f'{i + 1}', end=' : ')
-        check_one_config(config)
+        print(f'--- config {i + 1} ---')
+        check_one_config(config, dirty)
 
 
 def display_env_key() -> str:
@@ -64,9 +69,13 @@ def display_env_key() -> str:
     return f'${coloured_env_key}'
 
 
-def check_one_config(name: str):
+def check_one_config(name: str, dirty: bool):
     state = config.Stateful(name)
     bold = state.cfg.bold
+    if not dirty:
+        print(
+            visualise(name)
+        )
     util.print_success(
         f'the integrity of config \'{colouring.colour_format(
             colours.PURPLE, name, defaults.BOLD)}\' has been verified',
@@ -132,13 +141,12 @@ def indicate(fail: bool) -> str:
     return f'[{status}]'
 
 
-# TODO: should be in a constants file
 def indicate_pass() -> str:
-    return colouring.colour_format(colours.GREEN, '✓', defaults.BOLD)
+    return colouring.colour_format(colours.GREEN, status.PASS, defaults.BOLD)
 
 
 def indicate_fail() -> str:
-    return colouring.colour_format(colours.RED, 'x', defaults.BOLD)
+    return colouring.colour_format(colours.RED, status.FAIL, defaults.BOLD)
 
 
 if __name__ == '__main__':
