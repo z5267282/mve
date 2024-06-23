@@ -60,7 +60,7 @@ class Config():
 
     def no_source_folder(self):
         check_and_exit_if.no_folder(
-            self.source, 'source', error.NO_SOURCE_FOLDER)
+            self.source, 'source', self.bold, error.NO_SOURCE_FOLDER, )
 
     def one_of_config_folders_missing(self):
         for folder, desc, code in zip(
@@ -69,7 +69,7 @@ class Config():
             [error.NO_SOURCE_FOLDER, error.NO_RENAMES_FOLDER,
                 error.NO_DESTINATION_FOLDER]
         ):
-            check_and_exit_if.no_folder(folder, desc, code)
+            check_and_exit_if.no_folder(folder, desc, self.bold, code)
 
     def create_source_folders(self) -> video_paths.VideoPaths:
         return video_paths.VideoPaths(
@@ -158,7 +158,7 @@ class Stateful():
             else Stateful.DEFAULT_FOLDER
 
         check_and_exit_if.no_folder(
-            configs_folder, 'configs', error.NO_CONFIGS_FOLDER)
+            configs_folder, 'configs', defaults.BOLD, error.NO_CONFIGS_FOLDER)
 
         return configs_folder
 
@@ -166,9 +166,8 @@ class Stateful():
     def locate_given_config(name: str) -> list[str]:
         config_folder = Stateful.locate_configs_folder() + [name]
 
-        check_and_exit_if.no_folder(
-            config_folder, f'{name} config', error.NO_SUCH_CONFIG
-        )
+        check_and_exit_if.no_folder(config_folder, '{} config'.format(name),
+                                    defaults.BOLD, error.NO_SUCH_CONFIG)
 
         return config_folder
 
@@ -198,10 +197,11 @@ class Stateful():
     ):
         '''Verify the given config has all the correct files'''
         # folders
-        check_and_exit_if.no_folder(queue, 'queue', error.NO_QUEUE)
+        check_and_exit_if.no_folder(queue, 'queue', bold, error.NO_QUEUE)
         check_and_exit_if.no_folder(
-            history, 'history', error.NO_HISTORY_FOLDER)
-        check_and_exit_if.no_folder(errors, 'errors', error.NO_ERRORS_FOLDER)
+            history, 'history', bold, error.NO_HISTORY_FOLDER)
+        check_and_exit_if.no_folder(errors, 'errors', bold,
+                                    error.NO_ERRORS_FOLDER)
 
         # files
         check_and_exit_if.no_file(

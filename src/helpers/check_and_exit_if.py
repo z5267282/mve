@@ -34,8 +34,12 @@ def no_file(joined_path: str, desc: str, code: int, bold: bool):
         sys.exit(code)
 
 
-def no_folder(folder_paths: list[str], folder_desc: str, exit_code: int):
+def no_folder(folder_paths: list[str], folder_desc: str, bold: bool,
+              exit_code: int):
     if not files.folder_exists(folder_paths):
         util.stderr_print(
-            f'{folder_desc} folder \'{folder_paths}\' does not exist')
+            '{} folder \'{}\' does not exist'.format(
+                folder_desc, colouring.highlight_path(folder_paths, bold)
+            )
+        )
         sys.exit(exit_code)
