@@ -128,8 +128,9 @@ class Stateful():
     REMAINING: str = 'remaining.json'
 
     def __init__(self, name: str):
-        queue, history, errors = Stateful.locate_folders(name)
-        config_file, remaining = Stateful.locate_files(name)
+        config_folder = Stateful.locate_given_config(name)
+        queue, history, errors = Stateful.locate_folders(config_folder)
+        config_file, remaining = Stateful.locate_files(config_folder)
         contents = json_handlers.read_from_json(config_file)
 
         Stateful.verify_config_integrity(
@@ -172,9 +173,7 @@ class Stateful():
         return config_folder
 
     @staticmethod
-    def locate_folders(name: str) -> tuple[list[str], list[str], list[str]]:
-        config_folder = Stateful.locate_given_config(name)
-
+    def locate_folders(config_folder: list[str]) -> tuple[list[str], list[str], list[str]]:
         queue = config_folder + Stateful.QUEUE
         history = config_folder + Stateful.HISTORY
         errors = config_folder + Stateful.ERRORS
@@ -182,9 +181,7 @@ class Stateful():
         return queue, history, errors
 
     @staticmethod
-    def locate_files(name: str) -> tuple[str, str]:
-        config_folder = Stateful.locate_given_config(name)
-
+    def locate_files(config_folder: list[str]) -> tuple[str, str]:
         config_file = files.get_joined_path(config_folder, Stateful.CONFIG)
         remaining = files.get_joined_path(config_folder, Stateful.REMAINING)
 

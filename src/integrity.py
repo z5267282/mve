@@ -15,11 +15,16 @@ import helpers.util as util
 
 
 def main():
-    match len(sys.argv[1:]):
+    args = sys.argv[1:]
+    match len(args):
         case 0:
             check_all_configs()
         case 1:
-            check_one_config(sys.argv[1])
+            name, = args
+            check_one_config(name)
+            print(
+                visualise(name)
+            )
         case _:
             util.print_error(
                 'enter either one config to check, or no arguments to check all configs',
@@ -32,10 +37,8 @@ def check_all_configs():
     variable'''
     configs_folder = load_env.get_config_paths_from_environment()
     if configs_folder is None:
-        coloured_env_key = colouring.colour_format(
-            colours.RED, environment.CONFIGS, defaults.BOLD)
         util.print_error(
-            f'the environment variable ${coloured_env_key} has not been set',
+            f'the environment variable {display_env_key()} has not been set',
             defaults.BOLD)
         sys.exit(error.CONFIGS_ENVIRONMENT_NOT_SET)
 
@@ -54,6 +57,12 @@ def check_all_configs():
         check_one_config(config)
 
 
+def display_env_key() -> str:
+    coloured_env_key = colouring.colour_format(
+        colours.RED, environment.CONFIGS, defaults.BOLD)
+    return f'${coloured_env_key}'
+
+
 def check_one_config(name: str):
     state = config.Stateful(name)
     bold = state.cfg.bold
@@ -61,6 +70,70 @@ def check_one_config(name: str):
         f'the integrity of config \'{colouring.colour_format(
             colours.PURPLE, name, defaults.BOLD)}\' has been verified',
         bold)
+
+
+def visualise(name: str) -> str:
+    def display_configs_folder(fail: bool) -> str: return '{} {}/'.format(
+        indicate(fail), display_env_key()
+    )
+    config_paths = load_env.get_config_paths_from_environment()
+    if config_paths is None or not files.do_folder_operation(config_paths, os.path.exists):
+        return display_configs_folder(True)
+
+    message = [display_configs_folder(False)]
+    def display_message(): return '\n'.join(message)
+
+    current_config = config_paths + [name]
+
+    def display_current_config(fail: bool) -> str: return '{}   {}/'.format(
+        indicate(fail), name
+    )
+    current_non_existent = not files.do_folder_operation(
+        current_config, os.path.exists)
+    message.append(
+        display_current_config(current_non_existent)
+    )
+    if current_non_existent:
+        return display_message()
+
+    def display_config_folder(base: str, fail: bool) -> str:
+        return '{}     {}/'.format(indicate(fail), base)
+
+    for folder in config.Stateful.locate_folders(current_config):
+        folder_non_existent = not files.do_folder_operation(
+            folder, os.path.exists)
+        message.append(
+            display_config_folder(folder[-1], folder_non_existent)
+        )
+        if folder_non_existent:
+            return display_message()
+
+    def display_config_file(base: str, fail: bool) -> str:
+        return '{}     + {}'.format(indicate(fail), base)
+
+    for file in config.Stateful.locate_files(current_config):
+        file_non_existent = not os.path.exists(file)
+        message.append(
+            display_config_file(os.path.basename(file), file_non_existent)
+        )
+        if file_non_existent:
+            return display_message()
+
+    return display_message()
+
+
+def indicate(fail: bool) -> str:
+    status = indicate_fail() if fail else indicate_pass()
+    return f'[{status}]'
+
+
+# TODO: should be in a constants file
+def indicate_pass() -> str:
+    return colouring.colour_format(colours.GREEN, '✓', defaults.BOLD)
+
+
+def indicate_fail() -> str:
+    return colouring.colour_format(colours.RED, 'x', defaults.BOLD)
 
 
 if __name__ == '__main__':

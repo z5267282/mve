@@ -30,7 +30,7 @@ def main():
     new_config = configs_folder + [name]
     check_config_exists(new_config, name)
     make_config_folder(new_config)
-    write_config_to_file(name)
+    write_config_to_file(new_config)
 
     util.print_success(
         f'created config: {colouring.highlight(name, defaults.BOLD)}',
@@ -70,12 +70,12 @@ def add_folder_to_version_history(config_folder: list[str]):
         pass
 
 
-def write_config_to_file(name: str):
-    for folder in config.Stateful.locate_folders(name):
+def write_config_to_file(new_config: list[str]):
+    for folder in config.Stateful.locate_folders(new_config):
         files.do_folder_operation(folder, os.mkdir)
         add_folder_to_version_history(folder)
 
-    config_file, remaining = config.Stateful.locate_files(name)
+    config_file, remaining = config.Stateful.locate_files(new_config)
     # write an empty list of remaining videos
     json_handlers.write_to_json(list(), remaining)
     source, renames, edits = make_config_contents()
