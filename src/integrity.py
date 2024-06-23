@@ -49,6 +49,12 @@ def handle_env_not_set() -> list[str]:
     return configs_folder
 
 
+def display_env_key() -> str:
+    coloured_env_key = colouring.colour_format(
+        colours.RED, environment.CONFIGS, defaults.BOLD)
+    return f'${coloured_env_key}'
+
+
 def list_configs_from_env(configs_folder: list[str]) -> list[str]:
     print(f'loading all configs from {display_env_key()}')
     return sorted(
@@ -66,12 +72,6 @@ def check_all_configs(configs: list[str], dirty: bool):
     for i, config in enumerate(configs):
         print(f'--- config {i + 1} ---')
         check_one_config(config, dirty)
-
-
-def display_env_key() -> str:
-    coloured_env_key = colouring.colour_format(
-        colours.RED, environment.CONFIGS, defaults.BOLD)
-    return f'${coloured_env_key}'
 
 
 def check_one_config(name: str, dirty: bool):
