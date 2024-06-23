@@ -69,9 +69,19 @@ def check_all_configs(config_paths: list[str], configs: list[str], dirty: bool):
             len(configs), util.plural(n)
         )
     )
+    print(
+        display_env_configs_banner(config_paths)
+    )
     for i, config in enumerate(configs):
         print(f'--- config {i + 1} ---')
         check_one_config(config_paths, config, dirty)
+
+
+def display_env_configs_banner(configs_folder: list[str]) -> str:
+    return '{} {}{}={}'.format(
+        indicate(False), indent(0), display_env_key(), colouring.highlight_path(
+            configs_folder, defaults.BOLD)
+    )
 
 
 def check_one_config(config_paths: list[str], name: str, dirty: bool):
@@ -86,13 +96,6 @@ def check_one_config(config_paths: list[str], name: str, dirty: bool):
             colouring.colour_format(colours.PURPLE, name, defaults.BOLD)
         ),
         bold)
-
-
-def display_env_configs_banner(configs_folder: list[str]) -> str:
-    return '{} {}{}={}'.format(
-        indicate(False), indent(1), display_env_key, colouring.highlight_path(
-            configs_folder, defaults.BOLD)
-    )
 
 
 def indent(depth: int) -> str:
