@@ -13,6 +13,7 @@ import config
 
 import constants.error as error
 import constants.defaults as defaults
+import constants.version_control as version_control
 
 import helpers.args as args
 import helpers.colouring as colouring
@@ -60,6 +61,16 @@ def check_config_exists(new_config: list[str], name: str):
 
 def make_config_folder(new_config: list[str]):
     files.do_folder_operation(new_config, os.mkdir)
+    for folder in [config.Stateful.QUEUE, config.Stateful.HISTORY, config.Stateful.ERRORS]:
+        files.do_folder_operation(new_config + folder, os.mkdir)
+        add_folder_to_version_history(folder)
+
+
+def add_folder_to_version_history(config_folder: list[str]):
+    with open(
+            files.get_joined_path(config_folder, version_control.KEEP_FILE),
+            'w') as f:
+        pass
 
 
 def write_config_to_file(new_config: list[str], name: str):
