@@ -91,7 +91,7 @@ def prompt(base_name: str, padding: int, number_remaining: int,
         colours.CYAN, f'{number_remaining:^{padding}}', bold)
     args = input(f'{coloured_remaining} - {base_name} : ').split(' ', 1)
     command = args.pop(0)
-    raw_tokens = args.pop() if args else str()
+    raw_tokens = args.pop() if args else ''
     return command, raw_tokens
 
 
