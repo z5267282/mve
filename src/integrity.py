@@ -40,9 +40,13 @@ def check_all_configs():
 
     # TODO: modurlaise this
     configs = os.listdir(configs_folder)
-    plural = '' if len(configs) == 1 else 's'
+    n = len(configs)
     print(
-        f'verifying the integrity of {len(configs)} config{plural} in {colouring.highlight(configs_folder, defaults.BOLD)}')
+        'verifying the integrity of {} config{} in {}'.format(
+            len(configs), util.plural(n), colouring.highlight(
+                configs_folder, defaults.BOLD)
+        )
+    )
     for i, config in enumerate(configs):
         print(f'{i + 1}', end=' : ')
         check_one_config(config)
@@ -52,7 +56,8 @@ def check_one_config(name: str):
     state = config.Stateful(name)
     bold = state.cfg.bold
     util.print_success(
-        f'the integrity of config \'{colouring.colour_format(colours.PURPLE, name, defaults.BOLD)}\' has been verified',
+        f'the integrity of config \'{colouring.colour_format(
+            colours.PURPLE, name, defaults.BOLD)}\' has been verified',
         bold)
 
 

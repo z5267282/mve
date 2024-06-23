@@ -31,12 +31,16 @@ def print_success(message: str, bold: bool):
     )
 
 
+def plural(number: int) -> str:
+    return '' if number == 1 else 's'
+
+
 def format_remaining(num_remaining: int, bold: bool) -> str:
     coloured_remaining = colouring.colour_format(
         colours.CYAN, str(num_remaining), bold)
-    plural = str() if num_remaining == 1 else 's'
     return 'exited with {} file{} remaining'.format(
-        coloured_remaining, plural)
+        coloured_remaining, plural(num_remaining)
+    )
 
 
 def exit_success(message: str, bold: bool):
