@@ -9,6 +9,8 @@ import constants.environment as environment
 import constants.error as error
 
 import helpers.colouring as colouring
+import helpers.files as files
+import helpers.load_env as load_env
 import helpers.util as util
 
 
@@ -28,7 +30,7 @@ def main():
 def check_all_configs():
     '''Check the integrity of all configs from the MVE_CONFIGS environment
     variable'''
-    configs_folder = os.getenv(environment.CONFIGS)
+    configs_folder = load_env.get_config_paths_from_environment()
     if configs_folder is None:
         coloured_env_key = colouring.colour_format(
             colours.RED, environment.CONFIGS, defaults.BOLD)
@@ -37,13 +39,14 @@ def check_all_configs():
             defaults.BOLD)
         sys.exit(error.CONFIGS_ENVIRONMENT_NOT_SET)
 
-    # TODO: modurlaise this
-    configs = os.listdir(configs_folder)
+    configs = sorted(
+        files.ls(configs_folder)
+    )
     n = len(configs)
     print(
         'verifying the integrity of {} config{} in {}'.format(
             len(configs), util.plural(n), colouring.highlight(
-                configs_folder, defaults.BOLD)
+                os.path.join(*configs_folder), defaults.BOLD)
         )
     )
     for i, config in enumerate(configs):

@@ -12,6 +12,7 @@ import constants.treatment_format as treatment_format
 import helpers.check_and_exit_if as check_and_exit_if
 import helpers.files as files
 import helpers.json_handlers as json_handlers
+import helpers.load_env as load_env
 import helpers.video_paths as video_paths
 import helpers.util as util
 
@@ -114,7 +115,6 @@ class Stateful():
 
     # configs folder location
     DEFAULT_FOLDER: list[str] = ['..', 'configs']
-    ENV_KEY: str = 'MVE_CONFIGS'
 
     # base paths
 
@@ -152,11 +152,9 @@ class Stateful():
 
     @staticmethod
     def locate_configs_folder() -> list[str]:
-        configs_folder = list(
-            pathlib.Path(
-                os.environ[Stateful.ENV_KEY]
-            ).parts
-        ) if Stateful.ENV_KEY in os.environ \
+        configs_folder = env \
+            if (env := load_env.get_config_paths_from_environment()
+                ) is not None \
             else Stateful.DEFAULT_FOLDER
 
         check_and_exit_if.no_folder(
