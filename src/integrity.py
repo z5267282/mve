@@ -15,6 +15,7 @@ import helpers.util as util
 
 
 def main():
+    # TODO: arg parse
     args = sys.argv[1:]
     match len(args):
         case 0:
@@ -76,6 +77,7 @@ def visualise(name: str) -> str:
     def display_configs_folder(fail: bool) -> str: return '{} {}/'.format(
         indicate(fail), display_env_key()
     )
+    # TODO: modularise the banner
     config_paths = load_env.get_config_paths_from_environment()
     if config_paths is None or not files.do_folder_operation(config_paths, os.path.exists):
         return display_configs_folder(True)
@@ -85,6 +87,8 @@ def visualise(name: str) -> str:
 
     current_config = config_paths + [name]
 
+    # TODO: generalise the formatting based on file existence
+    # TODO: paramaterise the depth
     def display_current_config(fail: bool) -> str: return '{}   {}/'.format(
         indicate(fail), name
     )
