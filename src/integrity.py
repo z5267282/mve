@@ -18,29 +18,27 @@ import helpers.util as util
 
 def main():
     args = handle_command_line_args()
-    configs = args.configs
+    config_names = args.config_names
     dirty = args.dirty
 
-    if configs:
-        for name in configs:
-            check_one_config(name, dirty)
-    else:
-        # TODO: this is the only valid function, it is just up to me to verify where configs come from
-        check_all_configs(dirty)
+    configs_folder = handle_env_not_set()
+    configs = config_names \
+        if config_names \
+        else list_configs_from_env(configs_folder)
+
+    check_all_configs(configs, dirty)
 
 
 def handle_command_line_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument('configs', nargs='*', type=str,
+    parser.add_argument('config_names', nargs='*', type=str,
                         help='name of each config to verify')
     parser.add_argument('--dirty', action='store_true',
                         help='do not visualise each config\'s file structure')
     return parser.parse_args()
 
 
-def check_all_configs(dirty: bool):
-    '''Check the integrity of all configs from the MVE_CONFIGS environment
-    variable'''
+def handle_env_not_set() -> list[str]:
     configs_folder = load_env.get_config_paths_from_environment()
     if configs_folder is None:
         util.print_error(
@@ -48,14 +46,21 @@ def check_all_configs(dirty: bool):
             defaults.BOLD)
         sys.exit(error.CONFIGS_ENVIRONMENT_NOT_SET)
 
-    configs = sorted(
+    return configs_folder
+
+
+def list_configs_from_env(configs_folder: list[str]) -> list[str]:
+    print(f'loading all configs from {display_env_key()}')
+    return sorted(
         files.ls(configs_folder)
     )
+
+
+def check_all_configs(configs: list[str], dirty: bool):
     n = len(configs)
     print(
-        'verifying the integrity of {} config{} in {}'.format(
-            len(configs), util.plural(n), colouring.highlight(
-                os.path.join(*configs_folder), defaults.BOLD)
+        'verifying the integrity of {} config{}'.format(
+            len(configs), util.plural(n)
         )
     )
     for i, config in enumerate(configs):
@@ -77,8 +82,9 @@ def check_one_config(name: str, dirty: bool):
             visualise(name)
         )
     util.print_success(
-        f'the integrity of config \'{colouring.colour_format(
-            colours.PURPLE, name, defaults.BOLD)}\' has been verified',
+        'the integrity of config \'{}\' has been verified'.format(
+            colouring.colour_format(colours.PURPLE, name, defaults.BOLD)
+        ),
         bold)
 
 
