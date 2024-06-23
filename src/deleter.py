@@ -22,10 +22,9 @@ def main():
 
     files.do_folder_operation(cfg.source, shutil.rmtree)
 
-    joined_path = files.join_folder(cfg.source)
-    util.exit_success(
-        f'removed the folder \'{colouring.highlight(joined_path, cfg.bold)}\'',
-        cfg.bold)
+    util.exit_success('removed the folder \'{}\''.format(
+        colouring.highlight_path(cfg.source, cfg.bold)
+    ), cfg.bold)
 
 
 def run_checks(state: config.Stateful):

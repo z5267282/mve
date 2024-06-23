@@ -30,8 +30,7 @@ def main():
     util.exit_success(
         'placed file names from the folder \'{}\' in {}'.format(
             colouring.highlight(joined_path, cfg.bold), state.remaining),
-        cfg.bold
-    )
+        cfg.bold)
 
 
 def run_checks(state: config.Stateful):
