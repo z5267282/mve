@@ -26,7 +26,7 @@ def main():
         if config_names \
         else list_configs_from_env(configs_folder)
 
-    check_all_configs(configs, dirty)
+    check_all_configs(configs_folder, configs, dirty)
 
 
 def handle_command_line_args() -> argparse.Namespace:
@@ -62,7 +62,7 @@ def list_configs_from_env(configs_folder: list[str]) -> list[str]:
     )
 
 
-def check_all_configs(configs: list[str], dirty: bool):
+def check_all_configs(config_paths: list[str], configs: list[str], dirty: bool):
     n = len(configs)
     print(
         'verifying the integrity of {} config{}'.format(
@@ -71,15 +71,15 @@ def check_all_configs(configs: list[str], dirty: bool):
     )
     for i, config in enumerate(configs):
         print(f'--- config {i + 1} ---')
-        check_one_config(config, dirty)
+        check_one_config(config_paths, config, dirty)
 
 
-def check_one_config(name: str, dirty: bool):
+def check_one_config(config_paths: list[str], name: str, dirty: bool):
     state = config.Stateful(name)
     bold = state.cfg.bold
     if not dirty:
         print(
-            visualise(name)
+            visualise(config_paths, name)
         )
     util.print_success(
         'the integrity of config \'{}\' has been verified'.format(
@@ -88,17 +88,19 @@ def check_one_config(name: str, dirty: bool):
         bold)
 
 
-def visualise(name: str) -> str:
-    def display_configs_folder(fail: bool) -> str: return '{} {}/'.format(
-        indicate(fail), display_env_key()
+def display_env_configs_banner(configs_folder: list[str]) -> str:
+    return '{} {}{}={}'.format(
+        indicate(False), indent(1), display_env_key, colouring.highlight_path(
+            configs_folder, defaults.BOLD)
     )
-    # TODO: modularise the banner
-    # TODO: expand the environment variable
-    config_paths = load_env.get_config_paths_from_environment()
-    if config_paths is None or not files.do_folder_operation(config_paths, os.path.exists):
-        return display_configs_folder(True)
 
-    message = [display_configs_folder(False)]
+
+def indent(depth: int) -> str:
+    return depth * status.INDENT
+
+
+def visualise(config_paths: list[str], name: str) -> str:
+    message = []
     def display_message(): return '\n'.join(message)
 
     current_config = config_paths + [name]
