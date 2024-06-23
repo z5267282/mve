@@ -79,7 +79,8 @@ def check_all_configs(config_paths: list[str], configs: list[str], dirty: bool):
 
 def display_env_configs_banner(configs_folder: list[str]) -> str:
     return '{} {}{}={}'.format(
-        indicate(False), indent(0), display_env_key(), colouring.highlight_path(
+        indicate(False), indent(status.TOP_LEVEL), display_env_key(),
+        colouring.highlight_path(
             configs_folder, defaults.BOLD)
     )
 
@@ -106,16 +107,18 @@ def visualise(config_paths: list[str], name: str) -> str:
     def display_message(): return '\n'.join(message)
 
     current_config = config_paths + [name]
+    depth = status.TOP_LEVEL + 1
 
-    if check_folder(message, current_config, highlight_config(name), 1):
+    if check_folder(message, current_config, highlight_config(name), depth):
         return display_message()
 
+    depth += 1
     for folder in config.Stateful.locate_folders(current_config):
-        if check_folder(message, folder, folder[-1], 2):
+        if check_folder(message, folder, folder[-1], depth):
             return display_message()
 
     for file in config.Stateful.locate_files(current_config):
-        if check_file(message, file, os.path.basename(file), 2):
+        if check_file(message, file, os.path.basename(file), depth):
             return display_message()
 
     return display_message()
