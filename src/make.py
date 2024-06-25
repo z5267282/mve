@@ -23,35 +23,33 @@ import helpers.colouring as colouring
 import helpers.files as files
 import helpers.json_handlers as json_handlers
 import helpers.util as util
+import helpers.video_paths as video_paths
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('config', type=str)
-    # path flags
-    source_path = parser.add_mutually_exclusive_group()
-    source_path.add_argument('--source', type=str)
-    source_path.add_argument('--desktop', action='store_true',
-                             help='set the Desktop folder as the source')
-    parser.add_argument('--renames', type=str)
-    parser.add_argument('--edits', type=str)
-    # shortcuts
-    parser.add_argument('--onedest', type=str,
-                        help='put edits and renames in the same folder')
-    # manually exclude
-
-    name = args.expect_config_name(sys.argv)
+    args = handle_args()
+    name = args.expect_config_name(args.config)
     verify_name(name)
 
     configs_folder = config.Stateful.locate_configs_folder()
     new_config = configs_folder + [name]
     check_config_exists(new_config, name)
     make_config_folder(new_config)
-    write_config_to_file(new_config)
+    write_config_to_file(new_config, args.source, args.edits, args.renames)
 
     util.print_success(
         f'created config: {colouring.highlight(name, defaults.BOLD)}',
         defaults.BOLD)
+
+
+def handle_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('config', type=str)
+    # path flags
+    parser.add_argument('--source', type=str)
+    parser.add_argument('--renames', type=str)
+    parser.add_argument('--edits', type=str)
+    return parser.parse_args()
 
 
 def verify_name(name: str):
@@ -59,14 +57,6 @@ def verify_name(name: str):
         util.print_error(
             'config must contain only a-z, 0-9 or - characters', defaults.BOLD)
         sys.exit(error.BAD_CONFIG_NAME)
-
-
-def make_config_contents() -> tuple[list[str], list[str], list[str]]:
-    print('enter these folders')
-    source = tokenise_path('source')
-    renames = tokenise_path('renames')
-    edits = tokenise_path('destination')
-    return source, renames, edits
 
 
 def check_config_exists(new_config: list[str], name: str):
@@ -87,7 +77,8 @@ def add_folder_to_version_history(config_folder: list[str]):
         pass
 
 
-def write_config_to_file(new_config: list[str]):
+def write_config_to_file(new_config: list[str], source: None | str,
+                         edits: None | str, renames: None | str):
     for folder in config.Stateful.locate_folders(new_config):
         files.do_folder_operation(folder, os.mkdir)
         add_folder_to_version_history(folder)
@@ -95,17 +86,11 @@ def write_config_to_file(new_config: list[str]):
     config_file, remaining = config.Stateful.locate_files(new_config)
     # write an empty list of remaining videos
     json_handlers.write_to_json(list(), remaining)
-    source, renames, edits = make_config_contents()
+    videos = video_paths.VideoPaths.make_paths_from_defaults(source, edits,
+                                                             renames)
     # the config will be created with default options
-    cfg = config.Config(source, renames, edits)
+    cfg = config.Config(videos.source, videos.renames, videos.edits)
     cfg.write_config_to_file(config_file)
-
-
-def tokenise_path(display: str) -> list[str]:
-    folder = input(f'{display}: ')
-    return list(
-        pathlib.Path(folder).parts
-    )
 
 
 if __name__ == '__main__':
