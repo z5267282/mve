@@ -32,7 +32,8 @@ class VideoPaths:
     @staticmethod
     def print_prompt(args: list[None | str]):
         if nones := VideoPaths.count_none(args) > 0:
-            print(f'enter these folder{util.plural(nones)}')
+            plural = util.plural(nones)
+            print(f'enter the absolute path for these folder{plural}')
 
     @staticmethod
     def count_none(args: list[None | str]) -> int:
