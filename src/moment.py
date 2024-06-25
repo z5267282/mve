@@ -5,7 +5,6 @@ import argparse
 import json
 import pathlib
 import sys
-import typing
 
 import config
 
