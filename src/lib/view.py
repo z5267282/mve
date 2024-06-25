@@ -135,9 +135,10 @@ def do_edit(
         return False
 
     start, end, edit_name = start_end_name_unpacker(tokens)
-    regex, format = r'[0-9]+', '[ natural number | timestamp in form <[hour]-min-sec> ]'
-    if integer:
-        regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
+    regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
+    # regex, format = r'[0-9]+', '[ natural number | timestamp in form <[hour]-min-sec> ]'
+    # if integer:
+    #     regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
 
     if not start is None:
         start = parse_time(start, regex, True, format, bold)
@@ -246,6 +247,10 @@ def check_times(
         if not check_in_bounds(
                 time, seconds, duration, base_name, bold, is_start=is_start):
             return False
+
+    with open('/tmp/a.txt', 'w') as f:
+        print(f'ss: {start_seconds}', file=f)
+        print(f'es: {end_seconds}', file=f)
 
     if not end_seconds > start_seconds:
         util.print_error(
