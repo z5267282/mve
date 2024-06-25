@@ -1,4 +1,5 @@
-import pathlib
+import helpers.files as files
+import helpers.util as util
 
 
 class VideoPaths:
@@ -12,23 +13,27 @@ class VideoPaths:
         self.renames: list[str] = renames
 
     @staticmethod
-    def make_paths_from_defaults(source: None | str, edits: None | str,
-                                 renames: None | str) -> "VideoPaths":
-        if any(folder is None for folder in [source, renames, edits]):
-            print('enter these folders')
+    def make_all_paths_from_defaults(source: None | str, edits: None | str,
+                                     renames: None | str) -> "VideoPaths":
+        VideoPaths.print_prompt([source, edits, renames])
         return VideoPaths(
-            VideoPaths.tokenise_path('source', source),
-            VideoPaths.tokenise_path('destination', edits),
-            VideoPaths.tokenise_path('renames', renames)
+            files.tokenise_path('source', source),
+            files.tokenise_path('destination', edits),
+            files.tokenise_path('renames', renames)
         )
 
     @staticmethod
-    def tokenise_path(display: str, given: None | str) -> list[str]:
-        if given is not None:
-            return list(
-                pathlib.Path(given).parts
-            )
-        folder = input(f'{display}: ')
-        return list(
-            pathlib.Path(folder).parts
-        )
+    def make_merged_dest_from_defaults(source: None | str, dest: None | str,
+                                       ) -> "VideoPaths":
+        VideoPaths.print_prompt([source, dest])
+        output = files.tokenise_path('output', dest)
+        return VideoPaths(files.tokenise_path('source', source), output, output)
+
+    @staticmethod
+    def print_prompt(args: list[None | str]):
+        if nones := VideoPaths.count_none(args) > 0:
+            print(f'enter these folder{util.plural(nones)}')
+
+    @staticmethod
+    def count_none(args: list[None | str]) -> int:
+        return sum(1 if arg is None else 0 for arg in args)

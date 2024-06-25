@@ -1,4 +1,5 @@
 import os
+import pathlib
 import typing
 
 
@@ -30,3 +31,14 @@ def ls(paths_list: list[str], recent: bool = False) -> list[str]:
 
 def folder_exists(paths_list: list[str]) -> bool:
     return do_folder_operation(paths_list, os.path.exists)
+
+
+def tokenise_path(display: str, given: None | str) -> list[str]:
+    if given is not None:
+        return list(
+            pathlib.Path(given).parts
+        )
+    folder = input(f'{display} : ')
+    return list(
+        pathlib.Path(folder).parts
+    )

@@ -8,7 +8,6 @@ present.'''
 
 import argparse
 import os
-import pathlib
 import re
 import sys
 
@@ -86,8 +85,8 @@ def write_config_to_file(new_config: list[str], source: None | str,
     config_file, remaining = config.Stateful.locate_files(new_config)
     # write an empty list of remaining videos
     json_handlers.write_to_json(list(), remaining)
-    videos = video_paths.VideoPaths.make_paths_from_defaults(source, edits,
-                                                             renames)
+    videos = video_paths.VideoPaths.make_all_paths_from_defaults(source, edits,
+                                                                 renames)
     # the config will be created with default options
     cfg = config.Config(videos.source, videos.renames, videos.edits)
     cfg.write_config_to_file(config_file)
