@@ -28,7 +28,7 @@ import helpers.video_paths as video_paths
 
 def main():
     args = handle_args()
-    name = args.expect_config_name(args.config)
+    name = args.config
     verify_name(name)
 
     configs_folder = config.Stateful.locate_configs_folder()
