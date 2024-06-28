@@ -1,3 +1,6 @@
+# glob patterns for finding remaining videos
+GLOBS: list[str] = ['.mov', '.mp4']
+
 # suffix for edited videos
 SUFFIX: str = 'mp4'
 

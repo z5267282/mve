@@ -10,6 +10,8 @@ import sys
 
 import config
 
+import constants.video_editing as video_editing
+
 import helpers.args as args
 import helpers.colouring as colouring
 import helpers.files as files
@@ -23,7 +25,11 @@ def main():
 
     cfg = state.cfg
 
-    new_files = files.ls(cfg.source, recent=cfg.recent)
+    new_files = list(
+        filter(
+            good_file, files.ls(cfg.source, recent=cfg.recent)
+        )
+    )
     state.write_remaining(new_files)
 
     joined_path = files.join_folder(cfg.source)
@@ -36,6 +42,17 @@ def main():
 def run_checks(state: config.Stateful):
     state.check_files_remaining()
     state.cfg.no_source_folder()
+
+
+def good_file(file: str) -> bool:
+    # ignore hidden files
+    if file.startswith('.'):
+        return False
+
+    # convert the name to lowercase for glob suffix comparisons
+    # we want case insensitivity here
+    lower_name = file.lower()
+    return any(lower_name.endswith(suffix) for suffix in video_editing.GLOBS)
 
 
 if __name__ == '__main__':
