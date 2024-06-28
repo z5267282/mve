@@ -46,7 +46,7 @@ HELP_MESSAGE: str = f'''
 
 {{{MIDDLE}}}
     + edit from [ start ] to [ end ]
-    + start and end are the form [ natural number | timestamp in form <[hour]-min-sec> ]
+    + start and end are the form [ integer | timestamp in form <[hour]-min-sec> ]
     + {NAME_FORMAT}
 
 {{{WHOLE}}}

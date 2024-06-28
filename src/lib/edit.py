@@ -9,8 +9,9 @@ import constants.treatment_format as treatment_format
 import constants.video_editing as video_editing
 
 import helpers.files as files
-import helpers.video_paths as video_paths
 import helpers.time_handlers as time_handlers
+import helpers.video as video
+import helpers.video_paths as video_paths
 
 
 def treat_all(data: dict,
@@ -65,6 +66,21 @@ def edit_video(
         use_moviepy: bool, moviepy_threads: int,
         joined_src_path: str, joined_dst_path: str,
         start: None | str, end: None | str):
+
+    duration = video.get_duration(joined_src_path)
+    if start is not None:
+        start = str(
+            video.convert_integer_seconds_to_natural_number(
+                start, duration
+            )
+        )
+    if end is not None:
+        end = str(
+            video.convert_integer_seconds_to_natural_number(
+                end, duration
+            )
+        )
+
     if use_moviepy:
         edit_moviepy(joined_src_path, joined_dst_path, start, end,
                      moviepy_threads)
