@@ -12,6 +12,7 @@ import constants.colours as colours
 
 import helpers.util as util
 import helpers.time_handlers as time_handlers
+import helpers.video as video
 import helpers.video_paths as video_paths
 import helpers.files as files
 import helpers.colouring as colouring
@@ -121,7 +122,7 @@ def do_end(
         paths: video_paths.VideoPaths, bold: bool) -> bool:
     return do_edit(
         commands.END, base_name, raw_tokens, edits,
-        lambda tokens: (tokens[0], None, tokens[1]), paths, bold, integer=True)
+        lambda tokens: (tokens[0], None, tokens[1]), paths, bold)
 
 
 def do_edit(
@@ -129,30 +130,27 @@ def do_edit(
         start_end_name_unpacker: typing.Callable[
             # start and end optional, end mandatory
             [list[str]], tuple[None | str, None | str, str]],
-        paths: video_paths.VideoPaths, bold: bool, integer=False) -> bool:
+        paths: video_paths.VideoPaths, bold: bool) -> bool:
     tokens = parse_tokens(raw_tokens, command, bold)
     if tokens is None:
         return False
 
     start, end, edit_name = start_end_name_unpacker(tokens)
     regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
-    # regex, format = r'[0-9]+', '[ natural number | timestamp in form <[hour]-min-sec> ]'
-    # if integer:
-    #     regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
 
-    if not start is None:
+    if start is not None:
         start = parse_time(start, regex, True, format, bold)
         if start is None:
             return False
 
-    if not end is None:
+    if end is not None:
         end = parse_time(end, regex, False, format, bold)
         if end is None:
             return False
 
-    if start is not None and end is not None and not check_times(
-            base_name, start, end, paths, bold):
-        return False
+    if start is not None and end is not None:
+        if not check_times(base_name, start, end, paths, bold):
+            return False
 
     new_name = handle_new_name(edit_name, paths.edits, bold)
     if new_name is None:
@@ -224,7 +222,7 @@ def check_times(
         return True
 
     joined_src_path = files.get_joined_path(paths.source, base_name)
-    duration = get_duration(joined_src_path)
+    duration = video.get_duration(joined_src_path)
     if start is None:
         if not check_in_bounds(
                 end, time_handlers.get_seconds(end), duration, base_name, bold,
@@ -240,17 +238,16 @@ def check_times(
 
         return True
 
-    start_seconds, end_seconds = time_handlers.get_seconds(
-        start), time_handlers.get_seconds(end)
+    start_seconds = video.convert_integer_seconds_to_natural_number(
+        start, duration)
+    end_seconds = video.convert_integer_seconds_to_natural_number(
+        end, duration)
+
     for time, seconds, is_start in zip(
             [start, end], [start_seconds, end_seconds], [True, False]):
         if not check_in_bounds(
                 time, seconds, duration, base_name, bold, is_start=is_start):
             return False
-
-    with open('/tmp/a.txt', 'w') as f:
-        print(f'ss: {start_seconds}', file=f)
-        print(f'es: {end_seconds}', file=f)
 
     if not end_seconds > start_seconds:
         util.print_error(
@@ -262,31 +259,6 @@ def check_times(
         return False
 
     return True
-
-
-def get_duration(joined_src_path: str) -> int:
-    args = [
-        'ffprobe',
-        '-i',
-        joined_src_path,
-        '-v',
-        'quiet',
-        '-show_entries',
-        'format=duration',
-        '-hide_banner',
-        '-of',
-        'default=noprint_wrappers=1:nokey=1'
-    ]
-    result = subprocess.run(args, capture_output=True, text=True)
-    return round_float(result.stdout)
-
-
-def round_float(float_string: str) -> int:
-    match = re.match(r'([(0-9)]+)\.([0-9])', float_string)
-    if match is None:
-        raise ValueError(f'could not round the time: {float_string}')
-    whole_number, tenths = int(match.group(1)), int(match.group(2))
-    return whole_number + (tenths >= 5)
 
 
 def check_in_bounds(
