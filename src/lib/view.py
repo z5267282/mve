@@ -5,10 +5,11 @@ import subprocess
 import sys
 import typing
 
-import constants.video_editing as video_editing
-import constants.treatment_format as treatment_format
-import constants.commands as commands
 import constants.colours as colours
+import constants.commands as commands
+import constants.timestamp_format as timestamp_format
+import constants.treatment_format as treatment_format
+import constants.video_editing as video_editing
 
 import helpers.util as util
 import helpers.time_handlers as time_handlers
@@ -205,7 +206,8 @@ def parse_time(raw_time: str, regex: str, is_start: bool, format: str,
 
 def parse_timestamp(timestamp: str) -> None | str:
     return \
-        timestamp.replace('-', ':') \
+        timestamp.replace(
+            timestamp_format.SHORT_HAND, timestamp_format.REQUIRED) \
         if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) \
         else None
 
