@@ -20,13 +20,14 @@ def do_folder_operation(
 
 
 def ls(paths_list: list[str], recent: bool = False) -> list[str]:
-    return sorted(
+    raw: list[str] = sorted(
         do_folder_operation(paths_list, os.listdir),
         key=lambda file_name: os.path.getmtime(
             get_joined_path(paths_list, file_name)
         ),
         reverse=recent
     )
+    return [r for r in raw if not r.startswith('.')]
 
 
 def folder_exists(paths_list: list[str]) -> bool:
