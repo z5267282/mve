@@ -17,7 +17,6 @@ import constants.error as error
 import constants.defaults as defaults
 import constants.version_control as version_control
 
-import helpers.args as args
 import helpers.colouring as colouring
 import helpers.files as files
 import helpers.json_handlers as json_handlers
