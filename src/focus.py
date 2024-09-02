@@ -10,6 +10,7 @@ import config as config
 import constants.commands as commands
 import constants.defaults as defaults
 import constants.json_settings as json_settings
+import constants.timestamp_format as timestamp_format
 
 import helpers.video_paths as video_paths
 
@@ -35,6 +36,9 @@ def main():
     paths: video_paths.VideoPaths = video_paths.VideoPaths(
         dir_name, destination, destination)
 
+    # TODO: make flag for this
+    named: bool = False
+
     # edit information
     cfg = config.Config(paths.source, paths.renames, paths.edits)
     edits: list[dict] = []
@@ -42,9 +46,16 @@ def main():
     bold: bool = defaults.BOLD
     while True:
         # Can only enter editing commands (ie. s, m, e) and q
-        args: list[str] = input('focus.py : ').split(' ', 1)
+        raw_command: str = input('focus.py : ')
+        args: list[str] = raw_command.split(' ', 1)
         command: str = args.pop(0)
         raw_tokens: str = args.pop() if args else ''
+        # add command as the name if named mode is turned off
+        # TODO: make a more lasting solution than this
+        compliant_timestamp: str = raw_command.replace(
+            timestamp_format.SHORT_HAND, ' ')
+        if not named:
+            raw_tokens = f"{raw_tokens} {compliant_timestamp}"
         match command:
             case commands.QUIT:
                 break
