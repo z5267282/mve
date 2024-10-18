@@ -131,7 +131,8 @@ def do_edit(
         start_end_name_unpacker: typing.Callable[
             # start and end optional, end mandatory
             [list[str]], tuple[None | str, None | str, str]],
-        paths: video_paths.VideoPaths, bold: bool) -> bool:
+        paths: video_paths.VideoPaths, bold: bool, verify_name: bool = False
+) -> bool:
     tokens = parse_tokens(raw_tokens, command, bold)
     if tokens is None:
         return False
@@ -153,7 +154,7 @@ def do_edit(
         if not check_times(base_name, start, end, paths, bold):
             return False
 
-    new_name = handle_new_name(edit_name, paths.edits, bold)
+    new_name = handle_new_name(edit_name, paths.edits, bold, verify_name)
     if new_name is None:
         return False
 
@@ -291,19 +292,28 @@ def get_start_end_description(is_start: bool) -> str:
 
 
 def handle_new_name(
-        new_name: str, dst_folder: list[str], bold: bool) -> None | str:
-    if not correct_name_format(new_name):
-        print_name_format(bold)
-        return None
-
-    if name_starts_with_number(new_name, bold):
-        return None
+        new_name: str, dst_folder: list[str], bold: bool, validate: bool = True
+) -> None | str:
+    if validate:
+        if not valid_name_format(new_name, bold):
+            return None
 
     new_name = add_suffix(new_name)
     if check_file_exists(new_name, dst_folder, bold):
         return None
 
     return new_name
+
+
+def valid_name_format(new_name: str, bold: bool):
+    if not correct_name_format(new_name):
+        print_name_format(bold)
+        return False
+
+    if name_starts_with_number(new_name, bold):
+        return False
+
+    return True
 
 
 def correct_name_format(name: str) -> re.Match[str] | None:
@@ -400,7 +410,7 @@ def do_rename(
         return False
 
     new_name, = tokens
-    new_name = handle_new_name(new_name, paths.renames, bold)
+    new_name = handle_new_name(new_name, paths.renames, bold, True)
     if new_name is None:
         return False
 

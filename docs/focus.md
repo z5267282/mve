@@ -24,3 +24,5 @@ To override this behaviour you can add a `--name` flag and then specify the name
 ```
 > --name 'special moment' 1-30 1-35
 ```
+
+Enter `q` to quit the program.

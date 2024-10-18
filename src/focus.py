@@ -1,8 +1,10 @@
 '''Edit one video on a loop.'''
 
+import argparse
 import json
 import os
 import pathlib
+import shlex
 import sys
 
 import config as config
@@ -36,37 +38,25 @@ def main():
     paths: video_paths.VideoPaths = video_paths.VideoPaths(
         dir_name, destination, destination)
 
-    # TODO: make flag for this
-    named: bool = False
-
     # edit information
     cfg = config.Config(paths.source, paths.renames, paths.edits)
     edits: list[dict] = []
     errors: list[dict] = []
     bold: bool = defaults.BOLD
+
+    commander: argparse.ArgumentParser = argparse.ArgumentParser()
+    commander.add_argument('-n', '--name', type=str)
+    commander.add_argument('start')
+    commander.add_argument('end')
+
     while True:
-        # Can only enter editing commands (ie. s, m, e) and q
-        raw_command: str = input('focus.py : ')
-        args: list[str] = raw_command.split(' ', 1)
-        command: str = args.pop(0)
-        raw_tokens: str = args.pop() if args else ''
-        # add command as the name if named mode is turned off
-        # TODO: make a more lasting solution than this
-        compliant_timestamp: str = raw_command.replace(
-            timestamp_format.SHORT_HAND, ' ')
-        if not named:
-            raw_tokens = f"{raw_tokens} {compliant_timestamp}"
-        match command:
-            case commands.QUIT:
-                break
-            case commands.HELP:
-                print('enter one of [sme]')
-            case commands.END:
-                view.do_end(base_name, raw_tokens, edits, paths, bold)
-            case commands.START:
-                view.do_start(base_name, raw_tokens, edits, paths, bold)
-            case commands.MIDDLE:
-                view.do_middle(base_name, raw_tokens, edits, paths, bold)
+        raw: str = input('> ')
+        if raw == 'q':
+            break
+        tokens: argparse.Namespace = commander.parse_args(
+            shlex.split(raw)
+        )
+        # TODO: pass to do_view
 
     # Queue stored in memory, not written to disk
     # Then when you quit, edits are performed.
