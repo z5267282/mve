@@ -80,10 +80,14 @@ def main():
     print(
         'successfully logged {} file{}'.format(
             colouring.colour_format(
-                colours.PURPLE, util.plural(
+                colours.PURPLE,
+                str(
                     len(edits)
                 ),
                 bold
+            ),
+            util.plural(
+                len(edits)
             )
         )
     )
