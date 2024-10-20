@@ -7,9 +7,12 @@ import sys
 
 import config as config
 
+import constants.colours as colours
 import constants.defaults as defaults
 import constants.json_settings as json_settings
 
+import helpers.colouring as colouring
+import helpers.util as util
 import helpers.video_paths as video_paths
 
 import lib.edit as edit
@@ -52,24 +55,41 @@ def main():
 
         regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
 
-        start: str = tokens.pop(0)
-        if view.parse_time(start, regex, True, format, bold) is None:
+        match len(tokens):
+            case 3:
+                start, end, name = tokens
+            case 2:
+                start, end = tokens
+                name = f'{start} {end}'
+            case _:
+                print('<start> <end> [name]')
+                continue
+
+        start = view.parse_time(start, regex, True, format, bold)
+        if start is None:
             continue
 
-        end: str = tokens.pop(0)
-        if view.parse_time(start, regex, False, format, bold) is None:
+        end = view.parse_time(end, regex, False, format, bold)
+        if end is None:
             continue
 
-        name: str = f'{start} {end}' if not tokens else tokens.pop()
         edit_name: str | None = view.handle_new_name(
             name, dst_folder, bold, False)
-
         if edit_name is None:
             continue
 
         view.log_edit(base_name, edit_name, edits, start, end)
 
-    # TODO: print how many montage clips
+    print(
+        'successfully logged {} file{}'.format(
+            colouring.colour_format(
+                colours.PURPLE, util.plural(
+                    len(edits)
+                ),
+                bold
+            )
+        )
+    )
 
     # Queue stored in memory, not written to disk
     # Then when you quit, edits are performed.
