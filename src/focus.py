@@ -21,6 +21,11 @@ import lib.edit as edit
 import lib.view as view
 
 
+class Commander(argparse.ArgumentParser):
+    def exit(self, status=0, message=None) -> typing.NoReturn:
+        print('bob')
+
+
 def main():
     args = sys.argv[1:]
     if len(args) != 1:
