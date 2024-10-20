@@ -76,7 +76,9 @@ def main():
                    cfg.num_processes, [], errors, paths)
     if errors:
         print('ignoring these files due to errors')
-        print(json.dumps(errors, indent=json_settings.INDENT_SPACES))
+        print(
+            json.dumps(errors, indent=json_settings.INDENT_SPACES)
+        )
 
     print('focus.py complete')
 
