@@ -6,6 +6,7 @@ import os
 import pathlib
 import shlex
 import sys
+import typing
 
 import config as config
 
@@ -46,17 +47,25 @@ def main():
 
     commander: argparse.ArgumentParser = argparse.ArgumentParser()
     commander.add_argument('-n', '--name', type=str)
-    commander.add_argument('start')
-    commander.add_argument('end')
+    commander.add_argument('start', type=str)
+    commander.add_argument('end', type=str)
 
     while True:
         raw: str = input('> ')
         if raw == 'q':
             break
+
+        # don't crash program if bad args are split
         tokens: argparse.Namespace = commander.parse_args(
             shlex.split(raw)
         )
-        # TODO: pass to do_view
+
+        # check start
+        # check end
+        # check name
+        # do edit
+        view.do_edit('', base_name, '', edits,
+                     lambda _: (tokens.start, tokens.end, f'{tokens.start} {tokens.end}'), paths, bold, False)
 
     # Queue stored in memory, not written to disk
     # Then when you quit, edits are performed.
