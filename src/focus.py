@@ -17,6 +17,7 @@ import lib.view as view
 
 
 def main():
+    # TODO: use argparse
     args = sys.argv[1:]
     if len(args) != 1:
         print('enter a source file')
@@ -65,6 +66,8 @@ def main():
             continue
 
         view.log_edit(base_name, edit_name, edits, start, end)
+
+    # TODO: print how many montage clips
 
     # Queue stored in memory, not written to disk
     # Then when you quit, edits are performed.
