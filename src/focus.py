@@ -1,5 +1,6 @@
 '''Edit one video on a loop.'''
 
+import argparse
 import json
 import os
 import pathlib
@@ -20,15 +21,11 @@ import lib.view as view
 
 
 def main():
-    # TODO: use argparse
-    args = sys.argv[1:]
-    if len(args) != 1:
-        print('enter a source file')
-        sys.exit(1)
+    parser: argparse.ArgumentParser = argparse.ArgumentParser()
+    parser.add_argument('source')
+    args: argparse.Namespace = parser.parse_args()
 
-    # path information
-    source, = args
-    source_path = pathlib.Path(source)
+    source_path = pathlib.Path(args.source)
     dir_name: list[str] = list(source_path.parent.parts)
     base_name: str = source_path.name
     dst_folder: list[str] = list(
