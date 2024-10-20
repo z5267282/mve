@@ -29,7 +29,9 @@ def main():
     dir_name: list[str] = list(source_path.parent.parts)
     base_name: str = source_path.name
     dst_folder: list[str] = list(
-        pathlib.Path(os.path.join(os.path.expanduser('~'), 'Downloads')).parts
+        pathlib.Path(
+            os.path.join(os.path.expanduser('~'), 'Downloads')
+        ).parts
     )
 
     paths: video_paths.VideoPaths = video_paths.VideoPaths(

@@ -32,5 +32,10 @@ def round_float(float_string: str) -> int:
     match = re.match(r'([(0-9)]+)\.([0-9])', float_string)
     if match is None:
         raise ValueError(f'could not round the time: {float_string}')
-    whole_number, tenths = int(match.group(1)), int(match.group(2))
+    whole_number: int = int(
+        match.group(1)
+    )
+    tenths: int = int(
+        match.group(2)
+    )
     return whole_number + (tenths >= 5)
