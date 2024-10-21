@@ -70,6 +70,10 @@ def main():
         if end is None:
             continue
 
+        if name.isspace():
+            print('name is all whitespace, enter a new name')
+            continue
+
         edit_name: str | None = view.handle_new_name(
             name, dst_folder, bold, False)
         if edit_name is None:
