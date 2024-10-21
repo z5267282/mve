@@ -22,7 +22,11 @@ import lib.view as view
 
 def main():
     parser: argparse.ArgumentParser = argparse.ArgumentParser()
-    parser.add_argument('source')
+    parser.add_argument('source', type=str)
+    parser.add_argument(
+        '--dest', type=str, default=os.path.join(
+            os.path.expanduser('~'), 'Downloads')
+    )
     args: argparse.Namespace = parser.parse_args()
 
     source_path = pathlib.Path(args.source)
@@ -30,7 +34,7 @@ def main():
     base_name: str = source_path.name
     dst_folder: list[str] = list(
         pathlib.Path(
-            os.path.join(os.path.expanduser('~'), 'Downloads')
+            args.dest
         ).parts
     )
 
