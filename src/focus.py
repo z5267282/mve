@@ -39,7 +39,7 @@ def main():
         try:
             start, end, name = parse_and_validate_tokens(
                 tokens, bold, paths.edits)
-            view.log_edit(source, source, edits, start, end)
+            view.log_edit(source, name, edits, start, end)
         except BadTokenException:
             continue
 
