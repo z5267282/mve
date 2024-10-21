@@ -21,10 +21,6 @@ import lib.edit as edit
 import lib.view as view
 
 
-class BadTokenException(Exception):
-    pass
-
-
 def main():
     bold: bool = defaults.BOLD
     source, paths = make_source_and_paths(bold)
@@ -99,6 +95,10 @@ def make_source_and_paths(bold: bool) -> tuple[str, video_paths.VideoPaths]:
     return source_path.name, video_paths.VideoPaths(source_folder,
                                                     destination_folder,
                                                     destination_folder)
+
+
+class BadTokenException(Exception):
+    pass
 
 
 def parse_and_validate_tokens(
