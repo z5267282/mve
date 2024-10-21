@@ -38,4 +38,4 @@ BAD_CONFIG_NAME: int = 20
 EXISTING_CONFIG: int = 21
 
 # focus
-MISSING_SOURCE: int = 22
+NO_SOURCE_FILE: int = 22
