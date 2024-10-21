@@ -156,5 +156,36 @@ def edit_files(edits: list, errors: list, cfg: config.Config, paths: video_paths
         )
 
 
+def obtain_source_name_and_parent_from_command_line(
+        bold: bool) -> tuple[str, list[str]]:
+    parser: argparse.ArgumentParser = argparse.ArgumentParser()
+    parser.add_argument('source', type=str)
+    args: argparse.Namespace = parser.parse_args()
+
+    source: str = args.source
+    if not os.path.exists(source):
+        util.print_error(
+            f'cannot open file "{colouring.colour_format(colours.CYAN, source, bold)}"',
+            bold)
+        sys.exit(error.MISSING_SOURCE)
+
+    source_path: pathlib.Path = pathlib.Path(source)
+    return source_path.name, list(source_path.parent.parts)
+
+
+def create_paths(source_parent: list[str]) -> video_paths.VideoPaths:
+    destination: list[str] = locate_destination_folder()
+    return video_paths.VideoPaths(
+        source_parent, destination, destination)
+
+
+def locate_destination_folder() -> list[str]:
+    return list(
+        pathlib.Path(
+            os.path.join(os.path.expanduser('~'), 'Downloads')
+        ).parts
+    )
+
+
 if __name__ == '__main__':
     main()
