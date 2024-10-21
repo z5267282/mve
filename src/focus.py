@@ -32,21 +32,17 @@ def main():
     while True:
         # up to 2 splits required:
         # <start> <end> [rest is name]
-        tokens: list[str] = input('> ').split(' ', 2)
-        if tokens[0] == 'q':
+        tokens: str = input('> ')
+        if tokens == 'q':
             break
 
-        regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
+        unpacked = parse_start_end_name(tokens)
+        if unpacked is None:
+            continue
 
-        match len(tokens):
-            case 3:
-                start, end, name = tokens
-            case 2:
-                start, end = tokens
-                name = f'{start} {end}'
-            case _:
-                print('<start> <end> [name]')
-                continue
+        start, end, name = unpacked
+
+        regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
 
         start = view.parse_time(start, regex, True, format, bold)
         if start is None:
@@ -119,6 +115,19 @@ def make_source_and_paths(bold: bool) -> tuple[str, video_paths.VideoPaths]:
     return source_path.name, video_paths.VideoPaths(source_folder,
                                                     destination_folder,
                                                     destination_folder)
+
+
+def parse_start_end_name(raw_tokens: str) -> tuple[str, str, str] | None:
+    tokens: list[str] = raw_tokens.split(' ', 2)
+    if len(tokens) < 2:
+        print('<start> <end> [name]')
+        return None
+
+    start: str = tokens.pop(0)
+    end: str = tokens.pop(0)
+    name: str = tokens.pop(0) if tokens else f'{start} {end}'
+
+    return start, end, name
 
 
 if __name__ == '__main__':
