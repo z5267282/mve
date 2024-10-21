@@ -43,33 +43,7 @@ def main():
         except BadTokenException:
             continue
 
-    print(
-        'successfully logged {} file{}'.format(
-            colouring.colour_format(
-                colours.PURPLE,
-                str(
-                    len(edits)
-                ),
-                bold
-            ),
-            util.plural(
-                len(edits)
-            )
-        )
-    )
-
-    # Queue stored in memory, not written to disk
-    # Then when you quit, edits are performed.
-    data = view.wrap_session(edits, {}, [])
-    edit.treat_all(data, cfg.use_moviepy, cfg.moviepy_threads,
-                   cfg.num_processes, [], errors, paths)
-    if errors:
-        print('ignoring these files due to errors')
-        print(
-            json.dumps(errors, indent=json_settings.INDENT_SPACES)
-        )
-
-    print('focus.py complete')
+    finish_program(edits, errors, cfg, paths, bold)
 
 
 def make_source_and_paths(bold: bool) -> tuple[str, video_paths.VideoPaths]:
@@ -149,6 +123,37 @@ def validate_start_end_name(start: str, end: str, name: str,
         raise BadTokenException()
 
     return start_seconds, end_seconds, edit_name
+
+
+def finish_program(edits: list, errors: list, cfg: config.Config,
+                   paths: video_paths.VideoPaths, bold: bool):
+    print_number_edits(
+        len(edits), bold
+    )
+    edit_files(edits, errors, cfg, paths)
+    print('focus.py complete')
+
+
+def print_number_edits(num_edits: int, bold: bool):
+    print(
+        'successfully logged {} file{}'.format(
+            colouring.colour_format(colours.PURPLE, str(num_edits), bold),
+            util.plural(num_edits)
+        )
+    )
+
+
+def edit_files(edits: list, errors: list, cfg: config.Config, paths: video_paths.VideoPaths):
+    # Queue stored in memory, not written to disk
+    # Then when you quit, edits are performed.
+    data = view.wrap_session(edits, {}, [])
+    edit.treat_all(data, cfg.use_moviepy, cfg.moviepy_threads,
+                   cfg.num_processes, [], errors, paths)
+    if errors:
+        print('ignoring these files due to errors')
+        print(
+            json.dumps(errors, indent=json_settings.INDENT_SPACES)
+        )
 
 
 if __name__ == '__main__':
