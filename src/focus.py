@@ -10,6 +10,7 @@ import config as config
 
 import constants.colours as colours
 import constants.defaults as defaults
+import constants.error as error
 import constants.json_settings as json_settings
 
 import helpers.colouring as colouring
@@ -21,31 +22,12 @@ import lib.view as view
 
 
 def main():
-    parser: argparse.ArgumentParser = argparse.ArgumentParser()
-    parser.add_argument('source', type=str)
-    parser.add_argument(
-        '--dest', type=str, default=os.path.join(
-            os.path.expanduser('~'), 'Downloads')
-    )
-    args: argparse.Namespace = parser.parse_args()
-
-    source_path = pathlib.Path(args.source)
-    dir_name: list[str] = list(source_path.parent.parts)
-    base_name: str = source_path.name
-    dst_folder: list[str] = list(
-        pathlib.Path(
-            args.dest
-        ).parts
-    )
-
-    paths: video_paths.VideoPaths = video_paths.VideoPaths(
-        dir_name, dst_folder, dst_folder)
+    bold: bool = defaults.BOLD
+    source, paths = make_source_and_paths(bold)
 
     # edit information
     cfg = config.Config(paths.source, paths.renames, paths.edits)
-    edits: list[dict] = []
-    errors: list[dict] = []
-    bold: bool = defaults.BOLD
+    edits, errors = [], []
 
     while True:
         # up to 2 splits required:
@@ -78,12 +60,12 @@ def main():
             print('name is all whitespace, enter a new name')
             continue
 
-        edit_name: str | None = view.handle_new_name(
-            name, dst_folder, bold, False)
+        edit_name: str | None = view.handle_new_name(name, paths.edits, bold,
+                                                     False)
         if edit_name is None:
             continue
 
-        view.log_edit(base_name, edit_name, edits, start, end)
+        view.log_edit(source, edit_name, edits, start, end)
 
     print(
         'successfully logged {} file{}'.format(
@@ -112,6 +94,31 @@ def main():
         )
 
     print('focus.py complete')
+
+
+def make_source_and_paths(bold: bool) -> tuple[str, video_paths.VideoPaths]:
+    parser: argparse.ArgumentParser = argparse.ArgumentParser()
+    parser.add_argument('source', type=str)
+    parser.add_argument(
+        '--destination', type=str, default=os.path.join(
+            os.path.expanduser('~'), 'Downloads')
+    )
+    args: argparse.Namespace = parser.parse_args()
+
+    source: str = args.source
+    if not os.path.exists(source):
+        util.print_error(
+            f'cannot open file "{colouring.colour_format(colours.CYAN, source, bold)}"',
+            bold)
+        sys.exit(error.NO_SOURCE_FILE)
+
+    source_path: pathlib.Path = pathlib.Path(source)
+    source_folder: list[str] = list(source_path.parent.parts)
+    destination_folder: list[str] = list(
+        pathlib.Path(args.destination).parts)
+    return source_path.name, video_paths.VideoPaths(source_folder,
+                                                    destination_folder,
+                                                    destination_folder)
 
 
 if __name__ == '__main__':
