@@ -10,6 +10,7 @@ import config as config
 
 import constants.colours as colours
 import constants.defaults as defaults
+import constants.error as error
 import constants.json_settings as json_settings
 
 import helpers.colouring as colouring
@@ -21,27 +22,15 @@ import lib.view as view
 
 
 def main():
-    parser: argparse.ArgumentParser = argparse.ArgumentParser()
-    parser.add_argument('source')
-    args: argparse.Namespace = parser.parse_args()
-
-    source_path = pathlib.Path(args.source)
-    dir_name: list[str] = list(source_path.parent.parts)
-    base_name: str = source_path.name
-    dst_folder: list[str] = list(
-        pathlib.Path(
-            os.path.join(os.path.expanduser('~'), 'Downloads')
-        ).parts
-    )
-
-    paths: video_paths.VideoPaths = video_paths.VideoPaths(
-        dir_name, dst_folder, dst_folder)
+    bold: bool = defaults.BOLD
+    base_name, dst_folder = obtain_source_name_and_parent_from_command_line(
+        bold)
+    paths: pathlib.Path = create_paths()
 
     # edit information
     cfg = config.Config(paths.source, paths.renames, paths.edits)
     edits: list[dict] = []
     errors: list[dict] = []
-    bold: bool = defaults.BOLD
 
     while True:
         # up to 2 splits required:
@@ -108,6 +97,37 @@ def main():
         )
 
     print('focus.py complete')
+
+
+def obtain_source_name_and_parent_from_command_line(
+        bold: bool) -> tuple[str, list[str]]:
+    parser: argparse.ArgumentParser = argparse.ArgumentParser()
+    parser.add_argument('source', type=str)
+    args: argparse.Namespace = parser.parse_args()
+
+    source: str = args.source
+    if not os.path.exists(source):
+        util.print_error(
+            f'cannot open file "{colouring.colour_format(colours.CYAN, source, bold)}"',
+            bold)
+        sys.exit(error.MISSING_SOURCE)
+
+    source_path: pathlib.Path = pathlib.Path(source)
+    return source_path.name, list(source_path.parent.parts)
+
+
+def create_paths(source_parent: list[str]) -> video_paths.VideoPaths:
+    destination: list[str] = locate_destination_folder()
+    return video_paths.VideoPaths(
+        source_parent, destination, destination)
+
+
+def locate_destination_folder() -> list[str]:
+    return list(
+        pathlib.Path(
+            os.path.join(os.path.expanduser('~'), 'Downloads')
+        ).parts
+    )
 
 
 if __name__ == '__main__':
