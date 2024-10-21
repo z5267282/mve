@@ -21,6 +21,10 @@ import lib.edit as edit
 import lib.view as view
 
 
+class BadTokenException(Exception):
+    pass
+
+
 def main():
     bold: bool = defaults.BOLD
     source, paths = make_source_and_paths(bold)
@@ -36,32 +40,12 @@ def main():
         if tokens == 'q':
             break
 
-        unpacked = parse_start_end_name(tokens)
-        if unpacked is None:
+        try:
+            start, end, name = parse_and_validate_tokens(
+                tokens, bold, paths.edits)
+            view.log_edit(source, source, edits, start, end)
+        except BadTokenException:
             continue
-
-        start, end, name = unpacked
-
-        regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
-
-        start = view.parse_time(start, regex, True, format, bold)
-        if start is None:
-            continue
-
-        end = view.parse_time(end, regex, False, format, bold)
-        if end is None:
-            continue
-
-        if name.isspace():
-            print('name is all whitespace, enter a new name')
-            continue
-
-        edit_name: str | None = view.handle_new_name(name, paths.edits, bold,
-                                                     False)
-        if edit_name is None:
-            continue
-
-        view.log_edit(source, edit_name, edits, start, end)
 
     print(
         'successfully logged {} file{}'.format(
@@ -117,6 +101,17 @@ def make_source_and_paths(bold: bool) -> tuple[str, video_paths.VideoPaths]:
                                                     destination_folder)
 
 
+def parse_and_validate_tokens(
+        raw_tokens: str, bold: bool, destination: list[str]
+) -> tuple[str, str, str]:
+    unpacked = parse_start_end_name(raw_tokens)
+    if unpacked is None:
+        raise BadTokenException()
+
+    start, end, name = unpacked
+    return validate_start_end_name(start, end, name, bold, destination)
+
+
 def parse_start_end_name(raw_tokens: str) -> tuple[str, str, str] | None:
     tokens: list[str] = raw_tokens.split(' ', 2)
     if len(tokens) < 2:
@@ -128,6 +123,32 @@ def parse_start_end_name(raw_tokens: str) -> tuple[str, str, str] | None:
     name: str = tokens.pop(0) if tokens else f'{start} {end}'
 
     return start, end, name
+
+
+def validate_start_end_name(start: str, end: str, name: str,
+                            bold: bool, destination: list[str]
+                            ) -> tuple[str, str, str]:
+    regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
+
+    start_seconds: str | None = view.parse_time(
+        start, regex, True, format, bold)
+    if start_seconds is None:
+        raise BadTokenException()
+
+    end_seconds: str | None = view.parse_time(end, regex, False, format, bold)
+    if end_seconds is None:
+        raise BadTokenException()
+
+    if name.isspace():
+        print('name is all whitespace, enter a new name')
+        raise BadTokenException()
+
+    edit_name: str | None = view.handle_new_name(
+        name, destination, bold, False)
+    if edit_name is None:
+        raise BadTokenException()
+
+    return start_seconds, end_seconds, edit_name
 
 
 if __name__ == '__main__':
