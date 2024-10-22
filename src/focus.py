@@ -1,4 +1,10 @@
-'''Edit one video on a loop.'''
+'''Edit one video on a loop.
+Provide the absolute path of the source, and optionally a the absolute path of
+the destination folder as command line arguments.
+In the main program, enter timestamps in the form
+<start> <end> [name]
+where the name is optional.
+Hit q when you want to quit the program.'''
 
 import argparse
 import json
@@ -41,6 +47,7 @@ def main():
                 tokens, bold, paths.edits)
             view.log_edit(source, name, edits, start, end)
         except BadTokenException:
+            print('format: [q]uit, or <start> <end> [name]')
             continue
 
     finish_program(edits, errors, cfg, paths, bold)
