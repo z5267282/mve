@@ -174,7 +174,7 @@ def obtain_source_name_and_parent_from_command_line(
         util.print_error(
             f'cannot open file "{colouring.colour_format(colours.CYAN, source, bold)}"',
             bold)
-        sys.exit(error.MISSING_SOURCE)
+        sys.exit(error.NO_SOURCE_FILE)
 
     source_path: pathlib.Path = pathlib.Path(source)
     return source_path.name, list(source_path.parent.parts)
