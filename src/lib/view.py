@@ -131,7 +131,7 @@ def do_edit(
         start_end_name_unpacker: typing.Callable[
             # start and end optional, end mandatory
             [list[str]], tuple[None | str, None | str, str]],
-        paths: video_paths.VideoPaths, bold: bool, verify_name: bool = False
+        paths: video_paths.VideoPaths, bold: bool, verify_name: bool = True
 ) -> bool:
     tokens = parse_tokens(raw_tokens, command, bold)
     if tokens is None:
