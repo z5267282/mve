@@ -28,7 +28,7 @@ def main():
         # alternatively, the video can be opened using VLC
         # https://stackoverflow.com/questions/40445885/no-audio-when-adding-mp3-to-videofileclip-moviepy
         combined.write_videofile(f'{args.title}.{video_editing.SUFFIX}',
-                                 codec='libx264',
+                                 codec=video_editing.VCODEC,
                                  audio_codec='aac',
                                  temp_audiofile='temp-audio.m4a',
                                  remove_temp=True)
