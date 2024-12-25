@@ -12,7 +12,8 @@ import constants.video_editing as video_editing
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('source', type=str)
-    parser.add_argument('title', type=str)
+    parser.add_argument(
+        'title', type=str, help='the raw base filename of the combined montage without a file suffix')
     args = parser.parse_args()
 
     # we should order by clip creation time
