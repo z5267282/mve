@@ -33,7 +33,8 @@ def main():
     edits, renames, deletions = list(), dict(), list()
     folders = cfg.create_source_folders()
     view.run_loop(
-        remaining, edits, renames, deletions, folders, cfg.testing, cfg.bold)
+        remaining, edits, renames, deletions, folders, cfg.testing, cfg.bold,
+        cfg.verify_name)
     state.write_remaining(remaining)
 
     if edits or renames or deletions:

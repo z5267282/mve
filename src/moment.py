@@ -27,13 +27,13 @@ def main():
     paths = video_paths.VideoPaths.make_merged_dest_from_defaults(source, dest)
     cfg = config.Config(paths.source, paths.renames, paths.edits)
 
-    cfg.recent = False
-    cfg.testing = args.testing
+    configure_settings(cfg, args.testing)
 
     remaining, errors = gen_remaining(paths, cfg.recent), list()
     edits, renames, deletions = list(), dict(), list()
     num_remaining = view.run_loop(remaining, edits, renames,
-                                  deletions, paths, cfg.testing, cfg.bold)
+                                  deletions, paths, cfg.testing, cfg.bold,
+                                  cfg.verify_name)
     data = view.wrap_session(edits, renames, deletions)
     print(
         util.format_remaining(num_remaining, cfg.bold)
@@ -84,6 +84,12 @@ def gen_remaining(paths: video_paths.VideoPaths, recent: bool) -> list[str]:
 def decompose_path_into_folders(abs_path: str) -> list[str]:
     path: pathlib.Path = pathlib.Path(abs_path)
     return list(path.parts)
+
+
+def configure_settings(cfg: config.Config, testing: bool):
+    cfg.recent = False
+    cfg.testing = testing
+    cfg.verify_name = False
 
 
 def handle_errors(errors: list[dict], bold: bool):

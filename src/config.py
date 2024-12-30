@@ -32,7 +32,8 @@ class Config():
         use_moviepy: bool = defaults.USE_MOVIEPY,
         moviepy_threads: int = defaults.MOVIEPY_THREADS,
         testing: bool = defaults.TESTING,
-        bold: bool = defaults.BOLD
+        bold: bool = defaults.BOLD,
+        verify_name: bool = defaults.VERIFY_NAME
     ):
         # folders
         self.source: list[str] = source
@@ -55,6 +56,9 @@ class Config():
 
         # colours
         self.bold: bool = bold
+
+        # double-check name was not mistaken for a command
+        self.verify_name: bool = verify_name
 
     # folder existence checking
 

@@ -13,3 +13,6 @@ TESTING: bool = False
 
 # colours
 BOLD: bool = False
+
+# whether to check if names start with leading numbers
+VERIFY_NAME: bool = True
