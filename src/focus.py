@@ -150,7 +150,8 @@ def print_number_edits(num_edits: int, bold: bool):
     )
 
 
-def edit_files(edits: list, errors: list, cfg: config.Config, paths: video_paths.VideoPaths):
+def edit_files(edits: list, errors: list, cfg: config.Config,
+               paths: video_paths.VideoPaths):
     # Queue stored in memory, not written to disk
     # Then when you quit, edits are performed.
     data = view.wrap_session(edits, {}, [])
