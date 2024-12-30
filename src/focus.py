@@ -28,8 +28,7 @@ import lib.view as view
 
 
 def main():
-    bold: bool = defaults.BOLD
-    source, paths = make_source_and_paths(bold)
+    source, paths = make_source_and_paths(defaults.BOLD)
 
     # edit information
     cfg = config.Config(paths.source, paths.renames, paths.edits)
@@ -44,13 +43,13 @@ def main():
 
         try:
             start, end, name = parse_and_validate_tokens(
-                tokens, bold, paths.edits)
+                tokens, cfg.bold, paths.edits)
             view.log_edit(source, name, edits, start, end)
         except BadTokenException:
             print('format: [q]uit, or <start> <end> [name]')
             continue
 
-    finish_program(edits, errors, cfg, paths, bold)
+    finish_program(edits, errors, cfg, paths, cfg.bold)
 
 
 def make_source_and_paths(bold: bool) -> tuple[str, video_paths.VideoPaths]:
