@@ -8,7 +8,7 @@ Then, the program will edit the videos accordingly.
 
 The project can be run in a stateful or stateless mode, depending on whether records should be kept.
 
-## 1. Stateful Mode
+## 1. Stateful
 
 To edit and record a history of treatments, run these `src/*.py` scripts in this order:
 
@@ -28,13 +28,15 @@ python3 script.py config
 
 All scripts can be run on a docker container with the exception of **`make.py`** as it requires OS-specific path information.
 
-## 2. Stateless Mode
+## 2. Stateless
 
-Run `moment.py` to run treatments without recording history.  
-You will be prompted to enter a source folder and then view videos.  
-Once all videos have been viewed and recorded with a treatment, editing occurs immediately thereafter.
+For one-off editing where history is not needed, the following scripts can be run.
 
-In stateless mode, the config is based on `constants.defaults`.
+| script       | description                                             |
+| ------------ | ------------------------------------------------------- |
+| `moment.py`  | make edits for all videos from a particular folder      |
+| `focus.py`   | continuously make clips of a particular video           |
+| `combine.py` | join all clips from a folder into a single complication |
 
 # Environment Variable
 
