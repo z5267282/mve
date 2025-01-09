@@ -6,7 +6,7 @@ import os
 
 import moviepy.editor as mvp
 
-import src.constants.video_editing as video_editing
+import constants.video_editing as video_editing
 
 
 def main():

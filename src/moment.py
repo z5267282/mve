@@ -7,14 +7,14 @@ import os
 import pathlib
 import sys
 
-import src.config as config
+import config
 
-import src.constants.error as error
-import src.constants.json_settings as json_settings
+import constants.error as error
+import constants.json_settings as json_settings
 
-import src.helpers.files as files
-import src.helpers.video_paths as video_paths
-import src.helpers.util as util
+import helpers.files as files
+import helpers.video_paths as video_paths
+import helpers.util as util
 
 import lib.view as view
 import lib.edit as edit

@@ -2,18 +2,18 @@ import argparse
 import os
 import sys
 
-import src.config as config
+import config
 
-import src.constants.colours as colours
-import src.constants.defaults as defaults
-import src.constants.environment as environment
-import src.constants.error as error
-import src.constants.status as status
+import constants.colours as colours
+import constants.defaults as defaults
+import constants.environment as environment
+import constants.error as error
+import constants.status as status
 
-import src.helpers.colouring as colouring
-import src.helpers.files as files
-import src.helpers.load_env as load_env
-import src.helpers.util as util
+import helpers.colouring as colouring
+import helpers.files as files
+import helpers.load_env as load_env
+import helpers.util as util
 
 
 def main():
