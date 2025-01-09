@@ -9,15 +9,15 @@ Once complete, the viewer enques a new treatment for the given config.'''
 
 import sys
 
-import config
+import src.config as config
 
-import constants.treatment_format as treatment_format
+import src.constants.treatment_format as treatment_format
 
-import helpers.args as args
-import helpers.util as util
-import helpers.timestamps as timestamps
-import helpers.json_handlers as json_handlers
-import helpers.files as files
+import src.helpers.args as args
+import src.helpers.util as util
+import src.helpers.timestamps as timestamps
+import src.helpers.json_handlers as json_handlers
+import src.helpers.files as files
 
 import lib.view as view
 

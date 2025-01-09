@@ -1,7 +1,5 @@
 '''Configure folder paths and settings for a given category of videos.'''
 
-import os
-import pathlib
 import sys
 
 import constants.defaults as defaults
