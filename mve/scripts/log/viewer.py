@@ -19,11 +19,13 @@ import mve.src.helpers.files as files
 
 import mve.src.lib.view as view
 
-from mve.scripts.script import Script
+from mve.scripts.script import Legacy
 
 
-class Viewer(Script):
+class Viewer(Legacy):
     def main(self, argv: list[str]) -> None:
+        super().main(argv)
+
         name = args.expect_config_name(argv)
         state = config.Stateful(name)
         self.run_checks(state.cfg)

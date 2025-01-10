@@ -25,11 +25,13 @@ import mve.src.helpers.util as util
 
 import mve.src.lib.edit as edit
 
-from mve.scripts.script import Script
+from mve.scripts.script import Legacy
 
 
-class Treater(Script):
+class Treater(Legacy):
     def main(self, argv: list[str]) -> None:
+        super().main(argv)
+
         name = args.expect_config_name(argv)
         state = config.Stateful(name)
         self.run_checks(state)

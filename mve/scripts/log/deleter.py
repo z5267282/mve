@@ -11,11 +11,13 @@ import mve.src.helpers.colouring as colouring
 import mve.src.helpers.files as files
 import mve.src.helpers.util as util
 
-from mve.scripts.script import Script
+from mve.scripts.script import Legacy
 
 
-class Deleter(Script):
+class Deleter(Legacy):
     def main(self, argv: list[str]) -> None:
+        super().main(argv)
+
         name = args.expect_config_name(argv)
         state = config.Stateful(name)
         self.run_checks(state)
