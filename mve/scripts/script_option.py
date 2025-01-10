@@ -6,4 +6,5 @@ class ScriptOption(enum.Enum):
 
     DELETER = 'deleter'
     GENERATOR = 'generator'
+    INTEGRITY = 'integrity'
     MAKE = 'make'
