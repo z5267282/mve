@@ -4,17 +4,17 @@ import os
 import pathlib
 import sys
 
-import constants.defaults as defaults
-import constants.error as error
-import constants.options as options
-import constants.treatment_format as treatment_format
+import mve.src.constants.defaults as defaults
+import mve.src.constants.error as error
+import mve.src.constants.options as options
+import mve.src.constants.treatment_format as treatment_format
 
-import helpers.check_and_exit_if as check_and_exit_if
-import helpers.files as files
-import helpers.json_handlers as json_handlers
-import helpers.load_env as load_env
-import helpers.video_paths as video_paths
-import helpers.util as util
+import mve.src.helpers.check_and_exit_if as check_and_exit_if
+import mve.src.helpers.files as files
+import mve.src.helpers.json_handlers as json_handlers
+import mve.src.helpers.load_env as load_env
+import mve.src.helpers.video_paths as video_paths
+import mve.src.helpers.util as util
 
 
 class Config():

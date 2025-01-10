@@ -3,7 +3,7 @@
 import os
 import pathlib
 
-import constants.environment as environment
+import mve.src.constants.environment as environment
 
 
 def get_config_paths_from_environment() -> None | list[str]:

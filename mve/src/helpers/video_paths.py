@@ -1,5 +1,5 @@
-import helpers.files as files
-import helpers.util as util
+import mve.src.helpers.files as files
+import mve.src.helpers.util as util
 
 
 class VideoPaths:

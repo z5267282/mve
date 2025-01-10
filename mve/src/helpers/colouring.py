@@ -1,6 +1,6 @@
 import os
 
-import constants.colours as colours
+import mve.src.constants.colours as colours
 
 
 def generate_colour_code(colour: int, bold: bool) -> str:

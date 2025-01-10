@@ -1,7 +1,7 @@
 import json
 import typing
 
-import constants.json_settings as json_settings
+import mve.src.constants.json_settings as json_settings
 
 
 def write_to_json(item: typing.Any, joined_path: str):

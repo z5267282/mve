@@ -1,5 +1,6 @@
 # mac stuff
-__pycache__
 .DS_store
 
+# Python
 .venv
+__pycache__

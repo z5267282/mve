@@ -2,9 +2,9 @@ import os
 import re
 import sys
 
-import constants.colours as colours
+import mve.src.constants.colours as colours
 
-import helpers.colouring as colouring
+import mve.src.helpers.colouring as colouring
 
 
 def stderr_print(message: str):

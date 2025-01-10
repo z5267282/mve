@@ -5,18 +5,18 @@ import subprocess
 import sys
 import typing
 
-import constants.colours as colours
-import constants.commands as commands
-import constants.timestamp_format as timestamp_format
-import constants.treatment_format as treatment_format
-import constants.video_editing as video_editing
+import mve.src.constants.colours as colours
+import mve.src.constants.commands as commands
+import mve.src.constants.timestamp_format as timestamp_format
+import mve.src.constants.treatment_format as treatment_format
+import mve.src.constants.video_editing as video_editing
 
-import helpers.util as util
-import helpers.time_handlers as time_handlers
-import helpers.video as video
-import helpers.video_paths as video_paths
-import helpers.files as files
-import helpers.colouring as colouring
+import mve.src.helpers.util as util
+import mve.src.helpers.time_handlers as time_handlers
+import mve.src.helpers.video as video
+import mve.src.helpers.video_paths as video_paths
+import mve.src.helpers.files as files
+import mve.src.helpers.colouring as colouring
 
 
 def run_loop(

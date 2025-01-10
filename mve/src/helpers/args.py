@@ -1,6 +1,6 @@
 '''For handling command line arguments'''
 
-import helpers.check_and_exit_if as check_and_exit_if
+import mve.src.helpers.check_and_exit_if as check_and_exit_if
 
 
 def expect_config_name(argv: list[str]) -> str:
