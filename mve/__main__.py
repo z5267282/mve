@@ -17,12 +17,15 @@ def main():
 
     args, argv = parser.parse_known_args()
 
-    scripts: dict[str, script.Script] = {
-        'make': make.Make()
-    }
-
+    scripts = make_interface()
     # run chosen script
     scripts[args.script].main(argv)
+
+
+def make_interface() -> dict[str, script.Script]:
+    return {
+        'make': make.Make()
+    }
 
 
 if __name__ == '__main__':
