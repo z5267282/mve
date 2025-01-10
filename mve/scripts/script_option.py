@@ -8,3 +8,4 @@ class ScriptOption(enum.Enum):
     GENERATOR = 'generator'
     INTEGRITY = 'integrity'
     MAKE = 'make'
+    TREATER = 'treater'
