@@ -1,17 +1,19 @@
 import argparse
 
-import mve.scripts.log.make as make
+from mve.scripts.log.deleter import Deleter
+from mve.scripts.log.make import Make
 
-import mve.scripts.script as script
-import mve.scripts.script_option as script_option
+from mve.scripts.script import Script
+from mve.scripts.script_option import ScriptOption
 
 
 class Runner():
     '''Controller class for running all mve scripts'''
 
     def __init__(self):
-        self.scripts: dict[script_option.ScriptOption, script.Script] = {
-            script_option.ScriptOption.MAKE: make.Make()
+        self.scripts: dict[ScriptOption, Script] = {
+            ScriptOption.DELETER: Deleter(),
+            ScriptOption.MAKE: Make()
         }
 
     def run(self) -> None:
@@ -33,10 +35,10 @@ class Runner():
 
         return parser.parse_known_args()
 
-    def map_script_name_to_enum(self, name: str) -> script_option.ScriptOption:
-        return script_option.ScriptOption(name)
+    def map_script_name_to_enum(self, name: str) -> ScriptOption:
+        return ScriptOption(name)
 
     def lookup_script(self,
-                      option: script_option.ScriptOption
-                      ) -> script.Script:
+                      option: ScriptOption
+                      ) -> Script:
         return self.scripts[option]
