@@ -1,6 +1,7 @@
 import argparse
 
 from mve.scripts.log.deleter import Deleter
+from mve.scripts.log.generator import Generator
 from mve.scripts.log.make import Make
 
 from mve.scripts.script import Script
@@ -13,6 +14,7 @@ class Runner():
     def __init__(self):
         self.scripts: dict[ScriptOption, Script] = {
             ScriptOption.DELETER: Deleter(),
+            ScriptOption.GENERATOR: Generator(),
             ScriptOption.MAKE: Make()
         }
 
