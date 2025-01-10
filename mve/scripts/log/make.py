@@ -23,10 +23,10 @@ import mve.src.helpers.json_handlers as json_handlers
 import mve.src.helpers.util as util
 import mve.src.helpers.video_paths as video_paths
 
-import mve.scripts.script as script
+from mve.scripts.script import Script
 
 
-class Make(script.Script):
+class Make(Script):
     def main(self, argv: list[str]) -> None:
         args = self.handle_args(argv)
         name = args.config
