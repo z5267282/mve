@@ -1,5 +1,3 @@
-
-import enum
 import argparse
 
 import mve.scripts.log.make as make
