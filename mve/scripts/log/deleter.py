@@ -12,25 +12,23 @@ import mve.src.helpers.colouring as colouring
 import mve.src.helpers.files as files
 import mve.src.helpers.util as util
 
-
-def main():
-    name = args.expect_config_name(sys.argv)
-    state = config.Stateful(name)
-    run_checks(state)
-
-    cfg = state.cfg
-
-    files.do_folder_operation(cfg.source, shutil.rmtree)
-
-    util.exit_success('removed the folder \'{}\''.format(
-        colouring.highlight_path(cfg.source, cfg.bold)
-    ), cfg.bold)
+import mve.scripts.script as script
 
 
-def run_checks(state: config.Stateful):
-    state.check_files_remaining()
-    state.cfg.no_source_folder()
+class Deleter(script.Script):
+    def main(self, argv: list[str]) -> None:
+        name = args.expect_config_name(argv)
+        state = config.Stateful(name)
+        self.run_checks(state)
 
+        cfg = state.cfg
 
-if __name__ == '__main__':
-    main()
+        files.do_folder_operation(cfg.source, shutil.rmtree)
+
+        util.exit_success('removed the folder \'{}\''.format(
+            colouring.highlight_path(cfg.source, cfg.bold)
+        ), cfg.bold)
+
+    def run_checks(self, state: config.Stateful):
+        state.check_files_remaining()
+        state.cfg.no_source_folder()
