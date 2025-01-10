@@ -43,10 +43,11 @@ class Runner():
         logged = parser.add_subparsers(dest='logged')
 
         log = logged.add_parser('log')
-        log.add_argument('script', choices=['make'])
+        log.add_argument('script', choices=[
+                         'deleter', 'generator', 'integrity', 'make', 'treater', 'viewer'])
 
         no_log = logged.add_parser('no-log')
-        no_log.add_argument('script', choices=['focus'])
+        no_log.add_argument('script', choices=['combine', 'focus', 'moment'])
 
         return parser.parse_known_args()
 
