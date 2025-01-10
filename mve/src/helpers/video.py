@@ -1,7 +1,7 @@
 import re
 import subprocess
 
-import helpers.time_handlers as time_handlers
+import mve.src.helpers.time_handlers as time_handlers
 
 
 def convert_integer_seconds_to_natural_number(seconds: str,

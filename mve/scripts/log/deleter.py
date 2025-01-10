@@ -5,12 +5,12 @@ as the source folder will be mounted as a volume.'''
 import shutil
 import sys
 
-import config
+import mve.src.config as config
 
-import helpers.args as args
-import helpers.colouring as colouring
-import helpers.files as files
-import helpers.util as util
+import mve.src.helpers.args as args
+import mve.src.helpers.colouring as colouring
+import mve.src.helpers.files as files
+import mve.src.helpers.util as util
 
 
 def main():

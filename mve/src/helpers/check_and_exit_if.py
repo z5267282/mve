@@ -1,11 +1,11 @@
 import os
 import sys
 
-import constants.error as error
+import mve.src.constants.error as error
 
-import helpers.colouring as colouring
-import helpers.files as files
-import helpers.util as util
+import mve.src.helpers.colouring as colouring
+import mve.src.helpers.files as files
+import mve.src.helpers.util as util
 
 
 def bad_args(argv: list[str], length: int, usage_message: str = ''):

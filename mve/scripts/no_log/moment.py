@@ -7,14 +7,14 @@ import os
 import pathlib
 import sys
 
-import config
+import mve.src.config as config
 
-import constants.error as error
-import constants.json_settings as json_settings
+import mve.src.constants.error as error
+import mve.src.constants.json_settings as json_settings
 
-import helpers.files as files
-import helpers.video_paths as video_paths
-import helpers.util as util
+import mve.src.helpers.files as files
+import mve.src.helpers.video_paths as video_paths
+import mve.src.helpers.util as util
 
 import lib.view as view
 import lib.edit as edit

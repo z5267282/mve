@@ -4,14 +4,14 @@ import moviepy.editor as mvp
 import subprocess
 import typing
 
-import constants.errors_format as errors_format
-import constants.treatment_format as treatment_format
-import constants.video_editing as video_editing
+import mve.src.constants.errors_format as errors_format
+import mve.src.constants.treatment_format as treatment_format
+import mve.src.constants.video_editing as video_editing
 
-import helpers.files as files
-import helpers.time_handlers as time_handlers
-import helpers.video as video
-import helpers.video_paths as video_paths
+import mve.src.helpers.files as files
+import mve.src.helpers.time_handlers as time_handlers
+import mve.src.helpers.video as video
+import mve.src.helpers.video_paths as video_paths
 
 
 def treat_all(data: dict,

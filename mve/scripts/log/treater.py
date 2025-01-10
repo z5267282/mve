@@ -11,17 +11,17 @@ if any of the aformentioned folders do not exist.'''
 import os
 import sys
 
-import config
+import mve.src.config as config
 
-import constants.error as error
-import constants.errors_format as errors_format
+import mve.src.constants.error as error
+import mve.src.constants.errors_format as errors_format
 
-import helpers.args as args
-import helpers.colouring as colouring
-import helpers.files as files
-import helpers.json_handlers as json_handlers
-import helpers.timestamps as timestamps
-import helpers.util as util
+import mve.src.helpers.args as args
+import mve.src.helpers.colouring as colouring
+import mve.src.helpers.files as files
+import mve.src.helpers.json_handlers as json_handlers
+import mve.src.helpers.timestamps as timestamps
+import mve.src.helpers.util as util
 
 import lib.edit as edit
 

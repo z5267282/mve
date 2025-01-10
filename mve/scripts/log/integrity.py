@@ -2,18 +2,18 @@ import argparse
 import os
 import sys
 
-import config
+import mve.src.config as config
 
-import constants.colours as colours
-import constants.defaults as defaults
-import constants.environment as environment
-import constants.error as error
-import constants.status as status
+import mve.src.constants.colours as colours
+import mve.src.constants.defaults as defaults
+import mve.src.constants.environment as environment
+import mve.src.constants.error as error
+import mve.src.constants.status as status
 
-import helpers.colouring as colouring
-import helpers.files as files
-import helpers.load_env as load_env
-import helpers.util as util
+import mve.src.helpers.colouring as colouring
+import mve.src.helpers.files as files
+import mve.src.helpers.load_env as load_env
+import mve.src.helpers.util as util
 
 
 def main():

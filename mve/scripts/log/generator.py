@@ -8,14 +8,14 @@ be toggled through the RECENT config flag.'''
 
 import sys
 
-import config
+import mve.src.config as config
 
-import constants.video_editing as video_editing
+import mve.src.constants.video_editing as video_editing
 
-import helpers.args as args
-import helpers.colouring as colouring
-import helpers.files as files
-import helpers.util as util
+import mve.src.helpers.args as args
+import mve.src.helpers.colouring as colouring
+import mve.src.helpers.files as files
+import mve.src.helpers.util as util
 
 
 def main():

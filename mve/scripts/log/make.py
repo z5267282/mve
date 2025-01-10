@@ -11,17 +11,17 @@ import os
 import re
 import sys
 
-import config
+import mve.src.config as config
 
-import constants.error as error
-import constants.defaults as defaults
-import constants.version_control as version_control
+import mve.src.constants.error as error
+import mve.src.constants.defaults as defaults
+import mve.src.constants.version_control as version_control
 
-import helpers.colouring as colouring
-import helpers.files as files
-import helpers.json_handlers as json_handlers
-import helpers.util as util
-import helpers.video_paths as video_paths
+import mve.src.helpers.colouring as colouring
+import mve.src.helpers.files as files
+import mve.src.helpers.json_handlers as json_handlers
+import mve.src.helpers.util as util
+import mve.src.helpers.video_paths as video_paths
 
 
 def main():

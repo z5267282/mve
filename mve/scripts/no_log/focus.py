@@ -12,16 +12,16 @@ import os
 import pathlib
 import sys
 
-import config as config
+import mve.src.config as config as config
 
-import constants.colours as colours
-import constants.defaults as defaults
-import constants.error as error
-import constants.json_settings as json_settings
+import mve.src.constants.colours as colours
+import mve.src.constants.defaults as defaults
+import mve.src.constants.error as error
+import mve.src.constants.json_settings as json_settings
 
-import helpers.colouring as colouring
-import helpers.util as util
-import helpers.video_paths as video_paths
+import mve.src.helpers.colouring as colouring
+import mve.src.helpers.util as util
+import mve.src.helpers.video_paths as video_paths
 
 import lib.edit as edit
 import lib.view as view

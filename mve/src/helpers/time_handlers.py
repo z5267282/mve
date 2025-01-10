@@ -1,4 +1,4 @@
-import constants.timestamp_format as timestamp_format
+import mve.src.constants.timestamp_format as timestamp_format
 
 
 def get_seconds(time: str) -> int:
