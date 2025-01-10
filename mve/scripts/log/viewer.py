@@ -19,7 +19,7 @@ import mve.src.helpers.timestamps as timestamps
 import mve.src.helpers.json_handlers as json_handlers
 import mve.src.helpers.files as files
 
-import lib.view as view
+import mve.src.lib.view as view
 
 
 def main():

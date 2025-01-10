@@ -16,8 +16,8 @@ import mve.src.helpers.files as files
 import mve.src.helpers.video_paths as video_paths
 import mve.src.helpers.util as util
 
-import lib.view as view
-import lib.edit as edit
+import mve.src.lib.view as view
+import mve.src.lib.edit as edit
 
 
 def main():

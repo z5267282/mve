@@ -23,7 +23,7 @@ import mve.src.helpers.json_handlers as json_handlers
 import mve.src.helpers.timestamps as timestamps
 import mve.src.helpers.util as util
 
-import lib.edit as edit
+import mve.src.lib.edit as edit
 
 
 def main():

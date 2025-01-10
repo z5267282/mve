@@ -23,8 +23,8 @@ import mve.src.helpers.colouring as colouring
 import mve.src.helpers.util as util
 import mve.src.helpers.video_paths as video_paths
 
-import lib.edit as edit
-import lib.view as view
+import mve.src.lib.edit as edit
+import mve.src.lib.view as view
 
 
 def main():
