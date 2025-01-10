@@ -20,15 +20,15 @@ class Runner():
 
     def __init__(self):
         self.scripts: dict[ScriptOption, Script] = {
-            ScriptOption.COMBINE: Combine(),
-            ScriptOption.FOCUS: Focus(),
-            ScriptOption.DELETER: Deleter(),
-            ScriptOption.GENERATOR: Generator(),
-            ScriptOption.INTEGRITY: Integrity(),
-            ScriptOption.MAKE: Make(),
-            ScriptOption.MOMENT: Moment(),
-            ScriptOption.TREATER: Treater(),
-            ScriptOption.VIEWER: Viewer()
+            ScriptOption.COMBINE: Combine('combine'),
+            ScriptOption.FOCUS: Focus('focus'),
+            ScriptOption.DELETER: Deleter('deleter'),
+            ScriptOption.GENERATOR: Generator('generator'),
+            ScriptOption.INTEGRITY: Integrity('integrity'),
+            ScriptOption.MAKE: Make('make'),
+            ScriptOption.MOMENT: Moment('moment'),
+            ScriptOption.TREATER: Treater('treater'),
+            ScriptOption.VIEWER: Viewer('viewer')
         }
 
     def run(self) -> None:
@@ -36,8 +36,7 @@ class Runner():
         option = self.map_script_name_to_enum(args.script)
         script = self.lookup_script(option)
 
-        # inject name of script as first arg
-        script.main([args.script] + argv)
+        script.main(argv)
 
     def parse_args(self) -> tuple[argparse.Namespace, list[str]]:
         parser = argparse.ArgumentParser()
