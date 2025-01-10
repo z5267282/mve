@@ -6,6 +6,7 @@ class ScriptOption(enum.Enum):
 
     DELETER = 'deleter'
     COMBINE = 'combine',
+    FOCUS = 'focus'
     GENERATOR = 'generator'
     INTEGRITY = 'integrity'
     MAKE = 'make'

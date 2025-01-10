@@ -8,6 +8,7 @@ from mve.scripts.log.treater import Treater
 from mve.scripts.log.viewer import Viewer
 
 from mve.scripts.no_log.combine import Combine
+from mve.scripts.no_log.focus import Focus
 
 from mve.scripts.script import Script
 from mve.scripts.script_option import ScriptOption
@@ -19,6 +20,7 @@ class Runner():
     def __init__(self):
         self.scripts: dict[ScriptOption, Script] = {
             ScriptOption.COMBINE: Combine(),
+            ScriptOption.FOCUS: Focus(),
             ScriptOption.DELETER: Deleter(),
             ScriptOption.GENERATOR: Generator(),
             ScriptOption.INTEGRITY: Integrity(),
