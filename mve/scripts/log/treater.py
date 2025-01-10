@@ -29,7 +29,7 @@ from mve.scripts.script import Script
 
 
 class Treater(Script):
-    def main(self, argv: list[str]):
+    def main(self, argv: list[str]) -> None:
         name = args.expect_config_name(argv)
         state = config.Stateful(name)
         self.run_checks(state)

@@ -19,7 +19,7 @@ from mve.scripts.script import Script
 
 
 class Integrity(Script):
-    def main(self, argv: list[str]):
+    def main(self, argv: list[str]) -> None:
         args = self.handle_command_line_args(argv)
         config_names = args.config_names
         dirty = args.dirty

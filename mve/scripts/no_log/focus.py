@@ -31,7 +31,7 @@ from mve.scripts.script import Script
 
 
 class Focus(Script):
-    def main(self, argv: list[str]):
+    def main(self, argv: list[str]) -> None:
         source, paths = self.make_source_and_paths(argv, defaults.BOLD)
 
         # edit information
