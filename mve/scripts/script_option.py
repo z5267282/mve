@@ -5,6 +5,7 @@ class ScriptOption(enum.Enum):
     '''Mapping of script name strings to enumerated options.'''
 
     DELETER = 'deleter'
+    COMBINE = 'combine',
     GENERATOR = 'generator'
     INTEGRITY = 'integrity'
     MAKE = 'make'
