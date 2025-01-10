@@ -6,7 +6,6 @@ config name must only contain [a-z-] letters. The config is generated with
 default settings. A config will only be made if one does not exist at
 present.'''
 
-import abc
 import argparse
 import os
 import re
