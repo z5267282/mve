@@ -39,7 +39,8 @@ class Runner():
         script.main(argv)
 
     def parse_args(self) -> tuple[argparse.Namespace, list[str]]:
-        parser = argparse.ArgumentParser()
+        # enable only for script-level parsers
+        parser = argparse.ArgumentParser(add_help=False)
         logged = parser.add_subparsers(dest='logged')
 
         log = logged.add_parser('log')
