@@ -28,7 +28,6 @@ import mve.scripts.script as script
 
 class Make(script.Script):
     def main(self, argv: list[str]) -> None:
-        print(argv)
         args = self.handle_args(argv)
         name = args.config
         self.verify_name(name)
