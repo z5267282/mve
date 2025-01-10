@@ -11,10 +11,10 @@ import mve.src.helpers.colouring as colouring
 import mve.src.helpers.files as files
 import mve.src.helpers.util as util
 
-import mve.scripts.script as script
+from mve.scripts.script import Script
 
 
-class Deleter(script.Script):
+class Deleter(Script):
     def main(self, argv: list[str]) -> None:
         name = args.expect_config_name(argv)
         state = config.Stateful(name)
