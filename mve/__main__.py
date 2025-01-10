@@ -19,7 +19,9 @@ def main():
 
     match args.logged:
         case 'log':
-            print(args.argv)
+            match args.script:
+                case 'make':
+                    make.main(args.argv)
         case 'no-log':
             pass
 
