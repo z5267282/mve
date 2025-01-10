@@ -24,8 +24,8 @@ import mve.src.helpers.util as util
 import mve.src.helpers.video_paths as video_paths
 
 
-def main():
-    args = handle_args()
+def main(argv: list[str]):
+    args = handle_args(argv)
     name = args.config
     verify_name(name)
 
@@ -40,14 +40,14 @@ def main():
         defaults.BOLD)
 
 
-def handle_args() -> argparse.Namespace:
+def handle_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument('config', type=str)
     # path flags
     parser.add_argument('--source', type=str)
     parser.add_argument('--renames', type=str)
     parser.add_argument('--edits', type=str)
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
 def verify_name(name: str):
@@ -89,7 +89,3 @@ def write_config_to_file(new_config: list[str], source: None | str,
     # the config will be created with default options
     cfg = config.Config(videos.source, videos.renames, videos.edits)
     cfg.write_config_to_file(config_file)
-
-
-if __name__ == '__main__':
-    main()
