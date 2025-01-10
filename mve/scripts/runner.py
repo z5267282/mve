@@ -9,6 +9,7 @@ from mve.scripts.log.viewer import Viewer
 
 from mve.scripts.no_log.combine import Combine
 from mve.scripts.no_log.focus import Focus
+from mve.scripts.no_log.moment import Moment
 
 from mve.scripts.script import Script
 from mve.scripts.script_option import ScriptOption
@@ -25,6 +26,7 @@ class Runner():
             ScriptOption.GENERATOR: Generator(),
             ScriptOption.INTEGRITY: Integrity(),
             ScriptOption.MAKE: Make(),
+            ScriptOption.MOMENT: Moment(),
             ScriptOption.TREATER: Treater(),
             ScriptOption.VIEWER: Viewer()
         }

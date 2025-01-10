@@ -10,5 +10,6 @@ class ScriptOption(enum.Enum):
     GENERATOR = 'generator'
     INTEGRITY = 'integrity'
     MAKE = 'make'
+    MOMENT = 'moment'
     TREATER = 'treater'
     VIEWER = 'viewer'
