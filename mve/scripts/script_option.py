@@ -9,3 +9,4 @@ class ScriptOption(enum.Enum):
     INTEGRITY = 'integrity'
     MAKE = 'make'
     TREATER = 'treater'
+    VIEWER = 'viewer'

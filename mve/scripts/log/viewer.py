@@ -7,8 +7,6 @@ hosted by the container. The viewer will prematurely terminate if there are no
 remaining files, or the source folder for the given config does not exist.
 Once complete, the viewer enques a new treatment for the given config.'''
 
-import sys
-
 import mve.src.config as config
 
 import mve.src.constants.treatment_format as treatment_format
@@ -21,44 +19,41 @@ import mve.src.helpers.files as files
 
 import mve.src.lib.view as view
 
-
-def main():
-    name = args.expect_config_name(sys.argv)
-    state = config.Stateful(name)
-    run_checks(state.cfg)
-
-    cfg = state.cfg
-
-    remaining = state.load_remaining()
-    edits, renames, deletions = list(), dict(), list()
-    folders = cfg.create_source_folders()
-    view.run_loop(
-        remaining, edits, renames, deletions, folders, cfg.testing, cfg.bold,
-        cfg.verify_name)
-    state.write_remaining(remaining)
-
-    if edits or renames or deletions:
-        paths_dict = cfg.generate_paths_dict()
-        log_to_file(state, edits, renames, deletions, paths_dict)
-
-    util.exit_success(
-        util.format_remaining(len(remaining), cfg.bold), cfg.bold)
+from mve.scripts.script import Script
 
 
-def run_checks(cfg: config.Config):
-    cfg.one_of_config_folders_missing()
+class Viewer(Script):
+    def main(self, argv: list[str]):
+        name = args.expect_config_name(argv)
+        state = config.Stateful(name)
+        self.run_checks(state.cfg)
 
+        cfg = state.cfg
 
-def log_to_file(
-        state: config.Stateful,
-        edits: list[dict], renames: dict[str, str], deletions: list[str],
-        paths_dict: dict[str, list[str]]):
-    treatment_name = timestamps.generate_timestamped_file_name()
-    joined_treatment_name = files.get_joined_path(state.queue, treatment_name)
-    data = view.wrap_session(edits, renames, deletions)
-    data[treatment_format.PATHS] = paths_dict
-    json_handlers.write_to_json(data, joined_treatment_name)
+        remaining = state.load_remaining()
+        edits, renames, deletions = list(), dict(), list()
+        folders = cfg.create_source_folders()
+        view.run_loop(
+            remaining, edits, renames, deletions, folders, cfg.testing, cfg.bold,
+            cfg.verify_name)
+        state.write_remaining(remaining)
 
+        if edits or renames or deletions:
+            paths_dict = cfg.generate_paths_dict()
+            self.log_to_file(state, edits, renames, deletions, paths_dict)
 
-if __name__ == '__main__':
-    main()
+        util.exit_success(
+            util.format_remaining(len(remaining), cfg.bold), cfg.bold)
+
+    def run_checks(self, cfg: config.Config):
+        cfg.one_of_config_folders_missing()
+
+    def log_to_file(self, state: config.Stateful, edits: list[dict],
+                    renames: dict[str, str], deletions: list[str],
+                    paths_dict: dict[str, list[str]]):
+        treatment_name = timestamps.generate_timestamped_file_name()
+        joined_treatment_name = files.get_joined_path(
+            state.queue, treatment_name)
+        data = view.wrap_session(edits, renames, deletions)
+        data[treatment_format.PATHS] = paths_dict
+        json_handlers.write_to_json(data, joined_treatment_name)

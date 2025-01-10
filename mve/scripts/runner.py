@@ -5,6 +5,7 @@ from mve.scripts.log.generator import Generator
 from mve.scripts.log.integrity import Integrity
 from mve.scripts.log.make import Make
 from mve.scripts.log.treater import Treater
+from mve.scripts.log.viewer import Viewer
 
 from mve.scripts.script import Script
 from mve.scripts.script_option import ScriptOption
@@ -19,7 +20,8 @@ class Runner():
             ScriptOption.GENERATOR: Generator(),
             ScriptOption.INTEGRITY: Integrity(),
             ScriptOption.MAKE: Make(),
-            ScriptOption.TREATER: Treater()
+            ScriptOption.TREATER: Treater(),
+            ScriptOption.VIEWER: Viewer()
         }
 
     def run(self) -> None:
