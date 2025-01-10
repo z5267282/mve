@@ -2,19 +2,27 @@ import argparse
 
 import mve.scripts.log.make as make
 
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('logged', type=str, choices=['log', 'no-log'])
-    parser.add_argument('script', type=str)
-    parser.add_argument('argv', nargs='*')
+    logged = parser.add_subparsers(dest='logged')
+
+    log = logged.add_parser('log')
+    log.add_argument('script', choices=['make'])
+    log.add_argument('argv', nargs='*')
+
+    no_log = logged.add_parser('no-log')
+    no_log.add_argument('script', choices=['focus'])
+    no_log.add_argument('argv', nargs='*')
+
     args = parser.parse_args()
 
     match args.logged:
         case 'log':
-            match args.script:
-                case 'make':
-                    print(args.argv)
-                    # make.main(args.argv)
+            print(args.argv)
+        case 'no-log':
+            pass
+
 
 if __name__ == '__main__':
     main()
