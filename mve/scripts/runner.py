@@ -36,7 +36,8 @@ class Runner():
         option = self.map_script_name_to_enum(args.script)
         script = self.lookup_script(option)
 
-        script.main(argv)
+        # inject name of script as first arg
+        script.main([args.script] + argv)
 
     def parse_args(self) -> tuple[argparse.Namespace, list[str]]:
         parser = argparse.ArgumentParser()

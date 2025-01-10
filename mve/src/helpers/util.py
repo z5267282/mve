@@ -22,7 +22,8 @@ def print_error(message: str, bold: bool):
 def print_success(message: str, bold: bool):
     base_name = re.sub(
         r'\.py$', r'',
-        os.path.basename(sys.argv[0])
+        # __main__.py [log/no-log] [script name without py]
+        os.path.basename(sys.argv[2])
     )
     print(
         '{} {} {}'.format(
