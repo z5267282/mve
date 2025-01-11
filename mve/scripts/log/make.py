@@ -52,11 +52,35 @@ class Make(Script):
     def handle_args(self, argv: list[str]) -> argparse.Namespace:
         parser = argparse.ArgumentParser()
         parser.add_argument('config', type=str)
+
         # path flags
         parser.add_argument('--source', type=str)
         parser.add_argument('--renames', type=str)
         parser.add_argument('--edits', type=str)
+
+        self.handle_options(parser)
+
         return parser.parse_args(argv)
+
+    def handle_options(self, parser: argparse.ArgumentParser) -> None:
+        # file-order generation
+        parser.add_argument('--recent', type=bool, action='store_true')
+
+        # multiprocessing
+        parser.add_argument('--num-processes', type=int)
+
+        # moviepy
+        parser.add_argument('--use-moviepy', type=bool, action='store_true')
+        parser.add_argument('--moviepy-threads', type=int)
+
+        # testing
+        parser.add_argument('--testing', type=bool, action='store_true')
+
+        # colours
+        parser.add_argument('--bold', type=bool, action='store_true')
+
+        # double-check name was not mistaken for a command
+        parser.add_argument('--verify-name', type=bool, action='store_true')
 
     def verify_name(self, name: str):
         if not re.fullmatch(r'[a-z0-9-]+', name):
