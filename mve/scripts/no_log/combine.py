@@ -3,7 +3,9 @@ import argparse
 import contextlib
 import os
 
-import moviepy.editor as mvp
+from moviepy.video.io.VideoFileClip import VideoFileClip
+from moviepy.video.compositing.CompositeVideoClip import concatenate_videoclips
+
 
 import mve.src.constants.video_editing as video_editing
 
@@ -25,10 +27,10 @@ class Combine(Script):
                               for f in os.listdir(args.source)], key=lambda f: os.stat(f).st_birthtime)
         with contextlib.ExitStack() as videos:
             # there is no audio, I think because of the configuration of VideoFileClip?
-            clips = [videos.enter_context(mvp.VideoFileClip(v, audio=True))
+            clips = [videos.enter_context(VideoFileClip(v, audio=True))
                      for v in video_files]
 
-            combined = mvp.concatenate_videoclips(clips, method='compose')
+            combined = concatenate_videoclips(clips, method='compose')
             # these are needed to make audio available
             # alternatively, the video can be opened using VLC
             # https://stackoverflow.com/questions/40445885/no-audio-when-adding-mp3-to-videofileclip-moviepy

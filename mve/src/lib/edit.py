@@ -1,6 +1,6 @@
 import concurrent.futures
 import os
-import moviepy.editor as mvp
+from moviepy.video.io.VideoFileClip import VideoFileClip
 import subprocess
 import typing
 
@@ -91,8 +91,8 @@ def edit_video(
 def edit_moviepy(
         joined_src_path: str, joined_dst_path: str,
         start: None | str, end: None | str, moviepy_threads: int):
-    with mvp.VideoFileClip(joined_src_path) as file:
-        clip = file.subclip(t_start=start, t_end=end)
+    with VideoFileClip(joined_src_path) as file:
+        clip = file.subclipped(t_start=start, t_end=end)
         clip.write_videofile(
             joined_dst_path,
             threads=moviepy_threads,
