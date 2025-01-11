@@ -92,7 +92,7 @@ def edit_moviepy(
         joined_src_path: str, joined_dst_path: str,
         start: None | str, end: None | str, moviepy_threads: int):
     with VideoFileClip(joined_src_path) as file:
-        clip = file.subclipped(t_start=start, t_end=end)
+        clip = file.subclipped(start_time=start, end_time=end)
         clip.write_videofile(
             joined_dst_path,
             threads=moviepy_threads,
