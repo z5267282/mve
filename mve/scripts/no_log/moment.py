@@ -7,7 +7,7 @@ import os
 import pathlib
 import sys
 
-import mve.src.config as config
+from mve.src.config import Config
 
 import mve.src.constants.error as error
 import mve.src.constants.json_settings as json_settings
@@ -30,7 +30,7 @@ class Moment(Script):
 
         folders = VideoPaths.make_merged_dest_from_defaults(
             source, dest)
-        cfg = config.Config(folders)
+        cfg = Config(folders)
 
         self.configure_settings(cfg, args.testing)
 
@@ -88,7 +88,7 @@ class Moment(Script):
         path: pathlib.Path = pathlib.Path(abs_path)
         return list(path.parts)
 
-    def configure_settings(self, cfg: config.Config, testing: bool):
+    def configure_settings(self, cfg: Config, testing: bool):
         cfg.recent = False
         cfg.testing = testing
         cfg.verify_name = False

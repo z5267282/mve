@@ -11,7 +11,7 @@ import os
 import re
 import sys
 
-from mve.src.config import Stateful
+from mve.src.config import Config, Stateful
 
 import mve.src.constants.error as error
 import mve.src.constants.defaults as defaults
@@ -85,8 +85,8 @@ class Make(Script):
         # write an empty list of remaining videos
         json_handlers.write_to_json(list(), remaining)
         folders = VideoPaths.make_all_paths_from_defaults(source,
-                                                                      edits,
-                                                                      renames)
+                                                          edits,
+                                                          renames)
         # the config will be created with default options
-        cfg = config.Config(folders)
+        cfg = Config(folders)
         cfg.write_config_to_file(config_file)

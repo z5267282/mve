@@ -12,7 +12,7 @@ import os
 import pathlib
 import sys
 
-import mve.src.config as config
+from mve.src.config import Config
 
 import mve.src.constants.colours as colours
 import mve.src.constants.defaults as defaults
@@ -35,7 +35,7 @@ class Focus(Script):
         source, folders = self.make_source_and_paths(argv, defaults.BOLD)
 
         # edit information
-        cfg = config.Config(folders)
+        cfg = Config(folders)
         edits, errors = [], []
 
         while True:
@@ -77,8 +77,8 @@ class Focus(Script):
         destination_folder: list[str] = list(
             pathlib.Path(args.destination).parts)
         return source_path.name, VideoPaths(source_folder,
-                                                        destination_folder,
-                                                        destination_folder)
+                                            destination_folder,
+                                            destination_folder)
 
     class BadTokenException(Exception):
         pass
@@ -131,7 +131,7 @@ class Focus(Script):
 
         return start_seconds, end_seconds, edit_name
 
-    def finish_program(self, edits: list, errors: list, cfg: config.Config,
+    def finish_program(self, edits: list, errors: list, cfg: Config,
                        paths: VideoPaths, bold: bool):
         self.print_number_edits(
             len(edits), bold
@@ -147,7 +147,7 @@ class Focus(Script):
             )
         )
 
-    def edit_files(self, edits: list, errors: list, cfg: config.Config,
+    def edit_files(self, edits: list, errors: list, cfg: Config,
                    paths: VideoPaths):
         # Queue stored in memory, not written to disk
         # Then when you quit, edits are performed.
