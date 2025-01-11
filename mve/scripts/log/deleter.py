@@ -4,7 +4,7 @@ as the source folder will be mounted as a volume.'''
 
 import shutil
 
-import mve.src.config as config
+from mve.src.config import Stateful
 
 import mve.src.helpers.args as args
 import mve.src.helpers.colouring as colouring
@@ -19,7 +19,7 @@ class Deleter(Legacy):
         super().main(argv)
 
         name = args.expect_config_name(argv)
-        state = config.Stateful(name)
+        state = Stateful(name)
         self.run_checks(state)
 
         cfg = state.cfg
@@ -30,5 +30,5 @@ class Deleter(Legacy):
             colouring.highlight_path(cfg.folders.source, cfg.bold)
         ), cfg.bold)
 
-    def run_checks(self, state: config.Stateful):
+    def run_checks(self, state: Stateful):
         state.check_files_remaining()

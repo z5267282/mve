@@ -11,7 +11,7 @@ import os
 import re
 import sys
 
-import mve.src.config as config
+from mve.src.config import Stateful
 
 import mve.src.constants.error as error
 import mve.src.constants.defaults as defaults
@@ -32,7 +32,7 @@ class Make(Script):
         name = args.config
         self.verify_name(name)
 
-        configs_folder = config.Stateful.locate_configs_folder()
+        configs_folder = Stateful.locate_configs_folder()
         new_config = configs_folder + [name]
         self.check_config_exists(new_config, name)
         self.make_config_folder(new_config)
@@ -77,11 +77,11 @@ class Make(Script):
 
     def write_config_to_file(self, new_config: list[str], source: None | str,
                              edits: None | str, renames: None | str):
-        for folder in config.Stateful.locate_folders(new_config):
+        for folder in Stateful.locate_folders(new_config):
             files.do_folder_operation(folder, os.mkdir)
             self.add_folder_to_version_history(folder)
 
-        config_file, remaining = config.Stateful.locate_files(new_config)
+        config_file, remaining = Stateful.locate_files(new_config)
         # write an empty list of remaining videos
         json_handlers.write_to_json(list(), remaining)
         folders = VideoPaths.make_all_paths_from_defaults(source,

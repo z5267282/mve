@@ -6,7 +6,7 @@ status error.FILES_REMAINING. If remaining JSON file does not exist, it is
 created. Files are stored from most recent to least recent. This behaviour can 
 be toggled through the RECENT config flag.'''
 
-import mve.src.config as config
+from mve.src.config import Stateful
 
 import mve.src.constants.video_editing as video_editing
 
@@ -23,7 +23,7 @@ class Generator(Legacy):
         super().main(argv)
 
         name = args.expect_config_name(argv)
-        state = config.Stateful(name)
+        state = Stateful(name)
         self.run_checks(state)
 
         cfg = state.cfg
@@ -41,7 +41,7 @@ class Generator(Legacy):
                 colouring.highlight(joined_path, cfg.bold), state.remaining),
             cfg.bold)
 
-    def run_checks(self, state: config.Stateful):
+    def run_checks(self, state: Stateful):
         state.check_files_remaining()
 
     def good_file(self, file: str) -> bool:

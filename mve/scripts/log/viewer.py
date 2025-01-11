@@ -7,7 +7,7 @@ hosted by the container. The viewer will prematurely terminate if there are no
 remaining files, or the source folder for the given config does not exist.
 Once complete, the viewer enques a new treatment for the given config.'''
 
-import mve.src.config as config
+from mve.src.config import Stateful
 
 import mve.src.constants.treatment_format as treatment_format
 
@@ -27,7 +27,7 @@ class Viewer(Legacy):
         super().main(argv)
 
         name = args.expect_config_name(argv)
-        state = config.Stateful(name)
+        state = Stateful(name)
 
         cfg = state.cfg
 
@@ -46,7 +46,7 @@ class Viewer(Legacy):
         util.exit_success(
             util.format_remaining(len(remaining), cfg.bold), cfg.bold)
 
-    def log_to_file(self, state: config.Stateful, edits: list[dict],
+    def log_to_file(self, state: Stateful, edits: list[dict],
                     renames: dict[str, str], deletions: list[str],
                     paths_dict: dict[str, list[str]]):
         treatment_name = timestamps.generate_timestamped_file_name()

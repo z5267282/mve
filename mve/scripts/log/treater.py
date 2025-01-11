@@ -11,7 +11,7 @@ if any of the aformentioned folders do not exist.'''
 import os
 import sys
 
-import mve.src.config as config
+from mve.src.config import Stateful
 
 import mve.src.constants.error as error
 import mve.src.constants.errors_format as errors_format
@@ -33,7 +33,7 @@ class Treater(Legacy):
         super().main(argv)
 
         name = args.expect_config_name(argv)
-        state = config.Stateful(name)
+        state = Stateful(name)
         self.run_checks(state)
 
         cfg = state.cfg
@@ -58,26 +58,26 @@ class Treater(Legacy):
 
         util.exit_treat_all_good(cfg.bold)
 
-    def run_checks(self, state: config.Stateful):
+    def run_checks(self, state: Stateful):
         self.check_empty_queue(state)
 
-    def check_empty_queue(self, state: config.Stateful):
+    def check_empty_queue(self, state: Stateful):
         if not files.ls(state.queue):
             print(f'there are no files queued in folder \'{state.queue}\'')
             sys.exit(error.EMPTY_QUEUE)
 
-    def dequeue(self, state: config.Stateful):
+    def dequeue(self, state: Stateful):
         queue_files = files.ls(state.queue, recent=True)
         return queue_files[0]
 
     def update_history(self,
-                       state: config.Stateful, current_file: str,
+                       state: Stateful, current_file: str,
                        joined_current_file: str):
         joined_history_file = files.get_joined_path(
             state.history, current_file)
         os.rename(joined_current_file, joined_history_file)
 
-    def handle_errors(self, state: config.Stateful, remaining: list[str],
+    def handle_errors(self, state: Stateful, remaining: list[str],
                       errors: list[dict], paths_dict: dict[str, list[str]],
                       bold: bool):
         error_file_name = timestamps.generate_timestamped_file_name()
@@ -85,7 +85,7 @@ class Treater(Legacy):
         state.write_remaining(remaining)
         self.exit_treatment_error(error_file_name, bold)
 
-    def write_errors(self, state: config.Stateful, error_file_name: str,
+    def write_errors(self, state: Stateful, error_file_name: str,
                      errors: list[dict], paths_dict: dict[str, list[str]]
                      ):
         joined_error_file_name = files.get_joined_path(

@@ -2,7 +2,7 @@ import argparse
 import os
 import sys
 
-import mve.src.config as config
+from mve.src.config import Stateful
 
 import mve.src.constants.colours as colours
 import mve.src.constants.defaults as defaults
@@ -84,7 +84,7 @@ class Integrity(Script):
         )
 
     def check_one_config(self, config_paths: list[str], name: str, dirty: bool):
-        state = config.Stateful(name)
+        state = Stateful(name)
         bold = state.cfg.bold
         if not dirty:
             print(
@@ -112,11 +112,11 @@ class Integrity(Script):
             return display_message()
 
         depth += 1
-        for folder in config.Stateful.locate_folders(current_config):
+        for folder in Stateful.locate_folders(current_config):
             if self.check_folder(message, folder, folder[-1], depth):
                 return display_message()
 
-        for file in config.Stateful.locate_files(current_config):
+        for file in Stateful.locate_files(current_config):
             if self.check_file(message, file, os.path.basename(file), depth):
                 return display_message()
 
