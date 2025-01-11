@@ -42,8 +42,9 @@ class Make(Script):
         new_config = configs_folder + [name]
         self.check_config_exists(new_config, name)
         self.make_config_folder(new_config)
+        opts = self.make_config_options_from_flags(args)
         self.write_config_to_file(
-            new_config, args.source, args.edits, args.renames)
+            new_config, args.source, args.edits, args.renames, opts)
 
         util.print_success(
             f'created config: {colouring.highlight(name, defaults.BOLD)}',
@@ -63,24 +64,38 @@ class Make(Script):
         return parser.parse_args(argv)
 
     def handle_options(self, parser: argparse.ArgumentParser) -> None:
+        '''Note that all flags will be converted into snake_case by
+        argparse.'''
+
         # file-order generation
-        parser.add_argument('--recent', type=bool, action='store_true')
+        parser.add_argument('--recent', action='store_true')
 
         # multiprocessing
         parser.add_argument('--num-processes', type=int)
 
         # moviepy
-        parser.add_argument('--use-moviepy', type=bool, action='store_true')
+        parser.add_argument('--use-moviepy', action='store_true')
         parser.add_argument('--moviepy-threads', type=int)
 
         # testing
-        parser.add_argument('--testing', type=bool, action='store_true')
+        parser.add_argument('--testing', action='store_true')
 
         # colours
-        parser.add_argument('--bold', type=bool, action='store_true')
+        parser.add_argument('--bold', action='store_true')
 
         # double-check name was not mistaken for a command
-        parser.add_argument('--verify-name', type=bool, action='store_true')
+        parser.add_argument('--verify-name', action='store_true')
+
+    def make_config_options_from_flags(self,
+                                       arguments: argparse.Namespace) -> dict:
+        # converting namespace into dict is supported in pydocs:
+        # https://docs.python.org/3/library/argparse.html#the-namespace-object
+        opts = vars(arguments)
+        # remove all folders
+        for folder in ['source', 'renames', 'edits']:
+            opts.pop(folder, None)
+
+        return opts
 
     def verify_name(self, name: str):
         if not re.fullmatch(r'[a-z0-9-]+', name):
@@ -106,7 +121,8 @@ class Make(Script):
             pass
 
     def write_config_to_file(self, new_config: list[str], source: None | str,
-                             edits: None | str, renames: None | str):
+                             edits: None | str, renames: None | str,
+                             opts: dict):
         for folder in Stateful.locate_folders(new_config):
             files.do_folder_operation(folder, os.mkdir)
             self.add_folder_to_version_history(folder)
@@ -118,5 +134,5 @@ class Make(Script):
                                                           edits,
                                                           renames)
         # the config will be created with default options
-        cfg = Config(folders)
+        cfg = Config(folders, **opts)
         cfg.write_config_to_file(config_file)
