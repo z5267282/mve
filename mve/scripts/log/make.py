@@ -28,6 +28,8 @@ from mve.scripts.script_option import ScriptOption
 
 
 class Make(Script):
+    '''Create a new stateful configuration from the command line.'''
+
     def __init__(self):
         super().__init__(str(ScriptOption.MAKE))
 
