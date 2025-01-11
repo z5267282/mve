@@ -13,7 +13,7 @@ import mve.src.constants.error as error
 import mve.src.constants.json_settings as json_settings
 
 import mve.src.helpers.files as files
-import mve.src.helpers.video_paths as video_paths
+from mve.src.helpers.video_paths import VideoPaths
 import mve.src.helpers.util as util
 
 import mve.src.lib.view as view
@@ -28,7 +28,7 @@ class Moment(Script):
         args = self.handle_args(argv)
         source, dest = self.get_paths_from_args(args)
 
-        folders = video_paths.VideoPaths.make_merged_dest_from_defaults(
+        folders = VideoPaths.make_merged_dest_from_defaults(
             source, dest)
         cfg = config.Config(folders)
 
@@ -81,7 +81,7 @@ class Moment(Script):
         return source, dest
 
     def gen_remaining(
-            self, paths: video_paths.VideoPaths, recent: bool) -> list[str]:
+            self, paths: VideoPaths, recent: bool) -> list[str]:
         return files.ls(paths.source, recent=recent)
 
     def decompose_path_into_folders(self, abs_path: str) -> list[str]:

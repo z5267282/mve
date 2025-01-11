@@ -21,7 +21,7 @@ import mve.src.helpers.colouring as colouring
 import mve.src.helpers.files as files
 import mve.src.helpers.json_handlers as json_handlers
 import mve.src.helpers.util as util
-import mve.src.helpers.video_paths as video_paths
+from mve.src.helpers.video_paths import VideoPaths
 
 from mve.scripts.script import Script
 
@@ -84,7 +84,7 @@ class Make(Script):
         config_file, remaining = config.Stateful.locate_files(new_config)
         # write an empty list of remaining videos
         json_handlers.write_to_json(list(), remaining)
-        folders = video_paths.VideoPaths.make_all_paths_from_defaults(source,
+        folders = VideoPaths.make_all_paths_from_defaults(source,
                                                                       edits,
                                                                       renames)
         # the config will be created with default options
