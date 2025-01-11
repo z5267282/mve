@@ -30,12 +30,12 @@ class Generator(Legacy):
 
         new_files = list(
             filter(
-                self.good_file, files.ls(cfg.source, recent=cfg.recent)
+                self.good_file, files.ls(cfg.folders.source, recent=cfg.recent)
             )
         )
         state.write_remaining(new_files)
 
-        joined_path = files.join_folder(cfg.source)
+        joined_path = files.join_folder(cfg.folders.source)
         util.exit_success(
             'placed file names from the folder \'{}\' in {}'.format(
                 colouring.highlight(joined_path, cfg.bold), state.remaining),

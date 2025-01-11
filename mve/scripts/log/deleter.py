@@ -24,10 +24,10 @@ class Deleter(Legacy):
 
         cfg = state.cfg
 
-        files.do_folder_operation(cfg.source, shutil.rmtree)
+        files.do_folder_operation(cfg.folders.source, shutil.rmtree)
 
         util.exit_success('removed the folder \'{}\''.format(
-            colouring.highlight_path(cfg.source, cfg.bold)
+            colouring.highlight_path(cfg.folders.source, cfg.bold)
         ), cfg.bold)
 
     def run_checks(self, state: config.Stateful):
