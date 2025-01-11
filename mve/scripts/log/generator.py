@@ -43,7 +43,6 @@ class Generator(Legacy):
 
     def run_checks(self, state: config.Stateful):
         state.check_files_remaining()
-        state.cfg.no_source_folder()
 
     def good_file(self, file: str) -> bool:
         # ignore hidden files

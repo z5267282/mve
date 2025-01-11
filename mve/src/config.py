@@ -23,7 +23,6 @@ class Config():
     def __init__(
         self,
         folders: video_paths.VideoPaths,
-
         # options
         recent: bool = defaults.RECENT,
         num_processes: int = defaults.NUM_PROCESSES,
@@ -33,6 +32,7 @@ class Config():
         bold: bool = defaults.BOLD,
         verify_name: bool = defaults.VERIFY_NAME
     ):
+        folders.verify_paths_integrity()
         self.folders: video_paths.VideoPaths = folders
 
         # file-order generation
@@ -54,21 +54,6 @@ class Config():
 
         # double-check name was not mistaken for a command
         self.verify_name: bool = verify_name
-
-    # folder existence checking
-
-    def no_source_folder(self):
-        check_and_exit_if.no_folder(
-            self.source, 'source', self.bold, error.NO_SOURCE_FOLDER, )
-
-    def one_of_config_folders_missing(self):
-        for folder, desc, code in zip(
-            [self.source, self.renames, self.destination],
-            ['source', 'renames', 'destination'],
-            [error.NO_SOURCE_FOLDER, error.NO_RENAMES_FOLDER,
-                error.NO_DESTINATION_FOLDER]
-        ):
-            check_and_exit_if.no_folder(folder, desc, self.bold, code)
 
     def generate_paths_dict(self) -> dict[str, list[str]]:
         return {

@@ -60,7 +60,6 @@ class Treater(Legacy):
 
     def run_checks(self, state: config.Stateful):
         self.check_empty_queue(state)
-        state.cfg.one_of_config_folders_missing()
 
     def check_empty_queue(self, state: config.Stateful):
         if not files.ls(state.queue):

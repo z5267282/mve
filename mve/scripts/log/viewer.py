@@ -28,7 +28,6 @@ class Viewer(Legacy):
 
         name = args.expect_config_name(argv)
         state = config.Stateful(name)
-        self.run_checks(state.cfg)
 
         cfg = state.cfg
 
@@ -46,9 +45,6 @@ class Viewer(Legacy):
 
         util.exit_success(
             util.format_remaining(len(remaining), cfg.bold), cfg.bold)
-
-    def run_checks(self, cfg: config.Config):
-        cfg.one_of_config_folders_missing()
 
     def log_to_file(self, state: config.Stateful, edits: list[dict],
                     renames: dict[str, str], deletions: list[str],

@@ -1,3 +1,7 @@
+import mve.src.constants.error as error
+import mve.src.constants.defaults as defaults
+
+import mve.src.helpers.check_and_exit_if as check_and_exit_if
 import mve.src.helpers.files as files
 import mve.src.helpers.util as util
 
@@ -11,6 +15,16 @@ class VideoPaths:
         self.source: list[str] = source
         self.edits: list[str] = edits
         self.renames: list[str] = renames
+
+    def verify_paths_integrity(self):
+        '''Exit the program if one of the stored paths does not exist.'''
+        for folder, desc, code in zip(
+            [self.source, self.renames, self.edits],
+            ['source', 'renames', 'destination'],
+            [error.NO_SOURCE_FOLDER, error.NO_RENAMES_FOLDER,
+                error.NO_DESTINATION_FOLDER]
+        ):
+            check_and_exit_if.no_folder(folder, desc, defaults.BOLD, code)
 
     @staticmethod
     def make_all_paths_from_defaults(source: None | str, edits: None | str,

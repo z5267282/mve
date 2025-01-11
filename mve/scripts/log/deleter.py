@@ -32,4 +32,3 @@ class Deleter(Legacy):
 
     def run_checks(self, state: config.Stateful):
         state.check_files_remaining()
-        state.cfg.no_source_folder()
