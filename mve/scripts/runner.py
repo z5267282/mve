@@ -45,10 +45,12 @@ class Runner():
 
         log = logged.add_parser('log')
         log.add_argument('script', choices=[
-                         'deleter', 'generator', 'integrity', 'make', 'treater', 'viewer'])
+            str(l) for l in [ScriptOption.DELETER, ScriptOption.GENERATOR, ScriptOption.INTEGRITY, ScriptOption.MAKE, ScriptOption.TREATER, ScriptOption.VIEWER]
+        ])
 
         no_log = logged.add_parser('no-log')
-        no_log.add_argument('script', choices=['combine', 'focus', 'moment'])
+        no_log.add_argument('script', choices=[str(nl) for nl in [
+                            ScriptOption.COMBINE, ScriptOption.FOCUS, ScriptOption.MOMENT]])
 
         return parser.parse_known_args()
 
