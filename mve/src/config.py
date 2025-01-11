@@ -42,7 +42,6 @@ class Config():
 
         # moviepy
         self.use_moviepy: bool = use_moviepy
-
         self.moviepy_threads: int = moviepy_threads
 
         # testing
@@ -190,30 +189,48 @@ class Stateful():
             bold)
         folders = video_paths.VideoPaths(source, destination, renames)
 
-        # file-order generation
-        recent = contents.get(options.RECENT, defaults.RECENT)
+        opts = Stateful.populate_config_kwargs_from_contents(contents)
+
+        return Config(folders, **opts)
+
+    @staticmethod
+    def populate_config_kwargs_from_contents(contents: dict) -> dict:
+        opts = {}
+
+        # no nicer way to conditionally set keys, avoiding None setting
+        # maybe an advanced technique using .update and filtering empty dicts?
 
         # multiprocessing
-        num_processes: int = contents.get(
-            options.NUM_PROCESSES, defaults.NUM_PROCESSES)
+        if options.NUM_PROCESSES in contents:
+            opts['num_processes'] = contents[options.NUM_PROCESSES]
+
+        # file-order generation
+        if options.RECENT in contents:
+            opts['recent'] = contents[options.RECENT]
+
+        # multiprocessing
+        if options.NUM_PROCESSES in contents:
+            opts['num_processes'] = contents[options.NUM_PROCESSES]
+
         # moviepy
-        use_moviepy: bool = contents.get(
-            options.USE_MOVIEPY, defaults.USE_MOVIEPY)
-        moviepy_threads: int = contents.get(
-            options.MOVIEPY_THREADS, defaults.MOVIEPY_THREADS)
+        if options.USE_MOVIEPY in contents:
+            opts['use_moviepy'] = contents[options.USE_MOVIEPY]
+        if options.MOVIEPY_THREADS in contents:
+            opts['moviepy_threads'] = contents[options.MOVIEPY_THREADS]
 
         # testing
-        testing: bool = contents.get(options.TESTING, defaults.TESTING)
+        if options.TESTING in contents:
+            opts['testing'] = contents[options.TESTING]
 
-        return Config(
-            folders,
-            # options
-            recent,
-            num_processes,
-            use_moviepy, moviepy_threads,
-            testing,
-            bold
-        )
+        # colours
+        if options.BOLD in contents:
+            opts['bold'] = contents[options.BOLD]
+
+        # double-check name was not mistaken for a command
+        if options.VERIFY_NAME in contents:
+            opts['verify_name'] = contents[options.VERIFY_NAME]
+
+        return opts
 
     @staticmethod
     def expect_paths_list(contents: dict, key: str, code: int,
