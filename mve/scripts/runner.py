@@ -20,15 +20,15 @@ class Runner():
 
     def __init__(self):
         self.scripts: dict[ScriptOption, Script] = {
-            ScriptOption.COMBINE: Combine('combine'),
-            ScriptOption.FOCUS: Focus('focus'),
-            ScriptOption.DELETER: Deleter('deleter'),
-            ScriptOption.GENERATOR: Generator('generator'),
-            ScriptOption.INTEGRITY: Integrity('integrity'),
-            ScriptOption.MAKE: Make('make'),
-            ScriptOption.MOMENT: Moment('moment'),
-            ScriptOption.TREATER: Treater('treater'),
-            ScriptOption.VIEWER: Viewer('viewer')
+            ScriptOption.COMBINE: Combine(str(ScriptOption.COMBINE)),
+            ScriptOption.FOCUS: Focus(str(ScriptOption.FOCUS)),
+            ScriptOption.DELETER: Deleter(str(ScriptOption.DELETER)),
+            ScriptOption.GENERATOR: Generator(str(ScriptOption.GENERATOR)),
+            ScriptOption.INTEGRITY: Integrity(str(ScriptOption.INTEGRITY)),
+            ScriptOption.MAKE: Make(str(ScriptOption.MAKE)),
+            ScriptOption.MOMENT: Moment(str(ScriptOption.MOMENT)),
+            ScriptOption.TREATER: Treater(str(ScriptOption.TREATER)),
+            ScriptOption.VIEWER: Viewer(str(ScriptOption.VIEWER))
         }
 
     def run(self) -> None:
