@@ -42,7 +42,7 @@ class Treater(Legacy):
         current_file = self.dequeue(state)
         joined_current_file = files.get_joined_path(state.queue, current_file)
         data = json_handlers.read_from_json(joined_current_file)
-        folders = cfg.create_source_folders()
+        folders = cfg.folders
 
         edit.treat_all(
             data,

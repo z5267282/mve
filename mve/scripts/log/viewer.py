@@ -34,7 +34,7 @@ class Viewer(Legacy):
 
         remaining = state.load_remaining()
         edits, renames, deletions = list(), dict(), list()
-        folders = cfg.create_source_folders()
+        folders = cfg.folders
         view.run_loop(
             remaining, edits, renames, deletions, folders, cfg.testing, cfg.bold,
             cfg.verify_name)

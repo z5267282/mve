@@ -22,8 +22,8 @@ class Config():
 
     def __init__(
         self,
-        # folders
-        source: list[str], renames: list[str], destination: list[str],
+        folders: video_paths.VideoPaths,
+
         # options
         recent: bool = defaults.RECENT,
         num_processes: int = defaults.NUM_PROCESSES,
@@ -33,10 +33,7 @@ class Config():
         bold: bool = defaults.BOLD,
         verify_name: bool = defaults.VERIFY_NAME
     ):
-        # folders
-        self.source: list[str] = source
-        self.renames: list[str] = renames
-        self.destination: list[str] = destination
+        self.folders: video_paths.VideoPaths = folders
 
         # file-order generation
         self.recent: bool = recent
@@ -72,10 +69,6 @@ class Config():
                 error.NO_DESTINATION_FOLDER]
         ):
             check_and_exit_if.no_folder(folder, desc, self.bold, code)
-
-    def create_source_folders(self) -> video_paths.VideoPaths:
-        return video_paths.VideoPaths(
-            self.source, self.destination, self.renames)
 
     def generate_paths_dict(self) -> dict[str, list[str]]:
         return {
