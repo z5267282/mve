@@ -55,13 +55,6 @@ class Config():
         # double-check name was not mistaken for a command
         self.verify_name: bool = verify_name
 
-    def generate_paths_dict(self) -> dict[str, list[str]]:
-        return {
-            treatment_format.SOURCE_PATH: self.source,
-            treatment_format.RENAME_PATH: self.renames,
-            treatment_format.DESTINATION_PATH: self.destination
-        }
-
     def write_config_to_file(self, joined_destination_path: str):
         data = {
             # folders

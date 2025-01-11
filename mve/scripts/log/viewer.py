@@ -40,7 +40,7 @@ class Viewer(Legacy):
         state.write_remaining(remaining)
 
         if edits or renames or deletions:
-            paths_dict = cfg.generate_paths_dict()
+            paths_dict = cfg.folders.generate_paths_dict()
             self.log_to_file(state, edits, renames, deletions, paths_dict)
 
         util.exit_success(

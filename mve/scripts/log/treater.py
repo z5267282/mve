@@ -53,7 +53,7 @@ class Treater(Legacy):
         self.update_history(state, current_file, joined_current_file)
 
         if errors:
-            paths_dict = cfg.generate_paths_dict()
+            paths_dict = cfg.folders.generate_paths_dict()
             self.handle_errors(state, remaining, errors, paths_dict, cfg.bold)
 
         util.exit_treat_all_good(cfg.bold)

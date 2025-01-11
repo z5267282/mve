@@ -1,5 +1,6 @@
 import mve.src.constants.error as error
 import mve.src.constants.defaults as defaults
+import mve.src.constants.treatment_format as treatment_format
 
 import mve.src.helpers.check_and_exit_if as check_and_exit_if
 import mve.src.helpers.files as files
@@ -25,6 +26,14 @@ class VideoPaths:
                 error.NO_DESTINATION_FOLDER]
         ):
             check_and_exit_if.no_folder(folder, desc, defaults.BOLD, code)
+
+    def generate_paths_dict(self) -> dict[str, list[str]]:
+        '''Generate the JSON dictionary for logging.'''
+        return {
+            treatment_format.SOURCE_PATH: self.source,
+            treatment_format.RENAME_PATH: self.renames,
+            treatment_format.DESTINATION_PATH: self.edits
+        }
 
     @staticmethod
     def make_all_paths_from_defaults(source: None | str, edits: None | str,
