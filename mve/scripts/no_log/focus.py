@@ -32,10 +32,10 @@ from mve.scripts.script import Script
 
 class Focus(Script):
     def main(self, argv: list[str]) -> None:
-        source, paths = self.make_source_and_paths(argv, defaults.BOLD)
+        source, folders = self.make_source_and_paths(argv, defaults.BOLD)
 
         # edit information
-        cfg = config.Config(paths.source, paths.renames, paths.edits)
+        cfg = config.Config(folders)
         edits, errors = [], []
 
         while True:
@@ -47,13 +47,13 @@ class Focus(Script):
 
             try:
                 start, end, name = self.parse_and_validate_tokens(
-                    tokens, cfg.bold, paths.edits)
+                    tokens, cfg.bold, folders.edits)
                 view.log_edit(source, name, edits, start, end)
             except self.BadTokenException:
                 print('format: [q]uit, or <start> <end> [name]')
                 continue
 
-        self.finish_program(edits, errors, cfg, paths, cfg.bold)
+        self.finish_program(edits, errors, cfg, folders, cfg.bold)
 
     def make_source_and_paths(self, argv: list[str],
                               bold: bool) -> tuple[str, video_paths.VideoPaths]:
