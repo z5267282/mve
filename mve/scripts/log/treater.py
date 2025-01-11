@@ -58,9 +58,9 @@ class Treater(Legacy):
             paths_dict = cfg.folders.generate_paths_dict()
             self.handle_errors(state, remaining, errors, paths_dict, cfg.bold)
 
-        util.exit_treat_all_good(cfg.bold)
-
         self.remind_to_run_deleter(remaining, state)
+
+        util.exit_treat_all_good(cfg.bold)
 
     def run_checks(self, state: Stateful):
         self.check_empty_queue(state)
@@ -113,7 +113,7 @@ class Treater(Legacy):
         if not remaining and not files.ls(state.queue):
             reminder = colouring.colour_box(colours.YELLOW, 'reminder',
                                             state.cfg.bold)
-            print('{}  - there are no more remaining files to be viewed and the last treatment has been run, so {} should be run'.
+            print('{} - there are no more remaining files to be viewed and the last treatment has been run, so {} should be run'.
                   format(reminder,
                          colouring.highlight(
                              str(ScriptOption.DELETER), state.cfg.bold)
