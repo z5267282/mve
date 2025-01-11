@@ -23,13 +23,13 @@ class Config():
         self,
         folders: video_paths.VideoPaths,
         # options
-        recent: bool = defaults.RECENT,
-        num_processes: int = defaults.NUM_PROCESSES,
-        use_moviepy: bool = defaults.USE_MOVIEPY,
-        moviepy_threads: int = defaults.MOVIEPY_THREADS,
-        testing: bool = defaults.TESTING,
-        bold: bool = defaults.BOLD,
-        verify_name: bool = defaults.VERIFY_NAME
+        recent: bool,
+        num_processes: int,
+        use_moviepy: bool,
+        moviepy_threads: int,
+        testing: bool,
+        bold: bool,
+        verify_name: bool
     ):
         folders.verify_paths_integrity()
         self.folders: video_paths.VideoPaths = folders
