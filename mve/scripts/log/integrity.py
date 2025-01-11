@@ -16,9 +16,13 @@ import mve.src.helpers.load_env as load_env
 import mve.src.helpers.util as util
 
 from mve.scripts.script import Script
+from mve.scripts.script_option import ScriptOption
 
 
 class Integrity(Script):
+    def __init__(self):
+        super().__init__(str(ScriptOption.INTEGRITY))
+
     def main(self, argv: list[str]) -> None:
         args = self.handle_command_line_args(argv)
         config_names = args.config_names

@@ -21,9 +21,13 @@ import mve.src.lib.edit as edit
 
 
 from mve.scripts.script import Script
+from mve.scripts.script_option import ScriptOption
 
 
 class Moment(Script):
+    def __init__(self):
+        super().__init__(str(ScriptOption.MOMENT))
+
     def main(self, argv: list[str]) -> None:
         args = self.handle_args(argv)
         source, dest = self.get_paths_from_args(args)

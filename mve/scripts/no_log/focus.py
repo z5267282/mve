@@ -28,9 +28,13 @@ import mve.src.lib.view as view
 
 
 from mve.scripts.script import Script
+from mve.scripts.script_option import ScriptOption
 
 
 class Focus(Script):
+    def __init__(self):
+        super().__init__(str(ScriptOption.FOCUS))
+
     def main(self, argv: list[str]) -> None:
         source, folders = self.make_source_and_paths(argv, defaults.BOLD)
 

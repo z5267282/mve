@@ -16,9 +16,13 @@ import mve.src.helpers.files as files
 import mve.src.helpers.util as util
 
 from mve.scripts.script import Legacy
+from mve.scripts.script_option import ScriptOption
 
 
 class Generator(Legacy):
+    def __init__(self):
+        super().__init__(str(ScriptOption.GENERATOR))
+
     def main(self, argv: list[str]) -> None:
         super().main(argv)
 

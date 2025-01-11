@@ -20,9 +20,13 @@ import mve.src.helpers.files as files
 import mve.src.lib.view as view
 
 from mve.scripts.script import Legacy
+from mve.scripts.script_option import ScriptOption
 
 
 class Viewer(Legacy):
+    def __init__(self):
+        super().__init__(str(ScriptOption.VIEWER))
+
     def main(self, argv: list[str]) -> None:
         super().main(argv)
 

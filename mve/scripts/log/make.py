@@ -24,9 +24,13 @@ import mve.src.helpers.util as util
 from mve.src.helpers.video_paths import VideoPaths
 
 from mve.scripts.script import Script
+from mve.scripts.script_option import ScriptOption
 
 
 class Make(Script):
+    def __init__(self):
+        super().__init__(str(ScriptOption.MAKE))
+
     def main(self, argv: list[str]) -> None:
         args = self.handle_args(argv)
         name = args.config
