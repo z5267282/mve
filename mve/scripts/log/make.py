@@ -68,23 +68,30 @@ class Make(Script):
         argparse.'''
 
         # file-order generation
-        parser.add_argument('--recent', action='store_true')
+        parser.add_argument('--recent', action='store_true',
+                            default=defaults.RECENT)
 
         # multiprocessing
-        parser.add_argument('--num-processes', type=int)
+        parser.add_argument('--num-processes', type=int,
+                            default=defaults.NUM_PROCESSES)
 
         # moviepy
-        parser.add_argument('--use-moviepy', action='store_true')
-        parser.add_argument('--moviepy-threads', type=int)
+        parser.add_argument('--use-moviepy', action='store_true',
+                            default=defaults.USE_MOVIEPY)
+        parser.add_argument('--moviepy-threads', type=int,
+                            default=defaults.MOVIEPY_THREADS)
 
         # testing
-        parser.add_argument('--testing', action='store_true')
+        parser.add_argument('--testing', action='store_true',
+                            default=defaults.TESTING)
 
         # colours
-        parser.add_argument('--bold', action='store_true')
+        parser.add_argument('--bold', action='store_true',
+                            default=defaults.BOLD)
 
         # double-check name was not mistaken for a command
-        parser.add_argument('--verify-name', action='store_true')
+        parser.add_argument('--verify-name', action='store_true',
+                            default=defaults.VERIFY_NAME)
 
     def make_config_options_from_flags(self,
                                        arguments: argparse.Namespace) -> dict:
