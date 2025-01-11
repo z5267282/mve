@@ -1,7 +1,5 @@
 '''Configure folder paths and settings for a given category of videos.'''
 
-import os
-import pathlib
 import sys
 
 import mve.src.constants.defaults as defaults
