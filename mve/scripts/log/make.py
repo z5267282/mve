@@ -88,10 +88,12 @@ class Make(Script):
 
     def make_config_options_from_flags(self,
                                        arguments: argparse.Namespace) -> dict:
+        name = {'config'}
+        folders = {'source', 'renames', 'edits'}
+        unwanted = folders | name
         # converting namespace into dict is supported in pydocs:
         # https://docs.python.org/3/library/argparse.html#the-namespace-object
-        folders = {'source', 'renames', 'edits'}
-        return {k: v for k, v in vars(arguments).items() if not k in folders}
+        return {k: v for k, v in vars(arguments).items() if not k in unwanted}
 
     def verify_name(self, name: str):
         if not re.fullmatch(r'[a-z0-9-]+', name):
