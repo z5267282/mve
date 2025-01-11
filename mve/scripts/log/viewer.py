@@ -7,7 +7,7 @@ hosted by the container. The viewer will prematurely terminate if there are no
 remaining files, or the source folder for the given config does not exist.
 Once complete, the viewer enques a new treatment for the given config.'''
 
-import mve.src.config as config
+from mve.src.config import Stateful
 
 import mve.src.constants.treatment_format as treatment_format
 
@@ -27,30 +27,26 @@ class Viewer(Legacy):
         super().main(argv)
 
         name = args.expect_config_name(argv)
-        state = config.Stateful(name)
-        self.run_checks(state.cfg)
+        state = Stateful(name)
 
         cfg = state.cfg
 
         remaining = state.load_remaining()
         edits, renames, deletions = list(), dict(), list()
-        folders = cfg.create_source_folders()
+        folders = cfg.folders
         view.run_loop(
             remaining, edits, renames, deletions, folders, cfg.testing, cfg.bold,
             cfg.verify_name)
         state.write_remaining(remaining)
 
         if edits or renames or deletions:
-            paths_dict = cfg.generate_paths_dict()
+            paths_dict = cfg.folders.generate_paths_dict()
             self.log_to_file(state, edits, renames, deletions, paths_dict)
 
         util.exit_success(
             util.format_remaining(len(remaining), cfg.bold), cfg.bold)
 
-    def run_checks(self, cfg: config.Config):
-        cfg.one_of_config_folders_missing()
-
-    def log_to_file(self, state: config.Stateful, edits: list[dict],
+    def log_to_file(self, state: Stateful, edits: list[dict],
                     renames: dict[str, str], deletions: list[str],
                     paths_dict: dict[str, list[str]]):
         treatment_name = timestamps.generate_timestamped_file_name()

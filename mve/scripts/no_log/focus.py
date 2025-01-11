@@ -12,7 +12,7 @@ import os
 import pathlib
 import sys
 
-import mve.src.config as config
+from mve.src.config import Config
 
 import mve.src.constants.colours as colours
 import mve.src.constants.defaults as defaults
@@ -21,7 +21,7 @@ import mve.src.constants.json_settings as json_settings
 
 import mve.src.helpers.colouring as colouring
 import mve.src.helpers.util as util
-import mve.src.helpers.video_paths as video_paths
+from mve.src.helpers.video_paths import VideoPaths
 
 import mve.src.lib.edit as edit
 import mve.src.lib.view as view
@@ -32,10 +32,10 @@ from mve.scripts.script import Script
 
 class Focus(Script):
     def main(self, argv: list[str]) -> None:
-        source, paths = self.make_source_and_paths(argv, defaults.BOLD)
+        source, folders = self.make_source_and_paths(argv, defaults.BOLD)
 
         # edit information
-        cfg = config.Config(paths.source, paths.renames, paths.edits)
+        cfg = Config(folders)
         edits, errors = [], []
 
         while True:
@@ -47,16 +47,16 @@ class Focus(Script):
 
             try:
                 start, end, name = self.parse_and_validate_tokens(
-                    tokens, cfg.bold, paths.edits)
+                    tokens, cfg.bold, folders.edits)
                 view.log_edit(source, name, edits, start, end)
             except self.BadTokenException:
                 print('format: [q]uit, or <start> <end> [name]')
                 continue
 
-        self.finish_program(edits, errors, cfg, paths, cfg.bold)
+        self.finish_program(edits, errors, cfg, folders, cfg.bold)
 
     def make_source_and_paths(self, argv: list[str],
-                              bold: bool) -> tuple[str, video_paths.VideoPaths]:
+                              bold: bool) -> tuple[str, VideoPaths]:
         parser: argparse.ArgumentParser = argparse.ArgumentParser()
         parser.add_argument('source', type=str)
         parser.add_argument(
@@ -76,9 +76,9 @@ class Focus(Script):
         source_folder: list[str] = list(source_path.parent.parts)
         destination_folder: list[str] = list(
             pathlib.Path(args.destination).parts)
-        return source_path.name, video_paths.VideoPaths(source_folder,
-                                                        destination_folder,
-                                                        destination_folder)
+        return source_path.name, VideoPaths(source_folder,
+                                            destination_folder,
+                                            destination_folder)
 
     class BadTokenException(Exception):
         pass
@@ -131,8 +131,8 @@ class Focus(Script):
 
         return start_seconds, end_seconds, edit_name
 
-    def finish_program(self, edits: list, errors: list, cfg: config.Config,
-                       paths: video_paths.VideoPaths, bold: bool):
+    def finish_program(self, edits: list, errors: list, cfg: Config,
+                       paths: VideoPaths, bold: bool):
         self.print_number_edits(
             len(edits), bold
         )
@@ -147,8 +147,8 @@ class Focus(Script):
             )
         )
 
-    def edit_files(self, edits: list, errors: list, cfg: config.Config,
-                   paths: video_paths.VideoPaths):
+    def edit_files(self, edits: list, errors: list, cfg: Config,
+                   paths: VideoPaths):
         # Queue stored in memory, not written to disk
         # Then when you quit, edits are performed.
         data = view.wrap_session(edits, {}, [])
@@ -176,9 +176,9 @@ class Focus(Script):
         source_path: pathlib.Path = pathlib.Path(source)
         return source_path.name, list(source_path.parent.parts)
 
-    def create_paths(self, source_parent: list[str]) -> video_paths.VideoPaths:
+    def create_paths(self, source_parent: list[str]) -> VideoPaths:
         destination: list[str] = self.locate_destination_folder()
-        return video_paths.VideoPaths(
+        return VideoPaths(
             source_parent, destination, destination)
 
     def locate_destination_folder(self, ) -> list[str]:

@@ -1,1 +1,1 @@
-INDENT_SPACES: str = 4
+INDENT_SPACES: int = 4

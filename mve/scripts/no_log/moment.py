@@ -7,13 +7,13 @@ import os
 import pathlib
 import sys
 
-import mve.src.config as config
+from mve.src.config import Config
 
 import mve.src.constants.error as error
 import mve.src.constants.json_settings as json_settings
 
 import mve.src.helpers.files as files
-import mve.src.helpers.video_paths as video_paths
+from mve.src.helpers.video_paths import VideoPaths
 import mve.src.helpers.util as util
 
 import mve.src.lib.view as view
@@ -28,16 +28,16 @@ class Moment(Script):
         args = self.handle_args(argv)
         source, dest = self.get_paths_from_args(args)
 
-        paths = video_paths.VideoPaths.make_merged_dest_from_defaults(
+        folders = VideoPaths.make_merged_dest_from_defaults(
             source, dest)
-        cfg = config.Config(paths.source, paths.renames, paths.edits)
+        cfg = Config(folders)
 
         self.configure_settings(cfg, args.testing)
 
-        remaining, errors = self.gen_remaining(paths, cfg.recent), list()
+        remaining, errors = self.gen_remaining(folders, cfg.recent), list()
         edits, renames, deletions = list(), dict(), list()
         num_remaining = view.run_loop(remaining, edits, renames,
-                                      deletions, paths, cfg.testing, cfg.bold,
+                                      deletions, folders, cfg.testing, cfg.bold,
                                       cfg.verify_name)
         data = view.wrap_session(edits, renames, deletions)
         print(
@@ -45,7 +45,7 @@ class Moment(Script):
         )
 
         edit.treat_all(data, cfg.use_moviepy, cfg.moviepy_threads,
-                       cfg.num_processes, remaining, errors, paths)
+                       cfg.num_processes, remaining, errors, folders)
         self.handle_errors(errors, cfg.bold)
         util.exit_treat_all_good(cfg.bold)
 
@@ -81,14 +81,14 @@ class Moment(Script):
         return source, dest
 
     def gen_remaining(
-            self, paths: video_paths.VideoPaths, recent: bool) -> list[str]:
+            self, paths: VideoPaths, recent: bool) -> list[str]:
         return files.ls(paths.source, recent=recent)
 
     def decompose_path_into_folders(self, abs_path: str) -> list[str]:
         path: pathlib.Path = pathlib.Path(abs_path)
         return list(path.parts)
 
-    def configure_settings(self, cfg: config.Config, testing: bool):
+    def configure_settings(self, cfg: Config, testing: bool):
         cfg.recent = False
         cfg.testing = testing
         cfg.verify_name = False

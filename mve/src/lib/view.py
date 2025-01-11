@@ -14,7 +14,7 @@ import mve.src.constants.video_editing as video_editing
 import mve.src.helpers.util as util
 import mve.src.helpers.time_handlers as time_handlers
 import mve.src.helpers.video as video
-import mve.src.helpers.video_paths as video_paths
+from mve.src.helpers.video_paths import VideoPaths
 import mve.src.helpers.files as files
 import mve.src.helpers.colouring as colouring
 
@@ -22,7 +22,7 @@ import mve.src.helpers.colouring as colouring
 def run_loop(
         remaining: list[str],
         edits: list[dict], renames: dict[str, str], deletions: list[str],
-        paths: video_paths.VideoPaths, testing: bool, bold: bool,
+        paths: VideoPaths, testing: bool, bold: bool,
         verify_name: bool) -> int:
     padding = len(
         str(
@@ -73,7 +73,7 @@ def run_loop(
     return len(remaining)
 
 
-def view_video(base_name: str, testing: bool, paths: video_paths.VideoPaths):
+def view_video(base_name: str, testing: bool, paths: VideoPaths):
     if testing:
         return
 
@@ -121,7 +121,7 @@ def highlight_command(command: str, bold: bool) -> str:
 
 def do_end(
         base_name: str, raw_tokens: str, edits: list[dict],
-        paths: video_paths.VideoPaths, bold: bool, verify_name: bool) -> bool:
+        paths: VideoPaths, bold: bool, verify_name: bool) -> bool:
     return do_edit(
         commands.END, base_name, raw_tokens, edits,
         lambda tokens: (tokens[0], None, tokens[1]), paths, bold, verify_name)
@@ -132,7 +132,7 @@ def do_edit(
         start_end_name_unpacker: typing.Callable[
             # start and end optional, end mandatory
             [list[str]], tuple[None | str, None | str, str]],
-        paths: video_paths.VideoPaths, bold: bool, verify_name: bool
+        paths: VideoPaths, bold: bool, verify_name: bool
 ) -> bool:
     tokens = parse_tokens(raw_tokens, command, bold)
     if tokens is None:
@@ -221,7 +221,7 @@ def print_time_format(is_start: bool, format: str, bold: bool):
 
 def check_times(
         base_name: str, start: str, end: str,
-        paths: video_paths.VideoPaths, bold: bool) -> bool:
+        paths: VideoPaths, bold: bool) -> bool:
     if start is None and end is None:
         return True
 
@@ -378,7 +378,7 @@ def log_edit(
 
 def do_start(
         base_name: str, raw_tokens: str, edits: list[dict],
-        paths: video_paths.VideoPaths, bold: bool, verify_name: bool) -> bool:
+        paths: VideoPaths, bold: bool, verify_name: bool) -> bool:
     return do_edit(
         commands.START, base_name, raw_tokens, edits,
         lambda tokens: (None, tokens[0], tokens[1]), paths, bold, verify_name)
@@ -386,7 +386,7 @@ def do_start(
 
 def do_middle(
         base_name: str, raw_tokens: str, edits: list[dict],
-        paths: video_paths.VideoPaths, bold: bool, verify_name: bool) -> bool:
+        paths: VideoPaths, bold: bool, verify_name: bool) -> bool:
     return do_edit(
         commands.MIDDLE, base_name, raw_tokens, edits,
         lambda tokens: (tokens[0], tokens[1], tokens[2]), paths, bold,
@@ -395,7 +395,7 @@ def do_middle(
 
 def do_whole(
         base_name: str, raw_tokens: str, edits: list[dict],
-        paths: video_paths.VideoPaths, bold: bool, verify_name: bool) -> bool:
+        paths: VideoPaths, bold: bool, verify_name: bool) -> bool:
     return do_edit(
         commands.WHOLE, base_name, raw_tokens, edits,
         lambda tokens: (None, None, tokens[0]), paths, bold, verify_name)
@@ -403,7 +403,7 @@ def do_whole(
 
 def do_rename(
         base_name: str, raw_tokens: str, renames: dict[str, str],
-        paths: video_paths.VideoPaths, bold: bool) -> bool:
+        paths: VideoPaths, bold: bool) -> bool:
     tokens = parse_tokens(raw_tokens, commands.RENAME, bold)
     if not tokens:
         return False

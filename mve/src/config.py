@@ -1,13 +1,10 @@
 '''Configure folder paths and settings for a given category of videos.'''
 
-import os
-import pathlib
 import sys
 
 import mve.src.constants.defaults as defaults
 import mve.src.constants.error as error
 import mve.src.constants.options as options
-import mve.src.constants.treatment_format as treatment_format
 
 import mve.src.helpers.check_and_exit_if as check_and_exit_if
 import mve.src.helpers.files as files
@@ -24,8 +21,7 @@ class Config():
 
     def __init__(
         self,
-        # folders
-        source: list[str], renames: list[str], destination: list[str],
+        folders: video_paths.VideoPaths,
         # options
         recent: bool = defaults.RECENT,
         num_processes: int = defaults.NUM_PROCESSES,
@@ -35,10 +31,8 @@ class Config():
         bold: bool = defaults.BOLD,
         verify_name: bool = defaults.VERIFY_NAME
     ):
-        # folders
-        self.source: list[str] = source
-        self.renames: list[str] = renames
-        self.destination: list[str] = destination
+        folders.verify_paths_integrity()
+        self.folders: video_paths.VideoPaths = folders
 
         # file-order generation
         self.recent: bool = recent
@@ -60,38 +54,12 @@ class Config():
         # double-check name was not mistaken for a command
         self.verify_name: bool = verify_name
 
-    # folder existence checking
-
-    def no_source_folder(self):
-        check_and_exit_if.no_folder(
-            self.source, 'source', self.bold, error.NO_SOURCE_FOLDER, )
-
-    def one_of_config_folders_missing(self):
-        for folder, desc, code in zip(
-            [self.source, self.renames, self.destination],
-            ['source', 'renames', 'destination'],
-            [error.NO_SOURCE_FOLDER, error.NO_RENAMES_FOLDER,
-                error.NO_DESTINATION_FOLDER]
-        ):
-            check_and_exit_if.no_folder(folder, desc, self.bold, code)
-
-    def create_source_folders(self) -> video_paths.VideoPaths:
-        return video_paths.VideoPaths(
-            self.source, self.destination, self.renames)
-
-    def generate_paths_dict(self) -> dict[str, list[str]]:
-        return {
-            treatment_format.SOURCE_PATH: self.source,
-            treatment_format.RENAME_PATH: self.renames,
-            treatment_format.DESTINATION_PATH: self.destination
-        }
-
     def write_config_to_file(self, joined_destination_path: str):
         data = {
             # folders
-            options.SOURCE: self.source,
-            options.RENAMES: self.renames,
-            options.DESTINATION: self.destination,
+            options.SOURCE: self.folders.source,
+            options.RENAMES: self.folders.renames,
+            options.DESTINATION: self.folders.edits,
 
             # file-order generation
             options.RECENT: self.recent,
@@ -220,6 +188,7 @@ class Stateful():
         destination: list[str] = Stateful.expect_paths_list(
             contents, options.DESTINATION, error.CONFIG_MISSING_DESTINATION,
             bold)
+        folders = video_paths.VideoPaths(source, destination, renames)
 
         # file-order generation
         recent = contents.get(options.RECENT, defaults.RECENT)
@@ -237,8 +206,7 @@ class Stateful():
         testing: bool = contents.get(options.TESTING, defaults.TESTING)
 
         return Config(
-            # folders
-            source, renames, destination,
+            folders,
             # options
             recent,
             num_processes,

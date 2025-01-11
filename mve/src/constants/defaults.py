@@ -1,3 +1,6 @@
+'''These defaults are used before a config has been successfully made by
+its constructor (ie. some constructor invariants might fail.'''
+
 # file-order generation
 RECENT: bool = False
 
