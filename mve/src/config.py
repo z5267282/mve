@@ -5,7 +5,6 @@ import sys
 import mve.src.constants.defaults as defaults
 import mve.src.constants.error as error
 import mve.src.constants.options as options
-import mve.src.constants.treatment_format as treatment_format
 
 import mve.src.helpers.check_and_exit_if as check_and_exit_if
 import mve.src.helpers.files as files
