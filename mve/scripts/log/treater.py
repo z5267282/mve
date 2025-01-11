@@ -13,6 +13,7 @@ import sys
 
 from mve.src.config import Stateful
 
+import mve.src.constants.colours as colours
 import mve.src.constants.error as error
 import mve.src.constants.errors_format as errors_format
 
@@ -26,6 +27,7 @@ import mve.src.helpers.util as util
 import mve.src.lib.edit as edit
 
 from mve.scripts.script import Legacy
+from mve.scripts.script_option import ScriptOption
 
 
 class Treater(Legacy):
@@ -55,6 +57,8 @@ class Treater(Legacy):
         if errors:
             paths_dict = cfg.folders.generate_paths_dict()
             self.handle_errors(state, remaining, errors, paths_dict, cfg.bold)
+
+        self.remind_to_run_deleter(remaining, state)
 
         util.exit_treat_all_good(cfg.bold)
 
@@ -103,3 +107,15 @@ class Treater(Legacy):
             ), bold
         )
         sys.exit(error.TREATMENT_ERROR)
+
+    def remind_to_run_deleter(self, remaining: list[str],
+                              state: Stateful) -> None:
+        if not remaining and not files.ls(state.queue):
+            reminder = colouring.colour_box(colours.YELLOW, 'reminder',
+                                            state.cfg.bold)
+            print('{} - there are no more remaining files to be viewed and the last treatment has been run, so {} should be run'.
+                  format(reminder,
+                         colouring.highlight(
+                             str(ScriptOption.DELETER), state.cfg.bold)
+                         )
+                  )
