@@ -58,9 +58,9 @@ class Config():
     def write_config_to_file(self, joined_destination_path: str):
         data = {
             # folders
-            options.SOURCE: self.source,
-            options.RENAMES: self.renames,
-            options.DESTINATION: self.destination,
+            options.SOURCE: self.folders.source,
+            options.RENAMES: self.folders.renames,
+            options.DESTINATION: self.folders.edits,
 
             # file-order generation
             options.RECENT: self.recent,
@@ -189,6 +189,7 @@ class Stateful():
         destination: list[str] = Stateful.expect_paths_list(
             contents, options.DESTINATION, error.CONFIG_MISSING_DESTINATION,
             bold)
+        folders = video_paths.VideoPaths(source, destination, renames)
 
         # file-order generation
         recent = contents.get(options.RECENT, defaults.RECENT)
@@ -206,8 +207,7 @@ class Stateful():
         testing: bool = contents.get(options.TESTING, defaults.TESTING)
 
         return Config(
-            # folders
-            source, renames, destination,
+            folders,
             # options
             recent,
             num_processes,
