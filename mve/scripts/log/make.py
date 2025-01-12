@@ -34,7 +34,7 @@ class Make(Script):
         super().__init__(str(ScriptOption.MAKE))
 
     def main(self, argv: list[str]) -> None:
-        args = self.handle_args(argv)
+        args, opt_argv = self.handle_args_and_options(argv)
         name = args.config
         self.verify_name(name)
 
@@ -42,7 +42,7 @@ class Make(Script):
         new_config = configs_folder + [name]
         self.check_config_exists(new_config, name)
         self.make_config_folder(new_config)
-        opts = self.make_config_options_from_flags(args)
+        opts = Config.create_options_dict_from_args(opt_argv)
         self.write_config_to_file(
             new_config, args.source, args.edits, args.renames, opts)
 
@@ -50,7 +50,9 @@ class Make(Script):
             f'created config: {colouring.highlight(name, defaults.BOLD)}',
             defaults.BOLD)
 
-    def handle_args(self, argv: list[str]) -> argparse.Namespace:
+    def handle_args_and_options(self,
+                                argv: list[str]
+                                ) -> tuple[argparse.Namespace, list[str]]:
         parser = argparse.ArgumentParser()
         parser.add_argument('config', type=str)
 
@@ -59,48 +61,7 @@ class Make(Script):
         parser.add_argument('--renames', type=str)
         parser.add_argument('--edits', type=str)
 
-        self.handle_options(parser)
-
-        return parser.parse_args(argv)
-
-    def handle_options(self, parser: argparse.ArgumentParser) -> None:
-        '''Note that all flags will be converted into snake_case by
-        argparse.'''
-
-        # file-order generation
-        parser.add_argument('--recent', action='store_true',
-                            default=defaults.RECENT)
-
-        # multiprocessing
-        parser.add_argument('--num-processes', type=int,
-                            default=defaults.NUM_PROCESSES)
-
-        # moviepy
-        parser.add_argument('--use-moviepy', action='store_true',
-                            default=defaults.USE_MOVIEPY)
-        parser.add_argument('--moviepy-threads', type=int,
-                            default=defaults.MOVIEPY_THREADS)
-
-        # testing
-        parser.add_argument('--testing', action='store_true',
-                            default=defaults.TESTING)
-
-        # colours
-        parser.add_argument('--bold', action='store_true',
-                            default=defaults.BOLD)
-
-        # double-check name was not mistaken for a command
-        parser.add_argument('--verify-name', action='store_true',
-                            default=defaults.VERIFY_NAME)
-
-    def make_config_options_from_flags(self,
-                                       arguments: argparse.Namespace) -> dict:
-        name = {'config'}
-        folders = {'source', 'renames', 'edits'}
-        unwanted = folders | name
-        # converting namespace into dict is supported in pydocs:
-        # https://docs.python.org/3/library/argparse.html#the-namespace-object
-        return {k: v for k, v in vars(arguments).items() if not k in unwanted}
+        return parser.parse_known_args(argv)
 
     def verify_name(self, name: str):
         if not re.fullmatch(r'[a-z0-9-]+', name):
