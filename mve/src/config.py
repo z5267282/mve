@@ -148,9 +148,7 @@ class Stateful():
             queue, history, errors, config_file, remaining,
             contents.get(options.BOLD, defaults.BOLD)
         )
-        cfg = Stateful.make_config_from_file(
-            contents, contents.get(options.BOLD, defaults.BOLD)
-        )
+        cfg = Stateful.make_config_from_file(contents)
 
         self.queue: list[str] = queue
         self.history: list[str] = history
@@ -218,15 +216,17 @@ class Stateful():
                                   error.NO_CONFIG_REMAINING, bold)
 
     @staticmethod
-    def make_config_from_file(contents: dict, bold: bool) -> Config:
+    def make_config_from_file(contents: dict) -> Config:
         # folders
         source: list[str] = Stateful.expect_paths_list(
-            contents, options.SOURCE, error.CONFIG_MISSING_SOURCE, bold)
+            contents, options.SOURCE, error.CONFIG_MISSING_SOURCE,
+            defaults.BOLD)
         renames: list[str] = Stateful.expect_paths_list(
-            contents, options.RENAMES, error.CONFIG_MISSING_RENAMES, bold)
+            contents, options.RENAMES, error.CONFIG_MISSING_RENAMES,
+            defaults.BOLD)
         destination: list[str] = Stateful.expect_paths_list(
             contents, options.DESTINATION, error.CONFIG_MISSING_DESTINATION,
-            bold)
+            defaults.BOLD)
         folders = video_paths.VideoPaths(source, destination, renames)
 
         opts = Stateful.populate_config_kwargs_from_contents(contents)
