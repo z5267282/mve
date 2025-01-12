@@ -29,14 +29,13 @@ class Moment(Script):
         super().__init__(str(ScriptOption.MOMENT))
 
     def main(self, argv: list[str]) -> None:
-        args = self.handle_args(argv)
+        args, opt_argv = self.handle_args(argv)
         source, dest = self.get_paths_from_args(args)
 
         folders = VideoPaths.make_merged_dest_from_defaults(
             source, dest)
-        cfg = Config(folders)
-
-        self.configure_settings(cfg, args.testing)
+        opts = Config.create_options_dict_from_args(opt_argv)
+        cfg = Config(folders, **opts)
 
         remaining, errors = self.gen_remaining(folders, cfg.recent), list()
         edits, renames, deletions = list(), dict(), list()
@@ -53,10 +52,10 @@ class Moment(Script):
         self.handle_errors(errors, cfg.bold)
         util.exit_treat_all_good(cfg.bold)
 
-    def handle_args(self, argv: list[str]) -> argparse.Namespace:
+    def handle_args(self,
+                    argv: list[str]) -> tuple[argparse.Namespace, list[str]]:
         parser = argparse.ArgumentParser()
-        parser.add_argument('--testing', help='turn on testing mode',
-                            action='store_true')
+
         source_args = parser.add_mutually_exclusive_group()
         source_args.add_argument('--source', type=str,
                                  help='the source folder')
@@ -69,7 +68,7 @@ class Moment(Script):
         dest_args.add_argument('--downloads', action='store_true',
                                help='set the destination folder as Downloads')
 
-        return parser.parse_args(argv)
+        return parser.parse_known_args(argv)
 
     def get_paths_from_args(
             self, args: argparse.Namespace) -> tuple[None | str, None | str]:
@@ -91,11 +90,6 @@ class Moment(Script):
     def decompose_path_into_folders(self, abs_path: str) -> list[str]:
         path: pathlib.Path = pathlib.Path(abs_path)
         return list(path.parts)
-
-    def configure_settings(self, cfg: Config, testing: bool):
-        cfg.recent = False
-        cfg.testing = testing
-        cfg.verify_name = False
 
     def handle_errors(self, errors: list[dict], bold: bool):
         if errors:

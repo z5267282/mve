@@ -36,10 +36,11 @@ class Focus(Script):
         super().__init__(str(ScriptOption.FOCUS))
 
     def main(self, argv: list[str]) -> None:
-        source, folders = self.make_source_and_paths(argv, defaults.BOLD)
+        source, folders, opts = self.make_source_paths_opts(
+            argv, defaults.BOLD)
 
         # edit information
-        cfg = Config(folders)
+        cfg = Config(folders, **opts)
         edits, errors = [], []
 
         while True:
@@ -59,15 +60,16 @@ class Focus(Script):
 
         self.finish_program(edits, errors, cfg, folders, cfg.bold)
 
-    def make_source_and_paths(self, argv: list[str],
-                              bold: bool) -> tuple[str, VideoPaths]:
+    def make_source_paths_opts(self, argv: list[str],
+                               bold: bool) -> tuple[str, VideoPaths, dict]:
         parser: argparse.ArgumentParser = argparse.ArgumentParser()
         parser.add_argument('source', type=str)
         parser.add_argument(
             '--destination', type=str, default=os.path.join(
                 os.path.expanduser('~'), 'Downloads')
         )
-        args: argparse.Namespace = parser.parse_args(argv)
+        args, opt_argv = parser.parse_known_args(argv)
+        opts = Config.create_options_dict_from_args(opt_argv)
 
         source: str = args.source
         if not os.path.exists(source):
@@ -80,9 +82,8 @@ class Focus(Script):
         source_folder: list[str] = list(source_path.parent.parts)
         destination_folder: list[str] = list(
             pathlib.Path(args.destination).parts)
-        return source_path.name, VideoPaths(source_folder,
-                                            destination_folder,
-                                            destination_folder)
+
+        return source_path.name, VideoPaths(source_folder, destination_folder, destination_folder), opts
 
     class BadTokenException(Exception):
         pass

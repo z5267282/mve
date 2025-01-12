@@ -20,3 +20,6 @@ TESTING: str = 'TESTING'
 
 # colours
 BOLD: str = 'BOLD'
+
+# name re-prompting
+VERIFY_NAME: str = 'VERIFY_NAME'

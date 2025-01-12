@@ -1,5 +1,6 @@
 '''Configure folder paths and settings for a given category of videos.'''
 
+import argparse
 import sys
 
 import mve.src.constants.defaults as defaults
@@ -42,7 +43,6 @@ class Config():
 
         # moviepy
         self.use_moviepy: bool = use_moviepy
-
         self.moviepy_threads: int = moviepy_threads
 
         # testing
@@ -79,6 +79,45 @@ class Config():
         }
         json_handlers.write_to_json(data, joined_destination_path)
 
+    @staticmethod
+    def create_options_dict_from_args(opt_argv: list[str]) -> dict:
+        '''Note that all flags will be converted into snake_case by
+        argparse.'''
+        # the parent Script should have --help enabled
+        parser = argparse.ArgumentParser(add_help=False)
+        parser.add_argument('--list-options', action='help')
+
+        # file-order generation
+        parser.add_argument('--recent', action='store_true',
+                            default=defaults.RECENT)
+
+        # multiprocessing
+        parser.add_argument('--num-processes', type=int,
+                            default=defaults.NUM_PROCESSES)
+
+        # moviepy
+        parser.add_argument('--use-moviepy', action='store_true',
+                            default=defaults.USE_MOVIEPY)
+        parser.add_argument('--moviepy-threads', type=int,
+                            default=defaults.MOVIEPY_THREADS)
+
+        # testing
+        parser.add_argument('--testing', action='store_true',
+                            default=defaults.TESTING)
+
+        # colours
+        parser.add_argument('--bold', action='store_true',
+                            default=defaults.BOLD)
+
+        # double-check name was not mistaken for a command
+        parser.add_argument('--verify-name', action='store_true',
+                            default=defaults.VERIFY_NAME)
+
+        opts = parser.parse_args(opt_argv)
+        # make a deep copy of the dictionary-converted Namespace
+        # https://docs.python.org/3/library/argparse.html#the-namespace-object
+        return {k: v for k, v in vars(opts).items()}
+
 
 class Stateful():
     '''This class maintains file-structure invariants about the configs
@@ -109,9 +148,7 @@ class Stateful():
             queue, history, errors, config_file, remaining,
             contents.get(options.BOLD, defaults.BOLD)
         )
-        cfg = Stateful.make_config_from_file(
-            contents, contents.get(options.BOLD, defaults.BOLD)
-        )
+        cfg = Stateful.make_config_from_file(contents)
 
         self.queue: list[str] = queue
         self.history: list[str] = history
@@ -179,41 +216,61 @@ class Stateful():
                                   error.NO_CONFIG_REMAINING, bold)
 
     @staticmethod
-    def make_config_from_file(contents: dict, bold: bool) -> Config:
+    def make_config_from_file(contents: dict) -> Config:
         # folders
         source: list[str] = Stateful.expect_paths_list(
-            contents, options.SOURCE, error.CONFIG_MISSING_SOURCE, bold)
+            contents, options.SOURCE, error.CONFIG_MISSING_SOURCE,
+            defaults.BOLD)
         renames: list[str] = Stateful.expect_paths_list(
-            contents, options.RENAMES, error.CONFIG_MISSING_RENAMES, bold)
+            contents, options.RENAMES, error.CONFIG_MISSING_RENAMES,
+            defaults.BOLD)
         destination: list[str] = Stateful.expect_paths_list(
             contents, options.DESTINATION, error.CONFIG_MISSING_DESTINATION,
-            bold)
+            defaults.BOLD)
         folders = video_paths.VideoPaths(source, destination, renames)
 
-        # file-order generation
-        recent = contents.get(options.RECENT, defaults.RECENT)
+        opts = Stateful.populate_config_kwargs_from_contents(contents)
+
+        return Config(folders, **opts)
+
+    @staticmethod
+    def populate_config_kwargs_from_contents(contents: dict) -> dict:
+        opts = {}
+
+        # no nicer way to conditionally set keys, avoiding None setting
+        # maybe an advanced technique using .update and filtering empty dicts?
 
         # multiprocessing
-        num_processes: int = contents.get(
-            options.NUM_PROCESSES, defaults.NUM_PROCESSES)
+        if options.NUM_PROCESSES in contents:
+            opts['num_processes'] = contents[options.NUM_PROCESSES]
+
+        # file-order generation
+        if options.RECENT in contents:
+            opts['recent'] = contents[options.RECENT]
+
+        # multiprocessing
+        if options.NUM_PROCESSES in contents:
+            opts['num_processes'] = contents[options.NUM_PROCESSES]
+
         # moviepy
-        use_moviepy: bool = contents.get(
-            options.USE_MOVIEPY, defaults.USE_MOVIEPY)
-        moviepy_threads: int = contents.get(
-            options.MOVIEPY_THREADS, defaults.MOVIEPY_THREADS)
+        if options.USE_MOVIEPY in contents:
+            opts['use_moviepy'] = contents[options.USE_MOVIEPY]
+        if options.MOVIEPY_THREADS in contents:
+            opts['moviepy_threads'] = contents[options.MOVIEPY_THREADS]
 
         # testing
-        testing: bool = contents.get(options.TESTING, defaults.TESTING)
+        if options.TESTING in contents:
+            opts['testing'] = contents[options.TESTING]
 
-        return Config(
-            folders,
-            # options
-            recent,
-            num_processes,
-            use_moviepy, moviepy_threads,
-            testing,
-            bold
-        )
+        # colours
+        if options.BOLD in contents:
+            opts['bold'] = contents[options.BOLD]
+
+        # double-check name was not mistaken for a command
+        if options.VERIFY_NAME in contents:
+            opts['verify_name'] = contents[options.VERIFY_NAME]
+
+        return opts
 
     @staticmethod
     def expect_paths_list(contents: dict, key: str, code: int,

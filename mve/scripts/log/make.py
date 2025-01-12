@@ -28,11 +28,13 @@ from mve.scripts.script_option import ScriptOption
 
 
 class Make(Script):
+    '''Create a new stateful configuration from the command line.'''
+
     def __init__(self):
         super().__init__(str(ScriptOption.MAKE))
 
     def main(self, argv: list[str]) -> None:
-        args = self.handle_args(argv)
+        args, opt_argv = self.handle_args_and_options(argv)
         name = args.config
         self.verify_name(name)
 
@@ -40,21 +42,26 @@ class Make(Script):
         new_config = configs_folder + [name]
         self.check_config_exists(new_config, name)
         self.make_config_folder(new_config)
+        opts = Config.create_options_dict_from_args(opt_argv)
         self.write_config_to_file(
-            new_config, args.source, args.edits, args.renames)
+            new_config, args.source, args.edits, args.renames, opts)
 
         util.print_success(
             f'created config: {colouring.highlight(name, defaults.BOLD)}',
             defaults.BOLD)
 
-    def handle_args(self, argv: list[str]) -> argparse.Namespace:
+    def handle_args_and_options(self,
+                                argv: list[str]
+                                ) -> tuple[argparse.Namespace, list[str]]:
         parser = argparse.ArgumentParser()
         parser.add_argument('config', type=str)
+
         # path flags
         parser.add_argument('--source', type=str)
         parser.add_argument('--renames', type=str)
         parser.add_argument('--edits', type=str)
-        return parser.parse_args(argv)
+
+        return parser.parse_known_args(argv)
 
     def verify_name(self, name: str):
         if not re.fullmatch(r'[a-z0-9-]+', name):
@@ -80,7 +87,8 @@ class Make(Script):
             pass
 
     def write_config_to_file(self, new_config: list[str], source: None | str,
-                             edits: None | str, renames: None | str):
+                             edits: None | str, renames: None | str,
+                             opts: dict):
         for folder in Stateful.locate_folders(new_config):
             files.do_folder_operation(folder, os.mkdir)
             self.add_folder_to_version_history(folder)
@@ -92,5 +100,5 @@ class Make(Script):
                                                           edits,
                                                           renames)
         # the config will be created with default options
-        cfg = Config(folders)
+        cfg = Config(folders, **opts)
         cfg.write_config_to_file(config_file)
