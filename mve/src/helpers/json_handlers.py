@@ -25,5 +25,5 @@ def read_from_json(joined_path: str, bold: bool) -> typing.Any:
             files.split_path(joined_path), bold)
         util.print_error(
             f"syntax error in the json file '{coloured_path}'", bold)
-        print(str(e))
+        util.stderr_print(str(e))
         sys.exit(error.BAD_JSON_FILE)
