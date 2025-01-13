@@ -51,6 +51,8 @@ class Config():
         Config.check_bad_config_option_type(
             use_moviepy, bool, 'use_moviepy', bold)
         self.use_moviepy: bool = use_moviepy
+        Config.check_bad_config_option_type(
+            moviepy_threads, int, 'moviepy_threads', bold)
         self.moviepy_threads: int = moviepy_threads
 
         # testing
