@@ -142,7 +142,7 @@ class Stateful():
         config_folder = Stateful.locate_given_config(name)
         queue, history, errors = Stateful.locate_folders(config_folder)
         config_file, remaining = Stateful.locate_files(config_folder)
-        contents = json_handlers.read_from_json(config_file)
+        contents = json_handlers.read_from_json(config_file, defaults.BOLD)
 
         Stateful.verify_config_integrity(
             queue, history, errors, config_file, remaining,
@@ -282,11 +282,11 @@ class Stateful():
 
     # handlers for remaining videos
 
-    def load_remaining(self) -> list[str]:
-        return json_handlers.read_from_json(self.remaining)
+    def load_remaining(self, bold: bool) -> list[str]:
+        return json_handlers.read_from_json(self.remaining, bold)
 
-    def check_files_remaining(self):
-        if self.load_remaining():
+    def check_files_remaining(self, bold: bool):
+        if self.load_remaining(bold):
             util.stderr_print(
                 f'there are files yet to be treated in \'{self.remaining}\''
             )

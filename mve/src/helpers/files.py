@@ -34,11 +34,15 @@ def folder_exists(paths_list: list[str]) -> bool:
     return do_folder_operation(paths_list, os.path.exists)
 
 
+def split_path(full_path: str) -> list[str]:
+    return list(
+        pathlib.Path(full_path).parts
+    )
+
+
 def tokenise_path(display: str, given: None | str) -> list[str]:
     if given is not None:
-        return list(
-            pathlib.Path(given).parts
-        )
+        return split_path(given)
     folder = input(f'{display} : ')
     return list(
         pathlib.Path(folder).parts

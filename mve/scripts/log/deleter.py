@@ -35,4 +35,4 @@ class Deleter(Legacy):
         ), cfg.bold)
 
     def run_checks(self, state: Stateful):
-        state.check_files_remaining()
+        state.check_files_remaining(state.cfg.bold)
