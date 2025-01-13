@@ -39,3 +39,6 @@ EXISTING_CONFIG: int = 21
 
 # focus
 NO_SOURCE_FILE: int = 22
+
+# json
+BAD_JSON_FILE: int = 23

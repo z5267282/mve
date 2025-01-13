@@ -2,9 +2,9 @@ import json
 import sys
 import typing
 
+import mve.src.constants.error as error
 import mve.src.constants.json_settings as json_settings
 
-import mve.src.helpers.check_and_exit_if as check_and_exit_if
 import mve.src.helpers.colouring as colouring
 import mve.src.helpers.files as files
 import mve.src.helpers.util as util
@@ -26,4 +26,4 @@ def read_from_json(joined_path: str, bold: bool) -> typing.Any:
         util.print_error(
             f"syntax error in the json file '{coloured_path}'", bold)
         print(str(e))
-        sys.exit(32)
+        sys.exit(error.BAD_JSON_FILE)
