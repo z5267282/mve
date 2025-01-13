@@ -126,9 +126,8 @@ class Config():
 
         for opt in contents:
             if not opt in Config.ALL_OPTIONS:
-                util.print_error(f'unknown {Config.__name__} option:', bold)
-                util.stderr_print(
-                    f'    {colouring.colour_format(colours.PURPLE, opt, bold)}')
+                util.print_error(
+                    f'unknown {Config.__name__} option: {colouring.colour_format(colours.PURPLE, opt, bold)} ', bold)
                 sys.exit(error.BAD_CONFIG_OPTION)
 
     @staticmethod
