@@ -56,6 +56,8 @@ class Config():
         self.moviepy_threads: int = moviepy_threads
 
         # testing
+        Config.check_bad_config_option_type(
+            testing, bool, 'testing', bold)
         self.testing: bool = testing
 
         # colours
