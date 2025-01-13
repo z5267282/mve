@@ -43,6 +43,8 @@ class Config():
         self.recent: bool = recent
 
         # multiprocessing
+        Config.check_bad_config_option_type(
+            num_processes, int, 'num_processes', bold)
         self.num_processes: int = num_processes
 
         # moviepy
