@@ -39,25 +39,25 @@ class Config():
         self.folders: video_paths.VideoPaths = folders
 
         # file-order generation
-        Config.check_bad_config_option_type(recent, bool, 'recent', bold)
+        Config.check_bad_config_option_type(recent, True, 'recent', bold)
         self.recent: bool = recent
 
         # multiprocessing
         Config.check_bad_config_option_type(
-            num_processes, int, 'num_processes', bold)
+            num_processes, False, 'num_processes', bold)
         self.num_processes: int = num_processes
 
         # moviepy
         Config.check_bad_config_option_type(
-            use_moviepy, bool, 'use_moviepy', bold)
+            use_moviepy, True, 'use_moviepy', bold)
         self.use_moviepy: bool = use_moviepy
         Config.check_bad_config_option_type(
-            moviepy_threads, int, 'moviepy_threads', bold)
+            moviepy_threads, False, 'moviepy_threads', bold)
         self.moviepy_threads: int = moviepy_threads
 
         # testing
         Config.check_bad_config_option_type(
-            testing, bool, 'testing', bold)
+            testing, True, 'testing', bold)
         self.testing: bool = testing
 
         # colours
@@ -93,10 +93,14 @@ class Config():
 
     @staticmethod
     def check_bad_config_option_type(variable: typing.Any,
-                                     exp_type: type,
+                                     # currently only numbers and booleans are supported option types
+                                     is_bool: bool,
                                      description: str,
                                      bold: bool) -> typing.NoReturn | None:
-        if not isinstance(variable, exp_type):
+        checker = Config.is_bool if is_bool else Config.is_int
+        exp_type: type = bool if is_bool else int
+
+        if not checker(variable):
             util.stderr_print(f'incorrect type for {Config.__name__} option')
             util.print_error(
                 f"option '{colouring.colour_format(colours.PURPLE, description, bold)}':", bold)
@@ -106,6 +110,14 @@ class Config():
                 f"  got : {colouring.colour_format(colours.RED, str(type(variable).__name__), bold)}", bold)
 
             sys.exit(error.BAD_TYPE)
+
+    @staticmethod
+    def is_bool(variable: typing.Any) -> bool:
+        return type(variable) is bool
+
+    @staticmethod
+    def is_int(variable: typing.Any) -> bool:
+        return type(variable) is int
 
     @staticmethod
     def create_options_dict_from_args(opt_argv: list[str]) -> dict:
