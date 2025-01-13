@@ -43,10 +43,10 @@ class Treater(Legacy):
 
         cfg = state.cfg
 
-        remaining, errors = state.load_remaining(), list()
+        remaining, errors = state.load_remaining(cfg.bold), list()
         current_file = self.dequeue(state)
         joined_current_file = files.get_joined_path(state.queue, current_file)
-        data = json_handlers.read_from_json(joined_current_file)
+        data = json_handlers.read_from_json(joined_current_file, cfg.bold)
         folders = cfg.folders
 
         edit.treat_all(

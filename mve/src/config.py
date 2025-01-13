@@ -2,12 +2,15 @@
 
 import argparse
 import sys
+import typing
 
+import mve.src.constants.colours as colours
 import mve.src.constants.defaults as defaults
 import mve.src.constants.error as error
 import mve.src.constants.options as options
 
 import mve.src.helpers.check_and_exit_if as check_and_exit_if
+import mve.src.helpers.colouring as colouring
 import mve.src.helpers.files as files
 import mve.src.helpers.json_handlers as json_handlers
 import mve.src.helpers.load_env as load_env
@@ -19,6 +22,12 @@ class Config():
     '''The Config class stores settings that change how mve runs.
     We can maintain file system invariants by fatally terminating the
     constructor.'''
+
+    ALL_OPTIONS: set[str] = {options.SOURCE, options.RENAMES,
+                             options.DESTINATION, options.RECENT,
+                             options.NUM_PROCESSES, options.USE_MOVIEPY,
+                             options.MOVIEPY_THREADS, options.TESTING,
+                             options.BOLD, options.VERIFY_NAME}
 
     def __init__(
         self,
@@ -36,22 +45,34 @@ class Config():
         self.folders: video_paths.VideoPaths = folders
 
         # file-order generation
+        Config.check_bad_config_option_type(recent, True, 'recent', bold)
         self.recent: bool = recent
 
         # multiprocessing
+        Config.check_bad_config_option_type(
+            num_processes, False, 'num_processes', bold)
         self.num_processes: int = num_processes
 
         # moviepy
+        Config.check_bad_config_option_type(
+            use_moviepy, True, 'use_moviepy', bold)
         self.use_moviepy: bool = use_moviepy
+        Config.check_bad_config_option_type(
+            moviepy_threads, False, 'moviepy_threads', bold)
         self.moviepy_threads: int = moviepy_threads
 
         # testing
+        Config.check_bad_config_option_type(
+            testing, True, 'testing', bold)
         self.testing: bool = testing
 
         # colours
+        Config.check_bad_config_option_type(bold, True, 'bold', bold)
         self.bold: bool = bold
 
         # double-check name was not mistaken for a command
+        Config.check_bad_config_option_type(
+            verify_name, True, 'verify_name', bold)
         self.verify_name: bool = verify_name
 
     def write_config_to_file(self, joined_destination_path: str):
@@ -75,9 +96,67 @@ class Config():
             options.TESTING: self.testing,
 
             # colours
-            options.BOLD: self.bold
+            options.BOLD: self.bold,
+
+            # whether to check if names start with leading numbers
+            options.VERIFY_NAME: self.verify_name
         }
         json_handlers.write_to_json(data, joined_destination_path)
+
+    @staticmethod
+    def check_bad_config_option_type(variable: typing.Any,
+                                     # currently only numbers and booleans are
+                                     # supported option types
+                                     is_bool: bool,
+                                     description: str,
+                                     bold: bool) -> typing.NoReturn | None:
+        checker = Config.is_bool if is_bool else Config.is_int
+        exp_type: type = bool if is_bool else int
+
+        if not checker(variable):
+            util.stderr_print(f'incorrect type for {Config.__name__} option')
+            util.print_error(
+                "option '{}':".format(
+                    colouring.colour_format(
+                        colours.PURPLE, description, bold)
+                ),
+                bold)
+            util.print_error(
+                "  exp : {}".format(
+                    colouring.colour_format(colours.GREEN,
+                                            str(exp_type.__name__), bold)
+                ),
+                bold)
+            util.print_error(
+                "  got : {}".format(
+                    colouring.colour_format(colours.RED,
+                                            str(type(variable).__name__), bold)
+                ),
+                bold)
+
+            sys.exit(error.BAD_TYPE)
+
+    @staticmethod
+    def verify_no_unknown_options(
+            contents: dict, bold: bool) -> typing.NoReturn | None:
+
+        for opt in contents:
+            if not opt in Config.ALL_OPTIONS:
+                util.print_error(
+                    'unknown {} option: {} '.format(
+                        Config.__name__,
+                        colouring.colour_format(colours.PURPLE, opt, bold)
+                    ),
+                    bold)
+                sys.exit(error.BAD_CONFIG_OPTION)
+
+    @staticmethod
+    def is_bool(variable: typing.Any) -> bool:
+        return type(variable) is bool
+
+    @staticmethod
+    def is_int(variable: typing.Any) -> bool:
+        return type(variable) is int
 
     @staticmethod
     def create_options_dict_from_args(opt_argv: list[str]) -> dict:
@@ -142,7 +221,7 @@ class Stateful():
         config_folder = Stateful.locate_given_config(name)
         queue, history, errors = Stateful.locate_folders(config_folder)
         config_file, remaining = Stateful.locate_files(config_folder)
-        contents = json_handlers.read_from_json(config_file)
+        contents = json_handlers.read_from_json(config_file, defaults.BOLD)
 
         Stateful.verify_config_integrity(
             queue, history, errors, config_file, remaining,
@@ -182,7 +261,8 @@ class Stateful():
         return config_folder
 
     @staticmethod
-    def locate_folders(config_folder: list[str]) -> tuple[list[str], list[str], list[str]]:
+    def locate_folders(
+            config_folder: list[str]) -> tuple[list[str], list[str], list[str]]:
         queue = config_folder + Stateful.QUEUE
         history = config_folder + Stateful.HISTORY
         errors = config_folder + Stateful.ERRORS
@@ -229,6 +309,7 @@ class Stateful():
             defaults.BOLD)
         folders = video_paths.VideoPaths(source, destination, renames)
 
+        Config.verify_no_unknown_options(contents, defaults.BOLD)
         opts = Stateful.populate_config_kwargs_from_contents(contents)
 
         return Config(folders, **opts)
@@ -282,11 +363,11 @@ class Stateful():
 
     # handlers for remaining videos
 
-    def load_remaining(self) -> list[str]:
-        return json_handlers.read_from_json(self.remaining)
+    def load_remaining(self, bold: bool) -> list[str]:
+        return json_handlers.read_from_json(self.remaining, bold)
 
-    def check_files_remaining(self):
-        if self.load_remaining():
+    def check_files_remaining(self, bold: bool):
+        if self.load_remaining(bold):
             util.stderr_print(
                 f'there are files yet to be treated in \'{self.remaining}\''
             )
