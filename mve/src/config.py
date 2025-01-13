@@ -61,6 +61,7 @@ class Config():
         self.testing: bool = testing
 
         # colours
+        Config.check_bad_config_option_type(bold, True, 'bold', bold)
         self.bold: bool = bold
 
         # double-check name was not mistaken for a command
