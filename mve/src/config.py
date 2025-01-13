@@ -65,6 +65,8 @@ class Config():
         self.bold: bool = bold
 
         # double-check name was not mistaken for a command
+        Config.check_bad_config_option_type(
+            verify_name, True, 'verify_name', bold)
         self.verify_name: bool = verify_name
 
     def write_config_to_file(self, joined_destination_path: str):
@@ -88,7 +90,10 @@ class Config():
             options.TESTING: self.testing,
 
             # colours
-            options.BOLD: self.bold
+            options.BOLD: self.bold,
+
+            # whether to check if names start with leading numbers
+            options.VERIFY_NAME: self.verify_name
         }
         json_handlers.write_to_json(data, joined_destination_path)
 
