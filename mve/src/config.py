@@ -48,6 +48,8 @@ class Config():
         self.num_processes: int = num_processes
 
         # moviepy
+        Config.check_bad_config_option_type(
+            use_moviepy, bool, 'use_moviepy', bold)
         self.use_moviepy: bool = use_moviepy
         self.moviepy_threads: int = moviepy_threads
 
