@@ -23,8 +23,11 @@ class Config():
     We can maintain file system invariants by fatally terminating the
     constructor.'''
 
-    ALL_OPTIONS = {options.SOURCE,  options.RENAMES,  options.DESTINATION,  options.RECENT,  options.NUM_PROCESSES,
-                   options.USE_MOVIEPY,  options.MOVIEPY_THREADS,  options.TESTING,  options.BOLD,  options.VERIFY_NAME}
+    ALL_OPTIONS: set[str] = {options.SOURCE, options.RENAMES,
+                             options.DESTINATION, options.RECENT,
+                             options.NUM_PROCESSES, options.USE_MOVIEPY,
+                             options.MOVIEPY_THREADS, options.TESTING,
+                             options.BOLD, options.VERIFY_NAME}
 
     def __init__(
         self,

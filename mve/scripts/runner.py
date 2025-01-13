@@ -18,18 +18,17 @@ from mve.scripts.script_option import ScriptOption
 class Runner():
     '''Controller class for running all mve scripts'''
 
-    def __init__(self):
-        self.scripts: dict[ScriptOption, Script] = {
-            ScriptOption.COMBINE: Combine(),
-            ScriptOption.FOCUS: Focus(),
-            ScriptOption.DELETER: Deleter(),
-            ScriptOption.GENERATOR: Generator(),
-            ScriptOption.INTEGRITY: Integrity(),
-            ScriptOption.MAKE: Make(),
-            ScriptOption.MOMENT: Moment(),
-            ScriptOption.TREATER: Treater(),
-            ScriptOption.VIEWER: Viewer()
-        }
+    SCRIPTS: dict[ScriptOption, Script] = {
+        ScriptOption.COMBINE: Combine(),
+        ScriptOption.FOCUS: Focus(),
+        ScriptOption.DELETER: Deleter(),
+        ScriptOption.GENERATOR: Generator(),
+        ScriptOption.INTEGRITY: Integrity(),
+        ScriptOption.MAKE: Make(),
+        ScriptOption.MOMENT: Moment(),
+        ScriptOption.TREATER: Treater(),
+        ScriptOption.VIEWER: Viewer()
+    }
 
     def run(self) -> None:
         args, argv = self.parse_args()
@@ -62,4 +61,4 @@ class Runner():
     def lookup_script(self,
                       option: ScriptOption
                       ) -> Script:
-        return self.scripts[option]
+        return Runner.SCRIPTS[option]
