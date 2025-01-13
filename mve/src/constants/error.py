@@ -42,3 +42,4 @@ NO_SOURCE_FILE: int = 22
 
 # json
 BAD_JSON_FILE: int = 23
+BAD_TYPE: int = 24

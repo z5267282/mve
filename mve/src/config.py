@@ -2,12 +2,15 @@
 
 import argparse
 import sys
+import typing
 
+import mve.src.constants.colours as colours
 import mve.src.constants.defaults as defaults
 import mve.src.constants.error as error
 import mve.src.constants.options as options
 
 import mve.src.helpers.check_and_exit_if as check_and_exit_if
+import mve.src.helpers.colouring as colouring
 import mve.src.helpers.files as files
 import mve.src.helpers.json_handlers as json_handlers
 import mve.src.helpers.load_env as load_env
@@ -36,6 +39,7 @@ class Config():
         self.folders: video_paths.VideoPaths = folders
 
         # file-order generation
+        Config.check_bad_config_option_type(recent, bool, 'recent', bold)
         self.recent: bool = recent
 
         # multiprocessing
@@ -78,6 +82,22 @@ class Config():
             options.BOLD: self.bold
         }
         json_handlers.write_to_json(data, joined_destination_path)
+
+    @staticmethod
+    def check_bad_config_option_type(variable: typing.Any,
+                                     exp_type: type,
+                                     description: str,
+                                     bold: bool) -> typing.NoReturn | None:
+        if not isinstance(variable, exp_type):
+            util.stderr_print(f'incorrect type for {Config.__name__} option')
+            util.print_error(
+                f"option '{colouring.colour_format(colours.PURPLE, description, bold)}':", bold)
+            util.print_error(
+                f"  exp : {colouring.colour_format(colours.GREEN, str(exp_type.__name__), bold)}", bold)
+            util.print_error(
+                f"  got : {colouring.colour_format(colours.RED, str(type(variable).__name__), bold)}", bold)
+
+            sys.exit(error.BAD_TYPE)
 
     @staticmethod
     def create_options_dict_from_args(opt_argv: list[str]) -> dict:
