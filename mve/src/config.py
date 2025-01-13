@@ -105,7 +105,8 @@ class Config():
 
     @staticmethod
     def check_bad_config_option_type(variable: typing.Any,
-                                     # currently only numbers and booleans are supported option types
+                                     # currently only numbers and booleans are
+                                     # supported option types
                                      is_bool: bool,
                                      description: str,
                                      bold: bool) -> typing.NoReturn | None:
@@ -115,11 +116,23 @@ class Config():
         if not checker(variable):
             util.stderr_print(f'incorrect type for {Config.__name__} option')
             util.print_error(
-                f"option '{colouring.colour_format(colours.PURPLE, description, bold)}':", bold)
+                "option '{}':".format(
+                    colouring.colour_format(
+                        colours.PURPLE, description, bold)
+                ),
+                bold)
             util.print_error(
-                f"  exp : {colouring.colour_format(colours.GREEN, str(exp_type.__name__), bold)}", bold)
+                "  exp : {}".format(
+                    colouring.colour_format(colours.GREEN,
+                                            str(exp_type.__name__), bold)
+                ),
+                bold)
             util.print_error(
-                f"  got : {colouring.colour_format(colours.RED, str(type(variable).__name__), bold)}", bold)
+                "  got : {}".format(
+                    colouring.colour_format(colours.RED,
+                                            str(type(variable).__name__), bold)
+                ),
+                bold)
 
             sys.exit(error.BAD_TYPE)
 
@@ -130,7 +143,11 @@ class Config():
         for opt in contents:
             if not opt in Config.ALL_OPTIONS:
                 util.print_error(
-                    f'unknown {Config.__name__} option: {colouring.colour_format(colours.PURPLE, opt, bold)} ', bold)
+                    'unknown {} option: {} '.format(
+                        Config.__name__,
+                        colouring.colour_format(colours.PURPLE, opt, bold)
+                    ),
+                    bold)
                 sys.exit(error.BAD_CONFIG_OPTION)
 
     @staticmethod
@@ -244,7 +261,8 @@ class Stateful():
         return config_folder
 
     @staticmethod
-    def locate_folders(config_folder: list[str]) -> tuple[list[str], list[str], list[str]]:
+    def locate_folders(
+            config_folder: list[str]) -> tuple[list[str], list[str], list[str]]:
         queue = config_folder + Stateful.QUEUE
         history = config_folder + Stateful.HISTORY
         errors = config_folder + Stateful.ERRORS
