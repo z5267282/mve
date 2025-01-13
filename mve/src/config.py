@@ -23,6 +23,9 @@ class Config():
     We can maintain file system invariants by fatally terminating the
     constructor.'''
 
+    ALL_OPTIONS = {options.SOURCE,  options.RENAMES,  options.DESTINATION,  options.RECENT,  options.NUM_PROCESSES,
+                   options.USE_MOVIEPY,  options.MOVIEPY_THREADS,  options.TESTING,  options.BOLD,  options.VERIFY_NAME}
+
     def __init__(
         self,
         folders: video_paths.VideoPaths,
@@ -116,6 +119,17 @@ class Config():
                 f"  got : {colouring.colour_format(colours.RED, str(type(variable).__name__), bold)}", bold)
 
             sys.exit(error.BAD_TYPE)
+
+    @staticmethod
+    def verify_no_unknown_options(
+            contents: dict, bold: bool) -> typing.NoReturn | None:
+
+        for opt in contents:
+            if not opt in Config.ALL_OPTIONS:
+                util.print_error(f'unknown {Config.__name__} option:', bold)
+                util.stderr_print(
+                    f'  {colouring.colour_format(colours.PURPLE, opt, bold)}')
+                sys.exit(error.BAD_CONFIG_OPTION)
 
     @staticmethod
     def is_bool(variable: typing.Any) -> bool:
@@ -275,6 +289,7 @@ class Stateful():
             defaults.BOLD)
         folders = video_paths.VideoPaths(source, destination, renames)
 
+        Config.verify_no_unknown_options(contents, defaults.BOLD)
         opts = Stateful.populate_config_kwargs_from_contents(contents)
 
         return Config(folders, **opts)
