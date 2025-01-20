@@ -21,7 +21,7 @@ To edit and record a history of treatments, run the project with these scripts i
 | 1.  | [make](docs/make.md)           | Generate a new configuration in the project history.                        |
 | 2.  | [integrity](docs/integrity.md) | Check that configurations have been correctly made in.                      |
 | 3.  | [generator](docs/generator.md) | Populate the config's remaining video list.                                 |
-| 4.  | `viewer`                       | View each remaining video in the config, record treatments and enqueue.     |
+| 4.  | [viewer](docs/viewer.md)       | View each remaining video in the config, record treatments and enqueue.     |
 | 5.  | `treater`                      | Perform all treatments on the first enqueued treatment file for the config. |
 | 6.  | `deleter`                      | Mark the config as complete and delete its source folder.                   |
 
