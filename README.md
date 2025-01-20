@@ -41,12 +41,3 @@ For one-off editing where history is not needed, the following scripts can be ru
 
 The environment variable `MVE_CONFIGS` should store the full path to the folder storing configurations.  
 If it is not set, it will default to the parent folder of the `mve` repository (ie. `..`).
-
-# Documentation Guide
-
-Documentation for specific parts of the project are in the `docs/` folder.
-
-| File         | Description                                  |
-| ------------ | -------------------------------------------- |
-| `configs.md` | Structure of a configuration folder.         |
-| `session.md` | How a viewing session is stored and treated. |
