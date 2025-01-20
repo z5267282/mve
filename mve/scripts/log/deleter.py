@@ -1,7 +1,3 @@
-'''Delete the source folder for the given config once all remaining files have
-been processed. It is not intended to be run when inside a Docker container
-as the source folder will be mounted as a volume.'''
-
 import shutil
 
 from mve.src.config import Stateful
