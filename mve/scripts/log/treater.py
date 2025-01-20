@@ -1,13 +1,3 @@
-'''Edit all videos according to the first enqueued treatment of the given
-config. The treatments are performed in the following order: edits, renames and
-deletions. Edits are placed in the given config's destination folder. Once the
-enqueued treatment has been processed, it is moved into the history of the
-given config. Errors if any, are logged in the given config's errors folder.
-When an error occurs, the file name of the offending treatment is appended to
-the remaining JSON file. After it has been rewatched in the viewer, it can also
-be re-treated upon the next viewing session. The program prematurely terminates
-if any of the aformentioned folders do not exist.'''
-
 import os
 import sys
 

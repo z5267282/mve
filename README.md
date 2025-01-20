@@ -22,7 +22,7 @@ To edit and record a history of treatments, run the project with these scripts i
 | 2.  | [integrity](docs/integrity.md) | Check that configurations have been correctly made in.                      |
 | 3.  | [generator](docs/generator.md) | Populate the config's remaining video list.                                 |
 | 4.  | [viewer](docs/viewer.md)       | View each remaining video in the config, record treatments and enqueue.     |
-| 5.  | `treater`                      | Perform all treatments on the first enqueued treatment file for the config. |
+| 5.  | [treater](docs/treater.md)     | Perform all treatments on the first enqueued treatment file for the config. |
 | 6.  | `deleter`                      | Mark the config as complete and delete its source folder.                   |
 
 . Logs are recorded as [sessions](docs/session.md).

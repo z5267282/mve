@@ -3,6 +3,12 @@
 View outstanding videos and accordingly prepare a [session](./session.md).  
 The video to be edited will be shown to the user and then a command is recorded through a terminal prompt.
 
+# Usage
+
+```sh
+python3 -m mve log viewer <config>`
+```
+
 # Commands
 
 Enter `h` for a full list of commands:
