@@ -1,6 +1,3 @@
-'''Run the mve project as a one-off command-line video editor without history.
-Absolute paths must be entered in place of a loaded configuration file.'''
-
 import argparse
 import json
 import os
@@ -54,7 +51,8 @@ class Moment(Script):
 
     def handle_args(self,
                     argv: list[str]) -> tuple[argparse.Namespace, list[str]]:
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(add_help=False)
+        parser.add_argument('--info', action='help')
 
         source_args = parser.add_mutually_exclusive_group()
         source_args.add_argument('--source', type=str,

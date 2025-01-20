@@ -1,11 +1,3 @@
-'''Edit one video on a loop.
-Provide the absolute path of the source, and optionally a the absolute path of
-the destination folder as command line arguments.
-In the main program, enter timestamps in the form
-<start> <end> [name]
-where the name is optional.
-Hit q when you want to quit the program.'''
-
 import argparse
 import json
 import os

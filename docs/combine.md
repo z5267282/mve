@@ -1,11 +1,10 @@
 # Overview
 
 Combine a folder of clips into a single file.  
-Intended to be used in conjunction with `focus.py`.  
-Run
+This is intended to be used in conjunction with `focus`.
+
+# Usage
 
 ```sh
-python3 focus.py --help
+python3 -m mve no-log combine source title
 ```
-
-for usage.
