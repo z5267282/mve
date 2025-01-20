@@ -63,8 +63,7 @@ class Runner():
     def map_script_name_to_enum(self, name: str) -> ScriptOption:
         return ScriptOption(name)
 
-    def create_script(self,
-                      option: ScriptOption,
-                      parser: argparse.ArgumentParser
+    def lookup_script(self,
+                      option: ScriptOption
                       ) -> Script:
         return Runner.SCRIPTS[option]
