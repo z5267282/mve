@@ -25,7 +25,7 @@ To edit and record a history of treatments, run the project with these scripts i
 | 5.  | `treater`   | Perform all treatments on the first enqueued treatment file for the config. |
 | 6.  | `deleter`   | Mark the config as complete and delete its source folder.                   |
 
-.
+. Logs are recorded as [sessions](docs/session.md).
 
 ## 2. Stateless
 
