@@ -53,6 +53,8 @@ class Make(Script):
         parser.add_argument('--renames', type=str)
         parser.add_argument('--edits', type=str)
 
+        Config.add_options_subparser(parser)
+
         return parser.parse_known_args(argv)
 
     def verify_name(self, name: str):

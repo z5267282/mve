@@ -159,43 +159,53 @@ class Config():
         return type(variable) is int
 
     @staticmethod
+    def add_options_subparser(parent: argparse.ArgumentParser) -> None:
+        options = parent.add_subparsers(dest='options')
+
+        opt_parser = options.add_parser('configuration options',
+                                        add_help=False)
+
+        opt_parser.add_argument('--options', action='help')
+
+        # file-order generation
+        opt_parser.add_argument('--recent', action='store_true',
+                                default=defaults.RECENT)
+
+        # multiprocessing
+        opt_parser.add_argument('--num-processes', type=int,
+                                default=defaults.NUM_PROCESSES)
+
+        # moviepy
+        opt_parser.add_argument('--use-moviepy', action='store_true',
+                                default=defaults.USE_MOVIEPY)
+        opt_parser.add_argument('--moviepy-threads', type=int,
+                                default=defaults.MOVIEPY_THREADS)
+
+        # testing
+        opt_parser.add_argument('--testing', action='store_true',
+                                default=defaults.TESTING)
+
+        # colours
+        opt_parser.add_argument('--bold', action='store_true',
+                                default=defaults.BOLD)
+
+        # double-check name was not mistaken for a command
+        opt_parser.add_argument('--verify-name', action='store_true',
+                                default=defaults.VERIFY_NAME)
+
+    @staticmethod
     def create_options_dict_from_args(opt_argv: list[str]) -> dict:
         '''Note that all flags will be converted into snake_case by
         argparse.'''
-        # the parent Script should have --help enabled
-        parser = argparse.ArgumentParser(add_help=False)
-        parser.add_argument('--list-options', action='help')
 
-        # file-order generation
-        parser.add_argument('--recent', action='store_true',
-                            default=defaults.RECENT)
+        return {}
 
-        # multiprocessing
-        parser.add_argument('--num-processes', type=int,
-                            default=defaults.NUM_PROCESSES)
+        # opts = {}
 
-        # moviepy
-        parser.add_argument('--use-moviepy', action='store_true',
-                            default=defaults.USE_MOVIEPY)
-        parser.add_argument('--moviepy-threads', type=int,
-                            default=defaults.MOVIEPY_THREADS)
-
-        # testing
-        parser.add_argument('--testing', action='store_true',
-                            default=defaults.TESTING)
-
-        # colours
-        parser.add_argument('--bold', action='store_true',
-                            default=defaults.BOLD)
-
-        # double-check name was not mistaken for a command
-        parser.add_argument('--verify-name', action='store_true',
-                            default=defaults.VERIFY_NAME)
-
-        opts = parser.parse_args(opt_argv)
-        # make a deep copy of the dictionary-converted Namespace
-        # https://docs.python.org/3/library/argparse.html#the-namespace-object
-        return {k: v for k, v in vars(opts).items()}
+        # # opts = parser.parse_args(opt_argv)
+        # # make a deep copy of the dictionary-converted Namespace
+        # # https://docs.python.org/3/library/argparse.html#the-namespace-object
+        # return {k: v for k, v in vars(opts).items()}
 
 
 class Stateful():
