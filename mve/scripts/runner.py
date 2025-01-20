@@ -44,14 +44,16 @@ class Runner():
 
         logged = parser.add_subparsers(dest='logged')
 
-        log = logged.add_parser('log')
+        log = logged.add_parser('log', add_help=False)
+        log.add_argument('--scripts', action='help')
         log.add_argument('script', choices=[
             str(l) for l in [ScriptOption.DELETER, ScriptOption.GENERATOR,
                              ScriptOption.INTEGRITY, ScriptOption.MAKE,
                              ScriptOption.TREATER, ScriptOption.VIEWER]
         ])
 
-        no_log = logged.add_parser('no-log')
+        no_log = logged.add_parser('no-log', add_help=False)
+        no_log.add_argument('--scripts', action='help')
         no_log.add_argument('script', choices=[str(nl) for nl in [
                             ScriptOption.COMBINE, ScriptOption.FOCUS,
                             ScriptOption.MOMENT]])
