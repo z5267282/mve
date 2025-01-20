@@ -3,8 +3,8 @@
 Edit all videos according to the first enqueued treatment of the given configuration.  
 The treatments are performed in the following order:
 
-1. edits
-2. renames
+1. edits;
+2. rename;
 3. deletions.
 
 Edits are placed in the given config's destination folder.  
