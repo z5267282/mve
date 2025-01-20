@@ -1,11 +1,3 @@
-'''Make a new config folder. Note that this script must be run on the host
-machine to ensure the correct file path convention is used. When prompted,
-enter absolute paths for the source, renames and destination paths.
-Paths can be provided on the command line to allow for Shell expansions. The
-config name must only contain [a-z-] letters. The config is generated with
-default settings. A config will only be made if one does not exist at
-present.'''
-
 import argparse
 import os
 import re
