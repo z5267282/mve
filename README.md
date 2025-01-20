@@ -31,11 +31,11 @@ To edit and record a history of treatments, run the project with these scripts i
 
 For one-off editing where history is not needed, the following scripts can be run.
 
-| Script                   | Description                                              |
-| ------------------------ | -------------------------------------------------------- |
-| [moment](docs/moment.md) | Make edits for all videos from a particular folder.      |
-| [foucs](docs/focus.md)   | Continuously make clips of a particular video.           |
-| `combine`                | Join all clips from a folder into a single complication. |
+| Script                     | Description                                              |
+| -------------------------- | -------------------------------------------------------- |
+| [moment](docs/moment.md)   | Make edits for all videos from a particular folder.      |
+| [foucs](docs/focus.md)     | Continuously make clips of a particular video.           |
+| [combine](docs/combine.md) | Join all clips from a folder into a single complication. |
 
 # Configurations Folder
 
