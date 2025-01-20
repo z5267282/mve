@@ -34,7 +34,7 @@ For one-off editing where history is not needed, the following scripts can be ru
 | Script                   | Description                                              |
 | ------------------------ | -------------------------------------------------------- |
 | [moment](docs/moment.md) | Make edits for all videos from a particular folder.      |
-| `focus`                  | Continuously make clips of a particular video.           |
+| [foucs](docs/focus.md)   | Continuously make clips of a particular video.           |
 | `combine`                | Join all clips from a folder into a single complication. |
 
 # Configurations Folder
