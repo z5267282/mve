@@ -13,8 +13,8 @@ Configs can only contain letters or hyphens, ie `[a-z-]`.
 
 # Usage
 
-```
-usage: python3 -m mve log make [--source SOURCE] [--renames RENAMES] [--edits EDITS] config
+```sh
+python3 -m mve log make [--source SOURCE] [--renames RENAMES] [--edits EDITS] config
 ```
 
 # Path Expansion
