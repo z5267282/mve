@@ -1,4 +1,3 @@
-import argparse
 import os
 import sys
 
@@ -22,8 +21,8 @@ from mve.scripts.script_option import ScriptOption
 
 
 class Treater(Legacy):
-    def __init__(self, parser: argparse.ArgumentParser):
-        super().__init__(str(ScriptOption.TREATER), parser)
+    def __init__(self):
+        super().__init__(str(ScriptOption.TREATER))
 
     def main(self, argv: list[str]) -> None:
         super().main(argv)

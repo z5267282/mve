@@ -20,8 +20,8 @@ from mve.scripts.script_option import ScriptOption
 
 
 class Integrity(Script):
-    def __init__(self, parser: argparse.ArgumentParser):
-        super().__init__(str(ScriptOption.INTEGRITY), parser)
+    def __init__(self):
+        super().__init__(str(ScriptOption.INTEGRITY))
 
     def main(self, argv: list[str]) -> None:
         args = self.handle_command_line_args(argv)

@@ -1,5 +1,3 @@
-import argparse
-
 from mve.src.config import Stateful
 
 import mve.src.constants.video_editing as video_editing
@@ -14,8 +12,8 @@ from mve.scripts.script_option import ScriptOption
 
 
 class Generator(Legacy):
-    def __init__(self, parser: argparse.ArgumentParser):
-        super().__init__(str(ScriptOption.GENERATOR), parser)
+    def __init__(self):
+        super().__init__(str(ScriptOption.GENERATOR))
 
     def main(self, argv: list[str]) -> None:
         super().main(argv)

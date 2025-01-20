@@ -24,8 +24,8 @@ from mve.scripts.script_option import ScriptOption
 
 
 class Focus(Script):
-    def __init__(self, parser: argparse.ArgumentParser):
-        super().__init__(str(ScriptOption.FOCUS), parser)
+    def __init__(self):
+        super().__init__(str(ScriptOption.FOCUS))
 
     def main(self, argv: list[str]) -> None:
         source, folders, opts = self.make_source_paths_opts(

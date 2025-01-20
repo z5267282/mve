@@ -22,8 +22,8 @@ from mve.scripts.script_option import ScriptOption
 class Make(Script):
     '''Create a new stateful configuration from the command line.'''
 
-    def __init__(self, parser: argparse.ArgumentParser):
-        super().__init__(str(ScriptOption.MAKE), parser)
+    def __init__(self):
+        super().__init__(str(ScriptOption.MAKE))
 
     def main(self, argv: list[str]) -> None:
         args, opt_argv = self.handle_args_and_options(argv)

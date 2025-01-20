@@ -1,3 +1,4 @@
+
 import argparse
 import contextlib
 import os
@@ -15,8 +16,8 @@ from mve.scripts.script_option import ScriptOption
 class Combine(Script):
     '''Combine multiple clips from a given folder into a single video file.'''
 
-    def __init__(self, parser: argparse.ArgumentParser):
-        super().__init__(str(ScriptOption.COMBINE), parser)
+    def __init__(self):
+        super().__init__(str(ScriptOption.COMBINE))
 
     def main(self, argv: list[str]) -> None:
         parser = argparse.ArgumentParser()
