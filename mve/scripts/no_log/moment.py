@@ -22,8 +22,8 @@ from mve.scripts.script_option import ScriptOption
 
 
 class Moment(Script):
-    def __init__(self):
-        super().__init__(str(ScriptOption.MOMENT))
+    def __init__(self, parser: argparse.ArgumentParser):
+        super().__init__(str(ScriptOption.MOMENT), parser)
 
     def main(self, argv: list[str]) -> None:
         args, opt_argv = self.handle_args(argv)
