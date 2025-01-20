@@ -14,7 +14,15 @@ Configs can only contain letters or hyphens, ie `[a-z-]`.
 # Usage
 
 ```sh
-python3 -m mve log make [--source SOURCE] [--renames RENAMES] [--edits EDITS] config
+python3 -m mve log make [--source SOURCE] [--renames RENAMES] [--edits EDITS] config \
+  --list-options \
+  --recent \
+  --num-processes NUM_PROCESSES \
+  --use-moviepy \
+  --moviepy-threads MOVIEPY_THREADS \
+  --testing \
+  --bold \
+  --verify-name
 ```
 
 # Path Expansion
