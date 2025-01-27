@@ -114,7 +114,7 @@ class Config():
         exp_type: type = bool if is_bool else int
 
         if not checker(variable):
-            util.stderr_print(f'incorrect type for {Config.__name__} option')
+            util.stderr_print(f'incorrect type for configuration option')
             util.print_error(
                 "option '{}':".format(
                     colouring.colour_format(
