@@ -14,6 +14,8 @@ from mve.scripts.no_log.moment import Moment
 from mve.scripts.script import Script
 from mve.scripts.script_option import ScriptOption
 
+import mve.src.constants.module as module
+
 
 class Runner():
     '''Controller class for running all mve scripts'''
@@ -39,7 +41,7 @@ class Runner():
 
     def parse_args(self) -> tuple[argparse.Namespace, list[str]]:
         # enable --help for script-level parsers
-        parser = argparse.ArgumentParser(add_help=False, prog='mve')
+        parser = argparse.ArgumentParser(add_help=False, prog=module.NAME)
         parser.add_argument('--info', action='help')
 
         logged = parser.add_subparsers(title='logging options', dest='logged')
