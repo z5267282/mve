@@ -8,9 +8,29 @@ Then, edit the videos based off this information.
 
 The project can be run in a stateful or stateless mode, depending on whether records should be kept.
 
-```
+```sh
 python3 -m mve <log|no-log> <script> [args...]
 ```
+
+For top-level `mve` help run
+
+```sh
+python3 -m mve --info
+```
+
+. For script-level info depending on whether logs are to run
+
+```sh
+python3 -m mve <log|no-log> --scripts
+```
+
+. For script-specific help run
+
+```sh
+python3 -m mve <log|no-log> <script> --help
+```
+
+.
 
 ## 1. Stateful
 
