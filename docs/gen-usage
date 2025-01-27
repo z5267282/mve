@@ -1,5 +1,9 @@
 #!/usr/bin/env dash
 
+# Generate usage mesasge as documentation for each script.
+# It is generated between the header # Usage and either first of:
+# the next header; or the end of the file.
+
 # only auto-gen files that have a usage section
 usage_can_be_generated() {
     script="$1"
@@ -17,3 +21,8 @@ usage_can_be_generated() {
 
     return $?
 }
+
+for script in ../mve/scripts/log/*
+do
+    :    
+done
