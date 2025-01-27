@@ -17,6 +17,8 @@ import mve.src.helpers.load_env as load_env
 import mve.src.helpers.video_paths as video_paths
 import mve.src.helpers.util as util
 
+from mve.scripts.script_option import ScriptOption
+
 
 class Config():
     '''The Config class stores settings that change how mve runs.
@@ -162,29 +164,36 @@ class Config():
         options = parent.add_argument_group('configuration options')
         # file-order generation
         options.add_argument('--recent', action='store_true',
-                             default=defaults.RECENT)
+                             default=defaults.RECENT,
+                             help='store files from most to least recently created')
 
         # multiprocessing
         options.add_argument('--num-processes', type=int,
-                             default=defaults.NUM_PROCESSES)
+                             default=defaults.NUM_PROCESSES,
+                             help='set the number of processes used in editing')
 
         # moviepy
         options.add_argument('--use-moviepy', action='store_true',
-                             default=defaults.USE_MOVIEPY)
+                             default=defaults.USE_MOVIEPY,
+                             help='use moviepy to edit clips')
         options.add_argument('--moviepy-threads', type=int,
-                             default=defaults.MOVIEPY_THREADS)
+                             default=defaults.MOVIEPY_THREADS,
+                             help='use ffmpeg to edit clips')
 
         # testing
         options.add_argument('--testing', action='store_true',
-                             default=defaults.TESTING)
+                             default=defaults.TESTING,
+                             help=f'turn on testing mode and do not open videos when the {ScriptOption.VIEWER} plays')
 
         # colours
         options.add_argument('--bold', action='store_true',
-                             default=defaults.BOLD)
+                             default=defaults.BOLD,
+                             help='set colouring to bold')
 
         # double-check name was not mistaken for a command
         options.add_argument('--verify-name', action='store_true',
-                             default=defaults.VERIFY_NAME)
+                             default=defaults.VERIFY_NAME,
+                             help='double-check whether a clip name starting with a number is not a timestamp')
 
 
 class Stateful():
