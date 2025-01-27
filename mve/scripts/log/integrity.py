@@ -36,7 +36,8 @@ class Integrity(Script):
         self.check_all_configs(configs_folder, configs, dirty)
 
     def handle_command_line_args(self, argv: list[str]) -> argparse.Namespace:
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(prog=self.name)
+
         parser.add_argument('config_names', nargs='*', type=str,
                             help='name of each config to verify')
         parser.add_argument('--dirty', action='store_true',

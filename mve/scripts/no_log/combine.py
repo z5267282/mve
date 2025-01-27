@@ -20,7 +20,7 @@ class Combine(Script):
         super().__init__(str(ScriptOption.COMBINE))
 
     def main(self, argv: list[str]) -> None:
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(prog=self.name)
         parser.add_argument(
             'source', type=str, help='the absolute file path of the folder with the clips')
         parser.add_argument(

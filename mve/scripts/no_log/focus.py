@@ -54,7 +54,8 @@ class Focus(Script):
 
     def make_source_paths_opts(self, argv: list[str],
                                bold: bool) -> tuple[str, VideoPaths, dict]:
-        parser: argparse.ArgumentParser = argparse.ArgumentParser()
+        parser: argparse.ArgumentParser = argparse.ArgumentParser(
+            prog=self.name)
 
         main_options = parser.add_argument_group(f'{self.name} options')
         main_options.add_argument('source', type=str)

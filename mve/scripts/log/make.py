@@ -44,7 +44,7 @@ class Make(Script):
     def handle_args_and_options(self,
                                 argv: list[str]
                                 ) -> tuple[argparse.Namespace, dict]:
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(prog=self.name)
 
         main_options = parser.add_argument_group(f'{self.name} options')
         main_options.add_argument('config', type=str,
