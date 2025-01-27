@@ -35,11 +35,10 @@ def edit_all(
         paths: VideoPaths):
     with concurrent.futures.ProcessPoolExecutor(
             max_workers=num_processes) as executor:
-        results = [executor.submit(
+        futures = [executor.submit(
             edit_one, edit, use_moviepy, moviepy_threads, paths)
             for edit in edits]
-        for future, edit in zip(
-                concurrent.futures.as_completed(results), edits):
+        for future, edit in zip(futures, edits):
             try:
                 future.result()
             except Exception as e:
