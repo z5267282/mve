@@ -47,9 +47,7 @@ class Make(Script):
         parser = argparse.ArgumentParser()
 
         main_options = parser.add_argument_group(f'{self.name} options')
-
         main_options.add_argument('config', type=str)
-
         # path flags
         main_options.add_argument('--source', type=str)
         main_options.add_argument('--renames', type=str)
@@ -57,12 +55,12 @@ class Make(Script):
 
         Config.add_options_subparser(parser)
 
-        args = parser.parse_args()
+        args = parser.parse_args(argv)
 
         # manually separate out all non-options
         # Python-endorsed method of converting Namespace to dict
         # # https://docs.python.org/3/library/argparse.html#the-namespace-object
-        opts = {k: v for k, v in vars(args) if not k in {
+        opts = {k: v for k, v in vars(args).items() if not k in {
             'config', 'source', 'renames', 'edits'}}
 
         return args, opts
