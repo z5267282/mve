@@ -9,18 +9,18 @@ from moviepy.video.compositing.CompositeVideoClip import concatenate_videoclips
 
 import mve.src.constants.video_editing as video_editing
 
-from mve.scripts.script import Script
+from mve.scripts.script import NotLoggedScript
 from mve.scripts.script_option import ScriptOption
 
 
-class Combine(Script):
+class Combine(NotLoggedScript):
     '''Combine multiple clips from a given folder into a single video file.'''
 
     def __init__(self):
         super().__init__(str(ScriptOption.COMBINE))
 
     def main(self, argv: list[str]) -> None:
-        parser = argparse.ArgumentParser(prog=self.name)
+        parser = argparse.ArgumentParser(prog=self.generate_usage_name())
         parser.add_argument(
             'source', type=str, help='the absolute file path of the folder with the clips')
         parser.add_argument(

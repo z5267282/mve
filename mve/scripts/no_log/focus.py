@@ -19,11 +19,11 @@ import mve.src.lib.edit as edit
 import mve.src.lib.view as view
 
 
-from mve.scripts.script import Script
+from mve.scripts.script import NotLoggedScript
 from mve.scripts.script_option import ScriptOption
 
 
-class Focus(Script):
+class Focus(NotLoggedScript):
     def __init__(self):
         super().__init__(str(ScriptOption.FOCUS))
 
@@ -55,7 +55,7 @@ class Focus(Script):
     def make_source_paths_opts(self, argv: list[str],
                                bold: bool) -> tuple[str, VideoPaths, dict]:
         parser: argparse.ArgumentParser = argparse.ArgumentParser(
-            prog=self.name)
+            prog=self.generate_usage_name())
 
         main_options = parser.add_argument_group(f'{self.name} options')
         main_options.add_argument('source', type=str)

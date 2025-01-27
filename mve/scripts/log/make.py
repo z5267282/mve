@@ -15,11 +15,11 @@ import mve.src.helpers.json_handlers as json_handlers
 import mve.src.helpers.util as util
 from mve.src.helpers.video_paths import VideoPaths
 
-from mve.scripts.script import Script
+from mve.scripts.script import LoggedScript
 from mve.scripts.script_option import ScriptOption
 
 
-class Make(Script):
+class Make(LoggedScript):
     '''Create a new stateful configuration from the command line.'''
 
     def __init__(self):
@@ -44,7 +44,7 @@ class Make(Script):
     def handle_args_and_options(self,
                                 argv: list[str]
                                 ) -> tuple[argparse.Namespace, dict]:
-        parser = argparse.ArgumentParser(prog=self.name)
+        parser = argparse.ArgumentParser(prog=self.generate_usage_name())
 
         main_options = parser.add_argument_group(f'{self.name} options')
         main_options.add_argument('config', type=str,

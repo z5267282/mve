@@ -17,11 +17,11 @@ import mve.src.lib.view as view
 import mve.src.lib.edit as edit
 
 
-from mve.scripts.script import Script
+from mve.scripts.script import NotLoggedScript
 from mve.scripts.script_option import ScriptOption
 
 
-class Moment(Script):
+class Moment(NotLoggedScript):
     def __init__(self):
         super().__init__(str(ScriptOption.MOMENT))
 
@@ -50,7 +50,7 @@ class Moment(Script):
 
     def handle_args(self,
                     argv: list[str]) -> tuple[argparse.Namespace, dict]:
-        parser = argparse.ArgumentParser(prog=self.name)
+        parser = argparse.ArgumentParser(prog=self.generate_usage_name())
 
         source_args = parser.add_mutually_exclusive_group()
         source_args.add_argument('--source', type=str,
