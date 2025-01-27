@@ -47,11 +47,15 @@ class Make(Script):
         parser = argparse.ArgumentParser()
 
         main_options = parser.add_argument_group(f'{self.name} options')
-        main_options.add_argument('config', type=str)
+        main_options.add_argument('config', type=str,
+                                  help='the name of the config to create')
         # path flags
-        main_options.add_argument('--source', type=str)
-        main_options.add_argument('--renames', type=str)
-        main_options.add_argument('--edits', type=str)
+        main_options.add_argument('--source', type=str,
+                                  help='the source folder of videos')
+        main_options.add_argument('--renames', type=str,
+                                  help='the renames folder')
+        main_options.add_argument('--edits', type=str,
+                                  help='the folder where edited videos are stored')
 
         Config.add_options_to_parser(parser)
 
