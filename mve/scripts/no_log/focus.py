@@ -55,13 +55,18 @@ class Focus(Script):
     def make_source_paths_opts(self, argv: list[str],
                                bold: bool) -> tuple[str, VideoPaths, dict]:
         parser: argparse.ArgumentParser = argparse.ArgumentParser()
-        parser.add_argument('source', type=str)
-        parser.add_argument(
+
+        main_options = parser.add_argument_group(f'{self.name} options')
+        main_options.add_argument('source', type=str)
+        main_options.add_argument(
             '--destination', type=str, default=os.path.join(
                 os.path.expanduser('~'), 'Downloads')
         )
-        args, opt_argv = parser.parse_known_args(argv)
-        opts = Config.create_options_dict_from_args(opt_argv)
+        Config.add_options_subparser(parser)
+        args = parser.parse_args(argv)
+
+        opts = {k: v for k, v in vars(args).items() if not k in {
+            'source', 'destination'}}
 
         source: str = args.source
         if not os.path.exists(source):
