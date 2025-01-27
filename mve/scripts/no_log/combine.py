@@ -21,7 +21,8 @@ class Combine(Script):
 
     def main(self, argv: list[str]) -> None:
         parser = argparse.ArgumentParser()
-        parser.add_argument('source', type=str)
+        parser.add_argument(
+            'source', type=str, help='the absolute file path of the folder with the clips')
         parser.add_argument(
             'title', type=str, help='the raw base filename of the combined montage without a file suffix')
         args = parser.parse_args(argv)
