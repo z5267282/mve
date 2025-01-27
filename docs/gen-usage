@@ -4,9 +4,42 @@
 # It is generated between the header # Usage and either first of:
 # the next header; or the end of the file.
 
+main() {
+    # use before, and after files
+    new="$(mktemp)"
+    trap 'rm -f "$new"' EXIT
+
+    root="$(pwd)"
+    cd ../
+
+    for script in mve/scripts/log/*
+    do
+        usage_can_be_generated "$script" || continue
+
+        doc="${root}/$(basename "$script" | sed -E 's/py$/md/')"
+        sed -E -n -e '1,/^# Usage/p' "$doc" | sed '$d' > "$new"
+        pure_script="$(basename "$script" | sed -E 's/...$//')"
+        printf '# Usage\n' >> "$new"
+        printf '\n' >> "$new"
+        printf '```\n' >> "$new"
+        python3 -m mve log "$pure_script" --help >> "$new"
+        printf '```\n' >> "$new"
+        printf '\n' >> "$new"
+
+        echo '### START'
+        cat "$new"
+        echo '### END'
+    done
+}
+
 # only auto-gen files that have a usage section
 usage_can_be_generated() {
     script="$1"
+    if ! [ -f "$script" ] || [ "$(basename "$script")" = '__init__.py' ]
+    then
+        false
+        return $?
+    fi
 
     legacy='no'
     # this would be the class constructor
@@ -22,7 +55,4 @@ usage_can_be_generated() {
     return $?
 }
 
-for script in ../mve/scripts/log/*
-do
-    :    
-done
+main
