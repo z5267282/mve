@@ -64,7 +64,7 @@ class Moment(Script):
         dest_args.add_argument('--downloads', action='store_true',
                                help='set the destination folder as Downloads')
 
-        Config.add_options_subparser(parser)
+        Config.add_options_to_parser(parser)
         args = parser.parse_args(argv)
         opts = {k: v for k, v in vars(args).items() if not k in {
             'source', 'desktop', 'dest', 'downloads'}}

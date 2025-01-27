@@ -158,7 +158,7 @@ class Config():
         return type(variable) is int
 
     @staticmethod
-    def add_options_subparser(parent: argparse.ArgumentParser) -> None:
+    def add_options_to_parser(parent: argparse.ArgumentParser) -> None:
         options = parent.add_argument_group('configuration options')
         # file-order generation
         options.add_argument('--recent', action='store_true',

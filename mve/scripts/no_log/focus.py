@@ -62,7 +62,7 @@ class Focus(Script):
             '--destination', type=str, default=os.path.join(
                 os.path.expanduser('~'), 'Downloads')
         )
-        Config.add_options_subparser(parser)
+        Config.add_options_to_parser(parser)
         args = parser.parse_args(argv)
 
         opts = {k: v for k, v in vars(args).items() if not k in {

@@ -53,7 +53,7 @@ class Make(Script):
         main_options.add_argument('--renames', type=str)
         main_options.add_argument('--edits', type=str)
 
-        Config.add_options_subparser(parser)
+        Config.add_options_to_parser(parser)
 
         args = parser.parse_args(argv)
 
