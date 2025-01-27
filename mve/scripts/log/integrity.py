@@ -15,11 +15,11 @@ import mve.src.helpers.files as files
 import mve.src.helpers.load_env as load_env
 import mve.src.helpers.util as util
 
-from mve.scripts.script import Script
+from mve.scripts.script import LoggedScript
 from mve.scripts.script_option import ScriptOption
 
 
-class Integrity(Script):
+class Integrity(LoggedScript):
     def __init__(self):
         super().__init__(str(ScriptOption.INTEGRITY))
 
@@ -36,7 +36,8 @@ class Integrity(Script):
         self.check_all_configs(configs_folder, configs, dirty)
 
     def handle_command_line_args(self, argv: list[str]) -> argparse.Namespace:
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(prog=self.generate_usage_name())
+
         parser.add_argument('config_names', nargs='*', type=str,
                             help='name of each config to verify')
         parser.add_argument('--dirty', action='store_true',

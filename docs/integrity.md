@@ -6,8 +6,15 @@ If none are provided, then all configurations in `MVE_CONFIGS` are checked.
 
 # Usage
 
-```sh
-python3 -m mve log integrity [--dirty] [config_names ...]
+```
+usage: python3 -m mve log integrity [-h] [--dirty] [config_names ...]
+
+positional arguments:
+  config_names  name of each config to verify
+
+options:
+  -h, --help    show this help message and exit
+  --dirty       do not visualise each config's file structure
 ```
 
 # Example Output

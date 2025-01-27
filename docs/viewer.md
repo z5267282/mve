@@ -1,7 +1,8 @@
 # Overview
 
 View outstanding videos and accordingly prepare a [session](./session.md).  
-The video to be edited will be shown to the user and then a command is recorded through a terminal prompt.
+The video to be edited will be shown to the user and then a command is recorded through a terminal prompt.  
+The default video player depending on the operating system will be run.
 
 # Usage
 

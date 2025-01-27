@@ -1,0 +1,7 @@
+#!/usr/bin/env dash
+
+# Perform any runtime-generated updates of documentation.
+
+cd docs
+./gen-usage
+cd ..

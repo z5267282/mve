@@ -17,21 +17,20 @@ import mve.src.lib.view as view
 import mve.src.lib.edit as edit
 
 
-from mve.scripts.script import Script
+from mve.scripts.script import NotLoggedScript
 from mve.scripts.script_option import ScriptOption
 
 
-class Moment(Script):
+class Moment(NotLoggedScript):
     def __init__(self):
         super().__init__(str(ScriptOption.MOMENT))
 
     def main(self, argv: list[str]) -> None:
-        args, opt_argv = self.handle_args(argv)
+        args, opts = self.handle_args(argv)
         source, dest = self.get_paths_from_args(args)
 
         folders = VideoPaths.make_merged_dest_from_defaults(
             source, dest)
-        opts = Config.create_options_dict_from_args(opt_argv)
         cfg = Config(folders, **opts)
 
         remaining, errors = self.gen_remaining(folders, cfg.recent), list()
@@ -50,9 +49,8 @@ class Moment(Script):
         util.exit_treat_all_good(cfg.bold)
 
     def handle_args(self,
-                    argv: list[str]) -> tuple[argparse.Namespace, list[str]]:
-        parser = argparse.ArgumentParser(add_help=False)
-        parser.add_argument('--info', action='help')
+                    argv: list[str]) -> tuple[argparse.Namespace, dict]:
+        parser = argparse.ArgumentParser(prog=self.generate_usage_name())
 
         source_args = parser.add_mutually_exclusive_group()
         source_args.add_argument('--source', type=str,
@@ -66,7 +64,12 @@ class Moment(Script):
         dest_args.add_argument('--downloads', action='store_true',
                                help='set the destination folder as Downloads')
 
-        return parser.parse_known_args(argv)
+        Config.add_options_to_parser(parser)
+        args = parser.parse_args(argv)
+        opts = {k: v for k, v in vars(args).items() if not k in {
+            'source', 'desktop', 'dest', 'downloads'}}
+
+        return args, opts
 
     def get_paths_from_args(
             self, args: argparse.Namespace) -> tuple[None | str, None | str]:

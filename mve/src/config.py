@@ -17,6 +17,8 @@ import mve.src.helpers.load_env as load_env
 import mve.src.helpers.video_paths as video_paths
 import mve.src.helpers.util as util
 
+from mve.scripts.script_option import ScriptOption
+
 
 class Config():
     '''The Config class stores settings that change how mve runs.
@@ -114,7 +116,7 @@ class Config():
         exp_type: type = bool if is_bool else int
 
         if not checker(variable):
-            util.stderr_print(f'incorrect type for {Config.__name__} option')
+            util.stderr_print(f'incorrect type for configuration option')
             util.print_error(
                 "option '{}':".format(
                     colouring.colour_format(
@@ -143,8 +145,7 @@ class Config():
         for opt in contents:
             if not opt in Config.ALL_OPTIONS:
                 util.print_error(
-                    'unknown {} option: {} '.format(
-                        Config.__name__,
+                    'unknown configuration option: {} '.format(
                         colouring.colour_format(colours.PURPLE, opt, bold)
                     ),
                     bold)
@@ -159,43 +160,40 @@ class Config():
         return type(variable) is int
 
     @staticmethod
-    def create_options_dict_from_args(opt_argv: list[str]) -> dict:
-        '''Note that all flags will be converted into snake_case by
-        argparse.'''
-        # the parent Script should have --help enabled
-        parser = argparse.ArgumentParser(add_help=False)
-        parser.add_argument('--list-options', action='help')
-
+    def add_options_to_parser(parent: argparse.ArgumentParser) -> None:
+        options = parent.add_argument_group('configuration options')
         # file-order generation
-        parser.add_argument('--recent', action='store_true',
-                            default=defaults.RECENT)
+        options.add_argument('--recent', action='store_true',
+                             default=defaults.RECENT,
+                             help='store files from most to least recently created')
 
         # multiprocessing
-        parser.add_argument('--num-processes', type=int,
-                            default=defaults.NUM_PROCESSES)
+        options.add_argument('--num-processes', type=int,
+                             default=defaults.NUM_PROCESSES,
+                             help='set the number of processes used in editing')
 
         # moviepy
-        parser.add_argument('--use-moviepy', action='store_true',
-                            default=defaults.USE_MOVIEPY)
-        parser.add_argument('--moviepy-threads', type=int,
-                            default=defaults.MOVIEPY_THREADS)
+        options.add_argument('--use-moviepy', action='store_true',
+                             default=defaults.USE_MOVIEPY,
+                             help='use moviepy to edit clips')
+        options.add_argument('--moviepy-threads', type=int,
+                             default=defaults.MOVIEPY_THREADS,
+                             help='use ffmpeg to edit clips')
 
         # testing
-        parser.add_argument('--testing', action='store_true',
-                            default=defaults.TESTING)
+        options.add_argument('--testing', action='store_true',
+                             default=defaults.TESTING,
+                             help=f'turn on testing mode and do not open videos when the {ScriptOption.VIEWER} plays')
 
         # colours
-        parser.add_argument('--bold', action='store_true',
-                            default=defaults.BOLD)
+        options.add_argument('--bold', action='store_true',
+                             default=defaults.BOLD,
+                             help='set colouring to bold')
 
         # double-check name was not mistaken for a command
-        parser.add_argument('--verify-name', action='store_true',
-                            default=defaults.VERIFY_NAME)
-
-        opts = parser.parse_args(opt_argv)
-        # make a deep copy of the dictionary-converted Namespace
-        # https://docs.python.org/3/library/argparse.html#the-namespace-object
-        return {k: v for k, v in vars(opts).items()}
+        options.add_argument('--verify-name', action='store_true',
+                             default=defaults.VERIFY_NAME,
+                             help='double-check whether a clip name starting with a number is not a timestamp')
 
 
 class Stateful():

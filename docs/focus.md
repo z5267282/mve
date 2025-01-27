@@ -7,7 +7,32 @@ All edits will be put in `~/Downloads`.
 # Usage
 
 ```
-python3 -m mve no-log focus [--destination DESTINATION] source
+usage: python3 -m mve no-log focus [-h] [--destination DESTINATION] [--recent]
+                                   [--num-processes NUM_PROCESSES]
+                                   [--use-moviepy]
+                                   [--moviepy-threads MOVIEPY_THREADS]
+                                   [--testing] [--bold] [--verify-name]
+                                   source
+
+options:
+  -h, --help            show this help message and exit
+
+focus options:
+  source
+  --destination DESTINATION
+
+configuration options:
+  --recent              store files from most to least recently created
+  --num-processes NUM_PROCESSES
+                        set the number of processes used in editing
+  --use-moviepy         use moviepy to edit clips
+  --moviepy-threads MOVIEPY_THREADS
+                        use ffmpeg to edit clips
+  --testing             turn on testing mode and do not open videos when the
+                        viewer plays
+  --bold                set colouring to bold
+  --verify-name         double-check whether a clip name starting with a
+                        number is not a timestamp
 ```
 
 # Commands

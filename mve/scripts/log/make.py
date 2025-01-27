@@ -15,18 +15,18 @@ import mve.src.helpers.json_handlers as json_handlers
 import mve.src.helpers.util as util
 from mve.src.helpers.video_paths import VideoPaths
 
-from mve.scripts.script import Script
+from mve.scripts.script import LoggedScript
 from mve.scripts.script_option import ScriptOption
 
 
-class Make(Script):
+class Make(LoggedScript):
     '''Create a new stateful configuration from the command line.'''
 
     def __init__(self):
         super().__init__(str(ScriptOption.MAKE))
 
     def main(self, argv: list[str]) -> None:
-        args, opt_argv = self.handle_args_and_options(argv)
+        args, opts = self.handle_args_and_options(argv)
         name = args.config
         self.verify_name(name)
 
@@ -34,7 +34,6 @@ class Make(Script):
         new_config = configs_folder + [name]
         self.check_config_exists(new_config, name)
         self.make_config_folder(new_config)
-        opts = Config.create_options_dict_from_args(opt_argv)
         self.write_config_to_file(
             new_config, args.source, args.edits, args.renames, opts)
 
@@ -44,16 +43,31 @@ class Make(Script):
 
     def handle_args_and_options(self,
                                 argv: list[str]
-                                ) -> tuple[argparse.Namespace, list[str]]:
-        parser = argparse.ArgumentParser()
-        parser.add_argument('config', type=str)
+                                ) -> tuple[argparse.Namespace, dict]:
+        parser = argparse.ArgumentParser(prog=self.generate_usage_name())
 
+        main_options = parser.add_argument_group(f'{self.name} options')
+        main_options.add_argument('config', type=str,
+                                  help='the name of the config to create')
         # path flags
-        parser.add_argument('--source', type=str)
-        parser.add_argument('--renames', type=str)
-        parser.add_argument('--edits', type=str)
+        main_options.add_argument('--source', type=str,
+                                  help='the source folder of videos')
+        main_options.add_argument('--renames', type=str,
+                                  help='the renames folder')
+        main_options.add_argument('--edits', type=str,
+                                  help='the folder where edited videos are stored')
 
-        return parser.parse_known_args(argv)
+        Config.add_options_to_parser(parser)
+
+        args = parser.parse_args(argv)
+
+        # manually separate out all non-options
+        # Python-endorsed method of converting Namespace to dict
+        # # https://docs.python.org/3/library/argparse.html#the-namespace-object
+        opts = {k: v for k, v in vars(args).items() if not k in {
+            'config', 'source', 'renames', 'edits'}}
+
+        return args, opts
 
     def verify_name(self, name: str):
         if not re.fullmatch(r'[a-z0-9-]+', name):

@@ -19,11 +19,11 @@ import mve.src.lib.edit as edit
 import mve.src.lib.view as view
 
 
-from mve.scripts.script import Script
+from mve.scripts.script import NotLoggedScript
 from mve.scripts.script_option import ScriptOption
 
 
-class Focus(Script):
+class Focus(NotLoggedScript):
     def __init__(self):
         super().__init__(str(ScriptOption.FOCUS))
 
@@ -54,14 +54,20 @@ class Focus(Script):
 
     def make_source_paths_opts(self, argv: list[str],
                                bold: bool) -> tuple[str, VideoPaths, dict]:
-        parser: argparse.ArgumentParser = argparse.ArgumentParser()
-        parser.add_argument('source', type=str)
-        parser.add_argument(
+        parser: argparse.ArgumentParser = argparse.ArgumentParser(
+            prog=self.generate_usage_name())
+
+        main_options = parser.add_argument_group(f'{self.name} options')
+        main_options.add_argument('source', type=str)
+        main_options.add_argument(
             '--destination', type=str, default=os.path.join(
                 os.path.expanduser('~'), 'Downloads')
         )
-        args, opt_argv = parser.parse_known_args(argv)
-        opts = Config.create_options_dict_from_args(opt_argv)
+        Config.add_options_to_parser(parser)
+        args = parser.parse_args(argv)
+
+        opts = {k: v for k, v in vars(args).items() if not k in {
+            'source', 'destination'}}
 
         source: str = args.source
         if not os.path.exists(source):
