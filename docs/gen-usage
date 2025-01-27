@@ -1,0 +1,19 @@
+#!/usr/bin/env dash
+
+# only auto-gen files that have a usage section
+usage_can_be_generated() {
+    script="$1"
+
+    legacy='no'
+    # this would be the class constructor
+    grep -F -q '(Legacy)' "$script" && legacy='yes'
+
+    if [ $legacy = 'yes' ]
+    then
+        false
+    else
+        true
+    fi
+
+    return $?
+}
