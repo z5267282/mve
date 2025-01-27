@@ -27,6 +27,7 @@ class Make(Script):
 
     def main(self, argv: list[str]) -> None:
         args, opt_argv = self.handle_args_and_options(argv)
+        print(args)
         name = args.config
         self.verify_name(name)
 
@@ -47,12 +48,14 @@ class Make(Script):
                                 ) -> tuple[argparse.Namespace, list[str]]:
         parser = argparse.ArgumentParser()
 
-        parser.add_argument('config', type=str)
+        main_options = parser.add_argument_group(f'{self.name} options')
+
+        main_options.add_argument('config', type=str)
 
         # path flags
-        parser.add_argument('--source', type=str)
-        parser.add_argument('--renames', type=str)
-        parser.add_argument('--edits', type=str)
+        main_options.add_argument('--source', type=str)
+        main_options.add_argument('--renames', type=str)
+        main_options.add_argument('--edits', type=str)
 
         Config.add_options_subparser(parser)
 
