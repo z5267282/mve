@@ -44,7 +44,9 @@ class Runner():
 
         logged = parser.add_subparsers(title='logging options', dest='logged')
 
-        log = logged.add_parser('log', add_help=False)
+        log = logged.add_parser('log',
+                                description='scripts to run when logs are recorded',
+                                add_help=False)
         log.add_argument('--scripts', action='help',
                          help='list all script choices where logs are recorded')
         log.add_argument('script', choices=[
@@ -53,7 +55,9 @@ class Runner():
                              ScriptOption.TREATER, ScriptOption.VIEWER]
         ], help='all script names that record logs')
 
-        no_log = logged.add_parser('no-log', add_help=False)
+        no_log = logged.add_parser('no-log',
+                                   description='scripts to run when logs are not recorded',
+                                   add_help=False)
         no_log.add_argument('--scripts', action='help',
                             help='list all script choices where logs are not recorded')
         no_log.add_argument('script', choices=[str(nl) for nl in [
