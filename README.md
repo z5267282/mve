@@ -4,6 +4,28 @@ A series of scripts to edit videos on the command line.
 Configure where videos are stored, view them and enter timestamps of edits.  
 Then, edit the videos based off this information.
 
+# Installation
+
+## Mac
+
+```sh
+./setup
+```
+
+# Windows
+
+```ps1
+Powershell.exe setup.ps1
+```
+
+Note that these commands might also need to be run:
+
+```ps1
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+.
+
 # Usage
 
 The project can be run in a stateful or stateless mode, depending on whether records should be kept.
