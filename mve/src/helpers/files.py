@@ -34,16 +34,19 @@ def folder_exists(paths_list: list[str]) -> bool:
     return do_folder_operation(paths_list, os.path.exists)
 
 
+def tokenise_path(display: str, given: None | str) -> list[str]:
+    full_path = input(f'{display} : ') if given is None else given
+    return handle_dot(full_path)
+
+
 def split_path(full_path: str) -> list[str]:
     return list(
         pathlib.Path(full_path).parts
     )
 
 
-def tokenise_path(display: str, given: None | str) -> list[str]:
-    if given is not None:
-        return split_path(given)
-    folder = input(f'{display} : ')
-    return list(
-        pathlib.Path(folder).parts
-    )
+def handle_dot(full_path: str) -> list[str]:
+    '''pathlib.Path cannot handle paths starting with a '.' so they must be
+    manually handled.'''
+
+    return ['.'] if full_path == '.' else split_path(full_path)
