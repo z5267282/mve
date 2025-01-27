@@ -16,6 +16,8 @@ from mve.scripts.script_option import ScriptOption
 
 import mve.src.constants.module as module
 
+import mve.src.helpers.usage as usage
+
 
 class Runner():
     '''Controller class for running all mve scripts'''
@@ -41,7 +43,8 @@ class Runner():
 
     def parse_args(self) -> tuple[argparse.Namespace, list[str]]:
         # enable --help for script-level parsers
-        parser = argparse.ArgumentParser(add_help=False, prog=module.NAME)
+        parser = argparse.ArgumentParser(add_help=False,
+                                         prog=usage.generate_module_usage())
         parser.add_argument('--info', action='help')
 
         logged = parser.add_subparsers(title='logging options', dest='logged')

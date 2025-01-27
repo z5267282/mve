@@ -1,7 +1,7 @@
 import abc
 
 
-import mve.src.constants.module as module
+import mve.src.helpers.usage as usage
 
 
 class Script(abc.ABC):
@@ -18,7 +18,7 @@ class Script(abc.ABC):
 
     def generate_usage_name(self) -> str:
         logged = 'log' if self.logged else 'no-log'
-        return f'python3 -m {module.NAME} {logged} {self.name}'
+        return f'{usage.generate_module_usage()} {logged} {self.name}'
 
 
 class LoggedScript(Script):
