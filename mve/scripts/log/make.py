@@ -27,7 +27,6 @@ class Make(Script):
 
     def main(self, argv: list[str]) -> None:
         args, opt_argv = self.handle_args_and_options(argv)
-        print(args)
         name = args.config
         self.verify_name(name)
 
