@@ -6,10 +6,6 @@ All edits will be put in `~/Downloads`.
 
 # Usage
 
-```
-python3 -m mve no-log focus [--destination DESTINATION] source
-```
-
 # Commands
 
 ## Editing
