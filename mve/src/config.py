@@ -143,8 +143,7 @@ class Config():
         for opt in contents:
             if not opt in Config.ALL_OPTIONS:
                 util.print_error(
-                    'unknown {} option: {} '.format(
-                        Config.__name__,
+                    'unknown configuration option: {} '.format(
                         colouring.colour_format(colours.PURPLE, opt, bold)
                     ),
                     bold)
@@ -160,31 +159,32 @@ class Config():
 
     @staticmethod
     def add_options_subparser(parent: argparse.ArgumentParser) -> None:
+        options = parent.add_argument_group('configuration options')
         # file-order generation
-        parent.add_argument('--recent', action='store_true',
-                            default=defaults.RECENT)
+        options.add_argument('--recent', action='store_true',
+                             default=defaults.RECENT)
 
         # multiprocessing
-        parent.add_argument('--num-processes', type=int,
-                            default=defaults.NUM_PROCESSES)
+        options.add_argument('--num-processes', type=int,
+                             default=defaults.NUM_PROCESSES)
 
         # moviepy
-        parent.add_argument('--use-moviepy', action='store_true',
-                            default=defaults.USE_MOVIEPY)
-        parent.add_argument('--moviepy-threads', type=int,
-                            default=defaults.MOVIEPY_THREADS)
+        options.add_argument('--use-moviepy', action='store_true',
+                             default=defaults.USE_MOVIEPY)
+        options.add_argument('--moviepy-threads', type=int,
+                             default=defaults.MOVIEPY_THREADS)
 
         # testing
-        parent.add_argument('--testing', action='store_true',
-                            default=defaults.TESTING)
+        options.add_argument('--testing', action='store_true',
+                             default=defaults.TESTING)
 
         # colours
-        parent.add_argument('--bold', action='store_true',
-                            default=defaults.BOLD)
+        options.add_argument('--bold', action='store_true',
+                             default=defaults.BOLD)
 
         # double-check name was not mistaken for a command
-        parent.add_argument('--verify-name', action='store_true',
-                            default=defaults.VERIFY_NAME)
+        options.add_argument('--verify-name', action='store_true',
+                             default=defaults.VERIFY_NAME)
 
     @staticmethod
     def create_options_dict_from_args(opt_argv: list[str]) -> dict:
