@@ -46,6 +46,7 @@ class Make(Script):
                                 argv: list[str]
                                 ) -> tuple[argparse.Namespace, list[str]]:
         parser = argparse.ArgumentParser()
+
         parser.add_argument('config', type=str)
 
         # path flags

@@ -160,38 +160,31 @@ class Config():
 
     @staticmethod
     def add_options_subparser(parent: argparse.ArgumentParser) -> None:
-        options = parent.add_subparsers(dest='options')
-
-        opt_parser = options.add_parser('configuration options',
-                                        add_help=False)
-
-        opt_parser.add_argument('--options', action='help')
-
         # file-order generation
-        opt_parser.add_argument('--recent', action='store_true',
-                                default=defaults.RECENT)
+        parent.add_argument('--recent', action='store_true',
+                            default=defaults.RECENT)
 
         # multiprocessing
-        opt_parser.add_argument('--num-processes', type=int,
-                                default=defaults.NUM_PROCESSES)
+        parent.add_argument('--num-processes', type=int,
+                            default=defaults.NUM_PROCESSES)
 
         # moviepy
-        opt_parser.add_argument('--use-moviepy', action='store_true',
-                                default=defaults.USE_MOVIEPY)
-        opt_parser.add_argument('--moviepy-threads', type=int,
-                                default=defaults.MOVIEPY_THREADS)
+        parent.add_argument('--use-moviepy', action='store_true',
+                            default=defaults.USE_MOVIEPY)
+        parent.add_argument('--moviepy-threads', type=int,
+                            default=defaults.MOVIEPY_THREADS)
 
         # testing
-        opt_parser.add_argument('--testing', action='store_true',
-                                default=defaults.TESTING)
+        parent.add_argument('--testing', action='store_true',
+                            default=defaults.TESTING)
 
         # colours
-        opt_parser.add_argument('--bold', action='store_true',
-                                default=defaults.BOLD)
+        parent.add_argument('--bold', action='store_true',
+                            default=defaults.BOLD)
 
         # double-check name was not mistaken for a command
-        opt_parser.add_argument('--verify-name', action='store_true',
-                                default=defaults.VERIFY_NAME)
+        parent.add_argument('--verify-name', action='store_true',
+                            default=defaults.VERIFY_NAME)
 
     @staticmethod
     def create_options_dict_from_args(opt_argv: list[str]) -> dict:
