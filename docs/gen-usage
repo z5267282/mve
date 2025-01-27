@@ -21,45 +21,38 @@ main() {
 
     for script in mve/scripts/log/*
     do
-        usage_can_be_generated "$script" || continue
-
-        doc="${root}/$(basename "$script" | sed -E 's/py$/md/')"
-        sed -E -n -e '1,/^# Usage/p' "$doc" | sed '$d' > "$new"
-        pure_script="$(basename "$script" | sed -E 's/...$//')"
-        printf '# Usage\n' >> "$new"
-        printf '\n' >> "$new"
-        printf '```\n' >> "$new"
-        python3 -m mve log "$pure_script" --help >> "$new"
-        printf '```\n' >> "$new"
-        printf '\n' >> "$new"
-        extract_after_usage "$doc" >> "$new"
-
-        cp "$new" "$doc"
-
-        echo "generated new docs for ${pure_script}"
+        insert_usage_message "$script" "$new" log 
     done
 
     for script in mve/scripts/no_log/*
     do
-        usage_can_be_generated "$script" || continue
-
-        doc="${root}/$(basename "$script" | sed -E 's/py$/md/')"
-        sed -E -n -e '1,/^# Usage/p' "$doc" | sed '$d' > "$new"
-        pure_script="$(basename "$script" | sed -E 's/...$//')"
-        printf '# Usage\n' >> "$new"
-        printf '\n' >> "$new"
-        printf '```\n' >> "$new"
-        python3 -m mve no-log "$pure_script" --help >> "$new"
-        printf '```\n' >> "$new"
-        printf '\n' >> "$new"
-        extract_after_usage "$doc" >> "$new"
-
-        cp "$new" "$doc"
-
-        echo "generated new docs for ${pure_script}"
+        insert_usage_message "$script" "$new" no-log
     done
 
     deactivate
+}
+
+insert_usage_message() {
+    script="$1"
+    new="$2"
+    logged="$3"
+
+    usage_can_be_generated "$script" || return 0
+
+    doc="${root}/$(basename "$script" | sed -E 's/py$/md/')"
+    sed -E -n -e '1,/^# Usage/p' "$doc" | sed '$d' > "$new"
+    pure_script="$(basename "$script" | sed -E 's/...$//')"
+    printf '# Usage\n' >> "$new"
+    printf '\n' >> "$new"
+    printf '```\n' >> "$new"
+    python3 -m mve "$logged" "$pure_script" --help >> "$new"
+    printf '```\n' >> "$new"
+    printf '\n' >> "$new"
+    extract_after_usage "$doc" >> "$new"
+
+    cp "$new" "$doc"
+
+    echo "generated new docs for ${pure_script}"
 }
 
 # only auto-gen files that have a usage section
