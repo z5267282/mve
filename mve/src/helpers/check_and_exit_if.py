@@ -36,7 +36,6 @@ def no_file(joined_path: str, desc: str, code: int, bold: bool):
 
 def no_folder(folder_paths: list[str], folder_desc: str, bold: bool,
               exit_code: int):
-    print(folder_paths)
     if not files.folder_exists(folder_paths):
         util.stderr_print(
             '{} folder \'{}\' does not exist'.format(
