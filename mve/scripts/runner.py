@@ -39,7 +39,7 @@ class Runner():
 
     def parse_args(self) -> tuple[argparse.Namespace, list[str]]:
         # enable --help for script-level parsers
-        parser = argparse.ArgumentParser(add_help=False)
+        parser = argparse.ArgumentParser(add_help=False, prog='mve')
         parser.add_argument('--info', action='help')
 
         logged = parser.add_subparsers(title='logging options', dest='logged')
