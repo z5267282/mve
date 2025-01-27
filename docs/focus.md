@@ -6,6 +6,34 @@ All edits will be put in `~/Downloads`.
 
 # Usage
 
+```
+usage: __main__.py [-h] [--destination DESTINATION] [--recent]
+                   [--num-processes NUM_PROCESSES] [--use-moviepy]
+                   [--moviepy-threads MOVIEPY_THREADS] [--testing] [--bold]
+                   [--verify-name]
+                   source
+
+options:
+  -h, --help            show this help message and exit
+
+focus options:
+  source
+  --destination DESTINATION
+
+configuration options:
+  --recent              store files from most to least recently created
+  --num-processes NUM_PROCESSES
+                        set the number of processes used in editing
+  --use-moviepy         use moviepy to edit clips
+  --moviepy-threads MOVIEPY_THREADS
+                        use ffmpeg to edit clips
+  --testing             turn on testing mode and do not open videos when the
+                        viewer plays
+  --bold                set colouring to bold
+  --verify-name         double-check whether a clip name starting with a
+                        number is not a timestamp
+```
+
 # Commands
 
 ## Editing
