@@ -6,7 +6,7 @@ This is intended to be used in conjunction with `focus`.
 # Usage
 
 ```
-usage: __main__.py [-h] source title
+usage: combine [-h] source title
 
 positional arguments:
   source      the absolute file path of the folder with the clips

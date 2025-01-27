@@ -8,11 +8,10 @@ Paths for folders can be entered as either command-line flags, or absolute paths
 # Usage
 
 ```
-usage: __main__.py [-h] [--source SOURCE | --desktop]
-                   [--dest DEST | --downloads] [--recent]
-                   [--num-processes NUM_PROCESSES] [--use-moviepy]
-                   [--moviepy-threads MOVIEPY_THREADS] [--testing] [--bold]
-                   [--verify-name]
+usage: moment [-h] [--source SOURCE | --desktop] [--dest DEST | --downloads]
+              [--recent] [--num-processes NUM_PROCESSES] [--use-moviepy]
+              [--moviepy-threads MOVIEPY_THREADS] [--testing] [--bold]
+              [--verify-name]
 
 options:
   -h, --help            show this help message and exit

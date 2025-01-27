@@ -7,11 +7,11 @@ All edits will be put in `~/Downloads`.
 # Usage
 
 ```
-usage: __main__.py [-h] [--destination DESTINATION] [--recent]
-                   [--num-processes NUM_PROCESSES] [--use-moviepy]
-                   [--moviepy-threads MOVIEPY_THREADS] [--testing] [--bold]
-                   [--verify-name]
-                   source
+usage: focus [-h] [--destination DESTINATION] [--recent]
+             [--num-processes NUM_PROCESSES] [--use-moviepy]
+             [--moviepy-threads MOVIEPY_THREADS] [--testing] [--bold]
+             [--verify-name]
+             source
 
 options:
   -h, --help            show this help message and exit
