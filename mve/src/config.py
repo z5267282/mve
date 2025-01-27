@@ -186,19 +186,6 @@ class Config():
         options.add_argument('--verify-name', action='store_true',
                              default=defaults.VERIFY_NAME)
 
-    @staticmethod
-    def create_options_dict_from_args(opt_argv: list[str]) -> dict:
-        '''Note that all flags will be converted into snake_case by
-        argparse.'''
-
-        return {}
-
-        # opts = {}
-
-        # # opts = parser.parse_args(opt_argv)
-        # # make a deep copy of the dictionary-converted Namespace
-        # return {k: v for k, v in vars(opts).items()}
-
 
 class Stateful():
     '''This class maintains file-structure invariants about the configs
