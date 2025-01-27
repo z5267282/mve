@@ -13,6 +13,36 @@ Configs can only contain letters or hyphens, ie `[a-z-]`.
 
 # Usage
 
+```
+usage: __main__.py [-h] [--source SOURCE] [--renames RENAMES] [--edits EDITS]
+                   [--recent] [--num-processes NUM_PROCESSES] [--use-moviepy]
+                   [--moviepy-threads MOVIEPY_THREADS] [--testing] [--bold]
+                   [--verify-name]
+                   config
+
+options:
+  -h, --help            show this help message and exit
+
+make options:
+  config                the name of the config to create
+  --source SOURCE       the source folder of videos
+  --renames RENAMES     the renames folder
+  --edits EDITS         the folder where edited videos are stored
+
+configuration options:
+  --recent              store files from most to least recently created
+  --num-processes NUM_PROCESSES
+                        set the number of processes used in editing
+  --use-moviepy         use moviepy to edit clips
+  --moviepy-threads MOVIEPY_THREADS
+                        use ffmpeg to edit clips
+  --testing             turn on testing mode and do not open videos when the
+                        viewer plays
+  --bold                set colouring to bold
+  --verify-name         double-check whether a clip name starting with a
+                        number is not a timestamp
+```
+
 # Path Expansion
 
 Tilde-based home expansion (`~`) is not supported for prompt-entered paths.  
