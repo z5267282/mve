@@ -80,7 +80,7 @@ class Treater(Legacy):
         error_file_name = timestamps.generate_timestamped_file_name()
         self.write_errors(state, error_file_name, errors, paths_dict)
         state.write_remaining(remaining)
-        self.exit_treatment_error(error_file_name, bold)
+        self.exit_treatment_error(len(errors), error_file_name, bold)
 
     def write_errors(self, state: Stateful, error_file_name: str,
                      errors: list[dict], paths_dict: dict[str, list[str]]
@@ -93,9 +93,11 @@ class Treater(Legacy):
         }
         json_handlers.write_to_json(data, joined_error_file_name)
 
-    def exit_treatment_error(self, error_file_name: str, bold: bool):
+    def exit_treatment_error(self, num_errors: int, error_file_name: str,
+                             bold: bool):
         util.print_error(
-            'one or more errors occurred during treatment logged in \'{}\''.format(
+            '{} error{} occurred during treatment logged in \'{}\''.format(
+                num_errors, util.plural(num_errors),
                 colouring.highlight(error_file_name, bold)
             ), bold
         )
