@@ -26,7 +26,7 @@ class Make(Script):
         super().__init__(str(ScriptOption.MAKE))
 
     def main(self, argv: list[str]) -> None:
-        args, opt_argv = self.handle_args_and_options(argv)
+        args, opts = self.handle_args_and_options(argv)
         name = args.config
         self.verify_name(name)
 
@@ -34,7 +34,6 @@ class Make(Script):
         new_config = configs_folder + [name]
         self.check_config_exists(new_config, name)
         self.make_config_folder(new_config)
-        opts = Config.create_options_dict_from_args(opt_argv)
         self.write_config_to_file(
             new_config, args.source, args.edits, args.renames, opts)
 
@@ -44,7 +43,7 @@ class Make(Script):
 
     def handle_args_and_options(self,
                                 argv: list[str]
-                                ) -> tuple[argparse.Namespace, list[str]]:
+                                ) -> tuple[argparse.Namespace, dict]:
         parser = argparse.ArgumentParser()
 
         main_options = parser.add_argument_group(f'{self.name} options')
@@ -58,7 +57,15 @@ class Make(Script):
 
         Config.add_options_subparser(parser)
 
-        return parser.parse_known_args(argv)
+        args = parser.parse_args()
+
+        # manually separate out all non-options
+        # Python-endorsed method of converting Namespace to dict
+        # # https://docs.python.org/3/library/argparse.html#the-namespace-object
+        opts = {k: v for k, v in vars(args) if not k in {
+            'config', 'source', 'renames', 'edits'}}
+
+        return args, opts
 
     def verify_name(self, name: str):
         if not re.fullmatch(r'[a-z0-9-]+', name):

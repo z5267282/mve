@@ -197,7 +197,6 @@ class Config():
 
         # # opts = parser.parse_args(opt_argv)
         # # make a deep copy of the dictionary-converted Namespace
-        # # https://docs.python.org/3/library/argparse.html#the-namespace-object
         # return {k: v for k, v in vars(opts).items()}
 
 
