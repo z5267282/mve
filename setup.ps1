@@ -1,3 +1,6 @@
+"Note that this Powershell command might be needed"
+"Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass"
+
 if (Test-Path -Path .venv) {
     Remove-Item -Recurse .venv
 }
