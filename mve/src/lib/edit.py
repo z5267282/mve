@@ -91,7 +91,9 @@ def edit_moviepy(
         joined_src_path: str, joined_dst_path: str,
         start: None | str, end: None | str, moviepy_threads: int):
     with VideoFileClip(joined_src_path) as file:
-        clip = file.subclipped(start_time=start, end_time=end)
+        clip = file.subclipped(
+            start_time=convert_start_to_moviepy_2_compatible(start),
+            end_time=end)
         clip.write_videofile(
             joined_dst_path,
             threads=moviepy_threads,
@@ -100,6 +102,13 @@ def edit_moviepy(
             preset=video_editing.COMPRESSION,
             audio_codec=video_editing.ACODEC
         )
+
+
+def convert_start_to_moviepy_2_compatible(old_start: None | str) -> str:
+    '''Moviepy 2 expects a start time that is float or tuple or str.
+    It defaults to the timestamp 0, but it cannot be None anymore as per the
+    docs: https://zulko.github.io/moviepy/_modules/moviepy/Clip.html#Clip.subclipped.'''
+    return '0' if old_start is None else old_start
 
 
 def edit_ffmpeg(
