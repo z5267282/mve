@@ -6,7 +6,7 @@ This is intended to be used in conjunction with `focus`.
 # Usage
 
 ```
-usage: combine [-h] source title
+usage: python3 -m mve no-log combine [-h] source title
 
 positional arguments:
   source      the absolute file path of the folder with the clips

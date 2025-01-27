@@ -14,11 +14,12 @@ Configs can only contain letters or hyphens, ie `[a-z-]`.
 # Usage
 
 ```
-usage: make [-h] [--source SOURCE] [--renames RENAMES] [--edits EDITS]
-            [--recent] [--num-processes NUM_PROCESSES] [--use-moviepy]
-            [--moviepy-threads MOVIEPY_THREADS] [--testing] [--bold]
-            [--verify-name]
-            config
+usage: python3 -m mve log make [-h] [--source SOURCE] [--renames RENAMES]
+                               [--edits EDITS] [--recent]
+                               [--num-processes NUM_PROCESSES] [--use-moviepy]
+                               [--moviepy-threads MOVIEPY_THREADS] [--testing]
+                               [--bold] [--verify-name]
+                               config
 
 options:
   -h, --help            show this help message and exit

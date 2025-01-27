@@ -7,11 +7,12 @@ All edits will be put in `~/Downloads`.
 # Usage
 
 ```
-usage: focus [-h] [--destination DESTINATION] [--recent]
-             [--num-processes NUM_PROCESSES] [--use-moviepy]
-             [--moviepy-threads MOVIEPY_THREADS] [--testing] [--bold]
-             [--verify-name]
-             source
+usage: python3 -m mve no-log focus [-h] [--destination DESTINATION] [--recent]
+                                   [--num-processes NUM_PROCESSES]
+                                   [--use-moviepy]
+                                   [--moviepy-threads MOVIEPY_THREADS]
+                                   [--testing] [--bold] [--verify-name]
+                                   source
 
 options:
   -h, --help            show this help message and exit
