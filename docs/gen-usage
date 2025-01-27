@@ -5,6 +5,13 @@
 # the next header; or the end of the file.
 
 main() {
+    if ! [ -d ../.venv ] 
+    then
+        echo 'cannot generated usage documentation as ../.venv does not exist'
+        exit 10
+    fi
+
+    . ../.venv/bin/activate
     # use before, and after files
     new="$(mktemp)"
     trap 'rm -f "$new"' EXIT
@@ -51,6 +58,8 @@ main() {
 
         echo "generated new docs for ${pure_script}"
     done
+
+    deactivate
 }
 
 # only auto-gen files that have a usage section
