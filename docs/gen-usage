@@ -25,10 +25,11 @@ main() {
         python3 -m mve log "$pure_script" --help >> "$new"
         printf '```\n' >> "$new"
         printf '\n' >> "$new"
+        extract_after_usage "$doc" >> "$new"
 
-        echo '### START'
-        cat "$new"
-        echo '### END'
+        cp "$new" "$doc"
+
+        echo "generated new docs for ${pure_script}"
     done
 }
 
@@ -53,6 +54,27 @@ usage_can_be_generated() {
     fi
 
     return $?
+}
+
+extract_after_usage() {
+    doc="$1"
+
+    extract_last_header "$doc"
+    print_from_usage_onwards "$doc" | sed -E '1,/^#/d'
+}
+
+print_from_usage_onwards() {
+    doc="$1"
+    sed -E -n '/^# Usage/,$ p' "$doc"
+}
+
+    # print_from_usage_onwards "$doc" 
+
+extract_last_header() {
+    # the first line starts with a # Usage,
+    # but it will match by line number (in a short-circuiting style)
+    doc="$1"
+    print_from_usage_onwards "$doc" | sed -E -n '1,/^#/p' | tail -1
 }
 
 main
