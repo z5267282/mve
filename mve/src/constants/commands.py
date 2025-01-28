@@ -37,26 +37,26 @@ HELP_MESSAGE: str = f'''
 {{{END}}}
     + edit from [ start ] to end of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + {TREATED_FILE_NAME}
+    + {TREATED_FILE_NAME.description}
 
 {{{START}}}
     + edit from start to [ time ] of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + {TREATED_FILE_NAME}
+    + {TREATED_FILE_NAME.description}
 
 {{{MIDDLE}}}
     + edit from [ start ] to [ end ]
     + start and end are the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + {TREATED_FILE_NAME}
+    + {TREATED_FILE_NAME.description}
 
 {{{WHOLE}}}
     + edit the entire clip from start to end
     + like running [ s 0 ]
-    + {TREATED_FILE_NAME}
+    + {TREATED_FILE_NAME.description}
 
 {{{RENAME}}}
     + rename the clip to [ name ]
-    + {TREATED_FILE_NAME}
+    + {TREATED_FILE_NAME.description}
 
 {{{DELETE}}}
     + delete the clip
