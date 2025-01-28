@@ -7,7 +7,8 @@ import typing
 
 import mve.src.constants.colours as colours
 import mve.src.constants.commands as commands
-from mve.src.constants.patterns import INTEGER_SECONDS, TIMESTAMP
+from mve.src.constants.patterns import INTEGER_SECONDS, TIMESTAMP, \
+    TREATED_FILE_NAME
 import mve.src.constants.timestamp_format as timestamp_format
 import mve.src.constants.treatment_format as treatment_format
 import mve.src.constants.video_editing as video_editing
@@ -316,11 +317,12 @@ def valid_name_format(new_name: str, bold: bool):
 
 
 def correct_name_format(name: str) -> re.Match[str] | None:
-    return re.fullmatch(r'[a-zA-Z0-9 ]+', name)
+    return re.fullmatch(TREATED_FILE_NAME.regex, name)
 
 
 def print_name_format(bold: bool):
-    util.print_error(commands.NAME_FORMAT, bold)
+    util.print_error(
+        f'the name can only contain {TREATED_FILE_NAME.description}', bold)
 
 
 def name_starts_with_number(name: str, bold: bool) -> bool:

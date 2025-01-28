@@ -1,3 +1,5 @@
+from mve.src.constants.patterns import TREATED_FILE_NAME
+
 # command key mappings
 END: str = 'e'
 START: str = 's'
@@ -30,33 +32,31 @@ NUM_TOKENS: dict[str, int] = {
     RENAME: 1
 }
 
-NAME_FORMAT: str = 'the name can only contain upper and lowercase letters, digits and spacebars'
-
 # help message
 HELP_MESSAGE: str = f'''
 {{{END}}}
     + edit from [ start ] to end of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + {NAME_FORMAT}
+    + {TREATED_FILE_NAME}
 
 {{{START}}}
     + edit from start to [ time ] of clip.
     + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + {NAME_FORMAT}
+    + {TREATED_FILE_NAME}
 
 {{{MIDDLE}}}
     + edit from [ start ] to [ end ]
     + start and end are the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + {NAME_FORMAT}
+    + {TREATED_FILE_NAME}
 
 {{{WHOLE}}}
     + edit the entire clip from start to end
     + like running [ s 0 ]
-    + {NAME_FORMAT}
+    + {TREATED_FILE_NAME}
 
 {{{RENAME}}}
     + rename the clip to [ name ]
-    + {NAME_FORMAT}
+    + {TREATED_FILE_NAME}
 
 {{{DELETE}}}
     + delete the clip
