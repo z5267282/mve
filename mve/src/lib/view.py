@@ -83,8 +83,6 @@ def view_video(base_name: str, testing: bool, paths: VideoPaths):
     if system.startswith('win'):
         # this function only comes with the Windows os module
         os.startfile(joined_path)  # type: ignore
-    if system.startswith('linux'):
-        requests.get('http://localhost:4400/message', params={'v': base_name})
     elif system.startswith('darwin'):
         subprocess.run(['open', joined_path])
 
