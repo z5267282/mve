@@ -138,7 +138,7 @@ def do_edit(
         return False
 
     start, end, edit_name = start_end_name_unpacker(tokens)
-    format = describe_integer_time_or_timestamp()
+    format = commands.INTEGER_SECONDS_OR_TIMESTAMP_DESCRIPTION
     if start is not None:
         start = parse_time(start, INTEGER_SECONDS.regex, True, format, bold)
         if start is None:
@@ -359,11 +359,6 @@ def check_file_exists(name: str, folder: list[str], bold: bool) -> bool:
         return True
 
     return False
-
-
-def describe_integer_time_or_timestamp():
-    return " | ".join(
-        [INTEGER_SECONDS.description, TIMESTAMP.description])
 
 
 def log_edit(

@@ -7,6 +7,7 @@ import sys
 from mve.src.config import Config
 
 import mve.src.constants.colours as colours
+from mve.src.constants.commands import INTEGER_SECONDS_OR_TIMESTAMP_DESCRIPTION
 import mve.src.constants.defaults as defaults
 import mve.src.constants.error as error
 import mve.src.constants.json_settings as json_settings
@@ -112,7 +113,7 @@ class Focus(NotLoggedScript):
     def validate_start_end_name(self, start: str, end: str, name: str,
                                 bold: bool, destination: list[str]
                                 ) -> tuple[str, str, str]:
-        format = view.describe_integer_time_or_timestamp()
+        format = INTEGER_SECONDS_OR_TIMESTAMP_DESCRIPTION
 
         start_seconds: str | None = view.parse_time(
             start, INTEGER_SECONDS.regex, True, format, bold)

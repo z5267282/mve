@@ -1,4 +1,5 @@
-from mve.src.constants.patterns import TREATED_FILE_NAME
+from mve.src.constants.patterns import INTEGER_SECONDS, TIMESTAMP, \
+    TREATED_FILE_NAME
 
 # command key mappings
 END: str = 'e'
@@ -32,21 +33,27 @@ NUM_TOKENS: dict[str, int] = {
     RENAME: 1
 }
 
+INTEGER_SECONDS_OR_TIMESTAMP_DESCRIPTION: str = '[ {} ]'.format(
+    " | ".join(
+        [INTEGER_SECONDS.description, TIMESTAMP.description]
+    )
+)
+
 # help message
 HELP_MESSAGE: str = f'''
 {{{END}}}
     + edit from [ start ] to end of clip.
-    + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
+    + the time is in the form {INTEGER_SECONDS_OR_TIMESTAMP_DESCRIPTION} 
     + {TREATED_FILE_NAME.description}
 
 {{{START}}}
     + edit from start to [ time ] of clip.
-    + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
+    + the time is in the form {INTEGER_SECONDS_OR_TIMESTAMP_DESCRIPTION} 
     + {TREATED_FILE_NAME.description}
 
 {{{MIDDLE}}}
     + edit from [ start ] to [ end ]
-    + start and end are the form [ integer | timestamp in form <[hour]-min-sec> ]
+    + start and end are the form {INTEGER_SECONDS_OR_TIMESTAMP_DESCRIPTION} 
     + {TREATED_FILE_NAME.description}
 
 {{{WHOLE}}}
