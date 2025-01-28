@@ -10,6 +10,7 @@ import mve.src.constants.colours as colours
 import mve.src.constants.defaults as defaults
 import mve.src.constants.error as error
 import mve.src.constants.json_settings as json_settings
+from mve.src.constants.patterns import INTEGER_SECONDS, TIMESTAMP
 
 import mve.src.helpers.colouring as colouring
 import mve.src.helpers.util as util
@@ -111,15 +112,15 @@ class Focus(NotLoggedScript):
     def validate_start_end_name(self, start: str, end: str, name: str,
                                 bold: bool, destination: list[str]
                                 ) -> tuple[str, str, str]:
-        regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
-
+        format = " | ".join(
+            [INTEGER_SECONDS.description, TIMESTAMP.description])
         start_seconds: str | None = view.parse_time(
-            start, regex, True, format, bold)
+            start, INTEGER_SECONDS.regex, True, format, bold)
         if start_seconds is None:
             raise self.BadTokenException()
 
         end_seconds: str | None = view.parse_time(
-            end, regex, False, format, bold)
+            end, INTEGER_SECONDS.regex, False, format, bold)
         if end_seconds is None:
             raise self.BadTokenException()
 

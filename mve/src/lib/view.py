@@ -7,6 +7,7 @@ import typing
 
 import mve.src.constants.colours as colours
 import mve.src.constants.commands as commands
+from mve.src.constants.patterns import TIMESTAMP
 import mve.src.constants.timestamp_format as timestamp_format
 import mve.src.constants.treatment_format as treatment_format
 import mve.src.constants.video_editing as video_editing
@@ -209,7 +210,7 @@ def parse_timestamp(timestamp: str) -> None | str:
     return \
         timestamp.replace(
             timestamp_format.SHORT_HAND, timestamp_format.REQUIRED) \
-        if re.fullmatch(r'([0-5]?[0-9]-)?[0-5]?[0-9]-[0-5]?[0-9]', timestamp) \
+        if re.fullmatch(TIMESTAMP.regex, timestamp) \
         else None
 
 

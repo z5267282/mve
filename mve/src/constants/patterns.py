@@ -1,3 +1,8 @@
+from mve.src.constants.timestamp_format import REQUIRED, SHORT_HAND
 from mve.src.helpers.pattern import Pattern
 
 CONFIG_NAME: Pattern = Pattern(r'[a-z0-9-]+',  'a-z, 0-9 or -')
+INTEGER_SECONDS: Pattern = Pattern(r'-?[0-9]+', 'integer number of seconds')
+TIMESTAMP: Pattern = Pattern(
+    fr'([0-5]?[0-9]{SHORT_HAND})?[0-5]?[0-9]{SHORT_HAND}[0-5]?[0-9]',
+    f'timestamp in form <[hour]{SHORT_HAND}min{SHORT_HAND}sec>')
