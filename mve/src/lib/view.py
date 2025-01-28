@@ -7,7 +7,7 @@ import typing
 
 import mve.src.constants.colours as colours
 import mve.src.constants.commands as commands
-from mve.src.constants.patterns import TIMESTAMP
+from mve.src.constants.patterns import INTEGER_SECONDS, TIMESTAMP
 import mve.src.constants.timestamp_format as timestamp_format
 import mve.src.constants.treatment_format as treatment_format
 import mve.src.constants.video_editing as video_editing
@@ -138,15 +138,14 @@ def do_edit(
         return False
 
     start, end, edit_name = start_end_name_unpacker(tokens)
-    regex, format = r'-?[0-9]+', '[ integer | timestamp in form <[hour]-min-sec> ]'
-
+    format = describe_integer_time_or_timestamp()
     if start is not None:
-        start = parse_time(start, regex, True, format, bold)
+        start = parse_time(start, INTEGER_SECONDS.regex, True, format, bold)
         if start is None:
             return False
 
     if end is not None:
-        end = parse_time(end, regex, False, format, bold)
+        end = parse_time(end, INTEGER_SECONDS.regex, False, format, bold)
         if end is None:
             return False
 
@@ -359,6 +358,11 @@ def check_file_exists(name: str, folder: list[str], bold: bool) -> bool:
         return True
 
     return False
+
+
+def describe_integer_time_or_timestamp():
+    return " | ".join(
+        [INTEGER_SECONDS.description, TIMESTAMP.description])
 
 
 def log_edit(

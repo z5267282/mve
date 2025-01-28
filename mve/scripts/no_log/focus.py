@@ -112,8 +112,8 @@ class Focus(NotLoggedScript):
     def validate_start_end_name(self, start: str, end: str, name: str,
                                 bold: bool, destination: list[str]
                                 ) -> tuple[str, str, str]:
-        format = " | ".join(
-            [INTEGER_SECONDS.description, TIMESTAMP.description])
+        format = view.describe_integer_time_or_timestamp()
+
         start_seconds: str | None = view.parse_time(
             start, INTEGER_SECONDS.regex, True, format, bold)
         if start_seconds is None:
