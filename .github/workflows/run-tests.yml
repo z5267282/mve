@@ -1,0 +1,7 @@
+name: run-tests
+run-name: robert baratheon
+on:
+    pull_request:
+        branches:
+            - main
+
