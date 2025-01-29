@@ -2,6 +2,9 @@
 
 # Perform any runtime-generated updates of documentation.
 
+export PYTHONPATH="$(pwd):${PYTHONPATH}"
+
 cd docs
 ./gen-usage
+./update-viewer-commands
 cd ..

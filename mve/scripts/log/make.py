@@ -7,6 +7,7 @@ from mve.src.config import Config, Stateful
 
 import mve.src.constants.error as error
 import mve.src.constants.defaults as defaults
+from mve.src.constants.patterns import CONFIG_NAME
 import mve.src.constants.version_control as version_control
 
 import mve.src.helpers.colouring as colouring
@@ -70,9 +71,9 @@ class Make(LoggedScript):
         return args, opts
 
     def verify_name(self, name: str):
-        if not re.fullmatch(r'[a-z0-9-]+', name):
+        if not re.fullmatch(CONFIG_NAME.regex, name):
             util.print_error(
-                'config must contain only a-z, 0-9 or - characters',
+                f'config must contain only {CONFIG_NAME.description} characters',
                 defaults.BOLD)
             sys.exit(error.BAD_CONFIG_NAME)
 
