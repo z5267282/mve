@@ -15,29 +15,30 @@ python3 -m mve log viewer <config>`
 Enter `h` for a full list of commands:
 
 ```
+
 [e]nd      | [ start ] [ name ]
     + edit from [ start ] to end of clip.
-    + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + the time is in the form [ integer number of seconds | timestamp in form <[hour]-min-sec> ] 
+    + alphanumeric characters, '.', '-' or '_'
 
 [s]tart    | [ end ] [ name ]
     + edit from start to [ time ] of clip.
-    + the time is in the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + the time is in the form [ integer number of seconds | timestamp in form <[hour]-min-sec> ] 
+    + alphanumeric characters, '.', '-' or '_'
 
 [m]iddle   | [ start ] [ end ] [ name ]
     + edit from [ start ] to [ end ]
-    + start and end are the form [ integer | timestamp in form <[hour]-min-sec> ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + start and end are the form [ integer number of seconds | timestamp in form <[hour]-min-sec> ] 
+    + alphanumeric characters, '.', '-' or '_'
 
 [w]hole    | [ name ]
     + edit the entire clip from start to end
     + like running [ s 0 ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + alphanumeric characters, '.', '-' or '_'
 
 [r]ename   | [ name ]
     + rename the clip to [ name ]
-    + the name can only contain upper and lowercase letters, digits and spacebars
+    + alphanumeric characters, '.', '-' or '_'
 
 [d]elete   |
     + delete the clip

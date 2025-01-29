@@ -13,7 +13,7 @@ from mve.src.constants.commands import HELP, HELP_MESSAGE
 
 def main() -> None:
     VIEWER_DOCS: str = 'viewer.md'
-    COMMANDS_HEADER: str = '# Commands'
+    COMMANDS_HEADER: str = '# Commands\n'
 
     # read the OG doc into memory
     # remove old usage
@@ -25,7 +25,7 @@ def main() -> None:
         usage_header_line = docs.index(COMMANDS_HEADER)
     except ValueError:
         print(
-            f'viewer documentation does not contain "{COMMANDS_HEADER}" banner')
+            f'viewer documentation does not contain "{COMMANDS_HEADER.strip()}" banner')
         sys.exit(10)
 
     before: list[str] = docs[:usage_header_line]
@@ -44,24 +44,25 @@ def main() -> None:
     new_docs: list[str] = before \
         + [
             COMMANDS_HEADER,
-            '',
-            f'Enter `{HELP}` for a full list of commands:',
-            '',
-            '```'
+            '\n',
+            f'Enter `{HELP}` for a full list of commands:\n',
+            '\n',
+            '```\n'
     ] \
-        + HELP_MESSAGE.split('\n') \
+        + [HELP_MESSAGE] \
         + [
-            '```',
-            '',
-            '.'
-            ''
+            '```\n',
+            '\n',
+            '.\n'
+            '\n'
     ] \
         + content_after_usage
 
     with open(VIEWER_DOCS, 'w') as f:
         f.writelines(new_docs)
 
+    print(f'updated {VIEWER_DOCS} documentation')
+
 
 if __name__ == '__main__':
-    print(sys.path)
     main()
