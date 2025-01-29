@@ -5,6 +5,6 @@
 export PYTHONPATH="$(pwd):${PYTHONPATH}"
 
 cd docs
-# ./gen-usage
+./gen-usage
 ./update-viewer-commands
 cd ..
