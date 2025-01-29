@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+
+'''Update all viewer commands in documentation. This script should be run in
+the docs folder.
+This script must be run with the mve folder added to sys.path using
+PYTHONPATH - sys.path modifications are difficult to maintain with auto
+sorting extensions.'''
+
+import sys
+
+from mve.src.constants.commands import HELP, HELP_MESSAGE
+
+
+def main() -> None:
+    VIEWER_DOCS: str = 'viewer.md'
+    COMMANDS_HEADER: str = '# Commands'
+
+    # read the OG doc into memory
+    # remove old usage
+    # write from memory to new file
+    with open(VIEWER_DOCS, 'r') as f:
+        docs: list[str] = f.readlines()
+
+    try:
+        usage_header_line = docs.index(COMMANDS_HEADER)
+    except ValueError:
+        print(
+            f'viewer documentation does not contain "{COMMANDS_HEADER}" banner')
+        sys.exit(10)
+
+    before: list[str] = docs[:usage_header_line]
+    after: list[str] = docs[usage_header_line:]
+    next_header_line: int | None = None
+    for i, line in enumerate(after):
+        # find next header after "# Usage"
+        if i != 0 and line.startswith('#'):
+            next_header_line = i
+            break
+
+    # if there is no next header then # Usage was the last header
+    content_after_usage: list[str] = [] if next_header_line is None \
+        else after[next_header_line:]
+
+    new_docs: list[str] = before \
+        + [
+            COMMANDS_HEADER,
+            '',
+            f'Enter `{HELP}` for a full list of commands:',
+            '',
+            '```'
+    ] \
+        + HELP_MESSAGE.split('\n') \
+        + [
+            '```',
+            '',
+            '.'
+            ''
+    ] \
+        + content_after_usage
+
+    with open(VIEWER_DOCS, 'w') as f:
+        f.writelines(new_docs)
+
+
+if __name__ == '__main__':
+    print(sys.path)
+    main()
