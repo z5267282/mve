@@ -16,6 +16,8 @@ jobs:
           mkdir ~/.ssh
           printf '%s' "$PRIVATE" > ~/.ssh/id_rsa
           printf '%s' "$PUBLIC" > ~/.ssh/id_rsa.pub
+          # reset permissions on keys
+          chmod 600 ~/.ssh/id_rsa*
       - name: install mve-tests
         run: |
           git clone git@github.com:z5267282/mve-tests.git
