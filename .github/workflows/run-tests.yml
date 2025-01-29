@@ -1,5 +1,5 @@
 name: run-tests
-run-name: robert baratheon
+run-name: Run mve tests
 on:
   pull_request:
     branches:
@@ -8,6 +8,14 @@ jobs:
   Run-Tests:
     runs-on: ubuntu-latest
     steps:
+      - name: install ssh keys
+        env:
+          PRIVATE: ${{ secrets.SSH_KEY_PRIVATE }}
+          PUBLIC: ${{ secrets.SSH_KEY_PUBLIC }}
+        run: |
+          mkdir ~/.ssh
+          printf '%s' "$PRIVATE" > ~/.ssh/id_rsa
+          printf '%s' "$PUBLIC" > ~/.ssh/id_rsa.pub
       - name: install mve-tests
         run: |
           git clone git@github.com:z5267282/mve-tests.git
