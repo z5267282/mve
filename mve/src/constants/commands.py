@@ -40,8 +40,7 @@ INTEGER_SECONDS_OR_TIMESTAMP_DESCRIPTION: str = '[ {} ]'.format(
 )
 
 # help message
-HELP_MESSAGE: str = f'''
-{{{END}}}
+HELP_MESSAGE: str = f'''{{{END}}}
     + edit from [ start ] to end of clip.
     + the time is in the form {INTEGER_SECONDS_OR_TIMESTAMP_DESCRIPTION} 
     + {TREATED_FILE_NAME.description}

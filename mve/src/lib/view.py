@@ -102,6 +102,7 @@ def do_continue(remaining: list[str], base_name: str):
 
 
 def do_help(bold: bool):
+    print('')
     print(
         highlight_all_commands(commands.HELP_MESSAGE, bold)
     )

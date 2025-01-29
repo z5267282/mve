@@ -15,7 +15,6 @@ python3 -m mve log viewer <config>`
 Enter `h` for a full list of commands:
 
 ```
-
 [e]nd      | [ start ] [ name ]
     + edit from [ start ] to end of clip.
     + the time is in the form [ integer number of seconds | timestamp in form <[hour]-min-sec> ] 
