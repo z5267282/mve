@@ -1,0 +1,30 @@
+name: run-tests
+run-name: robert baratheon
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  Run-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install mve-tests
+        run: |
+          git clone git@github.com:z5267282/mve-tests.git
+          cd mve-tests
+          ./setup
+          cd ..
+      - name: install mve
+        env:
+          BRANCH: ${{ $github.ref_name }}
+        run: |
+          git clone git@github.com:z5267282/mve.git
+          cd mve
+          ./setup
+          git fetch origin
+          git checkout "$branch"
+          cd ..
+      - name: run tests
+        run: |
+          cd mve-tests
+          ./run
