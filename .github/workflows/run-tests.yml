@@ -13,7 +13,7 @@ jobs:
           PRIVATE: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir ~/.ssh
-          printf '%s' "$PRIVATE" >> ~/.ssh/id_ed25519
+          printf '%s\n' "$PRIVATE" >> ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
       - name: install mve-tests
         run: |
