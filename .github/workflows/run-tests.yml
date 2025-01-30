@@ -29,7 +29,7 @@ jobs:
           cd mve
           ./setup
           git fetch origin
-          git checkout "$branch"
+          git checkout "$BRANCH"
           cd ..
       - name: run tests
         run: |
