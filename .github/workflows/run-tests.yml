@@ -23,7 +23,7 @@ jobs:
           cd ..
       - name: install mve
         env:
-          BRANCH: ${{ github.ref_name }}
+          BRANCH: ${{ github.head_ref }}
         run: |
           git clone git@github.com:z5267282/mve.git
           cd mve
