@@ -12,7 +12,9 @@ jobs:
         env:
           PRIVATE: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          printf '%s' "$RIVATE" | ssh-add - > /dev/null
+          mkdir ~/.ssh
+          printf '%s' "$RIVATE" >> ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
       - name: install mve-tests
         run: |
           git clone git@github.com:z5267282/mve-tests.git
