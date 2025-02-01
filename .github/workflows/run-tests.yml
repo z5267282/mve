@@ -26,8 +26,6 @@ jobs:
           [ -d mve-tests ] && rm -rf mve-tests
           git clone git@github.com:z5267282/mve-tests.git
           cd mve-tests
-          git fetch origin
-          git checkout no-run
           ./setup
           cd ..
       - name: install mve
