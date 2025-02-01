@@ -1,0 +1,12 @@
+#!/usr/bin/env dash
+
+# Run the run-tests.yml GitHub action locally.
+# Docker must be running.
+# There must also be a present pull request open.
+# The file ~/.ssh/id_ed25519 must have the GitHub action private key
+
+act \
+    -P macos-latest=-self-hosted \
+    --container-architecture linux/amd64 \
+    -s SSH_PRIVATE_KEY="$(<~/.ssh/id_ed25519)" \
+    pull_request
