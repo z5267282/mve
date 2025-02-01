@@ -1,30 +1,47 @@
 name: run-tests
-run-name: robert baratheon
+run-name: Run mve tests
 on:
   pull_request:
     branches:
       - main
 jobs:
   Run-Tests:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
+      - name: create working directory
+        run: |
+          set -e
+          [ -d ./pipeline ] || mkdir ./pipeline
+      - name: install ssh keys
+        env:
+          PRIVATE: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -e
+          [ -d ~/.ssh ] || mkdir ~/.ssh
+          printf '%s\n' "$PRIVATE" >> ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
       - name: install mve-tests
         run: |
+          set -e
+          [ -d mve-tests ] && rm -rf mve-tests
           git clone git@github.com:z5267282/mve-tests.git
           cd mve-tests
           ./setup
           cd ..
       - name: install mve
         env:
-          BRANCH: ${{ $github.ref_name }}
+          BRANCH: ${{ github.head_ref }}
         run: |
+          set -e
+          [ -d mve ] && rm -rf mve
           git clone git@github.com:z5267282/mve.git
           cd mve
-          ./setup
           git fetch origin
-          git checkout "$branch"
+          git checkout "$BRANCH"
+          ./setup
           cd ..
       - name: run tests
         run: |
+          set -e
           cd mve-tests
-          ./run
+          ./run --debug
