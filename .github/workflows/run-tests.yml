@@ -10,25 +10,35 @@ jobs:
     steps:
       - name: create working directory
         run: |
+          echo "STEP 1 path: $(pwd)"
+          echo "STEP 1 items: $(ls -l | sed -E 's/^/    /')"
           [ -d ./pipeline ] || mkdir ./pipeline
       - name: install ssh keys
         env:
           PRIVATE: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
+          echo "STEP 2 path: $(pwd)"
+          echo "STEP 2 items: $(ls -l | sed -E 's/^/    /')"
           [ -d ~/.ssh ] || mkdir ~/.ssh
           printf '%s\n' "$PRIVATE" >> ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
       - name: install mve-tests
         run: |
+          echo "STEP 3 path: $(pwd)"
+          echo "STEP 3 items: $(ls -l | sed -E 's/^/    /')"
           [ -d mve-tests ] && rm -rf mve-tests
           git clone git@github.com:z5267282/mve-tests.git
           cd mve-tests
+          git fetch origin
+          git checkout no-run
           ./setup || exit 11
           cd ..
       - name: install mve
         env:
           BRANCH: ${{ github.head_ref }}
         run: |
+          echo "STEP 4 path: $(pwd)"
+          echo "STEP 4 items: $(ls -l | sed -E 's/^/    /')"
           [ -d mve ] && rm -rf mve
           git clone git@github.com:z5267282/mve.git
           cd mve
