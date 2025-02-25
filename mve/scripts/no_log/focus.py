@@ -60,7 +60,8 @@ class Focus(NotLoggedScript):
             prog=self.generate_usage_name())
 
         main_options = parser.add_argument_group(f'{self.name} options')
-        main_options.add_argument('source', type=str)
+        main_options.add_argument(
+            'source', help='the absolute file path of the source file', type=str)
         main_options.add_argument(
             '--destination', type=str, default=os.path.join(
                 os.path.expanduser('~'), 'Downloads')
