@@ -12,7 +12,7 @@ Then, edit the videos based off this information.
 ./setup
 ```
 
-# Windows
+## Windows
 
 ```ps1
 Powershell.exe setup.ps1
@@ -31,25 +31,25 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 The project can be run in a stateful or stateless mode, depending on whether records should be kept.
 
 ```sh
-python3 -m mve <log|no-log> <script> [args...]
+python -m mve <log|no-log> <script> [args...]
 ```
 
 For top-level `mve` help run
 
 ```sh
-python3 -m mve --info
+python -m mve --info
 ```
 
 . For script-level info depending on whether logs are to run
 
 ```sh
-python3 -m mve <log|no-log> --scripts
+python -m mve <log|no-log> --scripts
 ```
 
 . For script-specific help run
 
 ```sh
-python3 -m mve <log|no-log> <script> --help
+python -m mve <log|no-log> <script> --help
 ```
 
 .
