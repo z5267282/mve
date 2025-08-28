@@ -15,7 +15,7 @@ Each list item is a file name without a leading directory in the given config's 
 # Treatments
 
 All edits are treated, then all renames and all deletions.  
-Errors if any are logged in a file \(see #Errors\), in the order they appeared in the treatment file.
+Errors if any are logged in a file \(see [#Errors](#errors)\), in the order they appeared in the treatment file.
 
 # Treatment File Structure
 
@@ -70,7 +70,7 @@ The values for the `edits` key are complex based on the edit command and hence t
 }
 ```
 
-# Errors
+# Errors {#errors}
 
 A folder containing all recorded errors whilst completing the treatments.  
 All files are named with a timestamp in the form `DD.MM.YYYY - hhmm`.  
