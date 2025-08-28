@@ -70,7 +70,7 @@ The values for the `edits` key are complex based on the edit command and hence t
 }
 ```
 
-# Errors {#errors}
+# Errors
 
 A folder containing all recorded errors whilst completing the treatments.  
 All files are named with a timestamp in the form `DD.MM.YYYY - hhmm`.  
